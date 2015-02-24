@@ -161,8 +161,7 @@ class Eddditor {
             } else { // .. or set to empty string if nothing was provided
                 $value = '';
             }
-            
-            // for $string_values: JSONify anything thats not a string
+
             $raw_values[$field_name] = $value;
             
             // for $formatted_values: run value through ACF's formatting filter
