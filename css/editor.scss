@@ -1,0 +1,1142 @@
+
+/****************************************************/
+/* vars */
+
+$text-m: 14px;
+
+$box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+
+$lightgray: #EEEEEE;
+$gray: #E5E5E5;
+$darkgray: #CCCCCC;
+
+
+/****************************************************/
+/* re-usable */
+
+%border-box
+{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+@mixin loading
+{
+    content: '';
+    display: block;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(255,255,255,0.9) url(../images/loading.gif) center no-repeat;
+    position: absolute;
+    z-index: 999;
+}
+
+
+/****************************************************/
+/* reset wordpress styles */
+
+#eddditor h1,
+#eddditor h2,
+#eddditor h3,
+#eddditor h4,
+#eddditor h5,
+#eddditor h6,
+.eddditor-modal h1,
+.eddditor-modal h2,
+.eddditor-modal h3,
+.eddditor-modal h4,
+.eddditor-modal h5,
+.eddditor-modal h6
+{
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0 0 0.5em;
+    font-weight: bold;
+    cursor: auto;
+    color: #444;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
+
+.eddditor-modal p,
+.eddditor-modal-confirm p
+{
+    margin: 0 0 0.4em;
+}
+
+#eddditor p:last-child,
+.eddditor-modal p:last-child,
+.eddditor-modal-confirm p:last-child
+{
+    margin-bottom: 0;
+}
+
+
+/****************************************************/
+/* drag and drop */
+
+.eddditor-placeholder
+{
+    margin-bottom: 10px;
+    background: #e0e0e0;
+        
+    &.eddditor-placeholder-invisible
+    {
+        height: 0 !important;
+        margin-bottom: 0;
+    }
+}
+
+.eddditor-row.ui-sortable-helper > .eddditor-row-canvas,
+.eddditor-element.ui-sortable-helper > .eddditor-element-canvas
+{
+    box-shadow: 1px 1px 8px -5px #333;
+}
+
+.ui-sortable-helper > .eddditor-button // hide buttons while dragging an element or row
+{
+    display: none;
+}
+
+
+/****************************************************/
+/* loading */
+
+#eddditor-loading
+{
+    font-size: $text-m;
+    padding: 70px 0;
+    text-align: center;
+    
+    span
+    {
+        padding: 20px 24px 20px 72px;
+        display: inline-block;
+        background: $lightgray url(../images/loading.gif) 24px center no-repeat;
+        border: 1px solid $darkgray;
+        box-shadow: $box-shadow;
+    }
+}
+
+
+/****************************************************/
+/* wrapper */
+
+#eddditor
+{
+    display: none;
+    
+    &.eddditor-loading
+    {
+        position: relative;
+        
+        &:after
+        {
+            @include loading;
+            background-position: center 80px;
+        }
+    }
+}
+
+
+/****************************************************/
+/* buttons */
+
+.eddditor-button
+{
+    clear: both;
+    font-size: $text-m;
+    box-shadow: $box-shadow;
+    background: $lightgray;
+    display: block;
+    cursor: pointer;
+    border: 1px solid $darkgray;
+    text-align: center;
+    opacity: 0.3;
+    height: 36px;
+    line-height: 36px;
+    margin: 10px 0;
+    transition: height 0.3s, line-height 0.3s, font-size 0.3s;
+    
+    &:hover
+    {
+        opacity: 0.7;
+    }
+    
+    &:before
+    {
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 14px;
+        height: 14px;
+        vertical-align: middle;
+        content: '';
+        margin-right: 6px;
+        display: none;
+    }
+
+    &.eddditor-post-options-button,
+    &.eddditor-templates-button
+    {
+        clear: none;
+        opacity: 0.7;
+        float: left;
+        padding: 0 14px;
+        margin-right: 10px;
+
+        &:hover
+        {
+            opacity: 1;
+        }
+
+        &:before
+        {
+            display: inline-block;
+        }
+    }
+
+    &.eddditor-post-options-button
+    {
+        &:before
+        {
+            background-image: url(../images/icons/options.png);
+            margin-top: -3px;
+        }
+    }
+
+    &.eddditor-templates-button
+    {
+        float: right;
+        margin-right: 0;
+        
+        &:before
+        {
+            background-image: url(../images/icons/favorite.png);
+            margin-top: -4px;
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    &.eddditor-add-row-button
+    {
+        transition: height 0.6s, line-height 0.6s, font-size 0.6s, margin-bottom 0.6s;
+        
+        &:before
+        {
+            background-image: url(../images/icons/add.png);
+            margin-top: -2px;
+            display: inline-block;
+        }
+        
+        &.eddditor-add-row-button-large
+        {
+            height: 120px;
+            line-height: 120px;
+            font-size: 20px;
+            margin-bottom: 0;
+
+            &:before
+            {
+                margin-top: -4px;
+            }
+
+            .eddditor-add-row-button-normal
+            {
+                display: none;
+            }
+
+            .eddditor-add-row-button-blank
+            {
+                display: inline;
+            }
+        }
+    }
+
+    &.eddditor-add-element-button
+    {
+        background: #fff;
+
+        &:before
+        {
+            background-image: url(../images/icons/add-thin.png);
+            margin-top: -3px;
+            display: inline-block;
+        }
+    }
+}
+
+
+/****************************************************/
+/* rows */
+
+.eddditor-row
+{
+    &.eddditor-loading .eddditor-row-canvas
+    {
+        border-color: $lightgray;
+        position: relative;
+
+        &:after
+        {
+            @include loading;
+            background-color: rgba(255,255,255,0.8);
+        }
+    }
+
+    .eddditor-row-canvas
+    {
+        box-shadow: $box-shadow;
+        border: 1px solid $darkgray;
+
+        .eddditor-row-head
+        {
+            border-bottom: 1px solid $darkgray;
+            background-color: $gray;
+            box-shadow: $box-shadow;
+            overflow: hidden;
+            text-align: center;
+            font-size: $text-m;
+
+            .eddditor-row-move,
+            .eddditor-row-cols,
+            .eddditor-row-delete,
+            .eddditor-row-duplicate,
+            .eddditor-row-options
+            {
+                height: 36px;
+                line-height: 36px;
+                display: block;
+            }
+
+            .eddditor-row-move
+            {
+                background: url(../images/icons/move-row.png) 14px 11px no-repeat;
+                padding: 0 14px 0 32px;
+                float: left;
+                border-right: 1px solid $darkgray;
+                cursor: move;
+            }
+
+            .eddditor-row-cols
+            {
+                @extend %border-box;
+                display: inline-block;
+                padding-top: 13px;
+                line-height: 1;
+
+                .eddditor-row-layout-button
+                {
+                    margin: 0 3px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    height: 10px;
+                    text-indent: -9999px;
+                    display: inline-block;
+                    vertical-align: top;
+                    cursor: pointer;
+                    opacity: 0.2;
+                    width: 31px;
+
+                    &.eddditor-row-layout-button-active,
+                    &:hover
+                    {
+                        opacity: 1;
+                    }
+                }
+            }
+
+            .eddditor-row-delete,
+            .eddditor-row-duplicate,
+            .eddditor-row-options
+            {
+                text-indent: -9999px;
+                float: right;
+                cursor: pointer;
+                border-left: 1px solid $darkgray;
+                width: 36px;
+                background-position: center;
+                background-repeat: no-repeat;
+
+                &:hover {
+                    background-color: #ddd;
+                }
+            }
+
+            .eddditor-row-delete
+            {
+                background-image: url(../images/icons/delete.png);
+
+                &:hover {
+                    background-color: #FFA8B4;
+                }
+            }
+
+            .eddditor-row-duplicate
+            {
+                background-image: url(../images/icons/duplicate.png);
+            }
+
+            .eddditor-row-options
+            {
+                background-image: url(../images/icons/options.png);
+            }
+        }
+    }
+
+    &:last-child .eddditor-add-row-button
+    {
+        margin-bottom: 0;
+    }
+}
+
+.eddditor-row-layout-button,
+.eddditor-row-layout-option // for settings page
+{
+    &[data-layout="full"]
+    {
+        background-image: url(../images/cols/full.png);
+    }
+
+    &[data-layout="half half"]
+    {
+        background-image: url(../images/cols/halves.png);
+    }
+
+    &[data-layout="third third third"]
+    {
+        background-image: url(../images/cols/thirds.png);
+    }
+
+    &[data-layout="fourth fourth fourth fourth"]
+    {
+        background-image: url(../images/cols/fourths.png);
+        width: 29px;
+    }
+
+    &[data-layout="fifth fifth fifth fifth fifth"]
+    {
+        background-image: url(../images/cols/fifths.png);
+    }
+
+    &[data-layout="sixth sixth sixth sixth sixth sixth"]
+    {
+        background-image: url(../images/cols/sixths.png);
+    }
+
+    &[data-layout="half fourth fourth"]
+    {
+        background-image: url(../images/cols/half-fourth-fourth.png);
+        width: 29px;
+    }
+
+    &[data-layout="fourth fourth half"]
+    {
+        background-image: url(../images/cols/fourth-fourth-half.png);
+        width: 29px;
+    }
+
+    &[data-layout="fourth half fourth"]
+    {
+        background-image: url(../images/cols/fourth-half-fourth.png);
+        width: 29px;
+    }
+
+    &[data-layout="twothirds third"]
+    {
+        background-image: url(../images/cols/twothirds-third.png);
+    }
+
+    &[data-layout="third twothirds"]
+    {
+        background-image: url(../images/cols/third-twothirds.png);
+    }
+
+    &[data-layout="threefourths fourth"]
+    {
+        background-image: url(../images/cols/threefourths-fourth.png);
+    }
+
+    &[data-layout="fourth threefourths"]
+    {
+        background-image: url(../images/cols/fourth-threefourths.png);
+    }
+}
+
+
+/****************************************************/
+/* cols */
+
+.eddditor-cols
+{
+    background: $lightgray;
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+
+    .eddditor-col
+    {
+        @extend %border-box;
+        padding: 0 10px;
+        border-right: 1px solid $darkgray;
+        display: table-cell;
+        vertical-align: top;
+
+        &:last-child {
+            border-right: none;
+        }
+
+        &.eddditor-col-full {
+            width: 100%;
+        }
+
+        &.eddditor-col-half {
+            width: 50%;
+        }
+
+        &.eddditor-col-third {
+            width: 33.33333%;
+        }
+
+        &.eddditor-col-twothirds {
+            width: 66.66666%;
+        }
+
+        &.eddditor-col-fourth {
+            width: 25%;
+        }
+
+        &.eddditor-col-threefourths {
+            width: 75%;
+        }
+
+        &.eddditor-col-fifth {
+            width: 20%;
+        }
+
+        &.eddditor-col-sixth {
+            width: 16.66666%;
+        }
+    }
+}
+
+
+/****************************************************/
+/* elements */
+
+.eddditor-elements
+{
+    // extend drop zone
+    margin-top: -60px;
+    padding-top: 60px;
+    padding-bottom: 80px;
+    margin-bottom: -80px;
+
+    .eddditor-element
+    {
+        &.eddditor-loading .eddditor-element-canvas
+        {
+            position: relative;
+            min-height: 100px;
+
+            &:after
+            {
+                @include loading;
+            }
+        }
+
+        &.eddditor-highlight .eddditor-element-canvas
+        {
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+
+            .eddditor-element-head
+            {
+                opacity: 0.6;
+            }
+        }
+
+        .eddditor-element-canvas
+        {
+            box-shadow: $box-shadow;
+            background: #fff;
+            border: 1px solid #ddd;
+
+            &:hover .eddditor-element-head
+            {
+                opacity: 1;
+            }
+
+            .eddditor-element-head
+            {
+                opacity: 0.1;
+                border-bottom: 1px solid $darkgray;
+
+                .eddditor-element-move,
+                .eddditor-element-delete,
+                .eddditor-element-edit,
+                > .eddditor-element-options,
+                .eddditor-element-dropdown
+                {
+                    height: 30px;
+                    line-height: 30px;
+                    display: block;
+                }
+
+                .eddditor-element-move
+                {
+                    background: url(../images/icons/move.png) 8px center no-repeat;
+                    cursor: move;
+                    padding-left: 30px;
+                }
+
+                .eddditor-element-delete,
+                .eddditor-element-edit,
+                > .eddditor-element-options,
+                .eddditor-element-dropdown
+                {
+                    border-left: 1px solid #ddd;
+                    cursor: pointer;
+                    float: right;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    text-indent: -9999px;
+                    width: 30px;
+
+                    &:hover
+                    {
+                        background-color: $lightgray;
+                    }
+                }
+
+                .eddditor-element-delete
+                {
+                    background-image: url(../images/icons/delete.png);
+
+                    &:hover
+                    {
+                        background-color: #FFA8B4;
+                    }
+                }
+
+                .eddditor-element-edit
+                {
+                    background-image: url(../images/icons/edit.png);
+                }
+
+                > .eddditor-element-options
+                {
+                    background-image: url(../images/icons/options.png);
+                }
+
+                .eddditor-element-dropdown
+                {
+                    background-image: url(../images/icons/dropdown.png);
+                    position: relative;
+                    text-indent: 0;
+
+                    &:hover .eddditor-element-dropdown-items
+                    {
+                        display: block;
+                    }
+
+                    .eddditor-element-dropdown-items
+                    {
+                        position: absolute;
+                        top: 100%;
+                        left: -1px;
+                        background-color: #fff;
+                        border: 1px solid #ddd;
+                        white-space: nowrap;
+                        display: none;
+                        z-index: 999;
+                        box-shadow: $box-shadow;
+
+                        span
+                        {
+                            display: block;
+                            border-bottom: 1px solid #ddd;
+                            background-position: 8px center;
+                            background-repeat: no-repeat;
+                            padding: 0 10px 0 30px;
+
+                            &.eddditor-element-options
+                            {
+                                background-image: url(../images/icons/options.png);
+                            }
+
+                            &.eddditor-element-duplicate
+                            {
+                                background-image: url(../images/icons/duplicate.png);
+                            }
+
+                            &.eddditor-element-favorite
+                            {
+                                background-image: url(../images/icons/favorite.png);
+                            }
+
+                            &:hover
+                            {
+                                background-color: $lightgray;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .eddditor-element-message
+            {
+                padding: 10px;
+                background: rgba(255,255,0,0.4) url(../images/stripes.png);
+            }
+
+            .eddditor-element-content
+            {
+                padding: 10px;
+                overflow: hidden;
+
+                p
+                {
+                    margin: 0 0 0.4em;
+
+                    &:last-child
+                    {
+                        margin-bottom: 0;
+                    }
+                }
+
+                img
+                {
+                    max-width: 100%;
+                }
+
+                ul {
+                    list-style: disc;
+                }
+
+                ol {
+                    list-style: decimal;
+                }
+
+                ul li,
+                ol li {
+                    margin-left: 1em;
+                }
+            }
+        }
+    }
+}
+
+
+/****************************************************/
+/* modals */
+
+.eddditor-modal
+{
+    height: 100%;
+    position: relative;
+
+    .eddditor-modal-head
+    {
+        height: 40px;
+        padding: 20px;
+        background: $gray;
+        overflow: hidden;
+        border-bottom: 1px solid $darkgray;
+        position: relative;
+        
+        .eddditor-modal-head-icon
+        {
+            position: absolute;
+            top: 28px;
+            left: 20px;
+            bottom: 20px;
+            width: 60px;
+            font-size: 24px;
+        }
+
+        .eddditor-modal-head-info
+        {
+            margin-left: 42px;
+        }
+
+        h2
+        {
+            font-size: 26px;
+            line-height: 40px;
+            margin: 0;
+        }
+    }
+
+    .eddditor-modal-body
+    {
+        overflow-y: auto;
+        position: absolute;
+        top: 81px;
+        bottom: 71px;
+        left: 0;
+        right: 0;
+    }
+
+    .eddditor-modal-foot
+    {
+        height: 30px;
+        padding: 20px;
+        background: $gray;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-top: 1px solid $darkgray;
+    }
+}
+
+
+/****************************************************/
+/* modal: confirm */
+
+.eddditor-modal-confirm
+{
+    position: relative;
+    height: 100%;
+    
+    .eddditor-modal-confirm-message
+    {
+        padding: 20px;
+        font-size: 14px;
+    }
+    
+    .eddditor-modal-confirm-buttons
+    {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        background: $lightgray;
+    }
+}
+
+
+/****************************************************/
+/* modal: add element */
+
+.eddditor-modal-add-element
+{
+    cursor: pointer;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    position: relative;
+    
+    h3
+    {
+        cursor: pointer;
+        margin: 0 0 8px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    &:hover
+    {
+        background: #ffffff; /* Old browsers */
+        background: -moz-linear-gradient(top,  #ffffff 0%, #f8f8f8 100%, #f8f8f8 100%); /* FF3.6+ */
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f8f8f8), color-stop(100%,#f8f8f8)); /* Chrome,Safari4+ */
+        background: -webkit-linear-gradient(top,  #ffffff 0%,#f8f8f8 100%,#f8f8f8 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-linear-gradient(top,  #ffffff 0%,#f8f8f8 100%,#f8f8f8 100%); /* Opera 11.10+ */
+        background: -ms-linear-gradient(top,  #ffffff 0%,#f8f8f8 100%,#f8f8f8 100%); /* IE10+ */
+        background: linear-gradient(to bottom,  #ffffff 0%,#f8f8f8 100%,#f8f8f8 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f8f8f8',GradientType=0 ); /* IE6-9 */
+    }
+
+    .eddditor-modal-add-element-icon
+    {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        bottom: 20px;
+        width: 60px;
+        font-size: 24px;
+    }
+
+    .eddditor-modal-add-element-info
+    {
+        margin-left: 42px;
+    }
+}
+
+
+/****************************************************/
+/* modal: ACF customization */
+
+#eddditor-edit > .acf-error-message:first-child // form validation error
+{
+    position: absolute;
+    top: 18px;
+    right: 18px;
+}
+
+.acf-tab-group
+{
+    padding-left: 12px;
+}
+
+
+/****************************************************/
+/* settings */
+
+#eddditor-default-row-layout
+{
+    min-width: 220px;
+}
+
+.eddditor-default-value
+{
+    cursor: pointer;
+}
+
+.eddditor-row-layout-option
+{
+    opacity: 0.3;
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 40px;
+}
+
+input:checked ~ .eddditor-row-layout-option
+{
+    opacity: 1;
+}
+
+.eddditor-default-row-layout-message
+{
+    display: none;
+    opacity: 0.6;
+}
+
+
+/****************************************************/
+/* lightbox aka dennisbox */
+
+#dennisbox,
+#dennisbox-modal
+{
+    z-index: 99990;
+    
+    .dennisbox-overlay
+    {
+        position: fixed;
+        z-index: 99991;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.8);
+    }
+
+    .dennisbox-content
+    {
+        position: absolute;
+        z-index: 99992;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        background: white;
+        border: 5px solid #000;
+
+        &.dennisbox-loading
+        {
+            background: #fff url(../images/loading.gif) center no-repeat;
+        }
+    }
+}
+
+#dennisbox
+{
+    .dennisbox-overlay
+    {
+        cursor: pointer;
+    }
+}
+
+#dennisbox-modal
+{
+    .dennisbox-overlay
+    {
+        z-index: 99993;
+    }
+
+    .dennisbox-content
+    {
+        z-index: 99994;
+    }
+}
+
+
+/****************************************************/
+/* red warning button in Wordpress UI style */
+
+.wp-core-ui .button-danger {
+    background-color: #BC2929;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#C5292E), to(#BC2929));
+    background-image: -webkit-linear-gradient(top, #C5292E, #BC2929);
+    background-image: -moz-linear-gradient(top, #C5292E, #BC2929);
+    background-image: -ms-linear-gradient(top, #C5292E, #BC2929);
+    background-image: -o-linear-gradient(top, #C5292E, #BC2929);
+    background-image: linear-gradient(to bottom, #C5292E, #BC2929);
+    border-color: #BC2929;
+    border-bottom-color: #8D1F21;
+    -webkit-box-shadow: inset 0 1px 0 rgba(230,120,120,0.5);
+    box-shadow: inset 0 1px 0 rgba(230,120,120,0.5);
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.1);
+}
+
+.wp-core-ui .button-danger.hover,
+.wp-core-ui .button-danger:hover,
+.wp-core-ui .button-danger.focus,
+.wp-core-ui .button-danger:focus {
+    background-color: #CE2B2B;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#E03131), to(#BC2929));
+    background-image: -webkit-linear-gradient(top, #E03131, #BC2929);
+    background-image: -moz-linear-gradient(top, #E03131, #BC2929);
+    background-image: -ms-linear-gradient(top, #E03131, #BC2929);
+    background-image: -o-linear-gradient(top, #E03131, #BC2929);
+    background-image: linear-gradient(to bottom, #E03131, #BC2929);
+    border-color: #7F1C1F;
+    -webkit-box-shadow: inset 0 1px 0 rgba(230,120,120,0.6);
+    box-shadow: inset 0 1px 0 rgba(230,120,120,0.6);
+    color: #fff;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.3);
+}
+
+.wp-core-ui .button-danger.focus,
+.wp-core-ui .button-danger:focus {
+    border-color: #500F0E;
+    -webkit-box-shadow: inset 0 1px 0 rgba(230,120,120,0.6), 1px 1px 2px rgba(0,0,0,0.4);
+    box-shadow: inset 0 1px 0 rgba(230,120,120,0.6), 1px 1px 2px rgba(0,0,0,0.4);
+}
+
+.wp-core-ui .button-danger.active,
+.wp-core-ui .button-danger.active:hover,
+.wp-core-ui .button-danger.active:focus,
+.wp-core-ui .button-danger:active {
+    background: #7F1C1F;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#BC2929), to(#CE2B2B));
+    background-image: -webkit-linear-gradient(top, #BC2929, #CE2B2B);
+    background-image: -moz-linear-gradient(top, #BC2929, #CE2B2B);
+    background-image: -ms-linear-gradient(top, #BC2929, #CE2B2B);
+    background-image: -o-linear-gradient(top, #BC2929, #CE2B2B);
+    background-image: linear-gradient(to bottom, #BC2929, #CE2B2B);
+    border-color: #601312 #AE2426 #AE2426 #AE2426;
+    color: rgba(255,255,255,0.95);
+    -webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,0.1);
+    box-shadow: inset 0 1px 0 rgba(0,0,0,0.1);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.1);
+}
+
+.wp-core-ui .button-danger[disabled],
+.wp-core-ui .button-danger:disabled,
+.wp-core-ui .button-danger-disabled {
+    color: #E79496 !important;
+    background: #BA292B !important;
+    border-color: #7F1C1F !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.1) !important;
+    cursor: default;
+}
+
+
+
+
+
+
+
+
+#eddditor-templates
+{
+    @extend %border-box;
+    position: fixed;
+    top: 32px;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    border: 1px solid $darkgray;
+    background: #fafafa;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.3);
+    margin-right: -320px;
+    transition: margin-right 0.4s;
+    
+    &.eddditor-visible
+    {
+        margin-right: 0;
+    }
+    
+    .eddditor-templates-close
+    {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 40px;
+        height: 40px;
+        opacity: 0.7;
+        background: url(../images/icons/delete.png) center no-repeat;
+        cursor: pointer;
+        text-indent: -9999px;
+        
+        &:hover
+        {
+            opacity: 1;
+        }
+    }
+    
+    .eddditor-templates-head
+    {
+        padding: 10px;
+    
+        > h3
+        {
+            margin-top: 4px;
+        }
+
+        > p
+        {
+            margin-bottom: 6px;
+        }
+    }
+    
+    .eddditor-elements
+    {
+        overflow: auto;
+        margin: 0;
+        padding: 0 10px;
+        
+        .eddditor-element
+        {
+            margin-bottom: -48px;
+
+            &:last-child
+            {
+                margin-bottom: 0;
+            }
+            
+            .eddditor-button
+            {
+                visibility: hidden;
+            }
+        }
+        
+        .eddditor-placeholder
+        {
+            height: 0 !important;
+            margin-bottom: 0;
+        }
+    }
+}

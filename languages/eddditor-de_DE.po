@@ -1,0 +1,449 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Eddditor\n"
+"POT-Creation-Date: 2015-01-08 12:43+0100\n"
+"PO-Revision-Date: 2015-01-08 12:43+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.1\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../assets.php:162 ../templates/editor.php:16
+msgid "Delete row"
+msgstr "Zeile löschen"
+
+#: ../assets.php:163 ../templates/editor.php:27
+msgid "Delete element"
+msgstr "Element löschen"
+
+#: ../assets.php:164
+msgid "Delete favorite"
+msgstr "Favoriten löschen"
+
+#: ../assets.php:165 ../templates/add_element.php:34 ../templates/form.php:24
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: ../assets.php:166
+msgid "Discard changes"
+msgstr "Änderungen verwerfen"
+
+#: ../assets.php:167
+msgid "Are you sure you want to cancel and discard all changes?"
+msgstr "Möchtest du wirklich abbrechen und alle Änderungen verwerfen?"
+
+#: ../assets.php:168
+msgid ""
+"Are you sure you want to delete this row and all its elements? This action "
+"can not be undone."
+msgstr ""
+"Bist du sicher, dass du diese Zeile und alle enthaltenen Elemente löschen "
+"willst? Du kannst diese Aktion nicht rückgängig machen."
+
+#: ../assets.php:169
+msgid ""
+"Are you sure you want to delete this element? This action can not be undone."
+msgstr ""
+"Bist du sicher, dass du dieses Element löschen willst? Du kannst diese "
+"Aktion nicht rückgängig machen."
+
+#: ../assets.php:170
+msgid "Are you sure you want to delete this favorite? blah blah"
+msgstr "Bist du sicher, dass du diesen Favoriten löschen willst? bla bla"
+
+#: ../interface.php:63
+#, php-format
+msgid ""
+"Debug mode enabled: Inspect and manually edit the JSON structure generated "
+"by Eddditor. Use with caution. A faulty structure will break your page "
+"layout and content. Go to <a href=\"%s\">Eddditor's settings page</a> to "
+"disable debug mode."
+msgstr ""
+"Debug-Modus aktiv: Du kannst nun die vom Eddditor erstellte JSON-Struktur "
+"ansehen und bearbeiten. Sei dabei sehr vorsichtig, mit einer fehlerhaften "
+"Struktur wirst du das Layout und den Inhalt dieser Seite zerstören. Du "
+"kannst den Debug-Modus <a href=\"%s\">hier</a> deaktivieren."
+
+#: ../options.php:46 ../templates/editor.php:2
+msgid "Post options"
+msgstr "Post-Optionen"
+
+#: ../options.php:49 ../templates/editor.php:18
+msgid "Row options"
+msgstr "Zeilenoptionen"
+
+#: ../options.php:52 ../templates/editor.php:31
+msgid "Element options"
+msgstr "Elementoptionen"
+
+#: ../settings.php:92
+msgid "Full width"
+msgstr "Volle Breite"
+
+#: ../settings.php:93
+msgid "A half"
+msgstr "Eine Hälfte"
+
+#: ../settings.php:94
+msgid "A third"
+msgstr "Ein Drittel"
+
+#: ../settings.php:95
+msgid "Two thirds"
+msgstr "Zwei Drittel"
+
+#: ../settings.php:96
+msgid "A fourth"
+msgstr "Ein Viertel"
+
+#: ../settings.php:97
+msgid "Three fourths"
+msgstr "Drei Viertel"
+
+#: ../settings.php:98
+msgid "A fifth"
+msgstr "Ein Fünftel"
+
+#: ../settings.php:99
+msgid "A sixth"
+msgstr "Ein Sechstel"
+
+#: ../settings.php:103
+msgid "Single column"
+msgstr "Einzelne Spalte"
+
+#: ../settings.php:104
+msgid "Two halves"
+msgstr "Zwei Hälften"
+
+#: ../settings.php:105
+msgid "Thirds"
+msgstr "Drittel"
+
+#: ../settings.php:106
+msgid "Fourths"
+msgstr "Viertel"
+
+#: ../settings.php:107
+msgid "Fifths"
+msgstr "Fünftel"
+
+#: ../settings.php:108
+msgid "Sixths"
+msgstr "Sechstel"
+
+#: ../settings.php:109
+msgid "Two thirds & one third"
+msgstr "Zwei Drittel & ein Drittel"
+
+#: ../settings.php:110
+msgid "One third & two thirds"
+msgstr "Ein Drittel & zwei Drittel"
+
+#: ../settings.php:111
+msgid "Three fourths & a fourth"
+msgstr "Drei Viertel & ein Viertel"
+
+#: ../settings.php:112
+msgid "A fourth & three fourths"
+msgstr "Ein Viertel & drei Viertel"
+
+#: ../settings.php:113
+msgid "A half & two fourths"
+msgstr "Eine Hälfte & zwei Viertel"
+
+#: ../settings.php:114
+msgid "Two fourths & a half"
+msgstr "Zwei Viertel & eine Hälfte"
+
+#: ../settings.php:115
+msgid "A fourth & a half & a fourth"
+msgstr "Ein Viertel & eine Hälfte & ein Viertel"
+
+#: ../settings.php:251
+msgid "Your settings have been saved."
+msgstr "Deine Änderungen wurden gespeichert."
+
+#: ../settings.php:263 ../settings.php:288
+msgid "Eddditor Settings"
+msgstr "Eddditor-Einstellungen"
+
+#: ../settings.php:291
+msgid "General"
+msgstr "Allgemein"
+
+#: ../settings.php:294
+msgid "Wrapper"
+msgstr "Wrapper"
+
+#: ../settings.php:297
+msgid "Rows"
+msgstr "Zeilen"
+
+#: ../settings.php:300
+msgid "Columns"
+msgstr "Spalten"
+
+#: ../settings.php:303
+msgid "Elements"
+msgstr "Elemente"
+
+#: ../settings.php:316
+msgid "Save Wrapper Settings"
+msgstr "Wrapper-Einstellungen speichern"
+
+#: ../settings.php:320
+msgid "Save Row Settings"
+msgstr "Zeilen-Einstellungen speichern"
+
+#: ../settings.php:324
+msgid "Save Column Settings"
+msgstr "Spalten-Einstellungen speichern"
+
+#: ../settings.php:328
+msgid "Save Element Settings"
+msgstr "Elemente-Einstellungen speichern"
+
+#: ../settings.php:332
+msgid "Save General Settings"
+msgstr "Allgemeine Einstellungen speichern"
+
+#: ../settings.php:354
+msgid "Post types"
+msgstr "Post-Typen"
+
+#: ../settings.php:357
+msgid "Select the post types for which Eddditor should be enabled."
+msgstr "Wähle die Post-Typen aus, für die du Eddditor aktivieren möchtest."
+
+#: ../settings.php:366
+msgid "Posts"
+msgstr "Artikel"
+
+#: ../settings.php:372
+msgid "Pages"
+msgstr "Seiten"
+
+#: ../settings.php:400
+msgid "Debug mode"
+msgstr "Debug-Modus"
+
+#: ../settings.php:403
+msgid ""
+"With debug mode enabled you can inspect and manually edit the JSON structure "
+"generated by Eddditor. Enable debug mode for these user roles:"
+msgstr ""
+"Im Debug-Modus kannst du die vom Eddditor erstellte JSON-Struktur ansehen "
+"und per Hand bearbeiten. Wähle aus, für welche User der Debug-Modus "
+"aktiviert werden soll:"
+
+#: ../settings.php:446 ../settings.php:495 ../settings.php:585
+#: ../settings.php:659
+msgid "HTML wrapper"
+msgstr "HTML-Wrapper"
+
+#: ../settings.php:449
+msgid "Enter HTML code to wrap around the whole content."
+msgstr ""
+"Gib hier HTML-Code ein, der vor bzw. nach dem Content angezeigt werden soll."
+
+#: ../settings.php:452 ../settings.php:501 ../settings.php:591
+#: ../settings.php:665
+msgid "Tip:"
+msgstr "Tip:"
+
+#: ../settings.php:453 ../settings.php:502 ../settings.php:592
+#: ../settings.php:666
+#, php-format
+msgid ""
+"Use <a href=\"%s\" target=\"_blank\">filters</a> for way more flexibility! "
+"Take a look at <a href=\"%s\" target=\"_blank\">the docs</a> to see what's "
+"possible."
+msgstr ""
+"Nutze <a href=\"%s\" target=\"_blank\">Filter</a> für deutlich mehr "
+"Flexibilität! Wie das funktioniert, kannst du in der <a href=\"%s\" target="
+"\"_blank\">Dokumentation</a> nachlesen."
+
+#: ../settings.php:459
+msgid "HTML before content:"
+msgstr "HTML vor dem Content:"
+
+#: ../settings.php:461 ../settings.php:472 ../settings.php:510
+#: ../settings.php:521 ../settings.php:600 ../settings.php:611
+#: ../settings.php:636 ../settings.php:674 ../settings.php:685
+msgid "Default:"
+msgstr "Standard:"
+
+#: ../settings.php:461 ../settings.php:472 ../settings.php:510
+#: ../settings.php:521 ../settings.php:600 ../settings.php:611
+#: ../settings.php:636 ../settings.php:674 ../settings.php:685
+msgid "Click to reset"
+msgstr "Klick zum Zurücksetzen"
+
+#: ../settings.php:470
+msgid "HTML after content:"
+msgstr "HTML nach dem Content:"
+
+#: ../settings.php:498
+msgid "Enter HTML code to wrap around each row."
+msgstr ""
+"Gib hier HTML-Code ein, der vor bzw. nach jeder Zeile angezeigt werden soll."
+
+#: ../settings.php:508
+msgid "HTML before each row:"
+msgstr "HTML vor jeder Zeile:"
+
+#: ../settings.php:519
+msgid "HTML after each row:"
+msgstr "HTML nach jeder Zeile:"
+
+#: ../settings.php:531
+msgid "Allowed layouts"
+msgstr "Erlaubte Layouts"
+
+#: ../settings.php:534
+msgid ""
+"Choose the row layouts you want to use. Disabling a layout means it will not "
+"be available for newly created rows from now on &ndash; existing rows with "
+"that layout will stay the way they are until you change them by hand."
+msgstr ""
+"Wähle die Layouts aus, die du im Eddditor nutzen möchtest. Wenn du ein "
+"Layout deaktivierst, können keine neuen Zeilen mit diesem Layout erstellt "
+"werden &ndash; bestehende Zeilen bleiben aber wie sie sind, bis du sie per "
+"Hand änderst."
+
+#: ../settings.php:545
+msgid "default for new rows"
+msgstr "Standard für neue zeilen"
+
+#: ../settings.php:555
+msgid "Default layout"
+msgstr "Standard-Layout"
+
+#: ../settings.php:558
+msgid "Select a default layout that will be used in all newly created rows."
+msgstr "Wähle das Standard-Layout für neue Zeilen aus."
+
+#: ../settings.php:588
+#, php-format
+msgid ""
+"Enter HTML code to wrap around each column. You can use the variable %%CLASS"
+"%% which will be replaced with the corresponding class name entered below."
+msgstr ""
+"Gib hier HTML-Code ein, der vor bzw. nach jeder Spalte angezeigt werden "
+"soll. Du kannst die Variable %%CLASS%% verwenden &ndash; sie wird dann "
+"automatisch durch den richtigen Klassennamen ersetzt."
+
+#: ../settings.php:598
+msgid "HTML before each column:"
+msgstr "HTML vor jeder Spalte:"
+
+#: ../settings.php:609
+msgid "HTML after each column:"
+msgstr "HTML nach jeder Spalte:"
+
+#: ../settings.php:620
+msgid "Class attributes for columns"
+msgstr "CSS-Klassen für Spalten"
+
+#: ../settings.php:622
+msgid ""
+"Enter a class attribute for each type of column so you'll be able to target "
+"them via CSS."
+msgstr ""
+"Trage hier Klassen für die verschiedenen Spaltengrößen ein, um sie per CSS "
+"ansteuern zu können."
+
+#: ../settings.php:662
+msgid "Enter HTML code to wrap around each element."
+msgstr ""
+"Gib hier HTML-Code ein, der vor bzw. nach jedem Element angezeigt werden "
+"soll."
+
+#: ../settings.php:672
+msgid "HTML before each element:"
+msgstr "HTML vor jedem Element:"
+
+#: ../settings.php:683
+msgid "HTML after each element:"
+msgstr "HTML nach jedem Element:"
+
+#: ../templates/add_element.php:3 ../templates/editor.php:22
+#: ../templates/editor.php:43
+msgid "Add element"
+msgstr "Neues Element"
+
+#: ../templates/editor.php:3 ../templates/templates.php:5
+msgid "Element gallery"
+msgstr "Element-Galerie"
+
+#: ../templates/editor.php:5 ../templates/editor.php:49
+msgid "Add row"
+msgstr "Neue Zeile"
+
+#: ../templates/editor.php:6
+msgid "Add your first row to get started"
+msgstr "Erstelle als erstes eine neue Zeile"
+
+#: ../templates/editor.php:12
+msgid "Move row"
+msgstr "Zeile verschieben"
+
+#: ../templates/editor.php:17
+msgid "Duplicate row"
+msgstr "Zeile duplizieren"
+
+#: ../templates/editor.php:18
+msgid "Options"
+msgstr "Optionen"
+
+#: ../templates/editor.php:28
+msgid "Edit element"
+msgstr "Element bearbeiten"
+
+#: ../templates/editor.php:32
+msgid "Duplicate element"
+msgstr "Element duplizieren"
+
+#: ../templates/editor.php:33
+msgid "Add to gallery"
+msgstr "In der Galerie speichern"
+
+#: ../templates/editor.php:36 ../templates/templates.php:17
+msgid "Move"
+msgstr "Verschieben"
+
+#: ../templates/editor.php:54
+msgid "Eddditor loading &hellip;"
+msgstr "Eddditor lädt &hellip;"
+
+#: ../templates/form.php:23
+msgid "Save"
+msgstr "Speichern"
+
+#: ../templates/form.php:25
+msgid "Back"
+msgstr "Zurück"
+
+#: ../templates/templates.php:2
+msgid "Close"
+msgstr "Schließen"
+
+#: ../templates/templates.php:8
+msgid "What is this?"
+msgstr "Was ist das?"
+
+#: ../templates/templates.php:15
+msgid "Remove from favorites"
+msgstr "Aus der Galerie löschen"
+
+#: ../templates/templates.php:16
+msgid "Edit favorite"
+msgstr "Favoriten bearbeiten"
