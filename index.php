@@ -20,6 +20,7 @@ require_once dirname(__FILE__) . '/core.php';
 
 require_once dirname(__FILE__) . '/element.php';
 require_once dirname(__FILE__) . '/elements/_example.php';
+require_once dirname(__FILE__) . '/elements/test.php';
 
 require_once dirname(__FILE__) . '/form.php';
 require_once dirname(__FILE__) . '/options.php';
