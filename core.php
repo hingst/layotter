@@ -188,7 +188,7 @@ class Eddditor {
 
         // verify that the content is correctly formatted, unwrap from shortcode
         $matches = array();
-        if (preg_match('/^\[eddditor\](.*)\[\/eddditor\]$/Um', $content_raw, $matches)) {
+        if (preg_match('/\[eddditor\](.*)\[\/eddditor\]/ms', $content_raw, $matches)) {
             $content_json = $matches[1];
         } else {
             $content_json = false;
