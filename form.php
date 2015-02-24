@@ -4,8 +4,7 @@
 /**
  * Provides forms for editing elements and options
  */
-class Eddditor_Form
-{
+class Eddditor_Form {
     
     
     private
@@ -23,8 +22,7 @@ class Eddditor_Form
      * @param array $allowed_fields Allowed fields array as provided by ACF
      * @param array $provided_values Provided field values
      */
-    public function __construct($type, $allowed_fields, $provided_values)
-    {
+    public function __construct($type, $allowed_fields, $provided_values) {
         $this->type
             = in_array($type, array('options', 'element'))
             ? $type
@@ -40,8 +38,7 @@ class Eddditor_Form
      * 
      * @param string $title Form title
      */
-    public function set_title($title)
-    {
+    public function set_title($title) {
         $this->title = $title;
     }
     
@@ -51,8 +48,7 @@ class Eddditor_Form
      * 
      * @param string $icon_url Form icon
      */
-    public function set_icon($icon_url)
-    {
+    public function set_icon($icon_url) {
         $this->icon = $icon_url;
     }
     
@@ -60,8 +56,7 @@ class Eddditor_Form
     /**
      * Output form HTML
      */
-    public function output()
-    {
+    public function output() {
         // used in the form.php template
         $type = $this->type;
         $title = $this->title;

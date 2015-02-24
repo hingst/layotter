@@ -14,15 +14,13 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* re-usable */
 
-%border-box
-{
+%border-box {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
-@mixin loading
-{
+@mixin loading {
     content: '';
     display: block;
     top: 0;
@@ -49,8 +47,7 @@ $darkgray: #CCCCCC;
 .eddditor-modal h3,
 .eddditor-modal h4,
 .eddditor-modal h5,
-.eddditor-modal h6
-{
+.eddditor-modal h6 {
     background: none;
     border: none;
     padding: 0;
@@ -65,15 +62,13 @@ $darkgray: #CCCCCC;
 }
 
 .eddditor-modal p,
-.eddditor-modal-confirm p
-{
+.eddditor-modal-confirm p {
     margin: 0 0 0.4em;
 }
 
 #eddditor p:last-child,
 .eddditor-modal p:last-child,
-.eddditor-modal-confirm p:last-child
-{
+.eddditor-modal-confirm p:last-child {
     margin-bottom: 0;
 }
 
@@ -81,26 +76,22 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* drag and drop */
 
-.eddditor-placeholder
-{
+.eddditor-placeholder {
     margin-bottom: 10px;
     background: #e0e0e0;
         
-    &.eddditor-placeholder-invisible
-    {
+    &.eddditor-placeholder-invisible {
         height: 0 !important;
         margin-bottom: 0;
     }
 }
 
 .eddditor-row.ui-sortable-helper > .eddditor-row-canvas,
-.eddditor-element.ui-sortable-helper > .eddditor-element-canvas
-{
+.eddditor-element.ui-sortable-helper > .eddditor-element-canvas {
     box-shadow: 1px 1px 8px -5px #333;
 }
 
-.ui-sortable-helper > .eddditor-button // hide buttons while dragging an element or row
-{
+.ui-sortable-helper > .eddditor-button { // hide buttons while dragging an element or row
     display: none;
 }
 
@@ -108,14 +99,12 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* loading */
 
-#eddditor-loading
-{
+#eddditor-loading {
     font-size: $text-m;
     padding: 70px 0;
     text-align: center;
     
-    span
-    {
+    span {
         padding: 20px 24px 20px 72px;
         display: inline-block;
         background: $lightgray url(../images/loading.gif) 24px center no-repeat;
@@ -128,16 +117,13 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* wrapper */
 
-#eddditor
-{
+#eddditor {
     display: none;
     
-    &.eddditor-loading
-    {
+    &.eddditor-loading {
         position: relative;
         
-        &:after
-        {
+        &:after {
             @include loading;
             background-position: center 80px;
         }
@@ -148,8 +134,7 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* buttons */
 
-.eddditor-button
-{
+.eddditor-button {
     clear: both;
     font-size: $text-m;
     box-shadow: $box-shadow;
@@ -164,13 +149,11 @@ $darkgray: #CCCCCC;
     margin: 10px 0;
     transition: height 0.3s, line-height 0.3s, font-size 0.3s;
     
-    &:hover
-    {
+    &:hover {
         opacity: 0.7;
     }
     
-    &:before
-    {
+    &:before {
         background-position: center;
         background-repeat: no-repeat;
         width: 14px;
@@ -182,8 +165,7 @@ $darkgray: #CCCCCC;
     }
 
     &.eddditor-post-options-button,
-    &.eddditor-templates-button
-    {
+    &.eddditor-templates-button {
         clear: none;
         opacity: 0.7;
         float: left;
@@ -201,22 +183,18 @@ $darkgray: #CCCCCC;
         }
     }
 
-    &.eddditor-post-options-button
-    {
-        &:before
-        {
+    &.eddditor-post-options-button {
+        &:before {
             background-image: url(../images/icons/options.png);
             margin-top: -3px;
         }
     }
 
-    &.eddditor-templates-button
-    {
+    &.eddditor-templates-button {
         float: right;
         margin-right: 0;
         
-        &:before
-        {
+        &:before {
             background-image: url(../images/icons/favorite.png);
             margin-top: -4px;
             width: 16px;
@@ -224,47 +202,39 @@ $darkgray: #CCCCCC;
         }
     }
 
-    &.eddditor-add-row-button
-    {
+    &.eddditor-add-row-button {
         transition: height 0.6s, line-height 0.6s, font-size 0.6s, margin-bottom 0.6s;
         
-        &:before
-        {
+        &:before {
             background-image: url(../images/icons/add.png);
             margin-top: -2px;
             display: inline-block;
         }
         
-        &.eddditor-add-row-button-large
-        {
+        &.eddditor-add-row-button-large {
             height: 120px;
             line-height: 120px;
             font-size: 20px;
             margin-bottom: 0;
 
-            &:before
-            {
+            &:before {
                 margin-top: -4px;
             }
 
-            .eddditor-add-row-button-normal
-            {
+            .eddditor-add-row-button-normal {
                 display: none;
             }
 
-            .eddditor-add-row-button-blank
-            {
+            .eddditor-add-row-button-blank {
                 display: inline;
             }
         }
     }
 
-    &.eddditor-add-element-button
-    {
+    &.eddditor-add-element-button {
         background: #fff;
 
-        &:before
-        {
+        &:before {
             background-image: url(../images/icons/add-thin.png);
             margin-top: -3px;
             display: inline-block;
@@ -276,27 +246,22 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* rows */
 
-.eddditor-row
-{
-    &.eddditor-loading .eddditor-row-canvas
-    {
+.eddditor-row {
+    &.eddditor-loading .eddditor-row-canvas {
         border-color: $lightgray;
         position: relative;
 
-        &:after
-        {
+        &:after {
             @include loading;
             background-color: rgba(255,255,255,0.8);
         }
     }
 
-    .eddditor-row-canvas
-    {
+    .eddditor-row-canvas {
         box-shadow: $box-shadow;
         border: 1px solid $darkgray;
 
-        .eddditor-row-head
-        {
+        .eddditor-row-head {
             border-bottom: 1px solid $darkgray;
             background-color: $gray;
             box-shadow: $box-shadow;
@@ -308,15 +273,13 @@ $darkgray: #CCCCCC;
             .eddditor-row-cols,
             .eddditor-row-delete,
             .eddditor-row-duplicate,
-            .eddditor-row-options
-            {
+            .eddditor-row-options {
                 height: 36px;
                 line-height: 36px;
                 display: block;
             }
 
-            .eddditor-row-move
-            {
+            .eddditor-row-move {
                 background: url(../images/icons/move-row.png) 14px 11px no-repeat;
                 padding: 0 14px 0 32px;
                 float: left;
@@ -324,15 +287,13 @@ $darkgray: #CCCCCC;
                 cursor: move;
             }
 
-            .eddditor-row-cols
-            {
+            .eddditor-row-cols {
                 @extend %border-box;
                 display: inline-block;
                 padding-top: 13px;
                 line-height: 1;
 
-                .eddditor-row-layout-button
-                {
+                .eddditor-row-layout-button {
                     margin: 0 3px;
                     background-position: center;
                     background-repeat: no-repeat;
@@ -345,8 +306,7 @@ $darkgray: #CCCCCC;
                     width: 31px;
 
                     &.eddditor-row-layout-button-active,
-                    &:hover
-                    {
+                    &:hover {
                         opacity: 1;
                     }
                 }
@@ -354,8 +314,7 @@ $darkgray: #CCCCCC;
 
             .eddditor-row-delete,
             .eddditor-row-duplicate,
-            .eddditor-row-options
-            {
+            .eddditor-row-options {
                 text-indent: -9999px;
                 float: right;
                 cursor: pointer;
@@ -369,8 +328,7 @@ $darkgray: #CCCCCC;
                 }
             }
 
-            .eddditor-row-delete
-            {
+            .eddditor-row-delete {
                 background-image: url(../images/icons/delete.png);
 
                 &:hover {
@@ -378,93 +336,76 @@ $darkgray: #CCCCCC;
                 }
             }
 
-            .eddditor-row-duplicate
-            {
+            .eddditor-row-duplicate {
                 background-image: url(../images/icons/duplicate.png);
             }
 
-            .eddditor-row-options
-            {
+            .eddditor-row-options {
                 background-image: url(../images/icons/options.png);
             }
         }
     }
 
-    &:last-child .eddditor-add-row-button
-    {
+    &:last-child .eddditor-add-row-button {
         margin-bottom: 0;
     }
 }
 
 .eddditor-row-layout-button,
-.eddditor-row-layout-option // for settings page
-{
-    &[data-layout="full"]
-    {
+.eddditor-row-layout-option { // for settings page
+    &[data-layout="full"] {
         background-image: url(../images/cols/full.png);
     }
 
-    &[data-layout="half half"]
-    {
+    &[data-layout="half half"] {
         background-image: url(../images/cols/halves.png);
     }
 
-    &[data-layout="third third third"]
-    {
+    &[data-layout="third third third"] {
         background-image: url(../images/cols/thirds.png);
     }
 
-    &[data-layout="fourth fourth fourth fourth"]
-    {
+    &[data-layout="fourth fourth fourth fourth"] {
         background-image: url(../images/cols/fourths.png);
         width: 29px;
     }
 
-    &[data-layout="fifth fifth fifth fifth fifth"]
-    {
+    &[data-layout="fifth fifth fifth fifth fifth"] {
         background-image: url(../images/cols/fifths.png);
     }
 
-    &[data-layout="sixth sixth sixth sixth sixth sixth"]
-    {
+    &[data-layout="sixth sixth sixth sixth sixth sixth"] {
         background-image: url(../images/cols/sixths.png);
     }
 
-    &[data-layout="half fourth fourth"]
-    {
+    &[data-layout="half fourth fourth"] {
         background-image: url(../images/cols/half-fourth-fourth.png);
         width: 29px;
     }
 
-    &[data-layout="fourth fourth half"]
-    {
+    &[data-layout="fourth fourth half"] {
         background-image: url(../images/cols/fourth-fourth-half.png);
         width: 29px;
     }
 
-    &[data-layout="fourth half fourth"]
-    {
+    &[data-layout="fourth half fourth"] {
         background-image: url(../images/cols/fourth-half-fourth.png);
         width: 29px;
     }
 
-    &[data-layout="twothirds third"]
-    {
+    &[data-layout="twothirds third"] {
         background-image: url(../images/cols/twothirds-third.png);
     }
 
-    &[data-layout="third twothirds"]
-    {
+    &[data-layout="third twothirds"] {
         background-image: url(../images/cols/third-twothirds.png);
     }
 
-    &[data-layout="threefourths fourth"]
-    {
+    &[data-layout="threefourths fourth"] {
         background-image: url(../images/cols/threefourths-fourth.png);
     }
 
-    &[data-layout="fourth threefourths"]
-    {
+    &[data-layout="fourth threefourths"] {
         background-image: url(../images/cols/fourth-threefourths.png);
     }
 }
@@ -473,15 +414,13 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* cols */
 
-.eddditor-cols
-{
+.eddditor-cols {
     background: $lightgray;
     display: table;
     width: 100%;
     table-layout: fixed;
 
-    .eddditor-col
-    {
+    .eddditor-col {
         @extend %border-box;
         padding: 0 10px;
         border-right: 1px solid $darkgray;
@@ -530,50 +469,41 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* elements */
 
-.eddditor-elements
-{
+.eddditor-elements {
     // extend drop zone
     margin-top: -60px;
     padding-top: 60px;
     padding-bottom: 80px;
     margin-bottom: -80px;
 
-    .eddditor-element
-    {
-        &.eddditor-loading .eddditor-element-canvas
-        {
+    .eddditor-element {
+        &.eddditor-loading .eddditor-element-canvas {
             position: relative;
             min-height: 100px;
 
-            &:after
-            {
+            &:after {
                 @include loading;
             }
         }
 
-        &.eddditor-highlight .eddditor-element-canvas
-        {
+        &.eddditor-highlight .eddditor-element-canvas {
             box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
 
-            .eddditor-element-head
-            {
+            .eddditor-element-head {
                 opacity: 0.6;
             }
         }
 
-        .eddditor-element-canvas
-        {
+        .eddditor-element-canvas {
             box-shadow: $box-shadow;
             background: #fff;
             border: 1px solid #ddd;
 
-            &:hover .eddditor-element-head
-            {
+            &:hover .eddditor-element-head {
                 opacity: 1;
             }
 
-            .eddditor-element-head
-            {
+            .eddditor-element-head {
                 opacity: 0.1;
                 border-bottom: 1px solid $darkgray;
 
@@ -581,15 +511,13 @@ $darkgray: #CCCCCC;
                 .eddditor-element-delete,
                 .eddditor-element-edit,
                 > .eddditor-element-options,
-                .eddditor-element-dropdown
-                {
+                .eddditor-element-dropdown {
                     height: 30px;
                     line-height: 30px;
                     display: block;
                 }
 
-                .eddditor-element-move
-                {
+                .eddditor-element-move {
                     background: url(../images/icons/move.png) 8px center no-repeat;
                     cursor: move;
                     padding-left: 30px;
@@ -598,8 +526,7 @@ $darkgray: #CCCCCC;
                 .eddditor-element-delete,
                 .eddditor-element-edit,
                 > .eddditor-element-options,
-                .eddditor-element-dropdown
-                {
+                .eddditor-element-dropdown {
                     border-left: 1px solid #ddd;
                     cursor: pointer;
                     float: right;
@@ -608,45 +535,37 @@ $darkgray: #CCCCCC;
                     text-indent: -9999px;
                     width: 30px;
 
-                    &:hover
-                    {
+                    &:hover {
                         background-color: $lightgray;
                     }
                 }
 
-                .eddditor-element-delete
-                {
+                .eddditor-element-delete {
                     background-image: url(../images/icons/delete.png);
 
-                    &:hover
-                    {
+                    &:hover {
                         background-color: #FFA8B4;
                     }
                 }
 
-                .eddditor-element-edit
-                {
+                .eddditor-element-edit {
                     background-image: url(../images/icons/edit.png);
                 }
 
-                > .eddditor-element-options
-                {
+                > .eddditor-element-options {
                     background-image: url(../images/icons/options.png);
                 }
 
-                .eddditor-element-dropdown
-                {
+                .eddditor-element-dropdown {
                     background-image: url(../images/icons/dropdown.png);
                     position: relative;
                     text-indent: 0;
 
-                    &:hover .eddditor-element-dropdown-items
-                    {
+                    &:hover .eddditor-element-dropdown-items {
                         display: block;
                     }
 
-                    .eddditor-element-dropdown-items
-                    {
+                    .eddditor-element-dropdown-items {
                         position: absolute;
                         top: 100%;
                         left: -1px;
@@ -657,31 +576,26 @@ $darkgray: #CCCCCC;
                         z-index: 999;
                         box-shadow: $box-shadow;
 
-                        span
-                        {
+                        span {
                             display: block;
                             border-bottom: 1px solid #ddd;
                             background-position: 8px center;
                             background-repeat: no-repeat;
                             padding: 0 10px 0 30px;
 
-                            &.eddditor-element-options
-                            {
+                            &.eddditor-element-options {
                                 background-image: url(../images/icons/options.png);
                             }
 
-                            &.eddditor-element-duplicate
-                            {
+                            &.eddditor-element-duplicate {
                                 background-image: url(../images/icons/duplicate.png);
                             }
 
-                            &.eddditor-element-favorite
-                            {
+                            &.eddditor-element-favorite {
                                 background-image: url(../images/icons/favorite.png);
                             }
 
-                            &:hover
-                            {
+                            &:hover {
                                 background-color: $lightgray;
                             }
                         }
@@ -689,29 +603,24 @@ $darkgray: #CCCCCC;
                 }
             }
 
-            .eddditor-element-message
-            {
+            .eddditor-element-message {
                 padding: 10px;
                 background: rgba(255,255,0,0.4) url(../images/stripes.png);
             }
 
-            .eddditor-element-content
-            {
+            .eddditor-element-content {
                 padding: 10px;
                 overflow: hidden;
 
-                p
-                {
+                p {
                     margin: 0 0 0.4em;
 
-                    &:last-child
-                    {
+                    &:last-child {
                         margin-bottom: 0;
                     }
                 }
 
-                img
-                {
+                img {
                     max-width: 100%;
                 }
 
@@ -736,13 +645,11 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* modals */
 
-.eddditor-modal
-{
+.eddditor-modal {
     height: 100%;
     position: relative;
 
-    .eddditor-modal-head
-    {
+    .eddditor-modal-head {
         height: 40px;
         padding: 20px;
         background: $gray;
@@ -750,8 +657,7 @@ $darkgray: #CCCCCC;
         border-bottom: 1px solid $darkgray;
         position: relative;
         
-        .eddditor-modal-head-icon
-        {
+        .eddditor-modal-head-icon {
             position: absolute;
             top: 28px;
             left: 20px;
@@ -760,21 +666,18 @@ $darkgray: #CCCCCC;
             font-size: 24px;
         }
 
-        .eddditor-modal-head-info
-        {
+        .eddditor-modal-head-info {
             margin-left: 42px;
         }
 
-        h2
-        {
+        h2 {
             font-size: 26px;
             line-height: 40px;
             margin: 0;
         }
     }
 
-    .eddditor-modal-body
-    {
+    .eddditor-modal-body {
         overflow-y: auto;
         position: absolute;
         top: 81px;
@@ -783,8 +686,7 @@ $darkgray: #CCCCCC;
         right: 0;
     }
 
-    .eddditor-modal-foot
-    {
+    .eddditor-modal-foot {
         height: 30px;
         padding: 20px;
         background: $gray;
@@ -800,19 +702,16 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* modal: confirm */
 
-.eddditor-modal-confirm
-{
+.eddditor-modal-confirm {
     position: relative;
     height: 100%;
     
-    .eddditor-modal-confirm-message
-    {
+    .eddditor-modal-confirm-message {
         padding: 20px;
         font-size: 14px;
     }
     
-    .eddditor-modal-confirm-buttons
-    {
+    .eddditor-modal-confirm-buttons {
         position: absolute;
         bottom: 0;
         left: 0;
@@ -826,23 +725,20 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* modal: add element */
 
-.eddditor-modal-add-element
-{
+.eddditor-modal-add-element {
     cursor: pointer;
     padding: 20px;
     border-bottom: 1px solid #ddd;
     position: relative;
     
-    h3
-    {
+    h3 {
         cursor: pointer;
         margin: 0 0 8px;
         font-size: 18px;
         font-weight: 600;
     }
 
-    &:hover
-    {
+    &:hover {
         background: #ffffff; /* Old browsers */
         background: -moz-linear-gradient(top,  #ffffff 0%, #f8f8f8 100%, #f8f8f8 100%); /* FF3.6+ */
         background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f8f8f8), color-stop(100%,#f8f8f8)); /* Chrome,Safari4+ */
@@ -853,8 +749,7 @@ $darkgray: #CCCCCC;
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f8f8f8',GradientType=0 ); /* IE6-9 */
     }
 
-    .eddditor-modal-add-element-icon
-    {
+    .eddditor-modal-add-element-icon {
         position: absolute;
         top: 20px;
         left: 20px;
@@ -863,8 +758,7 @@ $darkgray: #CCCCCC;
         font-size: 24px;
     }
 
-    .eddditor-modal-add-element-info
-    {
+    .eddditor-modal-add-element-info {
         margin-left: 42px;
     }
 }
@@ -873,15 +767,13 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* modal: ACF customization */
 
-#eddditor-edit > .acf-error-message:first-child // form validation error
-{
+#eddditor-edit > .acf-error-message:first-child { // form validation error
     position: absolute;
     top: 18px;
     right: 18px;
 }
 
-.acf-tab-group
-{
+.acf-tab-group {
     padding-left: 12px;
 }
 
@@ -889,31 +781,26 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* settings */
 
-#eddditor-default-row-layout
-{
+#eddditor-default-row-layout {
     min-width: 220px;
 }
 
-.eddditor-default-value
-{
+.eddditor-default-value {
     cursor: pointer;
 }
 
-.eddditor-row-layout-option
-{
+.eddditor-row-layout-option {
     opacity: 0.3;
     background-position: left center;
     background-repeat: no-repeat;
     padding-left: 40px;
 }
 
-input:checked ~ .eddditor-row-layout-option
-{
+input:checked ~ .eddditor-row-layout-option {
     opacity: 1;
 }
 
-.eddditor-default-row-layout-message
-{
+.eddditor-default-row-layout-message {
     display: none;
     opacity: 0.6;
 }
@@ -923,12 +810,10 @@ input:checked ~ .eddditor-row-layout-option
 /* lightbox aka dennisbox */
 
 #dennisbox,
-#dennisbox-modal
-{
+#dennisbox-modal {
     z-index: 99990;
     
-    .dennisbox-overlay
-    {
+    .dennisbox-overlay {
         position: fixed;
         z-index: 99991;
         top: 0;
@@ -938,8 +823,7 @@ input:checked ~ .eddditor-row-layout-option
         background: rgba(0,0,0,0.8);
     }
 
-    .dennisbox-content
-    {
+    .dennisbox-content {
         position: absolute;
         z-index: 99992;
         top: 0;
@@ -949,31 +833,98 @@ input:checked ~ .eddditor-row-layout-option
         background: white;
         border: 5px solid #000;
 
-        &.dennisbox-loading
-        {
+        &.dennisbox-loading {
             background: #fff url(../images/loading.gif) center no-repeat;
         }
     }
 }
 
-#dennisbox
-{
-    .dennisbox-overlay
-    {
+#dennisbox {
+    .dennisbox-overlay {
         cursor: pointer;
     }
 }
 
-#dennisbox-modal
-{
-    .dennisbox-overlay
-    {
+#dennisbox-modal {
+    .dennisbox-overlay {
         z-index: 99993;
     }
 
-    .dennisbox-content
-    {
+    .dennisbox-content {
         z-index: 99994;
+    }
+}
+
+
+/****************************************************/
+/* saved element templates (aka element gallery) */
+
+#eddditor-templates {
+    @extend %border-box;
+    position: fixed;
+    top: 32px;
+    right: 0;
+    bottom: 0;
+    width: 300px;
+    border: 1px solid $darkgray;
+    background: #fafafa;
+    box-shadow: 0 0 4px 0 rgba(0,0,0,0.3);
+    margin-right: -320px;
+    transition: margin-right 0.4s;
+
+    &.eddditor-visible {
+        margin-right: 0;
+    }
+
+    .eddditor-templates-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 40px;
+        height: 40px;
+        opacity: 0.7;
+        background: url(../images/icons/delete.png) center no-repeat;
+        cursor: pointer;
+        text-indent: -9999px;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .eddditor-templates-head {
+        padding: 10px;
+
+        > h3 {
+            margin-top: 4px;
+        }
+
+        > p {
+            margin-bottom: 6px;
+        }
+    }
+
+    .eddditor-elements {
+        overflow: auto;
+        margin: 0;
+        padding: 0 10px;
+
+        .eddditor-element {
+            margin-bottom: -48px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            .eddditor-button {
+                visibility: hidden;
+            }
+        }
+
+        .eddditor-placeholder {
+            height: 0 !important;
+            margin-bottom: 0;
+        }
     }
 }
 
@@ -1051,92 +1002,4 @@ input:checked ~ .eddditor-row-layout-option
     box-shadow: none !important;
     text-shadow: 0 -1px 0 rgba(0,0,0,0.1) !important;
     cursor: default;
-}
-
-
-
-
-
-
-
-
-#eddditor-templates
-{
-    @extend %border-box;
-    position: fixed;
-    top: 32px;
-    right: 0;
-    bottom: 0;
-    width: 300px;
-    border: 1px solid $darkgray;
-    background: #fafafa;
-    box-shadow: 0 0 4px 0 rgba(0,0,0,0.3);
-    margin-right: -320px;
-    transition: margin-right 0.4s;
-    
-    &.eddditor-visible
-    {
-        margin-right: 0;
-    }
-    
-    .eddditor-templates-close
-    {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 40px;
-        height: 40px;
-        opacity: 0.7;
-        background: url(../images/icons/delete.png) center no-repeat;
-        cursor: pointer;
-        text-indent: -9999px;
-        
-        &:hover
-        {
-            opacity: 1;
-        }
-    }
-    
-    .eddditor-templates-head
-    {
-        padding: 10px;
-    
-        > h3
-        {
-            margin-top: 4px;
-        }
-
-        > p
-        {
-            margin-bottom: 6px;
-        }
-    }
-    
-    .eddditor-elements
-    {
-        overflow: auto;
-        margin: 0;
-        padding: 0 10px;
-        
-        .eddditor-element
-        {
-            margin-bottom: -48px;
-
-            &:last-child
-            {
-                margin-bottom: 0;
-            }
-            
-            .eddditor-button
-            {
-                visibility: hidden;
-            }
-        }
-        
-        .eddditor-placeholder
-        {
-            height: 0 !important;
-            margin-bottom: 0;
-        }
-    }
 }

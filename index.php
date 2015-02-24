@@ -10,8 +10,7 @@ Text Domain: eddditor
 
 
 // include Advanced Custom Fields if it isn't already installed
-if(!class_exists('acf') AND file_exists(dirname(__FILE__) . '/acf/acf.php'))
-{
+if (!class_exists('acf') AND file_exists(dirname(__FILE__) . '/acf/acf.php')) {
     define('ACF_LITE', true); // don't show in admin menu
     require_once dirname(__FILE__) . '/acf/acf.php';
 }

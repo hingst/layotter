@@ -4,8 +4,7 @@
 /**
  * Basic element - all element types must extend this class
  */
-abstract class Eddditor_Element
-{
+abstract class Eddditor_Element {
 
     
     protected
@@ -42,8 +41,7 @@ abstract class Eddditor_Element
      * @param array $values Field values, if present
      * @param array $options Option values, if present
      */
-    final public function __construct($values = false, $options = false)
-    {
+    final public function __construct($values = false, $options = false) {
 	    $this->attributes();
 	    $this->hooks();
         
@@ -85,8 +83,7 @@ abstract class Eddditor_Element
 
 	/**
 	 */
-	final protected function hooks()
-	{
+	final protected function hooks() {
 		if (is_callable(array($this, 'admin_assets'))) {
 			add_action('admin_footer', array($this, 'admin_assets'));
 		}
@@ -98,8 +95,7 @@ abstract class Eddditor_Element
 	 *
 	 * @param string $type Type identifier
 	 */
-	final public function set_type($type)
-	{
+	final public function set_type($type) {
 		if (is_string($type)) {
 			$this->type = $type;
 		}
@@ -114,8 +110,7 @@ abstract class Eddditor_Element
      * 
      * @param string $id Template ID
      */
-    final public function set_template($id)
-    {
+    final public function set_template($id) {
         $this->template_id = $id;
     }
     
@@ -126,8 +121,7 @@ abstract class Eddditor_Element
      * @param string $what What to get - can be 'type', 'title', 'description', 'icon', 'form' or 'data'
      * @return mixed Requested data
      */
-    final public function get($what)
-    {
+    final public function get($what) {
         switch ($what) {
             case 'type':
                 return $this->type;
@@ -166,8 +160,7 @@ abstract class Eddditor_Element
      * 
      * @return string Backend view HTML
      */
-    final public function get_backend_view()
-    {
+    final public function get_backend_view() {
         ob_start();
         $this->backend_view($this->formatted_values);
         return ob_get_clean();
@@ -179,8 +172,7 @@ abstract class Eddditor_Element
      * 
      * @return string Frontend view HTML
      */
-    final public function get_frontend_view()
-    {
+    final public function get_frontend_view() {
         ob_start();
         $this->frontend_view($this->formatted_values);
         return ob_get_clean();
@@ -194,8 +186,7 @@ abstract class Eddditor_Element
      * 
      * @param array $fields Field values
      */
-    protected function backend_view($fields)
-    {
+    protected function backend_view($fields) {
         $this->default_view($fields);
     }
     
@@ -207,8 +198,7 @@ abstract class Eddditor_Element
      * 
      * @param array $fields Field values
      */
-    protected function frontend_view($fields)
-    {
+    protected function frontend_view($fields) {
         $this->default_view($fields);
     }
     
@@ -221,8 +211,7 @@ abstract class Eddditor_Element
      * 
      * @param array $fields Field values
      */
-    final protected function default_view($fields)
-    {
+    final protected function default_view($fields) {
         echo '<p><strong>' . $this->title . '</strong></p>';
 
         foreach ($fields as $field_name => $field_value) {

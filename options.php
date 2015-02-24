@@ -4,8 +4,7 @@
 /**
  * Manages post, row and element options
  */
-class Eddditor_Options
-{
+class Eddditor_Options {
 
 
     private
@@ -21,8 +20,7 @@ class Eddditor_Options
      * @param string $type Options type - can be 'post', 'row' or 'element'
      * @param mixed $values Array containing option values, or false for default values
      */
-    public function __construct($type, $values = false)
-    {
+    public function __construct($type, $values = false) {
         $this->type = (string) $type;
 
         // check if a field group exists for this option type
@@ -60,8 +58,7 @@ class Eddditor_Options
      *
      * @return boolean Signals whether options are available for this type
      */
-    public function is_enabled()
-    {
+    public function is_enabled() {
         return $this->enabled;
     }
 
@@ -72,8 +69,7 @@ class Eddditor_Options
      * @param string $what What to get - can be 'form' or 'data'
      * @return mixed Requested data
      */
-    public function get($what)
-    {
+    public function get($what) {
         switch ($what) {
             case 'form':
                 return $this->form;

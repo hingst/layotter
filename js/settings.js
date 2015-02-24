@@ -6,20 +6,15 @@ jQuery(function($){
     });
     
     
-    var update_default_row_dropdown = function()
-    {
+    var update_default_row_dropdown = function() {
         $('#eddditor-row-layouts input[type="checkbox"]').each(function(){
             var layout = $(this).data('layout');
             var $option = $('#eddditor-default-row-layout').children('option[value="' + layout + '"]');
-            if($(this).is(':checked'))
-            {
+            if ($(this).is(':checked')) {
                 $option.show();
-            }
-            else
-            {
+            } else {
                 $option.hide();
-                if($option.is(':selected'))
-                {
+                if ($option.is(':selected')) {
                     $('#eddditor-default-row-layout').children('option:visible').first().prop('selected', true);
                     display_default_row_option_message();
                 }
@@ -29,8 +24,7 @@ jQuery(function($){
     
     
     $('#eddditor-row-layouts input[type="checkbox"]').change(function(){
-        if($('#eddditor-row-layouts input[type="checkbox"]:checked').length === 0)
-        {
+        if ($('#eddditor-row-layouts input[type="checkbox"]:checked').length === 0) {
             $(this).prop('checked', true);
             return;
         }

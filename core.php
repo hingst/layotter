@@ -4,8 +4,7 @@
 /**
  * Provides shared functionality
  */
-class Eddditor
-{
+class Eddditor {
     
     
     private static
@@ -21,8 +20,7 @@ class Eddditor
      * @param string $type Dirty type identifier
      * @return string Clean type identifier
      */
-    private static function clean_type($type)
-    {
+    private static function clean_type($type) {
         if (!is_string($type)) {
             return '';
         }
@@ -38,8 +36,7 @@ class Eddditor
      * @param string $class Class name for this element, must extend Eddditor_Element
      * @return boolean Signals whether the element has been registered successfully
      */
-    public static function register_element($type, $class)
-    {
+    public static function register_element($type, $class) {
         // fail if provided class name is not a valid class
         if (!class_exists($class) OR !is_subclass_of($class, 'Eddditor_Element')) {
             return false;
@@ -65,8 +62,7 @@ class Eddditor
      * @param array|bool $options Option values
      * @return mixed New element instance, or false on failure
      */
-    public static function create_element($type, $values = false, $options = false)
-    {
+    public static function create_element($type, $values = false, $options = false) {
         $type = self::clean_type($type);
         if (isset(self::$registered_elements[$type])) {
             try {
@@ -87,8 +83,7 @@ class Eddditor
      *
      * @return array Type identifiers
      */
-    public static function get_registered_elements()
-    {
+    public static function get_registered_elements() {
         return array_keys(self::$registered_elements);
     }
     
@@ -98,8 +93,7 @@ class Eddditor
      * 
      * @return boolean Signals whether Eddditor is enabled
      */
-    public static function is_enabled()
-    {
+    public static function is_enabled() {
         // bail if not in the backend
         if (!is_admin()) {
             return false;
@@ -138,10 +132,9 @@ class Eddditor
      * @param mixed $provided_values Array with user-provided values, or false if dealing with a new element
      * @return array Array with strings-only values as well as formatted values
      */
-    public static function parse_values($existing_fields, $provided_values = false)
-    {
+    public static function parse_values($existing_fields, $provided_values = false) {
         // use default field values if $provided_values === false
-        $use_defaults = $provided_values === false;
+        $use_defaults = ($provided_values === false);
         
         $raw_values = array(); // string only (can be JSON-encoded), for use in forms
         $formatted_values = array(); // any type, for frontend use
@@ -189,8 +182,7 @@ class Eddditor
      * @param int $post_id Post ID
      * @return mixed Array with post content, or null if no data available (as is the case with new posts)
      */
-    public static function get_content($post_id)
-    {
+    public static function get_content($post_id) {
         // decode page structure from json
         $content_json = get_post_meta($post_id, 'eddditor_content', true);
         $content_decoded = json_decode($content_json, true);
@@ -212,7 +204,7 @@ class Eddditor
                         }
 
 	                    // if template id not present or invalid, create element from saved values
-	                    if(!$element_object) {
+	                    if (!$element_object) {
 		                    $element_object = Eddditor::create_element($element['type'], $element['values'], $element['options']['values']);
 	                    }
                         

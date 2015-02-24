@@ -13,8 +13,7 @@ function eddditor_init_settings() {
 /**
  * Creates settings pages and sets default settings on plugin activation. Completely self-contained.
  */
-class Eddditor_Settings
-{
+class Eddditor_Settings {
     
     private static
         $default_settings,
@@ -22,8 +21,7 @@ class Eddditor_Settings
         $row_layout_titles;
     
     
-    public static function init()
-    {
+    public static function init() {
         // do stuff on plugin (de)activation
         register_activation_hook(__DIR__ . '/index.php', array(__CLASS__, 'set_defaults_on_activation'));
         
@@ -123,8 +121,7 @@ class Eddditor_Settings
     }
     
     
-    public static function get_allowed_row_layouts()
-    {
+    public static function get_allowed_row_layouts() {
         $options = get_option('eddditor_settings_rows');
         $allowed_layouts = array();
         
@@ -141,8 +138,7 @@ class Eddditor_Settings
     }
     
     
-    public static function get_default_row_layout()
-    {
+    public static function get_default_row_layout() {
         $options = get_option('eddditor_settings_rows');
         return $options['default_layout'];
     }
@@ -154,8 +150,7 @@ class Eddditor_Settings
      * @param string $layout Col layout string (e.g. 'half', 'third')
      * @return string CSS class for the col layout, as provided by the user
      */
-    public static function get_col_layout_class($layout)
-    {
+    public static function get_col_layout_class($layout) {
         $options = get_option('eddditor_settings_cols');
         return $options['classes'][$layout];
     }
@@ -166,8 +161,7 @@ class Eddditor_Settings
      *
      * For debugging only!
      */
-    public static function remove_all_settings()
-    {
+    public static function remove_all_settings() {
         delete_option('eddditor_settings_general');
         delete_option('eddditor_settings_wrapper');
         delete_option('eddditor_settings_rows');
@@ -179,8 +173,7 @@ class Eddditor_Settings
     /**
      * Set default settings on plugin activation
      */
-    public static function set_defaults_on_activation()
-    {
+    public static function set_defaults_on_activation() {
         // save default settings to the database
         foreach (self::$default_settings as $settings_group_name => $settings) {
             if (false === get_option('eddditor_settings_' . $settings_group_name)) {
@@ -194,8 +187,7 @@ class Eddditor_Settings
     /**
      * Register settings groups
      */
-    public static function admin_init()
-    {
+    public static function admin_init() {
         register_setting(
             'eddditor_settings_general',
             'eddditor_settings_general'
@@ -222,8 +214,7 @@ class Eddditor_Settings
     /**
      * Load scripts and styles and show message if settings have just been saved
      */
-    public static function admin_head()
-    {
+    public static function admin_head() {
         // load assets only if necessary
         $current_screen = get_current_screen();
         if ($current_screen->id !== 'toplevel_page_eddditor-settings') {
@@ -250,8 +241,7 @@ class Eddditor_Settings
     /**
      * Callback to display "settings saved" notice
      */
-    public static function settings_saved_notice()
-    {
+    public static function settings_saved_notice() {
         ?>
             <div class="updated">
                 <p><?php _e('Your settings have been saved.', 'eddditor'); ?></p>
@@ -263,8 +253,7 @@ class Eddditor_Settings
     /**
      * Create an admin menu entry for Eddditor
      */
-    public static function admin_menu()
-    {
+    public static function admin_menu() {
         add_menu_page(
             __('Eddditor Settings', 'eddditor'), // title
             'Eddditor', // menu name
@@ -280,8 +269,7 @@ class Eddditor_Settings
     /**
      * Output HTML for the settings page
      */
-    public static function settings_page()
-    {
+    public static function settings_page() {
         // settings are divided into five sections, each with their own page and form
         $tab = ''; // empty means "general settings"
         if (isset($_GET['tab']) AND in_array($_GET['tab'], array('wrapper', 'rows', 'cols', 'elements'))) {
@@ -350,8 +338,7 @@ class Eddditor_Settings
     /**
      * Outputs form HTML for general settings
      */
-    public static function settings_general()
-    {
+    public static function settings_general() {
         // first, get current settings
         $settings = get_option('eddditor_settings_general');
         
@@ -442,8 +429,7 @@ class Eddditor_Settings
     /**
      * Outputs form HTML for wrapper settings
      */
-    public static function settings_wrapper()
-    {
+    public static function settings_wrapper() {
         // first, get current settings
         $settings = get_option('eddditor_settings_wrapper');
         
@@ -491,8 +477,7 @@ class Eddditor_Settings
     /**
      * Outputs form HTML for row settings
      */
-    public static function settings_rows()
-    {
+    public static function settings_rows() {
         // first, get current settings
         $settings = get_option('eddditor_settings_rows');
         
@@ -581,8 +566,7 @@ class Eddditor_Settings
     /**
      * Outputs form HTML for column settings
      */
-    public static function settings_cols()
-    {
+    public static function settings_cols() {
         // first, get current settings
         $settings = get_option('eddditor_settings_cols');
         
@@ -655,8 +639,7 @@ class Eddditor_Settings
     /**
      * Outputs form HTML for element settings
      */
-    public static function settings_elements()
-    {
+    public static function settings_elements() {
         // first, get current settings
         $settings = get_option('eddditor_settings_elements');
         

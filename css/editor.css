@@ -602,6 +602,53 @@ input:checked ~ .eddditor-row-layout-option {
   z-index: 99994; }
 
 /****************************************************/
+/* saved element templates (aka element gallery) */
+#eddditor-templates {
+  position: fixed;
+  top: 32px;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  border: 1px solid #CCCCCC;
+  background: #fafafa;
+  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+  margin-right: -320px;
+  transition: margin-right 0.4s; }
+  #eddditor-templates.eddditor-visible {
+    margin-right: 0; }
+  #eddditor-templates .eddditor-templates-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    opacity: 0.7;
+    background: url(../images/icons/delete.png) center no-repeat;
+    cursor: pointer;
+    text-indent: -9999px; }
+    #eddditor-templates .eddditor-templates-close:hover {
+      opacity: 1; }
+  #eddditor-templates .eddditor-templates-head {
+    padding: 10px; }
+    #eddditor-templates .eddditor-templates-head > h3 {
+      margin-top: 4px; }
+    #eddditor-templates .eddditor-templates-head > p {
+      margin-bottom: 6px; }
+  #eddditor-templates .eddditor-elements {
+    overflow: auto;
+    margin: 0;
+    padding: 0 10px; }
+    #eddditor-templates .eddditor-elements .eddditor-element {
+      margin-bottom: -48px; }
+      #eddditor-templates .eddditor-elements .eddditor-element:last-child {
+        margin-bottom: 0; }
+      #eddditor-templates .eddditor-elements .eddditor-element .eddditor-button {
+        visibility: hidden; }
+    #eddditor-templates .eddditor-elements .eddditor-placeholder {
+      height: 0 !important;
+      margin-bottom: 0; }
+
+/****************************************************/
 /* red warning button in Wordpress UI style */
 .wp-core-ui .button-danger {
   background-color: #BC2929;
@@ -669,50 +716,5 @@ input:checked ~ .eddditor-row-layout-option {
   box-shadow: none !important;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1) !important;
   cursor: default; }
-
-#eddditor-templates {
-  position: fixed;
-  top: 32px;
-  right: 0;
-  bottom: 0;
-  width: 300px;
-  border: 1px solid #CCCCCC;
-  background: #fafafa;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
-  margin-right: -320px;
-  transition: margin-right 0.4s; }
-  #eddditor-templates.eddditor-visible {
-    margin-right: 0; }
-  #eddditor-templates .eddditor-templates-close {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    opacity: 0.7;
-    background: url(../images/icons/delete.png) center no-repeat;
-    cursor: pointer;
-    text-indent: -9999px; }
-    #eddditor-templates .eddditor-templates-close:hover {
-      opacity: 1; }
-  #eddditor-templates .eddditor-templates-head {
-    padding: 10px; }
-    #eddditor-templates .eddditor-templates-head > h3 {
-      margin-top: 4px; }
-    #eddditor-templates .eddditor-templates-head > p {
-      margin-bottom: 6px; }
-  #eddditor-templates .eddditor-elements {
-    overflow: auto;
-    margin: 0;
-    padding: 0 10px; }
-    #eddditor-templates .eddditor-elements .eddditor-element {
-      margin-bottom: -48px; }
-      #eddditor-templates .eddditor-elements .eddditor-element:last-child {
-        margin-bottom: 0; }
-      #eddditor-templates .eddditor-elements .eddditor-element .eddditor-button {
-        visibility: hidden; }
-    #eddditor-templates .eddditor-elements .eddditor-placeholder {
-      height: 0 !important;
-      margin-bottom: 0; }
 
 /*# sourceMappingURL=editor.css.map */

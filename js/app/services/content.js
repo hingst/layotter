@@ -230,9 +230,7 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
             for (var i = oldColCount; i < newColCount; i++) {
                 row.cols.push(angular.copy(data.templates.col));
             }
-        }
-        // move surplus elements to last remaining col if number of cols is decreased
-        else {
+        } else { // move surplus elements to last remaining col if number of cols is decreased
             for (var i = newColCount; i < oldColCount; i++) {
                 angular.forEach(row.cols[i].elements, function(element){
                     row.cols[newColCount - 1].elements.push(element);

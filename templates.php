@@ -4,8 +4,7 @@
 /**
  * Manages element templates
  */
-class Eddditor_Templates
-{
+class Eddditor_Templates {
 
 
     /**
@@ -14,8 +13,7 @@ class Eddditor_Templates
      * @param string $id Template ID
      * @return mixed Template data on success, false on failure
      */
-    public static function get($id)
-    {
+    public static function get($id) {
         $templates = get_option('eddditor_element_templates');
 
         if (isset($templates[$id])) {
@@ -31,8 +29,7 @@ class Eddditor_Templates
      *
      * @return array Element instances for all templates
      */
-    public static function get_all()
-    {
+    public static function get_all() {
         $templates = array();
 	    $templates[0] = new stdClass();
         $saved_templates = get_option('eddditor_element_templates');
@@ -59,8 +56,7 @@ class Eddditor_Templates
      * @param array $data Element data (keys: type, values)
      * @return string New template's ID
      */
-    public static function save($data)
-    {
+    public static function save($data) {
         $templates = get_option('eddditor_element_templates');
         $id = count($templates) + 1; // 0 is not present
         $templates[$id] = $data;
@@ -76,8 +72,7 @@ class Eddditor_Templates
      * @param array $data Element data (keys: type, values)
      * @return bool True if template has been updated, false on failure
      */
-    public static function update($id, $data)
-    {
+    public static function update($id, $data) {
         $templates = get_option('eddditor_element_templates');
 
         if (isset($templates[$id])) {
@@ -96,8 +91,7 @@ class Eddditor_Templates
      * @param string $id Template ID
      * @return bool True if template has been deleted, false on failure
      */
-    public static function delete($id)
-    {
+    public static function delete($id) {
         $templates = get_option('eddditor_element_templates');
 
         if (isset($templates[$id])) {
@@ -117,8 +111,7 @@ class Eddditor_Templates
      * @param array $options Option values
      * @return mixed New element instance, or false on failure
      */
-    public static function create_element($id, $options = array())
-    {
+    public static function create_element($id, $options = array()) {
         $templates = get_option('eddditor_element_templates');
         if (!is_array($templates) OR !isset($templates[$id]) OR !is_array($templates[$id])) {
             return false;

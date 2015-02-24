@@ -5,15 +5,13 @@
  * Enqueue styles and scripts, provide l10n for use with Javascript
  */
 add_action('admin_head', 'eddditor_assets_admin_head');
-function eddditor_assets_admin_head()
-{
+function eddditor_assets_admin_head() {
     
     global $post;
     
 
     // load assets only if necessary
-    if(!Eddditor::is_enabled())
-    {
+    if (!Eddditor::is_enabled()) {
         return;
     }
 
@@ -131,7 +129,7 @@ function eddditor_assets_admin_head()
     $content_structure = Eddditor::get_content($post->ID);
     
     
-    // fetch saved element templates
+    // fetch saved element templates (aka element gallery)
     $element_templates = Eddditor_Templates::get_all();
     
     
