@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Eddditor with AngularJS
+Plugin Name: Eddditor
 Description: Add and arrange your content freely with an intuitive drag and drop interface!
 Author: Dennis Hingst
 Version: 1.0
