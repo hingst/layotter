@@ -54,13 +54,6 @@ function eddditor_assets_admin_head() {
     );
     
     
-    // helpers
-    wp_enqueue_script(
-        'eddditor-helper',
-        plugins_url('js/app/helper.js', __FILE__)
-    );
-    
-    
     // angular app
     wp_enqueue_script(
         'eddditor',

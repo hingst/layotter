@@ -2,7 +2,10 @@
 
 
 /**
- * Filter the_content for frontend output
+ * Add shortcode for frontend output
+ *
+ * Eddditor uses the shortcode [eddditor] containing the JSON-encoded content
+ * structure of any given post.
  * 
  * These functions loop through all rows, cols and elements and run them
  * through user-provided filters (where present), or wrap with html code
@@ -10,16 +13,17 @@
  * 
  * Everything required to render the frontend view resides in this file.
  */
-add_filter('the_content', 'eddditor_filter_content', 99999);
+add_shortcode('eddditor', 'eddditor_frontend_shortcode');
 
 
 /**
- * Filter post content
+ * Process post content
  *
- * @param $input string Current unfiltered post content
+ * @param $atts array Required by Wordpress, but unused
+ * @param string $input Current unfiltered post content
  * @return string HTML for frontend view of the current post
  */
-function eddditor_filter_content($input) {
+function eddditor_frontend_shortcode($atts, $input = '') {
     global $post;
     $output = '';
     $content = Eddditor::get_content($post->ID);
@@ -28,20 +32,20 @@ function eddditor_filter_content($input) {
         return $input;
     }
     $rows = eddditor_frontend_rows($content['rows']);
-    
+
     if (has_filter('eddditor/post')) {
         $output .= apply_filters('eddditor/post', $rows, $content['options']['values']);
     } else {
         $settings = get_option('eddditor_settings_wrapper');
         $output .= $settings['html_before'] . $rows . $settings['html_after'];
     }
-    
+
     return $output;
 }
 
 
 /**
- * Filter rows
+ * Process rows
  * 
  * @param array $rows Array containing multiple rows' data
  * @return string HTML for frontend view of provided rows
@@ -75,7 +79,7 @@ function eddditor_frontend_rows($rows) {
 
 
 /**
- * Filter cols
+ * Process cols
  * 
  * @param array $cols Array containing multiple cols' data
  * @return string HTML for frontend view of provided cols
@@ -103,7 +107,7 @@ function eddditor_frontend_cols($cols) {
 
 
 /**
- * Filter elements
+ * Process elements
  * 
  * @param array $elements Array containing multiple elements' data
  * @return string HTML for frontend view of provided elements

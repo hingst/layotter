@@ -178,10 +178,8 @@ class Eddditor_Settings {
     public static function set_defaults_on_activation() {
         // save default settings to the database
         foreach (self::$default_settings as $settings_group_name => $settings) {
-            if (false === get_option('eddditor_settings_' . $settings_group_name)) {
-                // add_option makes sure existing settings will not be overwritten
-                add_option('eddditor_settings_' . $settings_group_name, $settings);
-            }
+            // add_option makes sure existing settings will not be overwritten (as opposed to update_option)
+            add_option('eddditor_settings_' . $settings_group_name, $settings);
         }
     }
     

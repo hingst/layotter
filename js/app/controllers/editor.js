@@ -16,8 +16,7 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
 
     // on content change, update textarea
     $scope.$watch('data', function(value) {
-        angular.element('#eddditor-content').html(angular.toJson(value, true)); // true = pretty
-        angular.element('#content').html(extractSearchDump(value));
+        angular.element('#content').html('[eddditor]' + angular.toJson(value, false) + '[/eddditor]'); // change false to true for pretty JSON
     }, true);
 
 

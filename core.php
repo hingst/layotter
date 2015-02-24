@@ -183,8 +183,18 @@ class Eddditor {
      * @return mixed Array with post content, or null if no data available (as is the case with new posts)
      */
     public static function get_content($post_id) {
+        // get raw post content (should look like [eddditor]json_data[/eddditor]
+        $content_raw = get_post_field('post_content', $post_id);
+
+        // verify that the content is correctly formatted, unwrap from shortcode
+        $matches = array();
+        if (preg_match('/^\[eddditor\](.*)\[\/eddditor\]$/Um', $content_raw, $matches)) {
+            $content_json = $matches[1];
+        } else {
+            $content_json = false;
+        }
+
         // decode page structure from json
-        $content_json = get_post_meta($post_id, 'eddditor_content', true);
         $content_decoded = json_decode($content_json, true);
         $content
             = is_array($content_decoded)
