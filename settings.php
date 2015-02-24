@@ -1,13 +1,7 @@
 <?php
 
 
-/**
- * Initialize settings after plugin activation - otherwise translations would not be available yet.
- */
-add_action('plugins_loaded', 'eddditor_init_settings');
-function eddditor_init_settings() {
-    Eddditor_Settings::init();
-}
+Eddditor_Settings::init();
 
 
 /**
@@ -22,15 +16,20 @@ class Eddditor_Settings {
     
     
     public static function init() {
-        // do stuff on plugin (de)activation
+        // do stuff on plugin activation
         register_activation_hook(__DIR__ . '/index.php', array(__CLASS__, 'set_defaults_on_activation'));
-        
-        
+
+
+        // do stuff on plugin deactivation
         // use the following line FOR DEBUGGING ONLY
         // REMOVES ALL SETTINGS on plugin deactivation
         register_deactivation_hook(__DIR__ . '/index.php', array(__CLASS__, 'remove_all_settings'));
-        
-        
+
+
+        // translate labels after plugins_loaded - otherwise translations would not be available yet
+        add_action('plugins_loaded', array(__CLASS__, 'translate_labels'));
+
+
         // enable settings page only if we're in the backend
         if (is_admin()) {
             // register settings, create menu entry, load assets
@@ -91,7 +90,10 @@ class Eddditor_Settings {
                 'html_after' => '</div>'
             )
         );
-        
+    }
+
+
+    public static function translate_labels() {
         self::$col_class_titles = array(
             'full' => __('Full width', 'eddditor'),
             'half' => __('A half', 'eddditor'),
@@ -119,12 +121,12 @@ class Eddditor_Settings {
             'fourth half fourth' => __('A fourth & a half & a fourth', 'eddditor')
         );
     }
-    
-    
+
+
     public static function get_allowed_row_layouts() {
         $options = get_option('eddditor_settings_rows');
         $allowed_layouts = array();
-        
+
         foreach ($options['allow'] as $col_type => $allowed) {
             if ($allowed == '1') {
                 $allowed_layouts[] = array(
@@ -133,7 +135,7 @@ class Eddditor_Settings {
                 );
             }
         }
-        
+
         return $allowed_layouts;
     }
     
