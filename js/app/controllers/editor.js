@@ -16,7 +16,23 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
 
     // on content change, update textarea
     $scope.$watch('data', function(value) {
-        angular.element('#content').html('[eddditor]' + angular.toJson(value, false) + '[/eddditor]'); // change false to true for pretty JSON
+        // prepare JSON data for representation in textarea
+        // replace
+        //      &#10; (line feed)       with \n
+        //      &#13; (carriage return) with \r
+        // as they break JSON validity
+        // and
+        //      <                       with &lt;
+        //      >                       with &gt;
+        // as they could potentially break the textarea
+        // flag: [g]lobal = replace all matches
+        console.log(value);
+        var cleanValue = angular.toJson(value, false)
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/&#10;/g, '\\n')
+            .replace(/&#13;/g, '\\r');
+        angular.element('#content').html('[eddditor]' + cleanValue + '[/eddditor]'); // change false to true for pretty JSON
     }, true);
 
 
