@@ -25,14 +25,14 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
         //      <                       with &lt;
         //      >                       with &gt;
         // as they could potentially break the textarea
-        // flag: [g]lobal = replace all matches
+        // flag: [g]lobal = replace all matches instead of just the first one
         console.log(value);
-        var cleanValue = angular.toJson(value, false)
+        var cleanValue = angular.toJson(value, false) // change false to true for pretty JSON
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
             .replace(/&#10;/g, '\\n')
             .replace(/&#13;/g, '\\r');
-        angular.element('#content').html('[eddditor]' + cleanValue + '[/eddditor]'); // change false to true for pretty JSON
+        angular.element('#content').html('[eddditor]' + cleanValue + '[/eddditor]');
     }, true);
 
 
