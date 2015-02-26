@@ -38,16 +38,19 @@ function eddditor_assets_admin_head() {
     // angular core
     wp_enqueue_script(
         'angular',
-        plugins_url('js/vendor/angular.min.js', __FILE__)
+        plugins_url('js/vendor/angular.js', __FILE__)
     );
     wp_enqueue_script(
         'angular-animate',
-        plugins_url('js/vendor/angular-animate.min.js', __FILE__)
+        plugins_url('js/vendor/angular-animate.js', __FILE__)
     );
     wp_enqueue_script(
         'angular-sanitize',
-        plugins_url('js/vendor/angular-sanitize.min.js', __FILE__)
+        plugins_url('js/vendor/angular-sanitize.js', __FILE__)
     );
+
+
+    // angular 3rd party
     wp_enqueue_script(
         'angular-ui-sortable',
         plugins_url('js/vendor/angular-ui-sortable.js', __FILE__)
@@ -158,7 +161,7 @@ function eddditor_assets_admin_head() {
                 'discard_changes_confirmation' => __('Are you sure you want to cancel and discard all changes?', 'eddditor'),
                 'delete_row_confirmation' => __('Are you sure you want to delete this row and all its elements? This action can not be undone.', 'eddditor'),
                 'delete_element_confirmation' => __('Are you sure you want to delete this element? This action can not be undone.', 'eddditor'),
-                'delete_template_confirmation' => __('Are you sure you want to delete this favorite? blah blah', 'eddditor')
+                'delete_template_confirmation' => __('Are you sure you want to delete this favorite? This action can not be undone.', 'eddditor')
             )
         )
     );

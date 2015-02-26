@@ -26,7 +26,6 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
         //      >                       with &gt;
         // as they could potentially break the textarea
         // flag: [g]lobal = replace all matches instead of just the first one
-        console.log(value);
         var cleanValue = angular.toJson(value, false) // change false to true for pretty JSON
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
