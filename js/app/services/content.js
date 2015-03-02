@@ -74,6 +74,9 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
         }
         
         var values = jQuery('#eddditor-edit').serializeObject();
+        if (typeof values.acf == 'undefined') {
+            values.acf = {};
+        }
         
         // add element to model if creating a new element
         if (state.getParent() !== null) {
@@ -117,6 +120,9 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
      */
     this.saveOptions = function() {
         var values = jQuery('#eddditor-edit').serializeObject();
+        if (typeof values.acf == 'undefined') {
+            values.acf = {};
+        }
         
         // copy editing.element so editing can be reset while ajax is still loading
         var editingElement = state.getElement();
