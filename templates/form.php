@@ -2,7 +2,7 @@
     <form action="" id="eddditor-edit">
         <div class="eddditor-modal-head">
             <div class="eddditor-modal-head-icon">
-                <i class="fa <?php echo $icon; ?>"></i>
+                <i class="fa fa-<?php echo $icon; ?>"></i>
             </div>
 	        <div class="eddditor-modal-head-info">
                 <h2><?php echo $title; ?></h2>
