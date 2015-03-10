@@ -122,7 +122,7 @@ function eddditor_assets_admin_head() {
     
     
     // fetch content structure for the current post
-    $content_structure = Eddditor::get_content($post->ID);
+    $content_structure = Eddditor::get_content_structure($post->ID);
     
     
     // fetch saved element templates (aka element gallery)

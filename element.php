@@ -16,9 +16,8 @@ abstract class Eddditor_Element {
         $icon,
         $field_group,
         // automatically generated
-        $values_for_storage = array(),
-        $values_for_forms = array(),
-        $values_for_output = array(),
+        $clean_values = array(),
+        $formatted_values = array(),
         $form,
         $options,
         $template_id = -1;
@@ -72,13 +71,11 @@ abstract class Eddditor_Element {
         $fields = acf_get_fields($field_groups[0]);
 
         // parse provided values for use in different contexts
-        $parsed_values = Eddditor::parse_values($fields, $values);
-        $this->values_for_storage = $parsed_values['for_storage'];
-        $this->values_for_forms = $parsed_values['for_forms'];
-        $this->values_for_output = $parsed_values['for_output'];
+        $this->clean_values = Eddditor::clean_values($fields, $values);
+        $this->formatted_values = Eddditor::format_values_for_output($fields, $this->clean_values);
 
         // create edit form for this element
-        $this->form = new Eddditor_Form('element', $fields, $this->values_for_forms);
+        $this->form = new Eddditor_Form('element', $fields, $this->clean_values);
         $this->form->set_title($this->title);
         $this->form->set_icon($this->icon);
 
@@ -144,7 +141,7 @@ abstract class Eddditor_Element {
             case 'data':
                 $data = array(
                     'type' => $this->type,
-                    'values' => $this->values_for_storage,
+                    'values' => $this->clean_values,
                     'options' => $this->options->get('data'),
                     'view' // provide view based on where we are
                         => is_admin()
@@ -158,7 +155,7 @@ abstract class Eddditor_Element {
             case 'template_data':
                 return array(
                     'type' => $this->type,
-                    'values' => $this->values_for_storage
+                    'values' => $this->clean_values
                 );
             default:
                 return null;
@@ -173,7 +170,7 @@ abstract class Eddditor_Element {
      */
     final public function get_backend_view() {
         ob_start();
-        $this->backend_view($this->values_for_output);
+        $this->backend_view($this->formatted_values);
         return ob_get_clean();
     }
     
@@ -185,7 +182,7 @@ abstract class Eddditor_Element {
      */
     final public function get_frontend_view() {
         ob_start();
-        $this->frontend_view($this->values_for_output);
+        $this->frontend_view($this->formatted_values);
         return ob_get_clean();
     }
     

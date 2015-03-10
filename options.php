@@ -9,9 +9,8 @@ class Eddditor_Options {
 
     private
         $type,
-        $values_for_storage = array(),
-        $values_for_forms = array(),
-        $values_for_output = array(),
+        $clean_values = array(),
+        $formatted_values = array(),
         $enabled,
         $form;
 
@@ -42,12 +41,12 @@ class Eddditor_Options {
             $fields = array();
         }
 
-        $parsed_values = Eddditor::parse_values($fields, $values);
-        $this->values_for_storage = $parsed_values['for_storage'];
-        $this->values_for_forms = $parsed_values['for_forms'];
-        $this->values_for_output = $parsed_values['for_output'];
+        // parse provided values for use in different contexts
+        $this->clean_values = Eddditor::clean_values($fields, $values);
+        $this->formatted_values = Eddditor::format_values_for_output($fields, $this->clean_values);
 
-        $this->form = new Eddditor_Form('options', $fields, $this->values_for_forms);
+        // create edit form
+        $this->form = new Eddditor_Form('options', $fields, $this->clean_values);
 
         switch ($this->type) {
             case 'post':
@@ -89,10 +88,10 @@ class Eddditor_Options {
             case 'data':
                 return array(
                     'type' => $this->type,
-                    'values' => $this->values_for_storage
+                    'values' => $this->clean_values
                 );
-            case 'values_for_output':
-                return $this->values_for_output;
+            case 'formatted_values':
+                return $this->formatted_values;
             default:
                 return null;
         }

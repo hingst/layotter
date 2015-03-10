@@ -27,7 +27,7 @@ function eddditor_frontend_shortcode($atts, $input = '') {
     $output = '';
 
     global $post;
-    $content_structure = Eddditor::get_content($post->ID);
+    $content_structure = Eddditor::get_content_structure($post->ID);
 
     // $content_structure should always be an array, this is just a failsafe in case the JSON data was corrupted
     if (!is_array($content_structure)) {
@@ -37,7 +37,7 @@ function eddditor_frontend_shortcode($atts, $input = '') {
     $rows_html = eddditor_frontend_rows($content_structure['rows']);
     if (has_filter('eddditor/post')) {
         $options = new Eddditor_Options('post', $content_structure['options']['values']);
-        $output .= apply_filters('eddditor/post', $rows_html, $options->get('values_for_output'));
+        $output .= apply_filters('eddditor/post', $rows_html, $options->get('formatted_values'));
     } else {
         $settings = get_option('eddditor_settings_wrapper');
         $output .= $settings['html_before'] . $rows_html . $settings['html_after'];
@@ -74,7 +74,7 @@ function eddditor_frontend_rows($rows) {
         $cols_html = eddditor_frontend_cols($row['cols']);
         if ($has_filter) {
             $options = new Eddditor_Options('row', $row['options']['values']);
-            $output .= apply_filters('eddditor/row', $cols_html, $options->get('values_for_output'));
+            $output .= apply_filters('eddditor/row', $cols_html, $options->get('formatted_values'));
         } else {
             $output .= $settings['html_before'] . $cols_html . $settings['html_after'];
         }
@@ -132,7 +132,7 @@ function eddditor_frontend_elements($elements) {
     foreach ($elements as $element) {
         if ($has_filter) {
             $options = new Eddditor_Options('element', $element['options']['values']);
-            $output .= apply_filters('eddditor/element', $element['view'], $options->get('values_for_output'));
+            $output .= apply_filters('eddditor/element', $element['view'], $options->get('formatted_values'));
         } else {
             $output .= $settings['html_before'] . $element['view'] . $settings['html_after'];
         }
