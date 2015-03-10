@@ -68,6 +68,7 @@ class Eddditor {
         if (isset(self::$registered_elements[$type])) {
             try {
                 $element = new self::$registered_elements[$type]($values, $options);
+                $element->set_type($type);
                 return $element;
             } catch(Exception $e) {
                 trigger_error($e->getMessage(), E_USER_WARNING);

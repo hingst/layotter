@@ -14,7 +14,7 @@
             }
 
             ?>
-                <div class="eddditor-modal-add-element" ng-click="selectNewElementType('<?php echo $element_type; ?>')">
+                <div class="eddditor-modal-add-element" ng-click="selectNewElementType('<?php echo $element->get('type'); ?>')">
                     <div class="eddditor-modal-add-element-icon">
                         <i class="fa fa-<?php echo $element->get('icon'); ?>"></i>
                     </div>
