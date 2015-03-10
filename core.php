@@ -24,7 +24,7 @@ class Eddditor {
         if (!is_string($type)) {
             return '';
         }
-        
+
         return preg_replace('/[^a-z_]/', '', $type); // only a-z and _ allowed
     }
     
@@ -48,7 +48,7 @@ class Eddditor {
             return false;
         }
         
-        // no errors, register the new element
+        // no errors, register the new element type
         self::$registered_elements[$type] = $class;
         return true;
     }
@@ -64,10 +64,10 @@ class Eddditor {
      */
     public static function create_element($type, $values = false, $options = false) {
         $type = self::clean_type($type);
+
         if (isset(self::$registered_elements[$type])) {
             try {
                 $element = new self::$registered_elements[$type]($values, $options);
-                $element->set_type($type);
                 return $element;
             } catch(Exception $e) {
                 trigger_error($e->getMessage(), E_USER_WARNING);

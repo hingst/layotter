@@ -8,8 +8,6 @@ abstract class Eddditor_Element {
 
     
     protected
-        // internal use only
-        $type = '',
         // user-defined
         $title,
         $description,
@@ -92,20 +90,6 @@ abstract class Eddditor_Element {
             add_action('admin_footer', array($this, 'admin_assets'));
         }
     }
-
-
-    /**
-     * For internal use only - set a unique type identifier after registering the element
-     *
-     * @param string $type Type identifier
-     *
-     * TODO: Find a cleaner way to let element types know their own type ID
-     */
-    final public function set_type($type) {
-        if (is_string($type)) {
-            $this->type = $type;
-        }
-    }
     
     
     /**
@@ -123,13 +107,11 @@ abstract class Eddditor_Element {
     /**
      * Get element data
      * 
-     * @param string $what What to get - can be 'type', 'title', 'description', 'icon', 'form' or 'data'
+     * @param string $what What to get - can be 'title', 'description', 'icon', 'form' or 'data'
      * @return mixed Requested data
      */
     final public function get($what) {
         switch ($what) {
-            case 'type':
-                return $this->type;
             case 'title':
                 return $this->title;
             case 'description':
