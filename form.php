@@ -44,12 +44,12 @@ class Eddditor_Form {
     
     
     /**
-     * Set icon URL for this form
+     * Set an icon for this form
      * 
-     * @param string $icon_url Form icon
+     * @param string $icon Font Awesome icon name (without the fa- prefix)
      */
-    public function set_icon($icon_url) {
-        $this->icon = $icon_url;
+    public function set_icon($icon) {
+        $this->icon = $icon;
     }
     
     

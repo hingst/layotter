@@ -8,44 +8,46 @@ abstract class Eddditor_Element {
 
     
     protected
-	    $type = '',
+        // internal use only
+        $type = '',
         // user-defined
         $title,
         $description,
         $icon,
         $field_group,
         // automatically generated
-        $fields = array(),
-        $raw_values = array(),
-        $formatted_values = array(),
+        $values_for_storage = array(),
+        $values_for_forms = array(),
+        $values_for_output = array(),
         $form,
         $options,
-        $template_id = false;
+        $template_id = -1;
 
 
-	/**
-	 * attributes() is required and should assign $title, $description, $icon and $field_group
-	 */
-	abstract protected function attributes();
+    /**
+     * attributes() is required and should assign $title, $description, $icon and $field_group
+     */
+    abstract protected function attributes();
 
 
-	/**
-	 * admin_assets() is optional and should be used to enqueue scripts and styles
-	 */
-	public function admin_assets() {}
-    
-    
+    /**
+     * admin_assets() is optional and should be used to enqueue scripts and styles
+     */
+    public function admin_assets() {}
+
+
     /**
      * Create a new element instance
-     * 
-     * @param array $values Field values, if present
-     * @param array $options Option values, if present
+     *
+     * @param array|bool $values Field values, or false for default values
+     * @param array|bool $options Option values, or false for default values
+     * @throws Exception If the ACF field group defined for this element doesn't exist
      */
     final public function __construct($values = false, $options = false) {
-	    $this->attributes();
-	    $this->hooks();
+        $this->attributes();
+        $this->hooks();
         
-        // field group can be provided as post id (int) or slug ("field_12345") of post type 'acf-field-group'
+        // field group can be provided as post id (int) or slug ("acf_some-slug") of post type 'acf-field-group'
         if (!is_int($this->field_group) AND !is_string($this->field_group)) {
             throw new Exception('$this->field_group must be assigned in attributes()');
         }
@@ -53,9 +55,9 @@ abstract class Eddditor_Element {
         $identifier
             = is_int($this->field_group)
             ? 'p' // get post by ID
-            : 'name'; // get post by slug - acf-field-group slugs are unique
+            : 'name'; // get post by slug
         
-        // get acf-field-group post
+        // get ACF field group
         $field_groups = get_posts(array(
             'post_type' => 'acf-field-group',
             $identifier => $this->field_group
@@ -63,50 +65,56 @@ abstract class Eddditor_Element {
         
         // check if the field group exists
         if (!is_array($field_groups) OR empty($field_groups)) {
-            throw new Exception('no acf-field-group found for ' . $identifier . '=' . $this->field_group);
+            throw new Exception('No ACF field group found for ' . $identifier . '=' . $this->field_group . '.');
         }
-        
-        $field_group = $field_groups[0];
-        $this->fields = acf_get_fields($field_group);
 
-        $parsed_values = Eddditor::parse_values($this->fields, $values);
-        $this->raw_values = $parsed_values['raw'];
-        $this->formatted_values = $parsed_values['formatted'];
-        
-        $this->form = new Eddditor_Form('element', $this->fields, $this->raw_values);
+        // fetch fields for the provided ACF field group
+        $fields = acf_get_fields($field_groups[0]);
+
+        // parse provided values for use in different contexts
+        $parsed_values = Eddditor::parse_values($fields, $values);
+        $this->values_for_storage = $parsed_values['for_storage'];
+        $this->values_for_forms = $parsed_values['for_forms'];
+        $this->values_for_output = $parsed_values['for_output'];
+
+        // create edit form for this element
+        $this->form = new Eddditor_Form('element', $fields, $this->values_for_forms);
         $this->form->set_title($this->title);
         $this->form->set_icon($this->icon);
-        
+
+        // create options object for this element
         $this->options = new Eddditor_Options('element', $options);
     }
 
 
-	/**
-	 */
-	final protected function hooks() {
-		if (is_callable(array($this, 'admin_assets'))) {
-			add_action('admin_footer', array($this, 'admin_assets'));
-		}
-	}
+    /**
+     * Register all necessary actions and filters
+     */
+    final protected function hooks() {
+        if (is_callable(array($this, 'admin_assets'))) {
+            add_action('admin_footer', array($this, 'admin_assets'));
+        }
+    }
 
 
-	/**
-	 * For internal use only - set a unique type identifier after registering the element
-	 *
-	 * @param string $type Type identifier
-	 */
-	final public function set_type($type) {
-		if (is_string($type)) {
-			$this->type = $type;
-		}
-	}
+    /**
+     * For internal use only - set a unique type identifier after registering the element
+     *
+     * @param string $type Type identifier
+     *
+     * TODO: Find a cleaner way to let element types know their own type ID
+     */
+    final public function set_type($type) {
+        if (is_string($type)) {
+            $this->type = $type;
+        }
+    }
     
     
     /**
      * Set element as template
      * 
-     * Changes the return value of $this->get('data') so Eddditor treats this
-     * element as a saved template.
+     * Changes the return value of $this->get('data') so Eddditor treats this element as a saved template.
      * 
      * @param string $id Template ID
      */
@@ -136,18 +144,21 @@ abstract class Eddditor_Element {
             case 'data':
                 $data = array(
                     'type' => $this->type,
-                    'values' => $this->raw_values,
+                    'values' => $this->values_for_storage,
                     'options' => $this->options->get('data'),
-                    'view' => is_admin() ? $this->get_backend_view() : $this->get_frontend_view() // provide view based on where we are
+                    'view' // provide view based on where we are
+                        => is_admin()
+                        ? $this->get_backend_view()
+                        : $this->get_frontend_view()
                 );
-                if ($this->template_id !== false) {
+                if ($this->template_id > -1) {
                     $data['template'] = $this->template_id;
                 }
                 return $data;
             case 'template_data':
                 return array(
                     'type' => $this->type,
-                    'values' => $this->raw_values
+                    'values' => $this->values_for_storage
                 );
             default:
                 return null;
@@ -162,7 +173,7 @@ abstract class Eddditor_Element {
      */
     final public function get_backend_view() {
         ob_start();
-        $this->backend_view($this->formatted_values);
+        $this->backend_view($this->values_for_output);
         return ob_get_clean();
     }
     
@@ -174,7 +185,7 @@ abstract class Eddditor_Element {
      */
     final public function get_frontend_view() {
         ob_start();
-        $this->frontend_view($this->formatted_values);
+        $this->frontend_view($this->values_for_output);
         return ob_get_clean();
     }
     

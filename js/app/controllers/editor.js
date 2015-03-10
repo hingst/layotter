@@ -16,21 +16,29 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
 
     // on content change, update textarea
     $scope.$watch('data', function(value) {
+        // remove views from JSON data, no need to store them as they're always regenerated before output
+        var valueClone = angular.copy(value);
+        angular.forEach(valueClone.rows, function(row){
+            angular.forEach(row.cols, function(col){
+                angular.forEach(col.elements, function(element){
+                    delete element.view;
+                });
+            });
+        });
+
         // prepare JSON data for representation in textarea
         // replace
-        //      &#10; (line feed)       with \n
-        //      &#13; (carriage return) with \r
-        // as they break JSON validity
-        // and
-        //      <                       with &lt;
-        //      >                       with &gt;
-        // as they could potentially break the textarea
+        //      & with &amp;
+        //      < with &lt;
+        //      > with &gt;
+        // as they can break the textarea and/or JSON validity
         // flag: [g]lobal = replace all matches instead of just the first one
-        var cleanValue = angular.toJson(value, false) // change false to true for pretty JSON
+        var cleanValue = angular.toJson(valueClone, false) // change false to true for pretty JSON
+            .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/&#10;/g, '\\n')
-            .replace(/&#13;/g, '\\r');
+            .replace(/>/g, '&gt;');
+
+        // enter JSON data wrapped in eddditor shortcode into textarea
         angular.element('#content').html('[eddditor]' + cleanValue + '[/eddditor]');
     }, true);
 

@@ -17,14 +17,14 @@ function eddditor_assets_admin_head() {
 
 
     // styles
-	wp_enqueue_style(
-		'eddditor',
-		plugins_url('css/editor.css', __FILE__)
-	);
-	wp_enqueue_style(
-		'eddditor-font-awesome',
-		plugins_url('css/font-awesome.min.css', __FILE__)
-	);
+    wp_enqueue_style(
+        'eddditor',
+        plugins_url('css/editor.css', __FILE__)
+    );
+    wp_enqueue_style(
+        'eddditor-font-awesome',
+        plugins_url('css/font-awesome.min.css', __FILE__)
+    );
 
 
     // jQuery plugin used to serialize form data
@@ -80,22 +80,22 @@ function eddditor_assets_admin_head() {
     
     
     // angular services
-	wp_enqueue_script(
-		'eddditor-service-state',
-		plugins_url('js/app/services/state.js', __FILE__)
-	);
-	wp_enqueue_script(
-		'eddditor-service-data',
-		plugins_url('js/app/services/data.js', __FILE__)
-	);
-	wp_enqueue_script(
-		'eddditor-service-content',
-		plugins_url('js/app/services/content.js', __FILE__)
-	);
-	wp_enqueue_script(
-		'eddditor-service-templates',
-		plugins_url('js/app/services/templates.js', __FILE__)
-	);
+    wp_enqueue_script(
+        'eddditor-service-state',
+        plugins_url('js/app/services/state.js', __FILE__)
+    );
+    wp_enqueue_script(
+        'eddditor-service-data',
+        plugins_url('js/app/services/data.js', __FILE__)
+    );
+    wp_enqueue_script(
+        'eddditor-service-content',
+        plugins_url('js/app/services/content.js', __FILE__)
+    );
+    wp_enqueue_script(
+        'eddditor-service-templates',
+        plugins_url('js/app/services/templates.js', __FILE__)
+    );
     wp_enqueue_script(
         'eddditor-service-interface',
         plugins_url('js/app/services/view.js', __FILE__)

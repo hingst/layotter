@@ -7,11 +7,9 @@
 
         $element_types = Eddditor::get_registered_elements();
 
-        foreach($element_types as $element_type)
-        {
+        foreach ($element_types as $element_type) {
             $element = Eddditor::create_element($element_type);
-            if(!$element)
-            {
+            if (!$element) {
                 continue;
             }
 

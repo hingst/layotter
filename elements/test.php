@@ -5,11 +5,11 @@ class eddditor_element_test extends Eddditor_Element {
         $this->title = 'Testbox';
         $this->description = 'Einfache Testbox mit Testkram';
         $this->icon = 'file';
-        $this->field_group = 'group_54ec8d784e2e1';
+        $this->field_group = 154;
     }
     
     public function backend_view($fields) {
-        echo '<p>backend?';
+        echo '<p>backend<br>';
         var_dump($fields);
         echo '</p>';
     }

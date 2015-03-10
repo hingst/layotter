@@ -767,14 +767,17 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* modal: ACF customization */
 
-#eddditor-edit > .acf-error-message:first-child { // form validation error
-    position: absolute;
-    top: 18px;
-    right: 18px;
-}
+#eddditor-edit {
+    > .acf-error-message:first-child { // form validation error
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        z-index: 1;
+    }
 
-.acf-tab-group {
-    padding-left: 12px;
+    .acf-tab-group {
+        padding-left: 12px;
+    }
 }
 
 
@@ -812,7 +815,7 @@ input:checked ~ .eddditor-row-layout-option {
 #dennisbox,
 #dennisbox-modal {
     z-index: 99990;
-    
+
     .dennisbox-overlay {
         position: fixed;
         z-index: 99991;

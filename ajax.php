@@ -14,6 +14,10 @@ function eddditor_get_angular_post_data() {
 }
 
 
+
+
+
+
 /**
  * Output the edit form for an element
  */
@@ -26,7 +30,7 @@ function eddditor_ajax_edit_element() {
         $values
             = (isset($post_data['values']) AND is_array($post_data['values']))
             ? $post_data['values']
-            : false; // => use default field values
+            : false; // => use default field values, should only happen when editing a new element
 
         $element = Eddditor::create_element($post_data['type'], $values);
         if ($element) {
@@ -35,7 +39,7 @@ function eddditor_ajax_edit_element() {
         }
     }
 
-    die();
+    die(); // required by Wordpress after any AJAX call
 }
 
 
@@ -57,9 +61,13 @@ function eddditor_ajax_parse_element() {
             echo json_encode($element->get('data'));
         }
     }
-    
-    die();
+
+    die(); // required by Wordpress after any AJAX call
 }
+
+
+
+
 
 
 /**
@@ -68,22 +76,17 @@ function eddditor_ajax_parse_element() {
 add_action('wp_ajax_eddditor_edit_options', 'eddditor_ajax_edit_options');
 function eddditor_ajax_edit_options() {
     $post_data = eddditor_get_angular_post_data();
-    
-    // type is required
-    if (isset($post_data['type']) AND is_string($post_data['type'])) {
-        $values
-            = (isset($post_data['values']) AND is_array($post_data['values']))
-            ? $post_data['values']
-            : false; // => use default option values
 
-        $options = new Eddditor_Options($post_data['type'], $values);
+    // type and option values are required
+    if (isset($post_data['type']) AND is_string($post_data['type']) AND isset($post_data['values']) AND is_array($post_data['values'])) {
+        $options = new Eddditor_Options($post_data['type'], $post_data['values']);
         if ($options->is_enabled()) {
             $form = $options->get('form');
             $form->output();
         }
     }
 
-    die();
+    die(); // required by Wordpress after any AJAX call
 }
 
 
@@ -106,8 +109,12 @@ function eddditor_ajax_parse_options() {
         }
     }
 
-    die();
+    die(); // required by Wordpress after any AJAX call
 }
+
+
+
+
 
 
 /**
@@ -126,8 +133,8 @@ function eddditor_ajax_save_new_template() {
             echo json_encode($element->get('data'));
         }
     }
-    
-    die();
+
+    die(); // required by Wordpress after any AJAX call
 }
 
 
@@ -156,8 +163,8 @@ function eddditor_ajax_update_template() {
             }
         }
     }
-    
-    die();
+
+    die(); // required by Wordpress after any AJAX call
 }
 
 
@@ -177,7 +184,7 @@ function eddditor_ajax_edit_template() {
         }
     }
 
-    die();
+    die(); // required by Wordpress after any AJAX call
 }
 
 
@@ -193,5 +200,5 @@ function eddditor_ajax_delete_template() {
         Eddditor_Templates::delete($post_data['template']);
     }
 
-    die();
+    die(); // required by Wordpress after any AJAX call
 }

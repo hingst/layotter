@@ -72,7 +72,8 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
             templates.updateTemplate();
             return;
         }
-        
+
+        // ACF wraps all form fields in a required object called 'acf'
         var values = jQuery('#eddditor-edit').serializeObject();
         if (typeof values.acf == 'undefined') {
             values.acf = {};
@@ -119,6 +120,7 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
      * 
      */
     this.saveOptions = function() {
+        // ACF wraps all form fields in a required object called 'acf'
         var values = jQuery('#eddditor-edit').serializeObject();
         if (typeof values.acf == 'undefined') {
             values.acf = {};

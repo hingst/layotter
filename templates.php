@@ -31,7 +31,7 @@ class Eddditor_Templates {
      */
     public static function get_all() {
         $templates = array();
-	    $templates[0] = new stdClass();
+        $templates[0] = new stdClass();
         $saved_templates = get_option('eddditor_element_templates');
         if (!is_array($saved_templates)) {
             $saved_templates = array();
@@ -125,9 +125,9 @@ class Eddditor_Templates {
             return false;
         }
 
-	    if (!isset($templates[$id]['disabled'])) {
-		    $element->set_template($id);
-	    }
+        if (!isset($templates[$id]['disabled'])) {
+            $element->set_template($id);
+        }
         return $element;
     }
 

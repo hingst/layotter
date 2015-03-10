@@ -366,7 +366,12 @@ class Eddditor_Settings {
                                 </label>
                             </p>
                             <?php
-                            $post_types = get_post_types(array('_builtin' => false, 'show_ui' => true), 'objects');
+
+                            $post_types = get_post_types(array(
+                                '_builtin' => false,
+                                'show_ui' => true
+                            ), 'objects');
+
                             foreach ($post_types as $post_type) {
 
                                 // exclude acf field groups
