@@ -74,7 +74,7 @@ class Eddditor_Form {
             $fields[] = $field;
         }
         
-        require dirname(__FILE__) . '/templates/form.php';
+        require dirname(__FILE__) . '/views/form.php';
     }
 
     

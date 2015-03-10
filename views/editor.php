@@ -36,7 +36,7 @@
                                         <span class="eddditor-element-move"><?php _e('Move', 'eddditor'); ?></span>
                                     </div>
                                     <div class="eddditor-element-message" ng-show="element.template !== undefined">
-                                        This is a saved element. <a href="#">[?]</a>
+                                        <?php _e('This is a template.', 'eddditor'); ?> <a href="#">[?]</a>
                                     </div>
                                     <div class="eddditor-element-content" ng-bind-html="element.view"></div>
                                 </div>

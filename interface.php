@@ -74,7 +74,7 @@ function eddditor_output_interface($post) {
         echo '<textarea id="content" name="content" style="width: 1px; height: 1px; position: fixed; top: -999px; left: -999px;">' . $clean_content_for_textarea . '</textarea>';
     }
     
-    require_once dirname(__FILE__) . '/templates/editor.php';
+    require_once dirname(__FILE__) . '/views/editor.php';
 }
 
 
@@ -85,6 +85,6 @@ add_action('admin_footer-post.php', 'eddditor_admin_footer_assets');
 add_action('admin_footer-post-new.php', 'eddditor_admin_footer_assets');
 function eddditor_admin_footer_assets() {
     if (Eddditor::is_enabled()) {
-        require dirname(__FILE__) . '/templates/templates.php';
+        require dirname(__FILE__) . '/views/templates.php';
     }
 }
