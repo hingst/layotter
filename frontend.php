@@ -19,20 +19,32 @@ add_shortcode('eddditor', 'eddditor_frontend_shortcode');
 /**
  * Process post content
  *
- * @param $atts array Required by Wordpress, but unused
- * @param string $input Current unfiltered post content
+ * @param array $atts Required by Wordpress, but unused
+ * @param string $input Data wrapped by the [eddditor] shortcode
  * @return string HTML for frontend view of the current post
  */
 function eddditor_frontend_shortcode($atts, $input = '') {
-    $output = '';
+    // ignore $input and extract JSON data ourself, because 'the_content' filters might have invalidated JSON
+    $content_structure = Eddditor::get_content_structure(get_the_ID());
 
-    global $post;
-    $content_structure = Eddditor::get_content_structure($post->ID);
+    // turn content structure into HTML and return
+    return eddditor_frontend_post($content_structure);
+}
 
+
+/**
+ * Process post
+ *
+ * @param array $content_structure Array containing post structure
+ * @return string HTML for frontend view of the post
+ */
+function eddditor_frontend_post($content_structure) {
     // $content_structure should always be an array, this is just a failsafe in case the JSON data was corrupted
     if (!is_array($content_structure)) {
-        return $input;
+        return $content_structure;
     }
+
+    $output = '';
 
     $rows_html = eddditor_frontend_rows($content_structure['rows']);
     if (has_filter('eddditor/post')) {

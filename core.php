@@ -207,13 +207,13 @@ class Eddditor {
 
         return $values;
     }
-    
-    
+
+
     /**
-     * Get content structure for a specific post
-     * 
+     * Extract content structure for a specific post (for backend use only)
+     *
      * @param int $post_id Post ID
-     * @return mixed Array with post content, or null if no data is available (as is the case with new posts)
+     * @return array|null Array with post content, or null if no data is available (as is the case with new posts)
      */
     public static function get_content_structure($post_id) {
         // get raw post content (should look like [eddditor]json_data[/eddditor] for existing posts)
@@ -223,50 +223,71 @@ class Eddditor {
         $matches = array();
         if (preg_match('/\[eddditor\](.*)\[\/eddditor\]/ms', $content_raw, $matches)) {
             $content_json = $matches[1];
+            return self::parse_json_structure($content_json); // returns valid post structure or null
         } else {
-            $content_json = false;
+            return null;
+        }
+    }
+
+
+    /**
+     * Turn a post's JSON structure into an array containing views and all necessary data
+     *
+     * @param string $json A post's complete JSON data
+     * @return array|null Array with post content, or null if no data is available (as is the case with new posts)
+     */
+    public static function parse_json_structure($json) {
+        // try to decode page structure from $json - if $json is not actually valid JSON, return null
+        // a return value of null tells Eddditor we're dealing with a new post (default post options will be applied
+        // via Javascript)
+        $content = json_decode($json, true);
+        if (!is_array($content)) {
+            return null;
         }
 
-        // decode page structure from json
-        $content_decoded = json_decode($content_json, true);
-        $content
-            = is_array($content_decoded)
-            ? $content_decoded
-            : null; // => new post (default post options will be applied via Javascript)
+        // get data for all elements
+        foreach ($content['rows'] as &$row) {
+            foreach ($row['cols'] as &$col) {
+                foreach ($col['elements'] as $key => &$element) {
+                    $element_object = false;
 
-        // get views for all elements
-        if (is_array($content)) {
-            foreach ($content['rows'] as &$row) {
-                foreach ($row['cols'] as &$col) {
-                    foreach ($col['elements'] as $key => &$element) {
-                        $element_object = false;
+                    // create element from template ID if a template ID is present
+                    if (isset($element['template'])) {
+                        $element_object = Eddditor_Templates::create_element($element['template'], $element['options']['values']);
+                    }
 
-                        // create element from template ID if a template ID is present
-                        if (isset($element['template'])) {
-                            $element_object = Eddditor_Templates::create_element($element['template'], $element['options']['values']);
-                        }
+                    // if template ID is not present or invalid, create a regular element.
+                    // when a saved template is deleted, the element type and values are preserved, so each instance
+                    // of the template lives on as a regular element
+                    if (!$element_object) {
+                        $element_object = Eddditor::create_element($element['type'], $element['values'], $element['options']['values']);
+                    }
 
-                        // if template ID is not present or invalid, create a regular element.
-                        // when a saved template is deleted, the element type and values are preserved, so each instance
-                        // of the template lives on as a regular element
-                        if (!$element_object) {
-                            $element_object = Eddditor::create_element($element['type'], $element['values'], $element['options']['values']);
-                        }
-                        
-                        // refresh element view (backend or frontend view is determined automatically)
-                        // or remove the element if it can't be created - which should only happen if the element type
-                        // has been removed by a developer
-                        if ($element_object) {
-                            $element = $element_object->get('data');
-                        } else {
-                            array_splice($col['elements'], $key, 1);
-                        }
+                    // refresh element view (backend or frontend view is determined automatically)
+                    // or remove the element if it can't be created - which should only happen if the element type
+                    // has been removed by a developer
+                    if ($element_object) {
+                        $element = $element_object->get('data');
+                    } else {
+                        array_splice($col['elements'], $key, 1);
                     }
                 }
             }
         }
-        
+
         return $content;
+    }
+
+
+    /**
+     * Takes a post ID and returns HTML for frontend output
+     *
+     * @param int $post_id Post ID
+     * @return string Frontend HTML for this post
+     */
+    public static function get_frontend_html($post_id) {
+        $content_structure = self::get_content_structure($post_id);
+        return eddditor_frontend_post($content_structure);
     }
     
     

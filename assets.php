@@ -6,9 +6,6 @@
  */
 add_action('admin_head', 'eddditor_assets_admin_head');
 function eddditor_assets_admin_head() {
-    
-    global $post;
-    
 
     // load assets only if necessary
     if (!Eddditor::is_enabled()) {
@@ -122,7 +119,7 @@ function eddditor_assets_admin_head() {
     
     
     // fetch content structure for the current post
-    $content_structure = Eddditor::get_content_structure($post->ID);
+    $content_structure = Eddditor::get_content_structure(get_the_ID());
     
     
     // fetch saved element templates (aka element gallery)
