@@ -43,7 +43,7 @@ class Eddditor_Options {
 
         // parse provided values for use in different contexts
         $this->clean_values = Eddditor::clean_values($fields, $values);
-        $this->formatted_values = Eddditor::format_values_for_output($fields, $this->clean_values);
+        $this->formatted_values = Eddditor::format_values($fields, $this->clean_values);
 
         // create edit form
         $this->form = new Eddditor_Form('options', $fields, $this->clean_values);

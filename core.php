@@ -167,10 +167,9 @@ class Eddditor {
             }
 
             // note:
-            // in default ACF, field values are run through these filters before saving them to the database:
-            // acf/validate_value - not necessary, as validation is performed by ACF beforehand
-            // acf/update_value breaks some fields, e.g. Repeater
-            // TODO: Find out why the acf/update_value filter breaks some fields
+            // in default ACF, field values are run through the acf/validate_value and acf/update_value filters
+            // before saving them to the database
+            // these filters can break fields in Eddditor's context and are therefore not applied
 
             $values[$field_name] = $value;
         }
@@ -186,7 +185,7 @@ class Eddditor {
      * @param array $clean_values Array with clean values (that were run through Eddditor::clean_values() first)
      * @return array Array with values ready for use in different contexts
      */
-    public static function format_values_for_output($existing_fields, $clean_values) {
+    public static function format_values($existing_fields, $clean_values) {
         $values = array();
 
         // run all provided values through formatting filters
@@ -198,19 +197,12 @@ class Eddditor {
                 continue;
             }
 
-            $value = $clean_values[$field_name];
+            // note:
+            // in default ACF, field values are run through the acf/load_value filter before formatting
+            // this filter can break fields in Eddditor's context and is therefore not applied
 
-            // acf/load_value - from ACF docs: 'This filter is applied to the $value after it is loaded from the db'
-            $value = apply_filters('acf/load_value', $value, 0, $field_data);
-            $value = apply_filters('acf/load_value/type=' . $field_data['type'], $value, 0, $field_data);
-            $value = apply_filters('acf/load_value/name=' . $field_data['name'], $value, 0, $field_data);
-            $value = apply_filters('acf/load_value/key=' . $field_data['key'], $value, 0, $field_data);
-
-            // acf/format_value - from ACF docs: 'This filter is appied to the $value after it is loaded from the db and before it is returned to the template'
-            $value = apply_filters('acf/format_value', $value, 0, $field_data);
-            $value = apply_filters('acf/format_value/type=' . $field_data['type'], $value, 0, $field_data);
-
-            $values[$field_name] = $value;
+            // format values using ACF's formatting filters
+            $values[$field_name] = acf_format_value($clean_values[$field_name], 0, $field_data); // 0 = post_id
         }
 
         return $values;
