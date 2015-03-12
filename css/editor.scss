@@ -265,9 +265,9 @@ $darkgray: #CCCCCC;
             border-bottom: 1px solid $darkgray;
             background-color: $gray;
             box-shadow: $box-shadow;
-            overflow: hidden;
             text-align: center;
             font-size: $text-m;
+            position: relative;
 
             .eddditor-row-move,
             .eddditor-row-cols,
@@ -282,9 +282,11 @@ $darkgray: #CCCCCC;
             .eddditor-row-move {
                 background: url(../images/icons/move-row.png) 14px 11px no-repeat;
                 padding: 0 14px 0 32px;
-                float: left;
                 border-right: 1px solid $darkgray;
                 cursor: move;
+                position: absolute;
+                top: 0;
+                left: 0;
             }
 
             .eddditor-row-cols {
@@ -312,36 +314,42 @@ $darkgray: #CCCCCC;
                 }
             }
 
-            .eddditor-row-delete,
-            .eddditor-row-duplicate,
-            .eddditor-row-options {
-                text-indent: -9999px;
-                float: right;
-                cursor: pointer;
-                border-left: 1px solid $darkgray;
-                width: 36px;
-                background-position: center;
-                background-repeat: no-repeat;
+            .eddditor-row-buttons {
+                position: absolute;
+                top: 0;
+                right: 0;
 
-                &:hover {
-                    background-color: #ddd;
+                .eddditor-row-delete,
+                .eddditor-row-duplicate,
+                .eddditor-row-options {
+                    text-indent: -9999px;
+                    float: right;
+                    cursor: pointer;
+                    border-left: 1px solid $darkgray;
+                    width: 36px;
+                    background-position: center;
+                    background-repeat: no-repeat;
+
+                    &:hover {
+                        background-color: #ddd;
+                    }
                 }
-            }
 
-            .eddditor-row-delete {
-                background-image: url(../images/icons/delete.png);
+                .eddditor-row-delete {
+                    background-image: url(../images/icons/delete.png);
 
-                &:hover {
-                    background-color: #FFA8B4;
+                    &:hover {
+                        background-color: #FFA8B4;
+                    }
                 }
-            }
 
-            .eddditor-row-duplicate {
-                background-image: url(../images/icons/duplicate.png);
-            }
+                .eddditor-row-duplicate {
+                    background-image: url(../images/icons/duplicate.png);
+                }
 
-            .eddditor-row-options {
-                background-image: url(../images/icons/options.png);
+                .eddditor-row-options {
+                    background-image: url(../images/icons/options.png);
+                }
             }
         }
     }

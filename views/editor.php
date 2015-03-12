@@ -13,9 +13,11 @@
                     <div class="eddditor-row-cols">
                         <span class="eddditor-row-layout-button" ng-repeat="colbutton in allowedRowLayouts" ng-class="{ 'eddditor-row-layout-button-active': colbutton.layout === row.layout }" ng-click="setRowLayout(row, colbutton.layout)" data-layout="{{ colbutton.layout }}" title="{{ colbutton.title }}">{{ colbutton.title }}</span>
                     </div>
-                    <span class="eddditor-row-delete" ng-click="deleteRow($index)" title="<?php _e('Delete row', 'eddditor'); ?>"><?php _e('Delete row', 'eddditor'); ?></span>
-                    <span class="eddditor-row-duplicate" ng-click="duplicateRow($index)" title="<?php _e('Duplicate row', 'eddditor'); ?>"><?php _e('Duplicate row', 'eddditor'); ?></span>
-                    <span class="eddditor-row-options" ng-click="editOptions(row)" ng-show="optionsEnabled.row" title="<?php _e('Row options', 'eddditor'); ?>"><?php _e('Options', 'eddditor'); ?></span>
+                    <div class="eddditor-row-buttons">
+                        <span class="eddditor-row-delete" ng-click="deleteRow($index)" title="<?php _e('Delete row', 'eddditor'); ?>"><?php _e('Delete row', 'eddditor'); ?></span>
+                        <span class="eddditor-row-duplicate" ng-click="duplicateRow($index)" title="<?php _e('Duplicate row', 'eddditor'); ?>"><?php _e('Duplicate row', 'eddditor'); ?></span>
+                        <span class="eddditor-row-options" ng-click="editOptions(row)" ng-show="optionsEnabled.row" title="<?php _e('Row options', 'eddditor'); ?>"><?php _e('Options', 'eddditor'); ?></span>
+                    </div>
                 </div>
                 <div class="eddditor-cols">
                     <div class="eddditor-col {{ 'eddditor-col-' + getColLayout(row, $index) }}" ng-repeat="col in row.cols">
