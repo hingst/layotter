@@ -11,6 +11,8 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
         // form is submitted.
         acf.validation.ignore = 0;
         acf.validation.$trigger = jQuery('#eddditor-edit-submit');
+
+        // TODO: prevent form changes while validation is running
     })
 
 

@@ -25,7 +25,7 @@ add_shortcode('eddditor', 'eddditor_frontend_shortcode');
  */
 function eddditor_frontend_shortcode($atts, $input = '') {
     // ignore $input and extract JSON data ourself, because 'the_content' filters might have invalidated JSON
-    $content_structure = Eddditor::get_content_structure(get_the_ID());
+    $content_structure = Eddditor::get_content_structure(get_the_ID(), 'frontend');
 
     // turn content structure into HTML and return
     return eddditor_frontend_post($content_structure);
@@ -143,7 +143,11 @@ function eddditor_frontend_elements($elements) {
     
     foreach ($elements as $element) {
         if ($has_filter) {
-            $options = new Eddditor_Options('element', $element['options']['values']);
+            // elements are always refreshed to get the current view (as opposed to option values for posts and rows,
+            // which are simply retrieved from JSON and not processed in any way). Therefore we can use the fresh
+            // Eddditor_Options instance contained in the $element, instead of creating a new object like we do in
+            // eddditor_frontend_post() and eddditor_frontend_rows()
+            $options = $element['options'];
             $output .= apply_filters('eddditor/element', $element['view'], $options->get('formatted_values'));
         } else {
             $output .= $settings['html_before'] . $element['view'] . $settings['html_after'];

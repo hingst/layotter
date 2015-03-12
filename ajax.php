@@ -58,7 +58,7 @@ function eddditor_ajax_parse_element() {
 
         $element = Eddditor::create_element($post_data['type'], $values);
         if ($element) {
-            echo json_encode($element->get('data'));
+            echo json_encode($element->get('backend_data'));
         }
     }
 
@@ -130,7 +130,7 @@ function eddditor_ajax_save_new_template() {
         if ($element) {
             $id = Eddditor_Templates::save($element->get('template_data'));
             $element->set_template($id);
-            echo json_encode($element->get('data'));
+            echo json_encode($element->get('backend_data'));
         }
     }
 
@@ -159,7 +159,7 @@ function eddditor_ajax_update_template() {
             if ($element) {
                 Eddditor_Templates::update($id, $element->get('template_data'));
                 $element->set_template($id);
-                echo json_encode($element->get('data'));
+                echo json_encode($element->get('backend_data'));
             }
         }
     }

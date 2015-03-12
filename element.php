@@ -123,7 +123,7 @@ abstract class Eddditor_Element {
     /**
      * Get element data
      * 
-     * @param string $what What to get - can be 'type', 'title', 'description', 'icon', 'form' or 'data'
+     * @param string $what What to get - can be 'type', 'title', 'description', 'icon', 'form', 'backend_data' or 'frontend_data'
      * @return mixed Requested data
      */
     final public function get($what) {
@@ -138,19 +138,23 @@ abstract class Eddditor_Element {
                 return $this->icon;
             case 'form':
                 return $this->form;
-            case 'data':
+            case 'backend_data':
                 $data = array(
                     'type' => $this->type,
                     'values' => $this->clean_values,
                     'options' => $this->options->get('data'),
-                    'view' // provide view based on where we are
-                        => is_admin()
-                        ? $this->get_backend_view()
-                        : $this->get_frontend_view()
+                    'view' => $this->get_backend_view()
                 );
                 if ($this->template_id > -1) {
                     $data['template'] = $this->template_id;
                 }
+                return $data;
+            case 'frontend_data':
+                $data = array(
+                    'options' => $this->options, // return the object instead of ->get('data') so formatted_values can
+                                                 // be fetched for the frontend in eddditor_frontend_elements()
+                    'view' => $this->get_frontend_view()
+                );
                 return $data;
             case 'template_data':
                 return array(
