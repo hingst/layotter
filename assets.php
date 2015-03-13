@@ -30,81 +30,32 @@ function eddditor_assets_admin_head() {
         plugins_url('js/vendor/jquery.serialize-object.compiled.js', __FILE__),
         array('jquery')
     );
-    
-    
-    // angular core
-    wp_enqueue_script(
-        'angular',
-        plugins_url('js/vendor/angular.js', __FILE__)
-    );
-    wp_enqueue_script(
-        'angular-animate',
-        plugins_url('js/vendor/angular-animate.js', __FILE__)
-    );
-    wp_enqueue_script(
-        'angular-sanitize',
-        plugins_url('js/vendor/angular-sanitize.js', __FILE__)
-    );
 
 
-    // angular 3rd party
-    wp_enqueue_script(
-        'angular-ui-sortable',
-        plugins_url('js/vendor/angular-ui-sortable.js', __FILE__)
+    // Angular scripts
+    $scripts = array(
+        'angular' => 'js/vendor/angular.js',
+        'angular-animate' => 'js/vendor/angular-animate.js',
+        'angular-sanitize' => 'js/vendor/angular-sanitize.js',
+        'angular-ui-sortable' => 'js/vendor/angular-ui-sortable.js',
+        'eddditor' => 'js/app/app.js',
+        'eddditor-controller-editor' => 'js/app/controllers/editor.js',
+        'eddditor-controller-templates' => 'js/app/controllers/templates.js',
+        'eddditor-controller-form' => 'js/app/controllers/form.js',
+        'eddditor-service-state' => 'js/app/services/state.js',
+        'eddditor-service-data' => 'js/app/services/data.js',
+        'eddditor-service-content' => 'js/app/services/content.js',
+        'eddditor-service-templates' => 'js/app/services/templates.js',
+        'eddditor-service-view' => 'js/app/services/view.js',
+        'eddditor-service-forms' => 'js/app/services/forms.js',
+        'eddditor-service-modals' => 'js/app/services/modals.js'
     );
-    
-    
-    // angular app
-    wp_enqueue_script(
-        'eddditor',
-        plugins_url('js/app/app.js', __FILE__)
-    );
-    
-    
-    // angular controllers
-    wp_enqueue_script(
-        'eddditor-controller-editor',
-        plugins_url('js/app/controllers/editor.js', __FILE__)
-    );
-    wp_enqueue_script(
-        'eddditor-controller-templates',
-        plugins_url('js/app/controllers/templates.js', __FILE__)
-    );
-    wp_enqueue_script(
-        'eddditor-controller-form',
-        plugins_url('js/app/controllers/form.js', __FILE__)
-    );
-    
-    
-    // angular services
-    wp_enqueue_script(
-        'eddditor-service-state',
-        plugins_url('js/app/services/state.js', __FILE__)
-    );
-    wp_enqueue_script(
-        'eddditor-service-data',
-        plugins_url('js/app/services/data.js', __FILE__)
-    );
-    wp_enqueue_script(
-        'eddditor-service-content',
-        plugins_url('js/app/services/content.js', __FILE__)
-    );
-    wp_enqueue_script(
-        'eddditor-service-templates',
-        plugins_url('js/app/services/templates.js', __FILE__)
-    );
-    wp_enqueue_script(
-        'eddditor-service-interface',
-        plugins_url('js/app/services/view.js', __FILE__)
-    );
-    wp_enqueue_script(
-        'eddditor-service-forms',
-        plugins_url('js/app/services/forms.js', __FILE__)
-    );
-    wp_enqueue_script(
-        'eddditor-service-modals',
-        plugins_url('js/app/services/modals.js', __FILE__)
-    );
+    foreach ($scripts as $name => $path) {
+        wp_enqueue_script(
+            $name,
+            plugins_url($path, __FILE__)
+        );
+    }
     
     
     // fetch allowed row layouts and default layout
