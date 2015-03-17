@@ -24,6 +24,6 @@
             <span class="button button-large" ng-click="cancelEditing()"><?php _e('Cancel', 'eddditor'); ?></span>
 	        <span class="button button-large" ng-click="backToShowNewElementTypes()" ng-show="showBackButton"><?php _e('Back', 'eddditor'); ?></span>
         </div>
-        <span id="eddditor-edit-submit" class="hidden" ng-click="saveForm('<?php echo $type; ?>')">triggered by ACF after validation</span>
+        <span id="eddditor-edit-submit" class="hidden" ng-click="saveForm()">triggered by ACF after validation</span>
     </form>
 </div>

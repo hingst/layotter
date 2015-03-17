@@ -1,5 +1,5 @@
 <div id="eddditor" ng-controller="EditorCtrl" ng-class="{ 'eddditor-loading' : data.isLoading }">
-    <span class="eddditor-button eddditor-post-options-button" ng-click="editOptions(data)" ng-show="optionsEnabled.post"><?php _e('Post options', 'eddditor'); ?></span>
+    <span class="eddditor-button eddditor-post-options-button" ng-click="editOptions('post', data)" ng-show="optionsEnabled.post"><?php _e('Post options', 'eddditor'); ?></span>
     <span class="eddditor-button eddditor-templates-button" toggle-templates><?php _e('Element gallery', 'eddditor'); ?></span>
     <span class="eddditor-button eddditor-add-row-button" ng-click="addRow(-1)" ng-class="{ 'eddditor-add-row-button-large': data.rows.length === 0 }">
         <span ng-show="data.rows.length"><?php _e('Add row', 'eddditor'); ?></span>
@@ -16,7 +16,7 @@
                     <div class="eddditor-row-buttons">
                         <span class="eddditor-row-delete" ng-click="deleteRow($index)" title="<?php _e('Delete row', 'eddditor'); ?>"><?php _e('Delete row', 'eddditor'); ?></span>
                         <span class="eddditor-row-duplicate" ng-click="duplicateRow($index)" title="<?php _e('Duplicate row', 'eddditor'); ?>"><?php _e('Duplicate row', 'eddditor'); ?></span>
-                        <span class="eddditor-row-options" ng-click="editOptions(row)" ng-show="optionsEnabled.row" title="<?php _e('Row options', 'eddditor'); ?>"><?php _e('Options', 'eddditor'); ?></span>
+                        <span class="eddditor-row-options" ng-click="editOptions('row', row)" ng-show="optionsEnabled.row" title="<?php _e('Row options', 'eddditor'); ?>"><?php _e('Options', 'eddditor'); ?></span>
                     </div>
                 </div>
                 <div class="eddditor-cols">
@@ -30,7 +30,7 @@
                                         <span class="eddditor-element-edit" ng-hide="element.template !== undefined" ng-click="editElement(element)" title="<?php _e('Edit element', 'eddditor'); ?>"><?php _e('Edit element', 'eddditor'); ?></span>
                                         <div class="eddditor-element-dropdown">
                                             <div class="eddditor-element-dropdown-items">
-                                                <span class="eddditor-element-options" ng-click="editOptions(element)" ng-show="optionsEnabled.element"><?php _e('Element options', 'eddditor'); ?></span>
+                                                <span class="eddditor-element-options" ng-click="editOptions('element', element)" ng-show="optionsEnabled.element"><?php _e('Element options', 'eddditor'); ?></span>
                                                 <span class="eddditor-element-duplicate" ng-click="duplicateElement(col.elements, $index)"><?php _e('Duplicate element', 'eddditor'); ?></span>
                                                 <span class="eddditor-element-favorite" ng-hide="element.template !== undefined" ng-click="saveNewTemplate(element)"><?php _e('Add to gallery', 'eddditor'); ?></span>
                                             </div>

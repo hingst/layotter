@@ -1,9 +1,6 @@
 <?php
 
 
-/**
- * Provides shared functionality
- */
 class Eddditor {
     
     
@@ -57,17 +54,31 @@ class Eddditor {
     /**
      * Create a new element instance with a specific type
      *
-     * @param string $type Type identifier
+     * @param string|array $type_or_structure Type identifier or array with type, values and option values
      * @param array|bool $values Field values, or false for default values
-     * @param array|bool $options Option values, or false for default values
+     * @param array|bool $option_values Option values, or false for default values
      * @return mixed New element instance, or false on failure
      */
-    public static function create_element($type, $values = false, $options = false) {
-        $type = self::clean_type($type);
+    public static function create_element($type_or_structure, $values = array(), $option_values = array()) {
+        if (is_string($type_or_structure)) {
+            $structure = self::validate_element_structure(array(
+                'type' => $type_or_structure,
+                'values' => $values,
+                'options' => $option_values
+            ));
+        } else if (is_array($type_or_structure)) {
+            $structure = self::validate_element_structure($type_or_structure);
+        } else {
+            return false;
+        }
+
+        $type = self::clean_type($structure['type']);
+        $values = $structure['values'];
+        $option_values = $structure['options'];
 
         if (isset(self::$registered_elements[$type])) {
             try {
-                $element = new self::$registered_elements[$type]($values, $options);
+                $element = new self::$registered_elements[$type]($values, $option_values);
                 $element->set_type($type);
                 return $element;
             } catch(Exception $e) {
@@ -76,6 +87,23 @@ class Eddditor {
         }
 
         return false;
+    }
+
+
+    private static function validate_element_structure($structure) {
+        if (!isset($structure['type']) OR !is_string($structure['type'])) {
+            $structure['type'] = '';
+        }
+
+        if (!isset($structure['values']) OR !is_array($structure['values'])) {
+            $structure['values'] = array();
+        }
+
+        if (!isset($structure['options']) OR !is_array($structure['options'])) {
+            $structure['options'] = array();
+        }
+
+        return $structure;
     }
 
 
@@ -101,9 +129,9 @@ class Eddditor {
         }
 
         // false if eddditor isn't enabled for the current post type
-        $options = get_option('eddditor_settings_general');
+        $settings = Eddditor_Settings::get_settings('general');
         $current_post_type = get_post_type();
-        if (!is_array($options) OR !isset($options['enable_for'][$current_post_type]) OR $options['enable_for'][$current_post_type] != '1')  {
+        if (!is_array($settings) OR !isset($settings['enable_for'][$current_post_type]) OR $settings['enable_for'][$current_post_type] != '1')  {
             return false;
         }
 
@@ -115,184 +143,6 @@ class Eddditor {
 
         // no errors
         return true;
-    }
-
-
-    /**
-     * Clean user-provided values
-     *
-     * Depending on the context, field values are provided in different ways. This method normalizes an array
-     * of user-provided field values. The return value is an array where the keys are human-readable field names
-     * (as provided by the user in an ACF field group), and the values are unfiltered data of any type (as provided
-     * by an element edit form or an existing post's JSON data).
-     *
-     * @param array $existing_fields Existing fields as provided by an ACF field group
-     * @param array|bool $provided_values Array with user-provided values, or false if dealing with a new element
-     * @return array Array with values ready for use in different contexts
-     */
-    public static function clean_values($existing_fields, $provided_values = false) {
-        $values = array();
-
-        // use default field values if $provided_values === false
-        $use_defaults = ($provided_values === false);
-
-        // loop through existing fields and see if there's a user provided value for each one
-        foreach ($existing_fields as $field_data) {
-            $field_name = $field_data['name'];
-            $field_key = $field_data['key'];
-
-            // skip ACF 'tab' and 'message' fields to prevent pollution of $values with empty keys and values
-            if (empty($field_name)) {
-                continue;
-            }
-
-            // assign a value to this field
-            if (!$use_defaults AND isset($provided_values[$field_name])) {
-                // either user provided value identified by name ...
-                // (when $provided_values came from an existing post's JSON data)
-                $value = $provided_values[$field_name];
-            } else if (!$use_defaults AND isset($provided_values[$field_key])) {
-                // ... or user provided value identified by ACF key ...
-                // (when $provided_values came from an edit form generated by ACF)
-                $value = $provided_values[$field_key];
-            } else {
-                // ... or set to default if nothing was provided (to make sure that keys are present for all fields)
-                // this is also triggered when a new field is added to an element/options type after it has been
-                // used somewhere
-                $value
-                    = isset($field_data['default_value'])
-                    ? $field_data['default_value']
-                    : '';
-            }
-
-            // note:
-            // in default ACF, field values are run through the acf/validate_value and acf/update_value filters
-            // before saving them to the database
-            // these filters can break fields in Eddditor's context and are therefore not applied
-
-            $values[$field_name] = $value;
-        }
-
-        return $values;
-    }
-
-
-    /**
-     * Format user-provided values for output
-     *
-     * @param array $existing_fields Existing fields as provided by an ACF field group
-     * @param array $clean_values Array with clean values (that were run through Eddditor::clean_values() first)
-     * @return array Array with values ready for use in different contexts
-     */
-    public static function format_values($existing_fields, $clean_values) {
-        $values = array();
-
-        // run all provided values through formatting filters
-        foreach ($existing_fields as $field_data) {
-            $field_name = $field_data['name'];
-
-            // skip ACF 'tab' and 'message' fields to prevent pollution of $values with empty keys and values
-            if (empty($field_name)) {
-                continue;
-            }
-
-            // note:
-            // in default ACF, field values are run through the acf/load_value filter before formatting
-            // this filter can break fields in Eddditor's context and is therefore not applied
-
-            // format values using ACF's formatting filters
-            $values[$field_name] = acf_format_value($clean_values[$field_name], 0, $field_data); // 0 = post_id
-        }
-
-        return $values;
-    }
-
-
-    /**
-     * Extract content structure for a specific post (for backend use only)
-     *
-     * @param int $post_id Post ID
-     * @param string $side Pass 'frontend' or 'backend' to determine which views to return
-     * @return array|null Array with post content, or null if no data is available (as is the case with new posts)
-     */
-    public static function get_content_structure($post_id, $side) {
-        // get raw post content (should look like [eddditor]json_data[/eddditor] for existing posts)
-        $content_raw = get_post_field('post_content', $post_id);
-
-        // verify that the content is correctly formatted, unwrap from shortcode
-        $matches = array();
-        if (preg_match('/\[eddditor\](.*)\[\/eddditor\]/ms', $content_raw, $matches)) {
-            $content_json = $matches[1];
-            return self::parse_json_structure($content_json, $side); // returns valid post structure or null
-        } else {
-            return null;
-        }
-    }
-
-
-    /**
-     * Turn a post's JSON structure into an array containing views and all necessary data
-     *
-     * @param string $json A post's complete JSON data
-     * @param string $side Pass 'frontend' or 'backend' to determine which views to return
-     * @return array|null Array with post content, or null if no data is available (as is the case with new posts)
-     */
-    private static function parse_json_structure($json, $side) {
-        // try to decode page structure from $json - if $json is not actually valid JSON, return null
-        // a return value of null tells Eddditor we're dealing with a new post (default post options will be applied
-        // via Javascript)
-        $content = json_decode($json, true);
-        if (!is_array($content)) {
-            return null;
-        }
-
-        // get views for all elements
-        foreach ($content['rows'] as &$row) {
-            foreach ($row['cols'] as &$col) {
-                foreach ($col['elements'] as $key => &$element) {
-                    $element_object = false;
-
-                    // create element from template ID if a template ID is present
-                    if (isset($element['template'])) {
-                        $element_object = Eddditor_Templates::create_element($element['template'], $element['options']['values']);
-                    }
-
-                    // if template ID is not present or invalid, create a regular element.
-                    // when a saved template is deleted, the element type and values are preserved, so each instance
-                    // of the template lives on as a regular element
-                    if (!$element_object) {
-                        $element_object = Eddditor::create_element($element['type'], $element['values'], $element['options']['values']);
-                    }
-
-                    // refresh element view (for frontend or backend, whichever was requested)
-                    // or remove the element if it can't be created - which should only happen if the element type
-                    // has been removed by a developer
-                    if ($element_object) {
-                        if ($side == 'frontend') {
-                            $element = $element_object->get('frontend_data');
-                        } else {
-                            $element = $element_object->get('backend_data');
-                        }
-                    } else {
-                        array_splice($col['elements'], $key, 1);
-                    }
-                }
-            }
-        }
-
-        return $content;
-    }
-
-
-    /**
-     * Takes a post ID and returns HTML for frontend output
-     *
-     * @param int $post_id Post ID
-     * @return string Frontend HTML for this post
-     */
-    public static function get_frontend_html($post_id) {
-        $content_structure = self::get_content_structure($post_id, 'frontend');
-        return eddditor_frontend_post($content_structure);
     }
     
     

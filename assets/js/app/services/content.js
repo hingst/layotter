@@ -43,11 +43,12 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
     /**
      * Save values from the edit form being currently displayed - can be an options form or an element edit form
      */
-    this.saveForm = function(type) {
-        if (type === 'element') {
-            _this.saveElement();
-        } else if (type === 'options') {
+    this.saveForm = function() {
+        var editingElement = state.getElement();
+        if (typeof editingElement.type === 'undefined') {
             _this.saveOptions();
+        } else {
+            _this.saveElement();
         }
     };
     
@@ -86,6 +87,7 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
         
         // copy editing.element so state can be reset while ajax is still loading
         var editingElement = state.getElement();
+        console.log(editingElement);
         state.reset();
         editingElement.isLoading = true;
         
@@ -107,11 +109,12 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
     /**
      * 
      */
-    this.editOptions = function(element) {
+    this.editOptions = function(type, element) {
+        state.setOptionsType(type);
         state.setElement(element);
         forms.post(ajaxurl + '?action=eddditor_edit_options', {
-            type: element.options.type,
-            values: element.options.values
+            type: type,
+            values: element.options
         });
     };
     
@@ -128,6 +131,7 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
         
         // copy editing.element so editing can be reset while ajax is still loading
         var editingElement = state.getElement();
+        var optionsType = state.getOptionsType();
         state.reset();
         
         editingElement.isLoading = true;
@@ -136,12 +140,11 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
             url: ajaxurl + '?action=eddditor_parse_options',
             method: 'POST',
             data: {
-                type: editingElement.options.type,
+                type: optionsType,
                 values: values
             }
         }).success(function(reply) {
-            editingElement.options.type = reply.type;
-            editingElement.options.values = reply.values;
+            editingElement.options = reply;
             editingElement.isLoading = undefined;
         });
     };

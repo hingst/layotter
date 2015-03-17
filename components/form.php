@@ -1,9 +1,6 @@
 <?php
 
 
-/**
- * Provides forms for editing elements and options
- */
 class Eddditor_Form {
     
     
@@ -17,17 +14,11 @@ class Eddditor_Form {
     
     /**
      * Create a new form
-     * 
-     * @param string $type Type of the form - 'options' or 'element'
+     *
      * @param array $allowed_fields Allowed fields array as provided by ACF
      * @param array $provided_values Provided field values
      */
-    public function __construct($type, $allowed_fields, $provided_values) {
-        $this->type
-            = in_array($type, array('options', 'element'))
-            ? $type
-            : 'element';
-
+    public function __construct($allowed_fields, $provided_values) {
         $this->allowed_fields = $allowed_fields;
         $this->provided_values = $provided_values;
     }
@@ -58,7 +49,6 @@ class Eddditor_Form {
      */
     public function output() {
         // used in the form.php template
-        $type = $this->type;
         $title = $this->title;
         $icon = $this->icon;
         $fields = array();
@@ -74,7 +64,7 @@ class Eddditor_Form {
             $fields[] = $field;
         }
         
-        require dirname(__FILE__) . '/views/form.php';
+        require dirname(__FILE__) . '/../views/form.php';
     }
 
     

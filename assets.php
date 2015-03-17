@@ -16,39 +16,39 @@ function eddditor_assets_admin_head() {
     // styles
     wp_enqueue_style(
         'eddditor',
-        plugins_url('css/editor.css', __FILE__)
+        plugins_url('assets/css/editor.css', __FILE__)
     );
     wp_enqueue_style(
         'eddditor-font-awesome',
-        plugins_url('css/font-awesome.min.css', __FILE__)
+        plugins_url('assets/css/font-awesome.min.css', __FILE__)
     );
 
 
     // jQuery plugin used to serialize form data
     wp_enqueue_script(
         'eddditor-serialize',
-        plugins_url('js/vendor/jquery.serialize-object.compiled.js', __FILE__),
+        plugins_url('assets/js/vendor/jquery.serialize-object.compiled.js', __FILE__),
         array('jquery')
     );
 
 
     // Angular scripts
     $scripts = array(
-        'angular' => 'js/vendor/angular.js',
-        'angular-animate' => 'js/vendor/angular-animate.js',
-        'angular-sanitize' => 'js/vendor/angular-sanitize.js',
-        'angular-ui-sortable' => 'js/vendor/angular-ui-sortable.js',
-        'eddditor' => 'js/app/app.js',
-        'eddditor-controller-editor' => 'js/app/controllers/editor.js',
-        'eddditor-controller-templates' => 'js/app/controllers/templates.js',
-        'eddditor-controller-form' => 'js/app/controllers/form.js',
-        'eddditor-service-state' => 'js/app/services/state.js',
-        'eddditor-service-data' => 'js/app/services/data.js',
-        'eddditor-service-content' => 'js/app/services/content.js',
-        'eddditor-service-templates' => 'js/app/services/templates.js',
-        'eddditor-service-view' => 'js/app/services/view.js',
-        'eddditor-service-forms' => 'js/app/services/forms.js',
-        'eddditor-service-modals' => 'js/app/services/modals.js'
+        'angular' => 'assets/js/vendor/angular.js',
+        'angular-animate' => 'assets/js/vendor/angular-animate.js',
+        'angular-sanitize' => 'assets/js/vendor/angular-sanitize.js',
+        'angular-ui-sortable' => 'assets/js/vendor/angular-ui-sortable.js',
+        'eddditor' => 'assets/js/app/app.js',
+        'eddditor-controller-editor' => 'assets/js/app/controllers/editor.js',
+        'eddditor-controller-templates' => 'assets/js/app/controllers/templates.js',
+        'eddditor-controller-form' => 'assets/js/app/controllers/form.js',
+        'eddditor-service-state' => 'assets/js/app/services/state.js',
+        'eddditor-service-data' => 'assets/js/app/services/data.js',
+        'eddditor-service-content' => 'assets/js/app/services/content.js',
+        'eddditor-service-templates' => 'assets/js/app/services/templates.js',
+        'eddditor-service-view' => 'assets/js/app/services/view.js',
+        'eddditor-service-forms' => 'assets/js/app/services/forms.js',
+        'eddditor-service-modals' => 'assets/js/app/services/modals.js'
     );
     foreach ($scripts as $name => $path) {
         wp_enqueue_script(
@@ -66,15 +66,12 @@ function eddditor_assets_admin_head() {
     // fetch default values for post, row and element options
     $default_post_options = new Eddditor_Options('post');
     $default_row_options = new Eddditor_Options('row');
+    $default_col_options = new Eddditor_Options('col');
     $default_element_options = new Eddditor_Options('element');
     
     
     // fetch content structure for the current post
-    $content_structure = Eddditor::get_content_structure(get_the_ID(), 'backend');
-    
-    
-    // fetch saved element templates (aka element gallery)
-    $element_templates = Eddditor_Templates::get_all();
+    $content_structure = new Eddditor_Post(get_the_ID());
     
     
     // inject data for use with Javascript
@@ -85,21 +82,25 @@ function eddditor_assets_admin_head() {
             'contentStructure' => $content_structure,
             'allowedRowLayouts' => $allowed_row_layouts,
             'defaultRowLayout' => $default_row_layout,
+            'savedTemplates' => array(),
             'options' => array(
                 'post' => array(
                     'enabled' => $default_post_options->is_enabled(),
-                    'defaults' => $default_post_options->get('data'),
+                    'defaults' => $default_post_options->get_clean_values(),
                 ),
                 'row' => array(
                     'enabled' => $default_row_options->is_enabled(),
-                    'defaults' => $default_row_options->get('data'),
+                    'defaults' => $default_row_options->get_clean_values(),
+                ),
+                'col' => array(
+                    'enabled' => $default_col_options->is_enabled(),
+                    'defaults' => $default_col_options->get_clean_values(),
                 ),
                 'element' => array(
                     'enabled' => $default_element_options->is_enabled(),
-                    'defaults' => $default_element_options->get('data'),
+                    'defaults' => $default_element_options->get_clean_values(),
                 )
             ),
-            'savedTemplates' => $element_templates,
             'i18n' => array(
                 'delete_row' => __('Delete row', 'eddditor'),
                 'delete_element' => __('Delete element', 'eddditor'),

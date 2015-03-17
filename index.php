@@ -3,7 +3,7 @@
 Plugin Name: Eddditor
 Description: Add and arrange your content freely with an intuitive drag and drop interface!
 Author: Dennis Hingst
-Version: 1.0.1
+Version: 1.1.0
 Author URI: http://www.dennis-hingst.de/
 Text Domain: eddditor
 */
@@ -24,19 +24,22 @@ require_once dirname(__FILE__) . '/check-acf.php';
 // include Eddditor files only if there's no problem with ACF
 if (!defined('EDDDITOR_ACF_ERROR')) {
     require_once dirname(__FILE__) . '/core.php';
-
-    require_once dirname(__FILE__) . '/element.php';
-    require_once dirname(__FILE__) . '/elements/_example.php';
-    require_once dirname(__FILE__) . '/elements/test.php';
-
-    require_once dirname(__FILE__) . '/form.php';
-    require_once dirname(__FILE__) . '/options.php';
     require_once dirname(__FILE__) . '/ajax.php';
     require_once dirname(__FILE__) . '/assets.php';
     require_once dirname(__FILE__) . '/interface.php';
     require_once dirname(__FILE__) . '/acf-locations.php';
-    require_once dirname(__FILE__) . '/frontend.php';
-    require_once dirname(__FILE__) . '/templates.php';
+    require_once dirname(__FILE__) . '/shortcode.php';
+
+    require_once dirname(__FILE__) . '/components/form.php';
+    require_once dirname(__FILE__) . '/components/editable.php';
+    require_once dirname(__FILE__) . '/components/options.php';
+    require_once dirname(__FILE__) . '/components/post.php';
+    require_once dirname(__FILE__) . '/components/row.php';
+    require_once dirname(__FILE__) . '/components/col.php';
+    require_once dirname(__FILE__) . '/components/element.php';
+
+    require_once dirname(__FILE__) . '/components/elements/_example.php';
+    require_once dirname(__FILE__) . '/components/elements/test.php';
 }
 
 

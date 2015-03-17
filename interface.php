@@ -47,11 +47,11 @@ function eddditor_output_interface($post) {
 
     $current_user = wp_get_current_user();
     $user_roles = $current_user->roles;
-    $options = get_option('eddditor_settings_general');
+    $settings = Eddditor_Settings::get_settings('general');
     $debug_mode_enabled = false;
 
     foreach ($user_roles as $role) {
-        if ($options['debug_mode'][$role] == '1') {
+        if (isset($settings['debug_mode'][$role]) AND $settings['debug_mode'][$role] == '1') {
             $debug_mode_enabled = true;
             break;
         }

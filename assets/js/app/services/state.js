@@ -9,6 +9,7 @@ app.service('state', function(forms){
             this.element = null;
             this.parent = null;
             this.index = -1;
+            this.optionsType = null;
             _this.showBackButton = false;
             forms.close();
         }
@@ -36,6 +37,11 @@ app.service('state', function(forms){
     };
 
 
+    this.setOptionsType = function(type) {
+        editing.optionsType = type;
+    };
+
+
     this.getElement = function() {
         return editing.element;
     };
@@ -48,6 +54,11 @@ app.service('state', function(forms){
 
     this.getIndex = function() {
         return editing.index;
+    };
+
+
+    this.getOptionsType = function() {
+        return editing.optionsType;
     };
 
 

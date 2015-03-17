@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Eddditor\n"
-"POT-Creation-Date: 2015-03-11 10:44+0100\n"
-"PO-Revision-Date: 2015-03-11 10:50+0100\n"
+"POT-Creation-Date: 2015-03-17 01:29+0100\n"
+"PO-Revision-Date: 2015-03-17 01:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ..\n"
-"X-Poedit-SearchPathExcluded-0: ../js/vendor\n"
+"X-Poedit-SearchPathExcluded-0: ../assets/js/vendor\n"
 
 #: ../acf-locations.php:20
 msgid "Use with Eddditor"
@@ -36,31 +36,31 @@ msgstr "Für Zeilen-Optionen nutzen"
 msgid "Use for element options"
 msgstr "Für Element-Optionen nutzen"
 
-#: ../assets.php:156 ../views/editor.php:16
+#: ../assets.php:106 ../views/editor.php:17
 msgid "Delete row"
 msgstr "Zeile löschen"
 
-#: ../assets.php:157 ../views/editor.php:27
+#: ../assets.php:107 ../views/editor.php:29
 msgid "Delete element"
 msgstr "Element löschen"
 
-#: ../assets.php:158
+#: ../assets.php:108
 msgid "Delete favorite"
 msgstr "Favoriten löschen"
 
-#: ../assets.php:159 ../views/add_element.php:32 ../views/form.php:24
+#: ../assets.php:109 ../views/add_element.php:32 ../views/form.php:24
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../assets.php:160
+#: ../assets.php:110
 msgid "Discard changes"
 msgstr "Änderungen verwerfen"
 
-#: ../assets.php:161
+#: ../assets.php:111
 msgid "Are you sure you want to cancel and discard all changes?"
 msgstr "Möchtest du wirklich abbrechen und alle Änderungen verwerfen?"
 
-#: ../assets.php:162
+#: ../assets.php:112
 msgid ""
 "Are you sure you want to delete this row and all its elements? This action "
 "can not be undone."
@@ -68,14 +68,14 @@ msgstr ""
 "Bist du sicher, dass du diese Zeile und alle enthaltenen Elemente löschen "
 "willst? Du kannst diese Aktion nicht rückgängig machen."
 
-#: ../assets.php:163
+#: ../assets.php:113
 msgid ""
 "Are you sure you want to delete this element? This action can not be undone."
 msgstr ""
 "Bist du sicher, dass du dieses Element löschen willst? Du kannst diese "
 "Aktion nicht rückgängig machen."
 
-#: ../assets.php:164
+#: ../assets.php:114
 msgid ""
 "Are you sure you want to delete this favorite? This action can not be undone."
 msgstr ""
@@ -110,6 +110,18 @@ msgstr ""
 "Deine Version von Advanced Custom Fields ist veraltet. Bitte installiere "
 "mindestens Version %s, um Eddditor zu benutzen."
 
+#: ../components/options.php:38 ../views/editor.php:2
+msgid "Post options"
+msgstr "Post-Optionen"
+
+#: ../components/options.php:42 ../views/editor.php:19
+msgid "Row options"
+msgstr "Zeilenoptionen"
+
+#: ../components/options.php:46 ../views/editor.php:33
+msgid "Element options"
+msgstr "Elementoptionen"
+
 #: ../interface.php:70
 #, php-format
 msgid ""
@@ -122,18 +134,6 @@ msgstr ""
 "ansehen und bearbeiten. Sei dabei sehr vorsichtig, eine fehlerhafte Struktur "
 "wird das Layout und alle Inhalte dieses Posts löschen. Du kannst den Debug-"
 "Modus in den <a href=\"%s\">Eddditor-Einstellungen</a> deaktivieren."
-
-#: ../options.php:53 ../views/editor.php:2
-msgid "Post options"
-msgstr "Post-Optionen"
-
-#: ../options.php:57 ../views/editor.php:18
-msgid "Row options"
-msgstr "Zeilenoptionen"
-
-#: ../options.php:61 ../views/editor.php:31
-msgid "Element options"
-msgstr "Elementoptionen"
 
 #: ../settings.php:98
 msgid "Full width"
@@ -373,7 +373,7 @@ msgstr ""
 
 #: ../settings.php:541
 msgid "default for new rows"
-msgstr "Standard für neue zeilen"
+msgstr "Standard für neue Zeilen"
 
 #: ../settings.php:551
 msgid "Default layout"
@@ -427,7 +427,7 @@ msgstr "HTML vor jedem Element:"
 msgid "HTML after each element:"
 msgstr "HTML nach jedem Element:"
 
-#: ../views/add_element.php:3 ../views/editor.php:22 ../views/editor.php:43
+#: ../views/add_element.php:3 ../views/editor.php:24 ../views/editor.php:45
 msgid "Add element"
 msgstr "Neues Element"
 
@@ -435,7 +435,7 @@ msgstr "Neues Element"
 msgid "Element gallery"
 msgstr "Element-Galerie"
 
-#: ../views/editor.php:5 ../views/editor.php:49
+#: ../views/editor.php:5 ../views/editor.php:51
 msgid "Add row"
 msgstr "Neue Zeile"
 
@@ -447,35 +447,35 @@ msgstr "Erstelle als erstes eine neue Zeile"
 msgid "Move row"
 msgstr "Zeile verschieben"
 
-#: ../views/editor.php:17
+#: ../views/editor.php:18
 msgid "Duplicate row"
 msgstr "Zeile duplizieren"
 
-#: ../views/editor.php:18
+#: ../views/editor.php:19
 msgid "Options"
 msgstr "Optionen"
 
-#: ../views/editor.php:28
+#: ../views/editor.php:30
 msgid "Edit element"
 msgstr "Element bearbeiten"
 
-#: ../views/editor.php:32
+#: ../views/editor.php:34
 msgid "Duplicate element"
 msgstr "Element duplizieren"
 
-#: ../views/editor.php:33
+#: ../views/editor.php:35
 msgid "Add to gallery"
 msgstr "In der Galerie speichern"
 
-#: ../views/editor.php:36 ../views/templates.php:17
+#: ../views/editor.php:38 ../views/templates.php:17
 msgid "Move"
 msgstr "Verschieben"
 
-#: ../views/editor.php:39
+#: ../views/editor.php:41
 msgid "This is a template."
 msgstr "Dies ist ein Template."
 
-#: ../views/editor.php:54
+#: ../views/editor.php:56
 msgid "Eddditor loading &hellip;"
 msgstr "Eddditor lädt &hellip;"
 

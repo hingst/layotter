@@ -1,4 +1,17 @@
 jQuery(function($){
+
+
+    var selectTab = function(tab) {
+        $('.nav-tab').removeClass('nav-tab-active');
+        $('.nav-tab[href="' + tab + '"]').addClass('nav-tab-active');
+        $('.eddditor-settings-tab-content:visible').fadeOut(200, function(){
+            $(tab).fadeIn(200);
+        });
+    };
+    $('.nav-tab').click(function(event){
+        event.preventDefault();
+        selectTab($(this).attr('href'));
+    });
     
     
     $('.eddditor-default-value').click(function(){
