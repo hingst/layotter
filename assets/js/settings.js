@@ -4,9 +4,8 @@ jQuery(function($){
     var selectTab = function(tab) {
         $('.nav-tab').removeClass('nav-tab-active');
         $('.nav-tab[href="' + tab + '"]').addClass('nav-tab-active');
-        $('.eddditor-settings-tab-content:visible').fadeOut(100, function(){
-            $(tab).fadeIn(50);
-        });
+        $('.eddditor-settings-tab-content:visible').hide();
+        $(tab).show();
         if ($('#eddditor-settings-saved-notice').length) {
             $('#eddditor-settings-saved-notice').css('visibility', 'hidden').css('display', 'block').slideUp(400, function(){
                 $(this).remove();
