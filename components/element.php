@@ -39,19 +39,11 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
         $this->attributes();
         $this->hooks();
 
-        if (!is_array($values)) {
-            $values = array();
-        }
-
         $fields = $this->get_fields();
         $this->apply_values($fields, $values);
 
         $this->form->set_title($this->title);
         $this->form->set_icon($this->icon);
-
-        if (!is_array($option_values)) {
-            $option_values = array();
-        }
 
         // create options object for this element
         $this->options = new Eddditor_Options('element', $option_values);

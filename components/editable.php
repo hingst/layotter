@@ -10,6 +10,14 @@ abstract class Eddditor_Editable {
 
 
     final protected function apply_values($fields, $values) {
+        if (!is_array($fields)) {
+            $fields = array();
+        }
+
+        if (!is_array($values)) {
+            $values = array();
+        }
+
         // parse provided values for use in different contexts
         $this->clean_values = $this->clean_values($fields, $values);
         $this->formatted_values = $this->format_values($fields, $this->clean_values);
@@ -33,10 +41,6 @@ abstract class Eddditor_Editable {
      */
     final protected static function clean_values($existing_fields, $provided_values = array()) {
         $values = array();
-
-        if (!is_array($provided_values)) {
-            $provided_values = array();
-        }
 
         // loop through existing fields and see if there's a user provided value for each one
         foreach ($existing_fields as $field_data) {
@@ -116,8 +120,8 @@ abstract class Eddditor_Editable {
     }
 
 
-    final public function get_form() {
-        return $this->form;
+    final public function output_form() {
+        echo $this->form->output();
     }
     
 }

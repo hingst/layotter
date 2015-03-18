@@ -12,21 +12,6 @@ class Eddditor {
     
     
     /**
-     * Remove illegal characters from a type identifier
-     * 
-     * @param string $type Dirty type identifier
-     * @return string Clean type identifier
-     */
-    private static function clean_type($type) {
-        if (!is_string($type)) {
-            return '';
-        }
-
-        return preg_replace('/[^a-z_]/', '', $type); // only a-z and _ allowed
-    }
-    
-    
-    /**
      * Register a new element type
      * 
      * @param string $type Unique type identifier
@@ -87,6 +72,21 @@ class Eddditor {
         }
 
         return false;
+    }
+
+
+    /**
+     * Remove illegal characters from a type identifier
+     *
+     * @param string $type Dirty type identifier
+     * @return string Clean type identifier
+     */
+    private static function clean_type($type) {
+        if (!is_string($type)) {
+            return '';
+        }
+
+        return preg_replace('/[^a-z_]/', '', $type); // only a-z and _ allowed
     }
 
 

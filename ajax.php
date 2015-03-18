@@ -35,8 +35,7 @@ function eddditor_ajax_edit_element() {
 
         $element = Eddditor::create_element($post_data['type'], $values);
         if ($element) {
-            $form = $element->get_form();
-            $form->output();
+            $element->output_form();
         }
     }
 
@@ -88,8 +87,7 @@ function eddditor_ajax_edit_options() {
 
         $options = new Eddditor_Options($post_data['type'], $values);
         if ($options->is_enabled()) {
-            $form = $options->get_form();
-            $form->output();
+            $options->output_form();
         }
     }
 
