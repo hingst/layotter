@@ -17,7 +17,7 @@ app.controller('TemplatesCtrl', function($scope, $animate, templates) {
         //scroll: false,
         start: function (event, ui) {
             $animate.enabled(false);
-            savedTemplatesBackup = angular.copy($scope.savedTemplates); //
+            savedTemplatesBackup = angular.copy($scope.savedTemplates);
             angular.element(ui.item).show(); // show clone while dragging
             angular.element(ui.item.parent()).sortable('option', 'revert', false); // prevent revert animation when dropping on saved elements list
         },

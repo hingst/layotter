@@ -2,8 +2,8 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
 
 
     angular.element(document).on('click', '#eddditor-edit-fake-submit', function(){
-        // acf compatibility
-        // acf uses an ignore flag when the normal post form is submitted, so that the
+        // ACF compatibility
+        // ACF uses an ignore flag when the normal post form is submitted, so that the
         // submit button triggers validation, not form submission. after validation has
         // completed successfully, acf fires a click event on $trigger, thus actually
         // submitting the form.
@@ -69,7 +69,7 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
         var box = angular.element('<div id="dennisbox"><div class="dennisbox-overlay"></div><div class="dennisbox-content"></div></div>');
         var topOffset = parseInt(angular.element(document).scrollTop() + angular.element(window).height() / 2); // vertical center of current screen
         var height = parseInt(angular.element(window).height() * 0.8); // 80% of viewport height
-        var marginTop = animate ? (-height/2) + 10 : -height/2; // initially add with a bit of an offset if animation is enabled
+        var marginTop = animate ? (-height/2) + 10 : -height/2; // add a bit of an offset if animation is enabled
         
         box.appendTo('body')
             .find('.dennisbox-content')
@@ -78,7 +78,7 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
                 .css('margin-top', marginTop)
                 .css('top', topOffset);
 
-        // gracefully remove top offset and fade in if animation is enabled
+        // fade and slide in if animation is enabled
         if (animate) {
             box.find('.dennisbox-content')
                 .css('opacity', 0)
@@ -113,7 +113,7 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
      * Close the lightbox
      */
     this.close = function() {
-        // acf compatibility - see create() for more info
+        // ACF compatibility - see create() for more info
         acf.validation.$trigger = null;
         acf.validation.ignore = 0;
         

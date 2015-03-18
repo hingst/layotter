@@ -1,18 +1,17 @@
 app.service('content', function($rootScope, $http, data, forms, modals, state, templates){
-    
 
-    // alias for use in methods
+
     var _this = this;
     this.showBackButton = state.showBackButton;
     $rootScope.$watch(function(){
         return state.showBackButton;
     }, function(value){
         _this.showBackButton = value;
-    })
+    });
     
     
     /**
-     * Show a list of available element types - new element will be insertet at $index in the $parent col
+     * Show a list of available element types - new element will be inserted at $index in the $parent col
      */
     this.showNewElementTypes = function(parent, index) {
         state.setElement(angular.copy(data.templates.element));

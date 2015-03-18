@@ -1,7 +1,6 @@
 app.service('templates', function($rootScope, $http, view, forms, modals, state){
     
 
-    // alias for use in methods
     var _this = this;
     
     

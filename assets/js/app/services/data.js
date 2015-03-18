@@ -20,7 +20,7 @@ app.service('data', function(){
     // new element template
     this.templates.element = {
         type: undefined,
-        values: false,
+        values: [],
         view: '',
         options: eddditorData.options.element.defaults
     };
@@ -28,7 +28,8 @@ app.service('data', function(){
 
     // new col template
     this.templates.col = {
-        elements: []
+        elements: [],
+        options: eddditorData.options.col.defaults
     };
 
 

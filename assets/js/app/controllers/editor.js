@@ -10,6 +10,7 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
     $scope.optionsEnabled = {
         post: eddditorData.options.post.enabled,
         row: eddditorData.options.row.enabled,
+        col: eddditorData.options.col.enabled,
         element: eddditorData.options.element.enabled
     };
 
