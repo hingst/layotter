@@ -228,7 +228,7 @@ class Eddditor_Settings {
      */
     public static function settings_saved_notice() {
         ?>
-            <div class="updated">
+            <div class="updated" id="eddditor-settings-saved-notice">
                 <p><?php _e('Your settings have been saved.', 'eddditor'); ?></p>
             </div>
         <?php
