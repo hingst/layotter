@@ -5,14 +5,10 @@
     <div class="eddditor-modal-body">
         <?php
 
-        $element_types = Eddditor::get_registered_elements();
+        $post_id = get_the_ID();
+        $elements = Eddditor::get_filtered_element_types($post_id);
 
-        foreach ($element_types as $element_type) {
-            $element = Eddditor::create_element($element_type);
-            if (!$element) {
-                continue;
-            }
-
+        foreach ($elements as $element) {
             ?>
                 <div class="eddditor-modal-add-element" ng-click="selectNewElementType('<?php echo $element->get('type'); ?>')">
                     <div class="eddditor-modal-add-element-icon">

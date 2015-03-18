@@ -85,7 +85,13 @@ function eddditor_ajax_edit_options() {
             $values = array();
         }
 
-        $options = new Eddditor_Options($post_data['type'], $values);
+        if (isset($post_data['post_id'])) {
+            $post_id = $post_data['post_id'];
+        } else {
+            $post_id = '';
+        }
+
+        $options = new Eddditor_Options($post_data['type'], $values, $post_id);
         if ($options->is_enabled()) {
             $options->output_form();
         }
@@ -108,7 +114,13 @@ function eddditor_ajax_parse_options() {
         // the acf[...] wrapper is required by acf's validation mechanism
         $values = $post_data['values']['acf'];
 
-        $options = new Eddditor_Options($post_data['type'], $values);
+        if (isset($post_data['post_id'])) {
+            $post_id = $post_data['post_id'];
+        } else {
+            $post_id = '';
+        }
+
+        $options = new Eddditor_Options($post_data['type'], $values, $post_id);
         if($options->is_enabled()) {
             echo json_encode($options);
         }

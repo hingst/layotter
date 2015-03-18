@@ -14,24 +14,19 @@ class Eddditor_Options extends Eddditor_Editable implements JsonSerializable {
      * 
      * @param string $type Options type - can be 'post', 'row', 'col' or 'element'
      * @param mixed $values Array containing option values, or false for default values
+     * @param int|string $post_id
      */
-    public function __construct($type, $values = array()) {
+    public function __construct($type, $values = array(), $post_id = 0) {
         if (in_array($type, array('post', 'row', 'col', 'element'))) {
             $this->type = $type;
         }
 
-        $fields = $this->get_fields();
+        $fields = $this->get_fields($post_id);
+        $this->apply_values($fields, $values);
 
         if (!empty($fields)) {
             $this->enabled = true;
         }
-
-        if (!is_array($values)) {
-            $values = array();
-        }
-
-        // clean and format values, create edit form
-        $this->apply_values($fields, $values);
 
         switch ($this->type) {
             case 'post':
@@ -50,12 +45,13 @@ class Eddditor_Options extends Eddditor_Editable implements JsonSerializable {
     }
 
 
-    private function get_fields() {
+    private function get_fields($post_id) {
+        $post_id = intval($post_id);
+        $post_type = get_post_type($post_id);
+
         // check if a field group exists for this option type
         $field_groups = acf_get_field_groups(array(
-            // 'post_id' => get_the_ID(),
-            // 'post_type' => get_post_type(),
-            // TODO: Combination with native ACF location rules doesn't work yet because ID and post_type are unavailable in AJAX context (when editing options)
+            'post_type' => $post_type,
             'eddditor' => $this->type . '_options'
         ));
 

@@ -114,7 +114,8 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
         state.setElement(element);
         forms.post(ajaxurl + '?action=eddditor_edit_options', {
             type: type,
-            values: element.options
+            values: element.options,
+            post_id: eddditorData.postID
         });
     };
     
@@ -141,7 +142,8 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
             method: 'POST',
             data: {
                 type: optionsType,
-                values: values
+                values: values,
+                post_id: eddditorData.postID
             }
         }).success(function(reply) {
             editingElement.options = reply;

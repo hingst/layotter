@@ -71,7 +71,8 @@ function eddditor_assets_admin_head() {
     
     
     // fetch content structure for the current post
-    $content_structure = new Eddditor_Post(get_the_ID());
+    $post_id = get_the_ID();
+    $content_structure = new Eddditor_Post($post_id);
     
     
     // inject data for use with Javascript
@@ -79,6 +80,7 @@ function eddditor_assets_admin_head() {
         'eddditor',
         'eddditorData',
         array(
+            'postID' => $post_id,
             'contentStructure' => $content_structure,
             'allowedRowLayouts' => $allowed_row_layouts,
             'defaultRowLayout' => $default_row_layout,

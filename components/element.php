@@ -56,35 +56,6 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
             throw new Exception('$this->field_group must be assigned in attributes()');
         }
 
-        /*
-        $identifier
-            = is_int($this->field_group)
-            ? 'ID' // filter ACF groups by post ID
-            : 'key'; // filter ACF groups by post slug
-
-        // get ACF field group
-        $field_group_for_this_element = false;
-        $field_groups = acf_get_field_groups(array(
-            'post_id' => get_the_ID(),
-            'post_type' => get_post_type(),
-            'eddditor' => 'element'
-        ));
-        foreach ($field_groups as $field_group) {
-            if ($field_group[$identifier] == $this->field_group) {
-                $field_group_for_this_element = $field_group;
-                break;
-            }
-        }
-
-        // check if the field group exists
-        if (!$field_group_for_this_element) {
-            throw new Exception('No ACF field group found for ' . $identifier . '=' . $this->field_group . '.');
-        }
-
-        // fetch fields for the provided ACF field group
-        $fields = acf_get_fields($field_group_for_this_element);
-        */
-
         $identifier
             = is_int($this->field_group)
             ? 'p' // get post by ID
@@ -127,6 +98,31 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
         if (is_string($type)) {
             $this->type = $type;
         }
+    }
+
+
+    final public function is_enabled_for($post_id) {
+        $post_id = intval($post_id);
+        $post_type = get_post_type($post_id);
+
+        // get ACF field group
+        $field_groups = acf_get_field_groups(array(
+            'post_type' => $post_type,
+            'eddditor' => 'element'
+        ));
+
+        $identifier
+            = is_int($this->field_group)
+            ? 'ID' // filter ACF groups by post ID
+            : 'key'; // filter ACF groups by post slug
+
+        foreach ($field_groups as $field_group) {
+            if ($field_group[$identifier] == $this->field_group) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

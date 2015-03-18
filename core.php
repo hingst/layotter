@@ -107,13 +107,17 @@ class Eddditor {
     }
 
 
-    /**
-     * Get type identifiers for all registered element types
-     *
-     * @return array Type identifiers
-     */
-    public static function get_registered_elements() {
-        return array_keys(self::$registered_elements);
+    public static function get_filtered_element_types($post_id) {
+        $elements = array();
+
+        foreach (array_keys(self::$registered_elements) as $element_type) {
+            $element = Eddditor::create_element($element_type);
+            if ($element AND $element->is_enabled_for($post_id)) {
+                $elements[] = $element;
+            }
+        }
+
+        return $elements;
     }
     
     
