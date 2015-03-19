@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ * Options for a post, row, columns or element
+ */
 class Eddditor_Options extends Eddditor_Editable implements JsonSerializable {
 
 
@@ -10,11 +13,11 @@ class Eddditor_Options extends Eddditor_Editable implements JsonSerializable {
 
 
     /**
-     * Create a new options object
+     * Create new options
      * 
      * @param string $type Options type - can be 'post', 'row', 'col' or 'element'
-     * @param mixed $values Array containing option values, or false for default values
-     * @param int|string $post_id
+     * @param mixed $values Array containing option values, or empty array for default values
+     * @param int $post_id Post ID (to determine if options are enabled for the current post in AJAX context)
      */
     public function __construct($type, $values = array(), $post_id = 0) {
         if (in_array($type, array('post', 'row', 'col', 'element'))) {
@@ -37,6 +40,10 @@ class Eddditor_Options extends Eddditor_Editable implements JsonSerializable {
                 $this->form->set_title(__('Row options', 'eddditor'));
                 $this->form->set_icon('align-justify');
                 break;
+            case 'col':
+                $this->form->set_title(__('Column options', 'eddditor'));
+                $this->form->set_icon('columns');
+                break;
             case 'element':
                 $this->form->set_title(__('Element options', 'eddditor'));
                 $this->form->set_icon('table');
@@ -45,6 +52,12 @@ class Eddditor_Options extends Eddditor_Editable implements JsonSerializable {
     }
 
 
+    /**
+     * Get ACF fields for options in a specific post
+     *
+     * @param int $post_id Post ID
+     * @return array ACF fields
+     */
     private function get_fields($post_id) {
         $post_id = intval($post_id);
         $post_type = get_post_type($post_id);
@@ -64,15 +77,20 @@ class Eddditor_Options extends Eddditor_Editable implements JsonSerializable {
 
 
     /**
-     * Check if this option type is enabled (i.e. an ACF field group exists for this option type)
+     * Check if this option type is enabled for the current post (i.e. an ACF field group exists)
      *
-     * @return boolean Whether options are available for this type
+     * @return boolean Whether options are enabled
      */
     public function is_enabled() {
         return $this->enabled;
     }
 
 
+    /**
+     * Return array representation of option values for use in json_encode()
+     *
+     * @return array Array representation of option values
+     */
     public function jsonSerialize() {
         return $this->clean_values;
     }

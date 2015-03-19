@@ -4,7 +4,6 @@
     </div>
     <div class="eddditor-modal-body">
         <?php
-
         $post_id = get_the_ID();
         $elements = Eddditor::get_filtered_element_types($post_id);
 
@@ -21,7 +20,6 @@
                 </div>
             <?php
         }
-
         ?>
     </div>
     <div class="eddditor-modal-foot">

@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ * All custom element types must extend this class
+ */
 abstract class Eddditor_Element extends Eddditor_Editable implements JsonSerializable {
 
     
@@ -17,7 +20,7 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
 
 
     /**
-     * attributes() is required and should assign $title, $description, $icon and $field_group
+     * attributes() is required and should assign $this->title, $this->description, $this->icon and $this->field_group
      */
     abstract protected function attributes();
 
@@ -29,15 +32,19 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
 
 
     /**
-     * Create a new element instance
+     * Create a new element
      *
-     * @param array $values Field values, or false for default values
-     * @param array $option_values Option values, or false for default values
+     * @param array $structure Element structure
      * @throws Exception If the ACF field group defined for this element doesn't exist
      */
-    final public function __construct($values = array(), $option_values = array()) {
+    final public function __construct($structure) {
         $this->attributes();
         $this->hooks();
+
+        $structure = $this->validate_structure($structure);
+        $this->type = $structure['type'];
+        $values = $structure['values'];
+        $option_values = $structure['options'];
 
         $fields = $this->get_fields();
         $this->apply_values($fields, $values);
@@ -45,13 +52,18 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
         $this->form->set_title($this->title);
         $this->form->set_icon($this->icon);
 
-        // create options object for this element
         $this->options = new Eddditor_Options('element', $option_values);
     }
 
 
+    /**
+     * Get ACF fields for this element
+     *
+     * @return array ACF fields
+     * @throws Exception If $this->field_group wasn't assigned correctly in $this->attributes()
+     */
     final protected function get_fields() {
-        // field group can be provided as post id (int) or slug ("acf_some-slug") of post type 'acf-field-group'
+        // field group can be provided as post id (int) or slug ("group_xyz") of post type 'acf-field-group'
         if (!is_int($this->field_group) AND !is_string($this->field_group)) {
             throw new Exception('$this->field_group must be assigned in attributes()');
         }
@@ -88,24 +100,16 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
 
 
     /**
-     * For internal use only - set a unique type identifier after registering the element
+     * Check if this element type is enabled for a specific post
      *
-     * @param string $type Type identifier
-     *
-     * TODO: Find a cleaner way to let element types know their own type ID
+     * @param int $post_id Post ID
+     * @return bool Whether this element type is enabled
      */
-    final public function set_type($type) {
-        if (is_string($type)) {
-            $this->type = $type;
-        }
-    }
-
-
     final public function is_enabled_for($post_id) {
         $post_id = intval($post_id);
         $post_type = get_post_type($post_id);
 
-        // get ACF field group
+        // get ACF field group for this post's type
         $field_groups = acf_get_field_groups(array(
             'post_type' => $post_type,
             'eddditor' => 'element'
@@ -116,6 +120,7 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
             ? 'ID' // filter ACF groups by post ID
             : 'key'; // filter ACF groups by post slug
 
+        // if $this->field_group is enabled for the current post's type, return true
         foreach ($field_groups as $field_group) {
             if ($field_group[$identifier] == $this->field_group) {
                 return true;
@@ -129,8 +134,8 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
     /**
      * Get element data
      *
-     * @param string $what What to get - can be 'type', 'title', 'description', 'icon', 'form'
-     * @return mixed Requested data
+     * @param string $what What to get - can be 'type', 'title', 'description', 'icon'
+     * @return string Requested data
      */
     final public function get($what) {
         switch ($what) {
@@ -153,6 +158,34 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
 
 
     /**
+     * Validate an array containing an element's structure
+     *
+     * Validates array structure and presence of required key/value pairs
+     *
+     * @param array $structure Element structure
+     * @return array Validated element structure
+     */
+    private function validate_structure($structure) {
+        if (!isset($structure['type']) OR !is_string($structure['type'])) {
+            $structure['type'] = '';
+        }
+
+        if (!isset($structure['values']) OR !is_array($structure['values'])) {
+            $structure['values'] = array();
+        }
+
+        if (!isset($structure['options']) OR !is_array($structure['options'])) {
+            $structure['options'] = array();
+        }
+
+        return $structure;
+    }
+
+
+    /**
+     * Return array representation of this element for use in json_encode()
+     *
+     * @return array Array representation of this element
      */
     final public function jsonSerialize() {
         return array(

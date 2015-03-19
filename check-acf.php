@@ -1,6 +1,9 @@
 <?php
 
 
+define('EDDDITOR_ACF_VERSION_REQUIRED', '5.2.0');
+
+
 // check if ACF is installed and the version is compatible with this version of Eddditor
 if (!class_exists('acf')) {
     // error: ACF isn't installed
@@ -15,15 +18,15 @@ if (!class_exists('acf')) {
 
 
 // display an error message in the backend if there's a problem with ACF
-add_action('admin_notices', 'eddditor_acf_warning');
+if (defined('EDDDITOR_ACF_ERROR')) {
+    add_action('admin_notices', 'eddditor_acf_warning');
+}
 function eddditor_acf_warning() {
-    if (defined('EDDDITOR_ACF_ERROR')) {
-        ?>
-        <div class="error">
-            <p>
-                <?php echo EDDDITOR_ACF_ERROR; ?>
-            </p>
-        </div>
+    ?>
+    <div class="error">
+        <p>
+            <?php echo EDDDITOR_ACF_ERROR; ?>
+        </p>
+    </div>
     <?php
-    }
 }

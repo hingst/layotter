@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ * A single row
+ */
 class Eddditor_Row implements JsonSerializable {
 
     private
@@ -9,6 +12,11 @@ class Eddditor_Row implements JsonSerializable {
         $cols = array();
 
 
+    /**
+     * Create a new row
+     *
+     * @param array $structure Row structure
+     */
     public function __construct($structure) {
         $structure = $this->validate_structure($structure);
         $structure = $this->apply_layout($structure);
@@ -22,6 +30,14 @@ class Eddditor_Row implements JsonSerializable {
     }
 
 
+    /**
+     * Validate an array containing a row's structure
+     *
+     * Validates array structure and presence of required key/value pairs
+     *
+     * @param array $structure Row structure
+     * @return array Validated row structure
+     */
     private function validate_structure($structure) {
         if (!is_array($structure)) {
             $structure = array();
@@ -42,6 +58,13 @@ class Eddditor_Row implements JsonSerializable {
         return $structure;
     }
 
+
+    /**
+     * Take a row structure and apply the row layout (e.g. 'third third third') to the contained columns
+     *
+     * @param array $structure Row structure with layout and columns
+     * @return array Row structure with layout applied to columns
+     */
     private function apply_layout($structure) {
         $layout_array = explode(' ', $structure['layout']);
 
@@ -56,6 +79,11 @@ class Eddditor_Row implements JsonSerializable {
     }
 
 
+    /**
+     * Return array representation of this row for use in json_encode()
+     *
+     * @return array Array representation of this row
+     */
     public function jsonSerialize() {
         return array(
             'layout' => $this->layout,
@@ -65,6 +93,11 @@ class Eddditor_Row implements JsonSerializable {
     }
 
 
+    /**
+     * Return frontend HTML for this row
+     *
+     * @return string Frontend HTML
+     */
     public function get_frontend_view() {
         $cols_html = '';
         foreach ($this->cols as $col) {

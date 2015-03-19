@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ * Abstract class for editable components (options and elements)
+ */
 abstract class Eddditor_Editable {
 
     protected
@@ -9,6 +12,12 @@ abstract class Eddditor_Editable {
         $form;
 
 
+    /**
+     * Apply $this->clean_values and $this->formatted values, create $this->form
+     *
+     * @param array $fields Existing fields as provided by an ACF field group
+     * @param array $values Array with user-provided values, or empty array if dealing with a new element
+     */
     final protected function apply_values($fields, $values) {
         if (!is_array($fields)) {
             $fields = array();
@@ -30,14 +39,13 @@ abstract class Eddditor_Editable {
     /**
      * Clean user-provided values
      *
-     * Depending on the context, field values are provided in different ways. This method normalizes an array
-     * of user-provided field values. The return value is an array where the keys are human-readable field names
-     * (as provided by the user in an ACF field group), and the values are unfiltered data of any type (as provided
-     * by an element edit form or an existing post's JSON data).
+     * This method normalizes an array of user-provided field values. The return value is an array where the keys are
+     * human-readable field names (as provided by the user in an ACF field group), and the values are unfiltered data
+     * of any type (as provided by an element edit form or an existing post's JSON data).
      *
      * @param array $existing_fields Existing fields as provided by an ACF field group
-     * @param array|bool $provided_values Array with user-provided values, or false if dealing with a new element
-     * @return array Array with values ready for use in different contexts
+     * @param array $provided_values Array with user-provided values, or empty array if dealing with a new element
+     * @return array Clean values for use in forms and JSON
      */
     final protected static function clean_values($existing_fields, $provided_values = array()) {
         $values = array();
@@ -83,8 +91,8 @@ abstract class Eddditor_Editable {
      * Format user-provided values for output
      *
      * @param array $existing_fields Existing fields as provided by an ACF field group
-     * @param array $clean_values Array with clean values (that were run through Eddditor::clean_values() first)
-     * @return array Array with values ready for use in different contexts
+     * @param array $clean_values Array with clean values (that were run through $this->clean_values() first)
+     * @return array Formatted values for output
      */
     final protected static function format_values($existing_fields, $clean_values) {
         $values = array();
@@ -110,16 +118,29 @@ abstract class Eddditor_Editable {
     }
 
 
+    /**
+     * Get clean values
+     *
+     * @return array Clean values
+     */
     final public function get_clean_values() {
         return $this->clean_values;
     }
 
 
+    /**
+     * Get formatted values
+     *
+     * @return array Formatted values
+     */
     final public function get_formatted_values() {
         return $this->formatted_values;
     }
 
 
+    /**
+     * Output edit form for this component
+     */
     final public function output_form() {
         echo $this->form->output();
     }

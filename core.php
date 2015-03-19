@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ * Holds registered element types and serves as a factory for element instances
+ */
 class Eddditor {
     
     
@@ -16,7 +19,7 @@ class Eddditor {
      * 
      * @param string $type Unique type identifier
      * @param string $class Class name for this element type, must extend Eddditor_Element
-     * @return boolean Whether the element type has been registered successfully
+     * @return bool Whether the element type has been registered successfully
      */
     public static function register_element($type, $class) {
         // fail if provided class name is not a valid class
@@ -40,32 +43,27 @@ class Eddditor {
      * Create a new element instance with a specific type
      *
      * @param string|array $type_or_structure Type identifier or array with type, values and option values
-     * @param array|bool $values Field values, or false for default values
-     * @param array|bool $option_values Option values, or false for default values
-     * @return mixed New element instance, or false on failure
+     * @param array $values Field values, or empty array for default values
+     * @param array $option_values Option values, or empty array for default values
+     * @return object|bool New element instance, or false on failure
      */
     public static function create_element($type_or_structure, $values = array(), $option_values = array()) {
         if (is_string($type_or_structure)) {
-            $structure = self::validate_element_structure(array(
+            $structure = array(
                 'type' => $type_or_structure,
                 'values' => $values,
                 'options' => $option_values
-            ));
+            );
         } else if (is_array($type_or_structure)) {
-            $structure = self::validate_element_structure($type_or_structure);
+            $structure = $type_or_structure;
         } else {
             return false;
         }
 
-        $type = self::clean_type($structure['type']);
-        $values = $structure['values'];
-        $option_values = $structure['options'];
-
-        if (isset(self::$registered_elements[$type])) {
+        if (isset($structure['type']) AND isset(self::$registered_elements[$structure['type']])) {
             try {
-                $element = new self::$registered_elements[$type]($values, $option_values);
-                $element->set_type($type);
-                return $element;
+                $type = $structure['type'];
+                return new self::$registered_elements[$type]($structure);
             } catch(Exception $e) {
                 trigger_error($e->getMessage(), E_USER_WARNING);
             }
@@ -90,23 +88,12 @@ class Eddditor {
     }
 
 
-    private static function validate_element_structure($structure) {
-        if (!isset($structure['type']) OR !is_string($structure['type'])) {
-            $structure['type'] = '';
-        }
-
-        if (!isset($structure['values']) OR !is_array($structure['values'])) {
-            $structure['values'] = array();
-        }
-
-        if (!isset($structure['options']) OR !is_array($structure['options'])) {
-            $structure['options'] = array();
-        }
-
-        return $structure;
-    }
-
-
+    /**
+     * Get element types enabled for a specific post
+     *
+     * @param int $post_id Post ID
+     * @return array Element instances
+     */
     public static function get_filtered_element_types($post_id) {
         $elements = array();
 
@@ -124,7 +111,7 @@ class Eddditor {
     /**
      * Check if Eddditor is enabled for the current screen
      * 
-     * @return boolean Signals whether Eddditor is enabled
+     * @return bool Whether Eddditor is enabled
      */
     public static function is_enabled() {
         // bail if not in the backend

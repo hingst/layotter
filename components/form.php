@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ * A form for options or an element
+ */
 class Eddditor_Form {
     
     

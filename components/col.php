@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ * A single column
+ */
 class Eddditor_Col implements JsonSerializable {
 
     private
@@ -9,6 +12,11 @@ class Eddditor_Col implements JsonSerializable {
         $elements = array();
 
 
+    /**
+     * Create a new columns
+     *
+     * @param array $structure Column structure
+     */
     public function __construct($structure) {
         $structure = $this->validate_structure($structure);
 
@@ -24,6 +32,14 @@ class Eddditor_Col implements JsonSerializable {
     }
 
 
+    /**
+     * Validate an array containing a columns's structure
+     *
+     * Validates array structure and presence of required key/value pairs
+     *
+     * @param array $structure Column structure
+     * @return array Validated column structure
+     */
     private function validate_structure($structure) {
         if (!is_array($structure)) {
             $structure = array();
@@ -45,6 +61,11 @@ class Eddditor_Col implements JsonSerializable {
     }
 
 
+    /**
+     * Return array representation of this column for use in json_encode()
+     *
+     * @return array Array representation of this column
+     */
     public function jsonSerialize() {
         return array(
             'options' => $this->options,
@@ -53,6 +74,11 @@ class Eddditor_Col implements JsonSerializable {
     }
 
 
+    /**
+     * Return frontend HTML for this column
+     *
+     * @return string Frontend HTML
+     */
     public function get_frontend_view() {
         $elements_html = '';
         foreach ($this->elements as $element) {

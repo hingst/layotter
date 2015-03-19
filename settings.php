@@ -5,15 +5,15 @@ Eddditor_Settings::init();
 
 
 /**
- * Creates settings pages and sets default settings on plugin activation. Completely self-contained.
+ * Creates settings page and sets default settings on plugin activation. Completely self-contained.
  */
 class Eddditor_Settings {
     
     private static
         $current_settings,
         $default_settings,
-        $col_class_titles,
-        $row_layout_titles;
+        $col_class_translations,
+        $row_layout_translations;
     
     
     public static function init() {
@@ -95,7 +95,7 @@ class Eddditor_Settings {
 
 
     public static function translate_labels() {
-        self::$col_class_titles = array(
+        self::$col_class_translations = array(
             'full' => __('Full width', 'eddditor'),
             'half' => __('A half', 'eddditor'),
             'third' => __('A third', 'eddditor'),
@@ -106,7 +106,7 @@ class Eddditor_Settings {
             'sixth' => __('A sixth', 'eddditor')
         );
 
-        self::$row_layout_titles = array(
+        self::$row_layout_translations = array(
             'full' => __('Single column', 'eddditor'),
             'half half' => __('Two halves', 'eddditor'),
             'third third third' => __('Thirds', 'eddditor'),
@@ -141,7 +141,7 @@ class Eddditor_Settings {
         foreach ($settings['allow'] as $col_type => $allowed) {
             if ($allowed == '1') {
                 $allowed_layouts[] = array(
-                    'title' => self::$row_layout_titles[$col_type],
+                    'title' => self::$row_layout_translations[$col_type],
                     'layout' => $col_type
                 );
             }
@@ -504,7 +504,7 @@ class Eddditor_Settings {
                             <label>
                                 <input type="checkbox" data-layout="<?php echo $layout; ?>" name="eddditor_settings[rows][allow][<?php echo $layout; ?>]" value="1" <?php if(isset($settings['allow'][$layout])) { checked($settings['allow'][$layout]); } ?>>
                                 <span class="eddditor-row-layout-option" data-layout="<?php echo $layout; ?>" alt="">
-                                    <?php echo self::$row_layout_titles[$layout]; ?> <span class="eddditor-default-row-layout-message description">&ndash; <?php _e('default for new rows', 'eddditor'); ?></span>
+                                    <?php echo self::$row_layout_translations[$layout]; ?> <span class="eddditor-default-row-layout-message description">&ndash; <?php _e('default for new rows', 'eddditor'); ?></span>
                                 </span>
                             </label>
                         </p>
@@ -524,7 +524,7 @@ class Eddditor_Settings {
                     foreach (self::$default_settings['rows']['allow'] as $layout => $default_value) {
 
                         ?>
-                        <option value="<?php echo $layout; ?>" <?php selected($settings['default_layout'] == $layout); ?>><?php echo self::$row_layout_titles[$layout]; ?></option>
+                        <option value="<?php echo $layout; ?>" <?php selected($settings['default_layout'] == $layout); ?>><?php echo self::$row_layout_translations[$layout]; ?></option>
                         <?php
 
                     }
@@ -595,7 +595,7 @@ class Eddditor_Settings {
                             ?>
                             <tr valign="top">
                                 <th scope="row">
-                                    <?php echo self::$col_class_titles[$col]; ?>
+                                    <?php echo self::$col_class_translations[$col]; ?>
                                 </th>
                                 <td>
                                     <input type="text" name="eddditor_settings[cols][classes][<?php echo $col; ?>]" value="<?php echo $settings['classes'][$col]; ?>">
