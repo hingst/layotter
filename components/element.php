@@ -16,6 +16,7 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
         $icon,
         $field_group,
         // automatically generated
+        $template_id = -1,
         $options = array();
 
 
@@ -158,6 +159,45 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
 
 
     /**
+     * Declare this element as a template
+     *
+     * Templates are managed through the Eddditor_Templates class, this method simply declares this element as an
+     * instance of a saved template. The template ID will be present in this element's JSON representation.
+     *
+     * @param int $template_id Template ID
+     */
+    final public function set_template_id($template_id) {
+        $this->template_id = $template_id;
+    }
+
+
+    /**
+     * Remove template ID and treat as a regular element
+     */
+    final public function unset_template_id() {
+        $this->template_id = -1;
+    }
+
+
+    /**
+     * Get element data to be saved in the database as a template
+     *
+     * Options and view are not necessary because:
+     *      1. Templates never have options, only an instance of a template has options
+     *      2. View is refreshed before every output, no need to save it to the database
+     *
+     * @return array Array representation of this element to be saved as a template
+     */
+    final public function get_template_data() {
+        return array(
+            'template_id' => $this->template_id,
+            'type' => $this->type,
+            'values' => $this->clean_values
+        );
+    }
+
+
+    /**
      * Validate an array containing an element's structure
      *
      * Validates array structure and presence of required key/value pairs
@@ -188,12 +228,20 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
      * @return array Array representation of this element
      */
     final public function jsonSerialize() {
-        return array(
-            'type' => $this->type,
-            'values' => $this->clean_values,
-            'options' => $this->options,
-            'view' => $this->get_backend_view()
-        );
+        if ($this->template_id > -1) {
+            return array(
+                'template_id' => $this->template_id,
+                'options' => $this->options,
+                'view' => $this->get_backend_view()
+            );
+        } else {
+            return array(
+                'type' => $this->type,
+                'values' => $this->clean_values,
+                'options' => $this->options,
+                'view' => $this->get_backend_view()
+            );
+        }
     }
     
     

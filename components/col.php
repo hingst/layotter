@@ -24,7 +24,18 @@ class Eddditor_Col implements JsonSerializable {
         $this->options = new Eddditor_Options('col', $structure['options']);
 
         foreach ($structure['elements'] as $element) {
-            $element_object = Eddditor::create_element($element);
+            $element_object = false;
+
+            // if a template_id is set, try to create a template
+            if (isset($element['template_id'])) {
+                $element_object = Eddditor_Templates::create_element($element);
+            }
+
+            // if the template doesn't exist anymore, create a regular element
+            if (!$element_object) {
+                $element_object = Eddditor::create_element($element);
+            }
+
             if ($element_object) {
                 $this->elements[] = $element_object;
             }

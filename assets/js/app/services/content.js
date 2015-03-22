@@ -44,8 +44,10 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
      */
     this.saveForm = function() {
         var editingElement = state.getElement();
-        if (typeof editingElement.type === 'undefined') {
+        if (typeof state.getOptionsType() !== 'null') {
             _this.saveOptions();
+        } else if (typeof editingElement.template_id !== 'undefined') {
+            templates.saveTemplate();
         } else {
             _this.saveElement();
         }
@@ -68,11 +70,6 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
      * Save values from the edit form being currently displayed
      */
     this.saveElement = function() {
-        if (state.getElement().template !== undefined) {
-            templates.updateTemplate();
-            return;
-        }
-
         // ACF wraps all form fields in a required object called 'acf'
         var values = jQuery('#eddditor-edit').serializeObject();
         if (typeof values.acf == 'undefined') {
@@ -86,7 +83,6 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
         
         // copy editing.element so state can be reset while ajax is still loading
         var editingElement = state.getElement();
-        console.log(editingElement);
         state.reset();
         editingElement.isLoading = true;
         
@@ -215,9 +211,7 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
      */
     this.duplicateElement = function(parent, index) {
         parent.splice(index, 0, angular.copy(parent[index]));
-        if (parent[index].template) {
-            templates.watchTemplate(parent[index]);
-        }
+        templates.watchTemplate(parent[index]);
     };
     
     

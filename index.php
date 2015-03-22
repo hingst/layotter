@@ -24,6 +24,7 @@ if (!defined('EDDDITOR_ACF_ERROR')) {
     require_once dirname(__FILE__) . '/ajax.php';
     require_once dirname(__FILE__) . '/assets.php';
     require_once dirname(__FILE__) . '/interface.php';
+    require_once dirname(__FILE__) . '/templates.php';
     require_once dirname(__FILE__) . '/acf-locations.php';
     require_once dirname(__FILE__) . '/shortcode.php';
 

@@ -1,4 +1,4 @@
-app.controller('TemplatesCtrl', function($scope, $animate, templates) {
+app.controller('TemplatesCtrl', function($scope, $animate, templates, $timeout) {
 
     // include all of data's api methods in the current scope
     angular.extend($scope, templates);
@@ -14,9 +14,9 @@ app.controller('TemplatesCtrl', function($scope, $animate, templates) {
         handle: '.eddditor-element-move',
         connectWith: '#eddditor .eddditor-elements',
         helper: 'clone',
-        //scroll: false,
         start: function (event, ui) {
             $animate.enabled(false);
+            templates.lowlightTemplate(ui.item.sortable.model);
             savedTemplatesBackup = angular.copy($scope.savedTemplates);
             angular.element(ui.item).show(); // show clone while dragging
             angular.element(ui.item.parent()).sortable('option', 'revert', false); // prevent revert animation when dropping on saved elements list
@@ -24,10 +24,12 @@ app.controller('TemplatesCtrl', function($scope, $animate, templates) {
         stop: function (event, ui) {
             if (ui.item.sortable.droptarget && event.target !== ui.item.sortable.droptarget[0]) {
                 angular.extend(templates.savedTemplates, savedTemplatesBackup); // re-add element to saved elements if it was removed
-                ui.item.sortable.model.options = angular.copy(eddditorData.options.element.defaults); // use default options for new element
+                //ui.item.sortable.model.options = angular.copy(eddditorData.options.element.defaults); // use default options for new element
                 templates.watchTemplate(ui.item.sortable.model);
             }
-            $animate.enabled(true);
+            $timeout(function(){
+                $animate.enabled(true);
+            }, 1);
         },
         update: function (event, ui) {
             if (ui.item.sortable.droptarget && event.target === ui.item.sortable.droptarget[0]) {

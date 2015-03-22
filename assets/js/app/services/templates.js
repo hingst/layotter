@@ -14,7 +14,7 @@ app.service('templates', function($rootScope, $http, view, forms, modals, state)
     this.editTemplate = function(element) {
         state.setElement(element);
         forms.post(ajaxurl + '?action=eddditor_edit_template', {
-            template: element.template
+            template_id: element.template_id
         });
     };
     
@@ -22,21 +22,23 @@ app.service('templates', function($rootScope, $http, view, forms, modals, state)
     /**
      * Delete element template at $index
      */
-    this.deleteTemplate = function(id) {
+    this.deleteTemplate = function(index) {
         modals.confirm({
             message: eddditorData.i18n.delete_template_confirmation,
             okText: eddditorData.i18n.delete_template,
             okAction: function(){
-                _this.savedTemplates[id].isLoading = true;
+                _this.savedTemplates[index].isLoading = true;
                 $http({
                     url: ajaxurl + '?action=eddditor_delete_template',
                     method: 'POST',
                     data: {
-                        template: id
+                        template_id: _this.savedTemplates[index].template_id
                     }
                 }).success(function(reply) {
-                    _this.savedTemplates[id].template = undefined;
-                    _this.savedTemplates[id].isLoading = undefined;
+                    _this.savedTemplates[index].isLoading = undefined;
+                    _this.savedTemplates[index].template_id = undefined;
+                    angular.extend(_this.savedTemplates[index], reply);
+                    _this.savedTemplates.splice(index, 1);
                 });
             },
             cancelText: eddditorData.i18n.cancel
@@ -58,9 +60,11 @@ app.service('templates', function($rootScope, $http, view, forms, modals, state)
                 values: element.values
             }
         }).success(function(reply) {
-            _this.savedTemplates[reply.template] = angular.copy(reply);
+            _this.savedTemplates.push(angular.copy(reply));
             element.isLoading = undefined;
-            element.template = reply.template;
+            element.template_id = reply.template_id;
+            element.type = undefined;
+            element.values = undefined;
             _this.watchTemplate(element);
         });
     };
@@ -69,7 +73,7 @@ app.service('templates', function($rootScope, $http, view, forms, modals, state)
     /**
      * 
      */
-    this.updateTemplate = function() {
+    this.saveTemplate = function() {
         var values = jQuery('#eddditor-edit').serializeObject();
         
         // copy editing.element so state can be reset while ajax is still loading
@@ -81,7 +85,7 @@ app.service('templates', function($rootScope, $http, view, forms, modals, state)
             url: ajaxurl + '?action=eddditor_update_template',
             method: 'POST',
             data: {
-                template: editingElement.template,
+                template_id: editingElement.template_id,
                 values: values
             }
         }).success(function(reply) {
@@ -102,16 +106,23 @@ app.service('templates', function($rootScope, $http, view, forms, modals, state)
 
 
     this.watchTemplate = function (element) {
-        var id = element.template;
-        if (_this.savedTemplates[id]) {
-            $rootScope.$watch(function () {
-                return _this.savedTemplates[id];
-            }, function (value) {
-                var copy = angular.copy(value);
-                copy.options = element.options;
-                angular.extend(element, copy);
-            }, true);
+        if (typeof element.template_id === 'undefined') {
+            return;
         }
+
+        var template_id = element.template_id;
+
+        angular.forEach(_this.savedTemplates, function(template) {
+            if (template_id === template.template_id) {
+                $rootScope.$watch(function () {
+                    return template;
+                }, function (value) {
+                    var copy = angular.copy(value);
+                    copy.options = element.options;
+                    angular.extend(element, copy);
+                }, true);
+            }
+        });
     };
     
 });

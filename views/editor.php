@@ -27,17 +27,17 @@
                                 <div class="eddditor-element-canvas">
                                     <div class="eddditor-element-head">
                                         <span class="eddditor-element-delete" ng-click="deleteElement(col.elements, $index)" title="<?php _e('Delete element', 'eddditor'); ?>"><?php _e('Delete element', 'eddditor'); ?></span>
-                                        <span class="eddditor-element-edit" ng-hide="element.template !== undefined" ng-click="editElement(element)" title="<?php _e('Edit element', 'eddditor'); ?>"><?php _e('Edit element', 'eddditor'); ?></span>
+                                        <span class="eddditor-element-edit" ng-hide="element.template_id !== undefined" ng-click="editElement(element)" title="<?php _e('Edit element', 'eddditor'); ?>"><?php _e('Edit element', 'eddditor'); ?></span>
                                         <div class="eddditor-element-dropdown">
                                             <div class="eddditor-element-dropdown-items">
                                                 <span class="eddditor-element-options" ng-click="editOptions('element', element)" ng-show="optionsEnabled.element"><?php _e('Element options', 'eddditor'); ?></span>
                                                 <span class="eddditor-element-duplicate" ng-click="duplicateElement(col.elements, $index)"><?php _e('Duplicate element', 'eddditor'); ?></span>
-                                                <span class="eddditor-element-favorite" ng-hide="element.template !== undefined" ng-click="saveNewTemplate(element)"><?php _e('Add to gallery', 'eddditor'); ?></span>
+                                                <span class="eddditor-element-favorite" ng-hide="element.template_id !== undefined" ng-click="saveNewTemplate(element)"><?php _e('Add to gallery', 'eddditor'); ?></span>
                                             </div>
                                         </div>
                                         <span class="eddditor-element-move"><?php _e('Move', 'eddditor'); ?></span>
                                     </div>
-                                    <div class="eddditor-element-message" ng-show="element.template !== undefined">
+                                    <div class="eddditor-element-message" ng-show="element.template_id !== undefined">
                                         <?php _e('This is a template.', 'eddditor'); ?> <a href="#">[?]</a>
                                     </div>
                                     <div class="eddditor-element-content" ng-bind-html="element.view"></div>

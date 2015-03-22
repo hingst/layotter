@@ -73,6 +73,10 @@ function eddditor_assets_admin_head() {
     // fetch content structure for the current post
     $post_id = get_the_ID();
     $content_structure = new Eddditor_Post($post_id);
+
+
+    // fetch element templates
+    $saved_templates = Eddditor_Templates::get_all();
     
     
     // inject data for use with Javascript
@@ -84,7 +88,7 @@ function eddditor_assets_admin_head() {
             'contentStructure' => $content_structure,
             'allowedRowLayouts' => $allowed_row_layouts,
             'defaultRowLayout' => $default_row_layout,
-            'savedTemplates' => array(),
+            'savedTemplates' => $saved_templates,
             'options' => array(
                 'post' => array(
                     'enabled' => $default_post_options->is_enabled(),
