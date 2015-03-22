@@ -44,7 +44,7 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
      */
     this.saveForm = function() {
         var editingElement = state.getElement();
-        if (typeof state.getOptionsType() !== 'null') {
+        if (state.getOptionsType()) {
             _this.saveOptions();
         } else if (typeof editingElement.template_id !== 'undefined') {
             templates.saveTemplate();

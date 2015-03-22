@@ -36,7 +36,6 @@ if (!defined('EDDDITOR_ACF_ERROR')) {
     require_once dirname(__FILE__) . '/components/col.php';
     require_once dirname(__FILE__) . '/components/element.php';
 
-    require_once dirname(__FILE__) . '/components/elements/_example.php';
     require_once dirname(__FILE__) . '/components/elements/test.php';
 }
 

@@ -152,20 +152,13 @@ $darkgray: #CCCCCC;
     &:hover {
         opacity: 0.7;
     }
-    
-    &:before {
-        background-position: center;
-        background-repeat: no-repeat;
-        width: 14px;
-        height: 14px;
-        vertical-align: middle;
-        content: '';
-        margin-right: 6px;
-        display: none;
+
+    i.fa {
+        margin-right: 10px;
+        font-size: 16px;
     }
 
-    &.eddditor-post-options-button,
-    &.eddditor-templates-button {
+    &.eddditor-button-with-icon {
         clear: none;
         opacity: 0.7;
         float: left;
@@ -176,39 +169,19 @@ $darkgray: #CCCCCC;
         {
             opacity: 1;
         }
-
-        &:before
-        {
-            display: inline-block;
-        }
-    }
-
-    &.eddditor-post-options-button {
-        &:before {
-            background-image: url(../images/icons/options.png);
-            margin-top: -3px;
-        }
     }
 
     &.eddditor-templates-button {
         float: right;
         margin-right: 0;
-        
-        &:before {
-            background-image: url(../images/icons/favorite.png);
-            margin-top: -4px;
-            width: 16px;
-            height: 16px;
-        }
     }
 
     &.eddditor-add-row-button {
         transition: height 0.6s, line-height 0.6s, font-size 0.6s, margin-bottom 0.6s;
-        
-        &:before {
-            background-image: url(../images/icons/add.png);
-            margin-top: -2px;
-            display: inline-block;
+
+        i.fa {
+            font-size: 14px;
+            margin-right: 8px;
         }
         
         &.eddditor-add-row-button-large {
@@ -217,16 +190,8 @@ $darkgray: #CCCCCC;
             font-size: 20px;
             margin-bottom: 0;
 
-            &:before {
-                margin-top: -4px;
-            }
-
-            .eddditor-add-row-button-normal {
-                display: none;
-            }
-
-            .eddditor-add-row-button-blank {
-                display: inline;
+            i.fa {
+                font-size: 16px;
             }
         }
     }
@@ -234,10 +199,9 @@ $darkgray: #CCCCCC;
     &.eddditor-add-element-button {
         background: #fff;
 
-        &:before {
-            background-image: url(../images/icons/add-thin.png);
-            margin-top: -3px;
-            display: inline-block;
+        i.fa {
+            font-size: 14px;
+            margin-right: 8px;
         }
     }
 }
@@ -280,13 +244,16 @@ $darkgray: #CCCCCC;
             }
 
             .eddditor-row-move {
-                background: url(../images/icons/move-row.png) 14px 11px no-repeat;
-                padding: 0 14px 0 32px;
+                padding: 0 12px;
                 border-right: 1px solid $darkgray;
                 cursor: move;
                 position: absolute;
                 top: 0;
                 left: 0;
+
+                i.fa {
+                    margin-right: 8px;
+                }
             }
 
             .eddditor-row-cols {
@@ -319,36 +286,25 @@ $darkgray: #CCCCCC;
                 top: 0;
                 right: 0;
 
+                i.fa {
+                    font-size: 16px;
+                }
+
                 .eddditor-row-delete,
                 .eddditor-row-duplicate,
                 .eddditor-row-options {
-                    text-indent: -9999px;
                     float: right;
                     cursor: pointer;
                     border-left: 1px solid $darkgray;
                     width: 36px;
-                    background-position: center;
-                    background-repeat: no-repeat;
 
                     &:hover {
                         background-color: #ddd;
                     }
                 }
 
-                .eddditor-row-delete {
-                    background-image: url(../images/icons/delete.png);
-
-                    &:hover {
-                        background-color: #FFA8B4;
-                    }
-                }
-
-                .eddditor-row-duplicate {
-                    background-image: url(../images/icons/duplicate.png);
-                }
-
-                .eddditor-row-options {
-                    background-image: url(../images/icons/options.png);
+                .eddditor-row-delete:hover {
+                    background-color: #FFA8B4;
                 }
             }
         }
@@ -515,6 +471,10 @@ $darkgray: #CCCCCC;
                 opacity: 0.1;
                 border-bottom: 1px solid $darkgray;
 
+                i.fa {
+                    font-size: 14px;
+                }
+
                 .eddditor-element-move,
                 .eddditor-element-delete,
                 .eddditor-element-edit,
@@ -526,9 +486,12 @@ $darkgray: #CCCCCC;
                 }
 
                 .eddditor-element-move {
-                    background: url(../images/icons/move.png) 8px center no-repeat;
                     cursor: move;
-                    padding-left: 30px;
+                    padding-left: 8px;
+
+                    i.fa {
+                        margin-right: 8px;
+                    }
                 }
 
                 .eddditor-element-delete,
@@ -538,10 +501,8 @@ $darkgray: #CCCCCC;
                     border-left: 1px solid #ddd;
                     cursor: pointer;
                     float: right;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    text-indent: -9999px;
                     width: 30px;
+                    text-align: center;
 
                     &:hover {
                         background-color: $lightgray;
@@ -549,31 +510,24 @@ $darkgray: #CCCCCC;
                 }
 
                 .eddditor-element-delete {
-                    background-image: url(../images/icons/delete.png);
+                    i.fa {
+                        font-size: 16px;
+                    }
 
                     &:hover {
                         background-color: #FFA8B4;
                     }
                 }
 
-                .eddditor-element-edit {
-                    background-image: url(../images/icons/edit.png);
-                }
-
-                > .eddditor-element-options {
-                    background-image: url(../images/icons/options.png);
-                }
-
                 .eddditor-element-dropdown {
-                    background-image: url(../images/icons/dropdown.png);
                     position: relative;
-                    text-indent: 0;
 
                     &:hover .eddditor-element-dropdown-items {
                         display: block;
                     }
 
                     .eddditor-element-dropdown-items {
+                        text-align: left;
                         position: absolute;
                         top: 100%;
                         left: -1px;
@@ -584,24 +538,17 @@ $darkgray: #CCCCCC;
                         z-index: 999;
                         box-shadow: $box-shadow;
 
+                        i.fa {
+                            display: inline-block;
+                            width: 16px;
+                            text-align: center;
+                            margin-right: 8px;
+                        }
+
                         span {
                             display: block;
                             border-bottom: 1px solid #ddd;
-                            background-position: 8px center;
-                            background-repeat: no-repeat;
-                            padding: 0 10px 0 30px;
-
-                            &.eddditor-element-options {
-                                background-image: url(../images/icons/options.png);
-                            }
-
-                            &.eddditor-element-duplicate {
-                                background-image: url(../images/icons/duplicate.png);
-                            }
-
-                            &.eddditor-element-favorite {
-                                background-image: url(../images/icons/favorite.png);
-                            }
+                            padding: 0 10px;
 
                             &:hover {
                                 background-color: $lightgray;
@@ -874,7 +821,7 @@ input:checked ~ .eddditor-row-layout-option {
 
 
 /****************************************************/
-/* saved element templates (aka element gallery) */
+/* saved element templates */
 
 #eddditor-templates {
     @extend %border-box;
@@ -897,12 +844,13 @@ input:checked ~ .eddditor-row-layout-option {
         position: absolute;
         top: 0;
         right: 0;
-        width: 40px;
-        height: 40px;
+        padding: 14px;
         opacity: 0.7;
-        background: url(../images/icons/delete.png) center no-repeat;
         cursor: pointer;
-        text-indent: -9999px;
+
+        i.fa {
+            font-size: 18px;
+        }
 
         &:hover {
             opacity: 1;
