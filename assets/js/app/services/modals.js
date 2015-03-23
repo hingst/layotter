@@ -1,17 +1,63 @@
 app.service('modals', function($compile, $rootScope, $timeout){
 
 
+    // when enter is pressend in a prompt, submit the value
+    angular.element(document).on('keydown', '#eddditor-modal-prompt-input', function(e){
+        if (e.keyCode === 13) {
+            $rootScope.prompt.okAction();
+        }
+    });
+
+
+    /**
+     * Create a confirm()-style modal prompting the user to input a string
+     *
+     * @param options Confirmation message as well as OK and cancel button texts and actions
+     */
+    this.prompt = function(options) {
+        // try to create the lightbox
+        if (!create(angular.element('#eddditor-modal-prompt').html())) {
+            return;
+        }
+
+        $rootScope.prompt = {
+            message: options.message,
+            initialValue: options.initialValue,
+            okText: options.okText,
+            cancelText: options.cancelText,
+            okAction: function() {
+                close();
+                if (typeof options.okAction === 'function') {
+                    var newValue = angular.element('#eddditor-modal-prompt-input').val();
+                    options.okAction(newValue);
+                }
+            },
+            cancelAction: function() {
+                close();
+                if (typeof options.cancelAction === 'function') {
+                    options.cancelAction();
+                }
+            }
+        };
+
+        // without the $timeout, pressing ESC in the input field would remove the value
+        $timeout(function(){
+            angular.element('#eddditor-modal-prompt-input').select().focus();
+        }, 1);
+    };
+
+
     /**
      * Create a confirm()-style modal
      *
      * @param options Confirmation message as well as OK and cancel button texts and actions
      */
     this.confirm = function(options) {
-        // try to crate the lightbox
+        // try to create the lightbox
         if (!create(angular.element('#eddditor-modal-confirm').html())) {
             return;
         }
-    
+
         $rootScope.confirm = {
             message: options.message,
             okText: options.okText,
@@ -49,7 +95,7 @@ app.service('modals', function($compile, $rootScope, $timeout){
         box.appendTo('body')
             .find('.dennisbox-content')
                 .html(content)
-                .css('height', 200)
+                .css('height', 210)
                 .css('width', 350)
                 .css('margin-top', -90)
                 .css('top', topOffset)

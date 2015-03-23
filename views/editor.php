@@ -1,8 +1,10 @@
 <div id="eddditor" ng-controller="EditorCtrl" ng-class="{ 'eddditor-loading' : data.isLoading }">
     <span class="eddditor-button eddditor-button-with-icon" ng-click="editOptions('post', data)" ng-show="optionsEnabled.post"><i class="fa fa-cog"></i><?php _e('Post options', 'eddditor'); ?></span>
-    <span class="eddditor-button eddditor-button-with-icon" ng-click="saveNewDraft()"><i class="fa fa-download"></i><?php _e('Save as draft', 'eddditor'); ?></span>
-    <span class="eddditor-button eddditor-button-with-icon" ng-click="loadDraft()"><i class="fa fa-upload"></i><?php _e('Load a draft', 'eddditor'); ?></span>
-    <span class="eddditor-button eddditor-button-with-icon eddditor-templates-button" toggle-templates><i class="fa fa-star"></i><?php _e('Templates', 'eddditor'); ?></span>
+    <span class="eddditor-button-wrapper">
+        <span class="eddditor-button eddditor-button-with-icon eddditor-save-layout-button" ng-click="saveNewLayout()"><i class="fa fa-download"></i><?php _e('Save post layout', 'eddditor'); ?></span>
+    </span>
+    <span class="eddditor-button eddditor-button-with-icon" ng-click="loadLayout()"><i class="fa fa-upload"></i><?php _e('Load a layout', 'eddditor'); ?></span>
+    <span class="eddditor-button eddditor-button-with-icon eddditor-templates-button" toggle-templates><i class="fa fa-star"></i><?php _e('Element templates', 'eddditor'); ?></span>
     <span class="eddditor-button eddditor-add-row-button" ng-click="addRow(-1)" ng-class="{ 'eddditor-add-row-button-large': data.rows.length === 0 }">
         <span ng-show="data.rows.length"><i class="fa fa-plus"></i><?php _e('Add row', 'eddditor'); ?></span>
         <span ng-hide="data.rows.length"><i class="fa fa-plus"></i><?php _e('Add your first row to get started', 'eddditor'); ?></span>
@@ -16,7 +18,7 @@
                         <span class="eddditor-row-layout-button" ng-repeat="colbutton in allowedRowLayouts" ng-class="{ 'eddditor-row-layout-button-active': colbutton.layout === row.layout }" ng-click="setRowLayout(row, colbutton.layout)" data-layout="{{ colbutton.layout }}" title="{{ colbutton.title }}">{{ colbutton.title }}</span>
                     </div>
                     <div class="eddditor-row-buttons">
-                        <span class="eddditor-row-delete" ng-click="deleteRow($index)" title="<?php _e('Delete row', 'eddditor'); ?>"><i class="fa fa-times"></i></span>
+                        <span class="eddditor-row-delete" ng-click="deleteRow($index)" title="<?php _e('Delete row', 'eddditor'); ?>"><i class="fa fa-trash-o"></i></span>
                         <span class="eddditor-row-duplicate" ng-click="duplicateRow($index)" title="<?php _e('Duplicate row', 'eddditor'); ?>"><i class="fa fa-files-o"></i></span>
                         <span class="eddditor-row-options" ng-click="editOptions('row', row)" ng-show="optionsEnabled.row" title="<?php _e('Row options', 'eddditor'); ?>"><i class="fa fa-cog"></i></span>
                     </div>
@@ -28,7 +30,7 @@
                             <div class="eddditor-element eddditor-animate" ng-repeat="element in col.elements" ng-init="watchTemplate(element)" ng-class="{ 'eddditor-loading' : element.isLoading, 'eddditor-highlight' : element.isHighlighted }">
                                 <div class="eddditor-element-canvas">
                                     <div class="eddditor-element-head">
-                                        <span class="eddditor-element-delete" ng-click="deleteElement(col.elements, $index)" title="<?php _e('Delete element', 'eddditor'); ?>"><i class="fa fa-times"></i></span>
+                                        <span class="eddditor-element-delete" ng-click="deleteElement(col.elements, $index)" title="<?php _e('Delete element', 'eddditor'); ?>"><i class="fa fa-trash-o"></i></span>
                                         <span class="eddditor-element-edit" ng-hide="element.template_id !== undefined" ng-click="editElement(element)" title="<?php _e('Edit element', 'eddditor'); ?>"><i class="fa fa-pencil"></i></span>
                                         <div class="eddditor-element-dropdown">
                                             <i class="fa fa-caret-down"></i>
@@ -59,12 +61,14 @@
     <span><?php _e('Eddditor loading &hellip;', 'eddditor'); ?></span>
 </div>
 <script type="text/ng-template" id="eddditor-add-element">
-<?php
-require dirname(__FILE__) . '/add_element.php';
-?>
+    <?php require dirname(__FILE__) . '/add-element.php'; ?>
+</script>
+<script type="text/ng-template" id="eddditor-load-layout">
+    <?php require dirname(__FILE__) . '/load-layout.php'; ?>
 </script>
 <script type="text/ng-template" id="eddditor-modal-confirm">
-<?php 
-require dirname(__FILE__) . '/confirm.php';
-?>
+    <?php require dirname(__FILE__) . '/confirm.php'; ?>
+</script>
+<script type="text/ng-template" id="eddditor-modal-prompt">
+    <?php require dirname(__FILE__) . '/prompt.php'; ?>
 </script>

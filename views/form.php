@@ -4,9 +4,9 @@
             <div class="eddditor-modal-head-icon">
                 <i class="fa fa-<?php echo $icon; ?>"></i>
             </div>
-	        <div class="eddditor-modal-head-info">
+            <div class="eddditor-modal-head-info">
                 <h2><?php echo $title; ?></h2>
-	        </div>
+            </div>
         </div>
         <div class="eddditor-modal-body">
             <div id="acf-form-data" class="acf-postbox">
@@ -22,7 +22,7 @@
         <div class="eddditor-modal-foot">
             <button id="eddditor-edit-fake-submit" type="submit" class="button button-primary button-large"><?php _e('Save', 'eddditor'); ?></button>
             <span class="button button-large" ng-click="cancelEditing()"><?php _e('Cancel', 'eddditor'); ?></span>
-	        <span class="button button-large" ng-click="backToShowNewElementTypes()" ng-show="showBackButton"><?php _e('Back', 'eddditor'); ?></span>
+            <span class="button button-large" ng-click="backToShowNewElementTypes()" ng-show="showBackButton"><?php _e('Back', 'eddditor'); ?></span>
         </div>
         <span id="eddditor-edit-submit" class="hidden" ng-click="saveForm()">triggered by ACF after validation</span>
     </form>

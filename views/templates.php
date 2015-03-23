@@ -9,7 +9,7 @@
         <div class="eddditor-element eddditor-animate" ng-repeat="element in savedTemplates" ng-mouseenter="highlightTemplate(element)" ng-mouseleave="lowlightTemplate(element)" ng-class="{ 'eddditor-loading' : element.isLoading }">
             <div class="eddditor-element-canvas">
                 <div class="eddditor-element-head">
-                    <span class="eddditor-element-delete" ng-click="deleteTemplate($index)" title="<?php _e('Delete template', 'eddditor'); ?>"><i class="fa fa-times"></i></span>
+                    <span class="eddditor-element-delete" ng-click="deleteTemplate($index)" title="<?php _e('Delete template', 'eddditor'); ?>"><i class="fa fa-trash-o"></i></span>
                     <span class="eddditor-element-edit" ng-click="editTemplate(element)" title="<?php _e('Edit template', 'eddditor'); ?>"><i class="fa fa-pencil"></i></span>
                     <span class="eddditor-element-move"><i class="fa fa-arrows"></i><?php _e('Move', 'eddditor'); ?></span>
                 </div>

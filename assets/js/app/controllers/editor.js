@@ -1,7 +1,7 @@
-app.controller('EditorCtrl', function($scope, $animate, data, content, templates) {
+app.controller('EditorCtrl', function($scope, $animate, data, content, templates, layouts) {
 
     // add common data properties and methods to the current scope
-    angular.extend($scope, content, templates);
+    angular.extend($scope, content, templates, layouts);
     $scope.data = data.contentStructure;
 
 

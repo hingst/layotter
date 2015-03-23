@@ -228,3 +228,78 @@ function eddditor_ajax_delete_template() {
 
     die(); // required by Wordpress after any AJAX call
 }
+
+
+
+
+
+
+/**
+ * Save JSON structure as a post layout
+ */
+add_action('wp_ajax_eddditor_save_new_layout', 'eddditor_ajax_save_new_layout');
+function eddditor_ajax_save_new_layout() {
+    $post_data = eddditor_get_angular_post_data();
+
+    // name and JSON are required
+    if (isset($post_data['name']) AND isset($post_data['json'])) {
+        $layout = Eddditor_Layouts::save($post_data['name'], $post_data['json']);
+        echo json_encode($layout);
+    }
+
+    die(); // required by Wordpress after any AJAX call
+}
+
+
+/**
+ * Load a post layout
+ */
+add_action('wp_ajax_eddditor_load_layout', 'eddditor_ajax_load_layout');
+function eddditor_ajax_load_layout() {
+    $post_data = eddditor_get_angular_post_data();
+
+    // template ID is required
+    if (isset($post_data['layout_id'])) {
+        $post = Eddditor_Layouts::get($post_data['layout_id']);
+        if ($post) {
+            echo json_encode($post);
+        }
+    }
+
+    die(); // required by Wordpress after any AJAX call
+}
+
+
+/**
+ * Rename a post layout
+ */
+add_action('wp_ajax_eddditor_rename_layout', 'eddditor_ajax_rename_layout');
+function eddditor_ajax_rename_layout() {
+    $post_data = eddditor_get_angular_post_data();
+
+    // template ID and new name are required
+    if (isset($post_data['layout_id']) AND isset($post_data['name'])) {
+        $renamed = Eddditor_Layouts::rename($post_data['layout_id'], $post_data['name']);
+        if ($renamed) {
+            echo json_encode($renamed);
+        }
+    }
+
+    die(); // required by Wordpress after any AJAX call
+}
+
+
+/**
+ * Delete a post layout
+ */
+add_action('wp_ajax_eddditor_delete_layout', 'eddditor_ajax_delete_layout');
+function eddditor_ajax_delete_layout() {
+    $post_data = eddditor_get_angular_post_data();
+
+    // template ID is required
+    if (isset($post_data['layout_id'])) {
+        Eddditor_Layouts::delete($post_data['layout_id']);
+    }
+
+    die(); // required by Wordpress after any AJAX call
+}

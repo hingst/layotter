@@ -46,6 +46,7 @@ function eddditor_assets_admin_head() {
         'eddditor-service-data' => 'assets/js/app/services/data.js',
         'eddditor-service-content' => 'assets/js/app/services/content.js',
         'eddditor-service-templates' => 'assets/js/app/services/templates.js',
+        'eddditor-service-layouts' => 'assets/js/app/services/layouts.js',
         'eddditor-service-view' => 'assets/js/app/services/view.js',
         'eddditor-service-forms' => 'assets/js/app/services/forms.js',
         'eddditor-service-modals' => 'assets/js/app/services/modals.js'
@@ -75,7 +76,8 @@ function eddditor_assets_admin_head() {
     $content_structure = new Eddditor_Post($post_id);
 
 
-    // fetch element templates
+    // fetch post layouts and element templates
+    $saved_layouts = Eddditor_Layouts::get_all();
     $saved_templates = Eddditor_Templates::get_all();
     
     
@@ -88,6 +90,7 @@ function eddditor_assets_admin_head() {
             'contentStructure' => $content_structure,
             'allowedRowLayouts' => $allowed_row_layouts,
             'defaultRowLayout' => $default_row_layout,
+            'savedLayouts' => $saved_layouts,
             'savedTemplates' => $saved_templates,
             'options' => array(
                 'post' => array(
@@ -113,10 +116,18 @@ function eddditor_assets_admin_head() {
                 'delete_template' => __('Delete favorite', 'eddditor'),
                 'cancel' => __('Cancel', 'eddditor'),
                 'discard_changes' => __('Discard changes', 'eddditor'),
-                'discard_changes_confirmation' => __('Are you sure you want to cancel and discard all changes?', 'eddditor'),
-                'delete_row_confirmation' => __('Are you sure you want to delete this row and all its elements? This action can not be undone.', 'eddditor'),
-                'delete_element_confirmation' => __('Are you sure you want to delete this element? This action can not be undone.', 'eddditor'),
-                'delete_template_confirmation' => __('Are you sure you want to delete this favorite? This action can not be undone.', 'eddditor')
+                'discard_changes_confirmation' => __('Do you want to cancel and discard all changes?', 'eddditor'),
+                'delete_row_confirmation' => __('Do you want to delete this row and all its elements? This action can not be undone.', 'eddditor'),
+                'delete_element_confirmation' => __('Do you want to delete this element? This action can not be undone.', 'eddditor'),
+                'delete_template_confirmation' => __('Do you want to delete this template? This action can not be undone.', 'eddditor'),
+                'save_new_layout_confirmation' => __('Please enter a name for your layout:', 'eddditor'),
+                'save_layout' => __('Save layout', 'eddditor'),
+                'rename_layout_confirmation' => __('Please enter the new name for this layout:', 'eddditor'),
+                'rename_layout' => __('Rename layout', 'eddditor'),
+                'delete_layout_confirmation' => __('Do want to delete this layout? This action can not be undone.', 'eddditor'),
+                'delete_layout' => __('Delete layout', 'eddditor'),
+                'load_layout_confirmation' => __('Do want to load this layout? Your existing content will be overwritten. This action can not be undone.', 'eddditor'),
+                'load_layout' => __('Load layout', 'eddditor'),
             )
         )
     );

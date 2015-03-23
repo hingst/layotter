@@ -206,6 +206,25 @@ $darkgray: #CCCCCC;
     }
 }
 
+.eddditor-button-wrapper {
+    margin: 10px 10px 10px 0;
+    display: block;
+    float: left;
+
+    .eddditor-button.eddditor-button-with-icon {
+        margin: 0;
+    }
+
+    &.eddditor-loading {
+        position: relative;
+
+        &:after {
+            @include loading;
+            background-image: url(../images/loading-small.gif);
+        }
+    }
+}
+
 
 /****************************************************/
 /* rows */
@@ -469,7 +488,7 @@ $darkgray: #CCCCCC;
 
             .eddditor-element-head {
                 opacity: 0.1;
-                border-bottom: 1px solid $darkgray;
+                border-bottom: 1px solid #ddd;
 
                 i.fa {
                     font-size: 14px;
@@ -509,14 +528,8 @@ $darkgray: #CCCCCC;
                     }
                 }
 
-                .eddditor-element-delete {
-                    i.fa {
-                        font-size: 16px;
-                    }
-
-                    &:hover {
-                        background-color: #FFA8B4;
-                    }
+                .eddditor-element-delete:hover {
+                    background-color: #FFA8B4;
                 }
 
                 .eddditor-element-dropdown {
@@ -656,7 +669,7 @@ $darkgray: #CCCCCC;
 
 
 /****************************************************/
-/* modal: confirm */
+/* modal: confirm and prompt */
 
 .eddditor-modal-confirm {
     position: relative;
@@ -674,6 +687,14 @@ $darkgray: #CCCCCC;
         right: 0;
         padding: 20px;
         background: $lightgray;
+    }
+
+    &.eddditor-modal-prompt {
+        input {
+            box-sizing: border-box;
+            width: 90%;
+            margin: 8px 0 0;
+        }
     }
 }
 
@@ -717,6 +738,75 @@ $darkgray: #CCCCCC;
 
     .eddditor-modal-add-element-info {
         margin-left: 42px;
+    }
+}
+
+
+/****************************************************/
+/* modal: load post layout */
+
+.eddditor-modal-load-layout-wrapper {
+    border-bottom: 1px solid #ddd;
+
+    &.eddditor-loading {
+        position: relative;
+
+        &:after {
+            @include loading;
+            background-color: rgba(255,255,255,0.8);
+        }
+    }
+
+    .eddditor-modal-load-layout {
+        cursor: pointer;
+        padding: 20px;
+
+        &:hover {
+            background: #ffffff; /* Old browsers */
+            background: -moz-linear-gradient(top,  #ffffff 0%, #f8f8f8 100%, #f8f8f8 100%); /* FF3.6+ */
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#f8f8f8), color-stop(100%,#f8f8f8)); /* Chrome,Safari4+ */
+            background: -webkit-linear-gradient(top,  #ffffff 0%,#f8f8f8 100%,#f8f8f8 100%); /* Chrome10+,Safari5.1+ */
+            background: -o-linear-gradient(top,  #ffffff 0%,#f8f8f8 100%,#f8f8f8 100%); /* Opera 11.10+ */
+            background: -ms-linear-gradient(top,  #ffffff 0%,#f8f8f8 100%,#f8f8f8 100%); /* IE10+ */
+            background: linear-gradient(to bottom,  #ffffff 0%,#f8f8f8 100%,#f8f8f8 100%); /* W3C */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f8f8f8',GradientType=0 ); /* IE6-9 */
+        }
+
+        .eddditor-modal-load-layout-header {
+            display: block;
+            margin-bottom: 8px;
+
+            h3 {
+                cursor: pointer;
+                margin: 0 10px 0 0;
+                font-size: 18px;
+                font-weight: 600;
+                display: inline-block;
+            }
+
+            span {
+                display: inline-block;
+                cursor: pointer;
+                height: 16px;
+                width: 18px;
+                line-height: 20px;
+                text-align: center;
+                background: #fff;
+                opacity: 0.5;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                i.fa {
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .eddditor-modal-load-layout-info {
+            opacity: 0.5;
+        }
     }
 }
 

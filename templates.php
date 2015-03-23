@@ -8,6 +8,10 @@ class Eddditor_Templates {
 
 
     private static function validate_structure($structure) {
+        if (!is_array($structure)) {
+            $structure = array();
+        }
+
         if (!isset($structure['template_id']) OR !is_int($structure['template_id'])) {
             $structure['template_id'] = -1;
         }
@@ -83,6 +87,10 @@ class Eddditor_Templates {
      */
     public static function save($element) {
         $templates = get_option('eddditor_element_templates');
+        if (!is_array($templates)) {
+            $templates = array();
+        }
+
         $id = count($templates);
         $element->set_template_id($id);
         $templates[$id] = $element->get_template_data();

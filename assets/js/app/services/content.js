@@ -270,7 +270,7 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
         _this.cancelEditing();
     });
     angular.element(document).on('keyup', function(e){
-        if (angular.element('#dennisbox').length && e.keyCode === 27) {
+        if (angular.element('#dennisbox').length && !angular.element('.eddditor-modal-confirm').length && e.keyCode === 27) {
             angular.element('#eddditor-edit :focus').blur();
             _this.cancelEditing();
         }
