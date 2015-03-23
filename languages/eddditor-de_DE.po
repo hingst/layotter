@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Eddditor\n"
-"POT-Creation-Date: 2015-03-18 09:51+0100\n"
-"PO-Revision-Date: 2015-03-18 09:53+0100\n"
+"POT-Creation-Date: 2015-03-23 15:55+0100\n"
+"PO-Revision-Date: 2015-03-23 15:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -36,53 +36,90 @@ msgstr "Für Zeilen-Optionen nutzen"
 msgid "Use for element options"
 msgstr "Für Element-Optionen nutzen"
 
-#: ../assets.php:107 ../views/editor.php:17
+#: ../assets.php:114 ../views/editor.php:21
 msgid "Delete row"
 msgstr "Zeile löschen"
 
-#: ../assets.php:108 ../views/editor.php:29
+#: ../assets.php:115 ../views/editor.php:33
 msgid "Delete element"
 msgstr "Element löschen"
 
-#: ../assets.php:109
+#: ../assets.php:116
 msgid "Delete favorite"
 msgstr "Favoriten löschen"
 
-#: ../assets.php:110 ../views/add_element.php:28 ../views/form.php:24
+#: ../assets.php:117 ../views/add-element.php:26 ../views/form.php:24
+#: ../views/load-layout.php:25
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../assets.php:111
+#: ../assets.php:118
 msgid "Discard changes"
 msgstr "Änderungen verwerfen"
 
-#: ../assets.php:112
-msgid "Are you sure you want to cancel and discard all changes?"
-msgstr "Möchtest du wirklich abbrechen und alle Änderungen verwerfen?"
+#: ../assets.php:119
+msgid "Do you want to cancel and discard all changes?"
+msgstr "Wirklich abbrechen und alle Änderungen verwerfen?"
 
-#: ../assets.php:113
+#: ../assets.php:120
 msgid ""
-"Are you sure you want to delete this row and all its elements? This action "
+"Do you want to delete this row and all its elements? This action can not be "
+"undone."
+msgstr ""
+"Möchtest du diese Zeile und alle enthaltenen Elemente löschen? Du kannst "
+"diese Aktion nicht rückgängig machen."
+
+#: ../assets.php:121
+msgid "Do you want to delete this element? This action can not be undone."
+msgstr ""
+"Möchtest du dieses Element löschen? Du kannst diese Aktion nicht rückgängig "
+"machen."
+
+#: ../assets.php:122
+msgid "Do you want to delete this template? This action can not be undone."
+msgstr ""
+"Möchtest du dieses Template löschen? Du kannst diese Aktion nicht rückgängig "
+"machen."
+
+#: ../assets.php:123
+msgid "Please enter a name for your layout:"
+msgstr "Bitte gib einen Namen für dein Layout ein:"
+
+#: ../assets.php:124
+msgid "Save layout"
+msgstr "Layout speichern"
+
+#: ../assets.php:125
+msgid "Please enter the new name for this layout:"
+msgstr "Bitte gib den neuen Namen für dieses Layout ein:"
+
+#: ../assets.php:126 ../views/load-layout.php:15
+msgid "Rename layout"
+msgstr "Layout umbenennen"
+
+#: ../assets.php:127
+msgid "Do want to delete this layout? This action can not be undone."
+msgstr ""
+"Möchtest du dieses Layout löschen? Du kannst diese Aktion nicht rückgängig "
+"machen."
+
+#: ../assets.php:128 ../views/load-layout.php:16
+msgid "Delete layout"
+msgstr "Layout löschen"
+
+#: ../assets.php:129
+msgid ""
+"Do want to load this layout and overwrite the existing content? This action "
 "can not be undone."
 msgstr ""
-"Bist du sicher, dass du diese Zeile und alle enthaltenen Elemente löschen "
-"willst? Du kannst diese Aktion nicht rückgängig machen."
+"Möchtest du dieses Layout laden und den bestehenden Inhalt überschreiben? Du "
+"kannst diese Aktion nicht rückgängig machen."
 
-#: ../assets.php:114
-msgid ""
-"Are you sure you want to delete this element? This action can not be undone."
-msgstr ""
-"Bist du sicher, dass du dieses Element löschen willst? Du kannst diese "
-"Aktion nicht rückgängig machen."
+#: ../assets.php:130
+msgid "Load layout"
+msgstr "Layout laden"
 
-#: ../assets.php:115
-msgid ""
-"Are you sure you want to delete this favorite? This action can not be undone."
-msgstr ""
-"Bist du sicher, dass du diesen Favoriten löschen willst? Du kannst diese "
-"Aktion nicht rückgängig machen."
-
-#: ../check-acf.php:7
+#: ../check-acf.php:10
 #, php-format
 msgid ""
 "Eddditor requires the <a href=\"%s\" target=\"_blank\">Advanced Custom "
@@ -92,7 +129,7 @@ msgstr ""
 "\">Advanced Custom Fields Pro</a>. Bitte installiere das Plugin, bevor du "
 "Eddditor einsetzt."
 
-#: ../check-acf.php:10
+#: ../check-acf.php:13
 msgid ""
 "Eddditor currently only works with the Pro version of Advanced Custom "
 "Fields. Please install it before using Eddditor. We apologize for the "
@@ -101,7 +138,7 @@ msgstr ""
 "Eddditor funktioniert derzeit leider nur mit der Pro-Version von Advanced "
 "Custom Fields. Bitte installiere die pro-Version, um Eddditor einzusetzen."
 
-#: ../check-acf.php:13
+#: ../check-acf.php:16
 #, php-format
 msgid ""
 "Your version of Advanced Custom Fields is outdated. Please install version "
@@ -110,17 +147,21 @@ msgstr ""
 "Deine Version von Advanced Custom Fields ist veraltet. Bitte installiere "
 "mindestens Version %s, um Eddditor zu benutzen."
 
-#: ../components/options.php:33 ../views/editor.php:2
+#: ../components/options.php:36 ../views/editor.php:2
 msgid "Post options"
 msgstr "Post-Optionen"
 
-#: ../components/options.php:37 ../views/editor.php:19
+#: ../components/options.php:40 ../views/editor.php:23
 msgid "Row options"
-msgstr "Zeilenoptionen"
+msgstr "Zeilen-Optionen"
 
-#: ../components/options.php:41 ../views/editor.php:33
+#: ../components/options.php:44
+msgid "Column options"
+msgstr "Spalten-Optionen"
+
+#: ../components/options.php:48 ../views/editor.php:38
 msgid "Element options"
-msgstr "Elementoptionen"
+msgstr "Element-Optionen"
 
 #: ../interface.php:70
 #, php-format
@@ -134,6 +175,10 @@ msgstr ""
 "ansehen und bearbeiten. Sei dabei sehr vorsichtig, eine fehlerhafte Struktur "
 "wird das Layout und alle Inhalte dieses Posts löschen. Du kannst den Debug-"
 "Modus in den <a href=\"%s\">Eddditor-Einstellungen</a> deaktivieren."
+
+#: ../layouts.php:20
+msgid "Unnamed layout"
+msgstr "Unbenanntes Layout"
 
 #: ../settings.php:99
 msgid "Full width"
@@ -412,55 +457,59 @@ msgstr "HTML vor jedem Element:"
 msgid "HTML after each element:"
 msgstr "HTML nach jedem Element:"
 
-#: ../views/add_element.php:3 ../views/editor.php:24 ../views/editor.php:45
+#: ../views/add-element.php:3 ../views/editor.php:28 ../views/editor.php:50
 msgid "Add element"
 msgstr "Neues Element"
 
-#: ../views/editor.php:3 ../views/templates.php:5
-msgid "Element gallery"
-msgstr "Element-Galerie"
+#: ../views/editor.php:4
+msgid "Save post layout"
+msgstr "Post-Layout speichern"
 
-#: ../views/editor.php:5 ../views/editor.php:51
+#: ../views/editor.php:6 ../views/load-layout.php:7
+msgid "Load a layout"
+msgstr "Ein Layout laden"
+
+#: ../views/editor.php:7 ../views/templates.php:5
+msgid "Element templates"
+msgstr "Element-Templates"
+
+#: ../views/editor.php:9 ../views/editor.php:56
 msgid "Add row"
 msgstr "Neue Zeile"
 
-#: ../views/editor.php:6
+#: ../views/editor.php:10
 msgid "Add your first row to get started"
 msgstr "Erstelle als erstes eine neue Zeile"
 
-#: ../views/editor.php:12
+#: ../views/editor.php:16
 msgid "Move row"
 msgstr "Zeile verschieben"
 
-#: ../views/editor.php:18
+#: ../views/editor.php:22
 msgid "Duplicate row"
 msgstr "Zeile duplizieren"
 
-#: ../views/editor.php:19
-msgid "Options"
-msgstr "Optionen"
-
-#: ../views/editor.php:30
+#: ../views/editor.php:34
 msgid "Edit element"
 msgstr "Element bearbeiten"
 
-#: ../views/editor.php:34
+#: ../views/editor.php:39
 msgid "Duplicate element"
 msgstr "Element duplizieren"
 
-#: ../views/editor.php:35
-msgid "Add to gallery"
-msgstr "In der Galerie speichern"
+#: ../views/editor.php:40
+msgid "Save as template"
+msgstr "Als Template speichern"
 
-#: ../views/editor.php:38 ../views/templates.php:17
+#: ../views/editor.php:43 ../views/templates.php:14
 msgid "Move"
 msgstr "Verschieben"
 
-#: ../views/editor.php:41
+#: ../views/editor.php:46
 msgid "This is a template."
 msgstr "Dies ist ein Template."
 
-#: ../views/editor.php:56
+#: ../views/editor.php:61
 msgid "Eddditor loading &hellip;"
 msgstr "Eddditor lädt &hellip;"
 
@@ -472,21 +521,77 @@ msgstr "Speichern"
 msgid "Back"
 msgstr "Zurück"
 
+#: ../views/load-layout.php:19
+#, php-format
+msgid "Created on %s"
+msgstr "Erstellt am %s"
+
 #: ../views/templates.php:2
-msgid "Close"
-msgstr "Schließen"
+msgid "Hide templates"
+msgstr "Templates verstecken"
 
-#: ../views/templates.php:8
-msgid "What is this?"
-msgstr "Was ist das?"
+#: ../views/templates.php:12
+msgid "Delete template"
+msgstr "Template löschen"
 
-#: ../views/templates.php:15
-msgid "Remove from favorites"
-msgstr "Aus der Galerie löschen"
+#: ../views/templates.php:13
+msgid "Edit template"
+msgstr "Template bearbeiten"
 
-#: ../views/templates.php:16
-msgid "Edit favorite"
-msgstr "Favoriten bearbeiten"
+#~ msgid ""
+#~ "Do want to load this layout? Your existing content will be overwritten. "
+#~ "This action can not be undone."
+#~ msgstr ""
+#~ "Möchtest du dieses Layout laden und den aktuellen Inhalt überschreiben? "
+#~ "Du kannst diese Aktion nicht rückgängig machen."
+
+#~ msgid "Load a post layout"
+#~ msgstr "Ein Post-Layout laden"
+
+#~ msgid "Are you sure you want to cancel and discard all changes?"
+#~ msgstr "Möchtest du wirklich abbrechen und alle Änderungen verwerfen?"
+
+#~ msgid ""
+#~ "Are you sure you want to delete this row and all its elements? This "
+#~ "action can not be undone."
+#~ msgstr ""
+#~ "Bist du sicher, dass du diese Zeile und alle enthaltenen Elemente löschen "
+#~ "willst? Du kannst diese Aktion nicht rückgängig machen."
+
+#~ msgid ""
+#~ "Are you sure you want to delete this element? This action can not be "
+#~ "undone."
+#~ msgstr ""
+#~ "Bist du sicher, dass du dieses Element löschen willst? Du kannst diese "
+#~ "Aktion nicht rückgängig machen."
+
+#~ msgid ""
+#~ "Are you sure you want to delete this favorite? This action can not be "
+#~ "undone."
+#~ msgstr ""
+#~ "Bist du sicher, dass du diesen Favoriten löschen willst? Du kannst diese "
+#~ "Aktion nicht rückgängig machen."
+
+#~ msgid "Element gallery"
+#~ msgstr "Element-Galerie"
+
+#~ msgid "Options"
+#~ msgstr "Optionen"
+
+#~ msgid "Add to gallery"
+#~ msgstr "In der Galerie speichern"
+
+#~ msgid "Close"
+#~ msgstr "Schließen"
+
+#~ msgid "What is this?"
+#~ msgstr "Was ist das?"
+
+#~ msgid "Remove from favorites"
+#~ msgstr "Aus der Galerie löschen"
+
+#~ msgid "Edit favorite"
+#~ msgstr "Favoriten bearbeiten"
 
 #~ msgid ""
 #~ "Enter HTML code to wrap around each column. You can use the variable %"

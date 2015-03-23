@@ -126,7 +126,7 @@ function eddditor_assets_admin_head() {
                 'rename_layout' => __('Rename layout', 'eddditor'),
                 'delete_layout_confirmation' => __('Do want to delete this layout? This action can not be undone.', 'eddditor'),
                 'delete_layout' => __('Delete layout', 'eddditor'),
-                'load_layout_confirmation' => __('Do want to load this layout? Your existing content will be overwritten. This action can not be undone.', 'eddditor'),
+                'load_layout_confirmation' => __('Do want to load this layout and overwrite the existing content? This action can not be undone.', 'eddditor'),
                 'load_layout' => __('Load layout', 'eddditor'),
             )
         )

@@ -4,7 +4,7 @@
             <i class="fa fa-upload"></i>
         </div>
         <div class="eddditor-modal-head-info">
-            <h2><?php _e('Load a post layout', 'eddditor'); ?></h2>
+            <h2><?php _e('Load a layout', 'eddditor'); ?></h2>
         </div>
     </div>
     <div class="eddditor-modal-body">

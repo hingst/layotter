@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Eddditor\n"
-"POT-Creation-Date: 2015-03-18 09:51+0100\n"
-"PO-Revision-Date: 2015-03-18 09:51+0100\n"
+"POT-Creation-Date: 2015-03-23 15:55+0100\n"
+"PO-Revision-Date: 2015-03-23 15:55+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -36,76 +36,113 @@ msgstr ""
 msgid "Use for element options"
 msgstr ""
 
-#: ../assets.php:107 ../views/editor.php:17
+#: ../assets.php:114 ../views/editor.php:21
 msgid "Delete row"
 msgstr ""
 
-#: ../assets.php:108 ../views/editor.php:29
+#: ../assets.php:115 ../views/editor.php:33
 msgid "Delete element"
 msgstr ""
 
-#: ../assets.php:109
+#: ../assets.php:116
 msgid "Delete favorite"
 msgstr ""
 
-#: ../assets.php:110 ../views/add_element.php:28 ../views/form.php:24
+#: ../assets.php:117 ../views/add-element.php:26 ../views/form.php:24
+#: ../views/load-layout.php:25
 msgid "Cancel"
 msgstr ""
 
-#: ../assets.php:111
+#: ../assets.php:118
 msgid "Discard changes"
 msgstr ""
 
-#: ../assets.php:112
-msgid "Are you sure you want to cancel and discard all changes?"
+#: ../assets.php:119
+msgid "Do you want to cancel and discard all changes?"
 msgstr ""
 
-#: ../assets.php:113
+#: ../assets.php:120
 msgid ""
-"Are you sure you want to delete this row and all its elements? This action "
+"Do you want to delete this row and all its elements? This action can not be "
+"undone."
+msgstr ""
+
+#: ../assets.php:121
+msgid "Do you want to delete this element? This action can not be undone."
+msgstr ""
+
+#: ../assets.php:122
+msgid "Do you want to delete this template? This action can not be undone."
+msgstr ""
+
+#: ../assets.php:123
+msgid "Please enter a name for your layout:"
+msgstr ""
+
+#: ../assets.php:124
+msgid "Save layout"
+msgstr ""
+
+#: ../assets.php:125
+msgid "Please enter the new name for this layout:"
+msgstr ""
+
+#: ../assets.php:126 ../views/load-layout.php:15
+msgid "Rename layout"
+msgstr ""
+
+#: ../assets.php:127
+msgid "Do want to delete this layout? This action can not be undone."
+msgstr ""
+
+#: ../assets.php:128 ../views/load-layout.php:16
+msgid "Delete layout"
+msgstr ""
+
+#: ../assets.php:129
+msgid ""
+"Do want to load this layout and overwrite the existing content? This action "
 "can not be undone."
 msgstr ""
 
-#: ../assets.php:114
-msgid ""
-"Are you sure you want to delete this element? This action can not be undone."
+#: ../assets.php:130
+msgid "Load layout"
 msgstr ""
 
-#: ../assets.php:115
-msgid ""
-"Are you sure you want to delete this favorite? This action can not be undone."
-msgstr ""
-
-#: ../check-acf.php:7
+#: ../check-acf.php:10
 #, php-format
 msgid ""
 "Eddditor requires the <a href=\"%s\" target=\"_blank\">Advanced Custom "
 "Fields Pro</a> plugin, please install it before using Eddditor."
 msgstr ""
 
-#: ../check-acf.php:10
+#: ../check-acf.php:13
 msgid ""
 "Eddditor currently only works with the Pro version of Advanced Custom "
 "Fields. Please install it before using Eddditor. We apologize for the "
 "inconvenience."
 msgstr ""
 
-#: ../check-acf.php:13
+#: ../check-acf.php:16
 #, php-format
 msgid ""
 "Your version of Advanced Custom Fields is outdated. Please install version "
 "%s or higher to be able to use Eddditor."
 msgstr ""
 
-#: ../components/options.php:33 ../views/editor.php:2
+#: ../components/options.php:36 ../views/editor.php:2
 msgid "Post options"
 msgstr ""
 
-#: ../components/options.php:37 ../views/editor.php:19
+#: ../components/options.php:40 ../views/editor.php:23
 msgid "Row options"
 msgstr ""
 
-#: ../components/options.php:41 ../views/editor.php:33
+#: ../components/options.php:44
+msgid "Column options"
+msgstr ""
+
+#: ../components/options.php:48 ../views/editor.php:38
 msgid "Element options"
 msgstr ""
 
@@ -116,6 +153,10 @@ msgid ""
 "by Eddditor. Use with caution. A faulty structure will break your page "
 "layout and content. Go to the <a href=\"%s\">Eddditor's settings page</a> to "
 "disable debug mode."
+msgstr ""
+
+#: ../layouts.php:20
+msgid "Unnamed layout"
 msgstr ""
 
 #: ../settings.php:99
@@ -376,55 +417,59 @@ msgstr ""
 msgid "HTML after each element:"
 msgstr ""
 
-#: ../views/add_element.php:3 ../views/editor.php:24 ../views/editor.php:45
+#: ../views/add-element.php:3 ../views/editor.php:28 ../views/editor.php:50
 msgid "Add element"
 msgstr ""
 
-#: ../views/editor.php:3 ../views/templates.php:5
-msgid "Element gallery"
+#: ../views/editor.php:4
+msgid "Save post layout"
 msgstr ""
 
-#: ../views/editor.php:5 ../views/editor.php:51
+#: ../views/editor.php:6 ../views/load-layout.php:7
+msgid "Load a layout"
+msgstr ""
+
+#: ../views/editor.php:7 ../views/templates.php:5
+msgid "Element templates"
+msgstr ""
+
+#: ../views/editor.php:9 ../views/editor.php:56
 msgid "Add row"
 msgstr ""
 
-#: ../views/editor.php:6
+#: ../views/editor.php:10
 msgid "Add your first row to get started"
 msgstr ""
 
-#: ../views/editor.php:12
+#: ../views/editor.php:16
 msgid "Move row"
 msgstr ""
 
-#: ../views/editor.php:18
+#: ../views/editor.php:22
 msgid "Duplicate row"
 msgstr ""
 
-#: ../views/editor.php:19
-msgid "Options"
-msgstr ""
-
-#: ../views/editor.php:30
+#: ../views/editor.php:34
 msgid "Edit element"
 msgstr ""
 
-#: ../views/editor.php:34
+#: ../views/editor.php:39
 msgid "Duplicate element"
 msgstr ""
 
-#: ../views/editor.php:35
-msgid "Add to gallery"
+#: ../views/editor.php:40
+msgid "Save as template"
 msgstr ""
 
-#: ../views/editor.php:38 ../views/templates.php:17
+#: ../views/editor.php:43 ../views/templates.php:14
 msgid "Move"
 msgstr ""
 
-#: ../views/editor.php:41
+#: ../views/editor.php:46
 msgid "This is a template."
 msgstr ""
 
-#: ../views/editor.php:56
+#: ../views/editor.php:61
 msgid "Eddditor loading &hellip;"
 msgstr ""
 
@@ -436,18 +481,19 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
+#: ../views/load-layout.php:19
+#, php-format
+msgid "Created on %s"
+msgstr ""
+
 #: ../views/templates.php:2
-msgid "Close"
+msgid "Hide templates"
 msgstr ""
 
-#: ../views/templates.php:8
-msgid "What is this?"
+#: ../views/templates.php:12
+msgid "Delete template"
 msgstr ""
 
-#: ../views/templates.php:15
-msgid "Remove from favorites"
-msgstr ""
-
-#: ../views/templates.php:16
-msgid "Edit favorite"
+#: ../views/templates.php:13
+msgid "Edit template"
 msgstr ""
