@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Eddditor\n"
-"POT-Creation-Date: 2015-03-23 15:55+0100\n"
-"PO-Revision-Date: 2015-03-23 15:56+0100\n"
+"POT-Creation-Date: 2015-03-23 16:03+0100\n"
+"PO-Revision-Date: 2015-03-23 16:04+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -85,7 +85,7 @@ msgstr ""
 msgid "Please enter a name for your layout:"
 msgstr "Bitte gib einen Namen für dein Layout ein:"
 
-#: ../assets.php:124
+#: ../assets.php:124 ../views/editor.php:4
 msgid "Save layout"
 msgstr "Layout speichern"
 
@@ -115,7 +115,7 @@ msgstr ""
 "Möchtest du dieses Layout laden und den bestehenden Inhalt überschreiben? Du "
 "kannst diese Aktion nicht rückgängig machen."
 
-#: ../assets.php:130
+#: ../assets.php:130 ../views/editor.php:6
 msgid "Load layout"
 msgstr "Layout laden"
 
@@ -461,14 +461,6 @@ msgstr "HTML nach jedem Element:"
 msgid "Add element"
 msgstr "Neues Element"
 
-#: ../views/editor.php:4
-msgid "Save post layout"
-msgstr "Post-Layout speichern"
-
-#: ../views/editor.php:6 ../views/load-layout.php:7
-msgid "Load a layout"
-msgstr "Ein Layout laden"
-
 #: ../views/editor.php:7 ../views/templates.php:5
 msgid "Element templates"
 msgstr "Element-Templates"
@@ -521,6 +513,10 @@ msgstr "Speichern"
 msgid "Back"
 msgstr "Zurück"
 
+#: ../views/load-layout.php:7
+msgid "Load a layout"
+msgstr "Ein Layout laden"
+
 #: ../views/load-layout.php:19
 #, php-format
 msgid "Created on %s"
@@ -537,6 +533,9 @@ msgstr "Template löschen"
 #: ../views/templates.php:13
 msgid "Edit template"
 msgstr "Template bearbeiten"
+
+#~ msgid "Save post layout"
+#~ msgstr "Post-Layout speichern"
 
 #~ msgid ""
 #~ "Do want to load this layout? Your existing content will be overwritten. "

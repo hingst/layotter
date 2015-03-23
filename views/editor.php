@@ -1,9 +1,9 @@
 <div id="eddditor" ng-controller="EditorCtrl" ng-class="{ 'eddditor-loading' : data.isLoading }">
     <span class="eddditor-button eddditor-button-with-icon" ng-click="editOptions('post', data)" ng-show="optionsEnabled.post"><i class="fa fa-cog"></i><?php _e('Post options', 'eddditor'); ?></span>
     <span class="eddditor-button-wrapper">
-        <span class="eddditor-button eddditor-button-with-icon eddditor-save-layout-button" ng-click="saveNewLayout()"><i class="fa fa-download"></i><?php _e('Save post layout', 'eddditor'); ?></span>
+        <span class="eddditor-button eddditor-button-with-icon eddditor-save-layout-button" ng-click="saveNewLayout()"><i class="fa fa-download"></i><?php _e('Save layout', 'eddditor'); ?></span>
     </span>
-    <span class="eddditor-button eddditor-button-with-icon" ng-click="loadLayout()"><i class="fa fa-upload"></i><?php _e('Load a layout', 'eddditor'); ?></span>
+    <span class="eddditor-button eddditor-button-with-icon" ng-click="loadLayout()"><i class="fa fa-upload"></i><?php _e('Load layout', 'eddditor'); ?></span>
     <span class="eddditor-button eddditor-button-with-icon eddditor-templates-button" toggle-templates><i class="fa fa-star"></i><?php _e('Element templates', 'eddditor'); ?></span>
     <span class="eddditor-button eddditor-add-row-button" ng-click="addRow(-1)" ng-class="{ 'eddditor-add-row-button-large': data.rows.length === 0 }">
         <span ng-show="data.rows.length"><i class="fa fa-plus"></i><?php _e('Add row', 'eddditor'); ?></span>

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Eddditor\n"
-"POT-Creation-Date: 2015-03-23 15:55+0100\n"
-"PO-Revision-Date: 2015-03-23 15:55+0100\n"
+"POT-Creation-Date: 2015-03-23 16:03+0100\n"
+"PO-Revision-Date: 2015-03-23 16:03+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -79,7 +79,7 @@ msgstr ""
 msgid "Please enter a name for your layout:"
 msgstr ""
 
-#: ../assets.php:124
+#: ../assets.php:124 ../views/editor.php:4
 msgid "Save layout"
 msgstr ""
 
@@ -105,7 +105,7 @@ msgid ""
 "can not be undone."
 msgstr ""
 
-#: ../assets.php:130
+#: ../assets.php:130 ../views/editor.php:6
 msgid "Load layout"
 msgstr ""
 
@@ -421,14 +421,6 @@ msgstr ""
 msgid "Add element"
 msgstr ""
 
-#: ../views/editor.php:4
-msgid "Save post layout"
-msgstr ""
-
-#: ../views/editor.php:6 ../views/load-layout.php:7
-msgid "Load a layout"
-msgstr ""
-
 #: ../views/editor.php:7 ../views/templates.php:5
 msgid "Element templates"
 msgstr ""
@@ -479,6 +471,10 @@ msgstr ""
 
 #: ../views/form.php:25
 msgid "Back"
+msgstr ""
+
+#: ../views/load-layout.php:7
+msgid "Load a layout"
 msgstr ""
 
 #: ../views/load-layout.php:19
