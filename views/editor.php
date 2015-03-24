@@ -27,7 +27,7 @@
                     <div class="eddditor-col {{ 'eddditor-col-' + getColLayout(row, $index) }}" ng-repeat="col in row.cols">
                         <span class="eddditor-button eddditor-add-element-button" ng-click="showNewElementTypes(col.elements, -1)"><i class="fa fa-plus"></i><?php _e('Add element', 'eddditor'); ?></span>
                         <div class="eddditor-elements" ui-sortable="elementSortableOptions" ng-model="col.elements">
-                            <div class="eddditor-element eddditor-animate" ng-repeat="element in col.elements" ng-init="watchTemplate(element)" ng-class="{ 'eddditor-loading' : element.isLoading, 'eddditor-highlight' : element.isHighlighted }">
+                            <div class="eddditor-element eddditor-animate" ng-repeat="element in col.elements" ng-class="{ 'eddditor-loading' : element.isLoading, 'eddditor-highlight' : element.isHighlighted }">
                                 <div class="eddditor-element-canvas">
                                     <div class="eddditor-element-head">
                                         <span class="eddditor-element-delete" ng-click="deleteElement(col.elements, $index)" title="<?php _e('Delete element', 'eddditor'); ?>"><i class="fa fa-trash-o"></i></span>

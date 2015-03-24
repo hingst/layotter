@@ -211,7 +211,6 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
      */
     this.duplicateElement = function(parent, index) {
         parent.splice(index, 0, angular.copy(parent[index]));
-        templates.watchTemplate(parent[index]);
     };
     
     

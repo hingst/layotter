@@ -1,12 +1,12 @@
-app.service('templates', function($rootScope, $http, view, forms, modals, state){
+app.service('templates', function($rootScope, $http, $animate, $timeout, view, forms, modals, state, data){
     
 
     var _this = this;
-    
-    
+
+
     // data received from php
     this.savedTemplates = eddditorData.savedTemplates;
-    
+
     
     /**
      * Show edit form for an $element template
@@ -60,7 +60,11 @@ app.service('templates', function($rootScope, $http, view, forms, modals, state)
                 values: element.values
             }
         }).success(function(reply) {
+            $animate.enabled(false);
             _this.savedTemplates.push(angular.copy(reply));
+            $timeout(function(){
+                $animate.enabled(true);
+            }, 1);
             element.isLoading = undefined;
             element.template_id = reply.template_id;
             element.type = undefined;
@@ -105,24 +109,25 @@ app.service('templates', function($rootScope, $http, view, forms, modals, state)
     };
 
 
-    this.watchTemplate = function (element) {
-        if (typeof element.template_id === 'undefined') {
-            return;
-        }
+    // TODO: improve performance, currently all elements are inspected every time a template changes
+    this.watchTemplate = function (template) {
+        $rootScope.$watch(function () {
+            return template;
+        }, function (value) {
+            var template_id = value.template_id;
 
-        var template_id = element.template_id;
-
-        angular.forEach(_this.savedTemplates, function(template) {
-            if (template_id === template.template_id) {
-                $rootScope.$watch(function () {
-                    return template;
-                }, function (value) {
-                    var copy = angular.copy(value);
-                    copy.options = element.options;
-                    angular.extend(element, copy);
-                }, true);
-            }
-        });
+            angular.forEach(data.contentStructure.rows, function(row){
+                angular.forEach(row.cols, function(col){
+                    angular.forEach(col.elements, function(element){
+                        if (element.template_id == template_id) {
+                            var templateCopy = angular.copy(value);
+                            templateCopy.options = element.options;
+                            angular.extend(element, templateCopy);
+                        }
+                    });
+                });
+            });
+        }, true);
     };
     
 });

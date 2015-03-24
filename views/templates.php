@@ -6,7 +6,7 @@
         </h3>
     </div>
     <div class="eddditor-elements" ui-sortable="templateSortableOptions" ng-model="savedTemplates">
-        <div class="eddditor-element eddditor-animate" ng-repeat="element in savedTemplates" ng-mouseenter="highlightTemplate(element)" ng-mouseleave="lowlightTemplate(element)" ng-class="{ 'eddditor-loading' : element.isLoading }">
+        <div class="eddditor-element eddditor-animate" ng-repeat="element in savedTemplates" ng-mouseenter="highlightTemplate(element)" ng-mouseleave="lowlightTemplate(element)" ng-class="{ 'eddditor-loading' : element.isLoading }" ng-init="watchTemplate(element)">
             <div class="eddditor-element-canvas">
                 <div class="eddditor-element-head">
                     <span class="eddditor-element-delete" ng-click="deleteTemplate($index)" title="<?php _e('Delete template', 'eddditor'); ?>"><i class="fa fa-trash-o"></i></span>

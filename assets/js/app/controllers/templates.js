@@ -15,17 +15,15 @@ app.controller('TemplatesCtrl', function($scope, $animate, templates, $timeout) 
         connectWith: '#eddditor .eddditor-elements',
         helper: 'clone',
         start: function (event, ui) {
-            $animate.enabled(false);
-            templates.lowlightTemplate(ui.item.sortable.model);
-            savedTemplatesBackup = angular.copy($scope.savedTemplates);
+            $animate.enabled(false); // prevent animation when savedTemplatesBackup is restored after a template was dragged
+            templates.lowlightTemplate(ui.item.sortable.model); // unhighlight hovered template on drag start
+            savedTemplatesBackup = angular.copy($scope.savedTemplates); // save current set of templates to be restored after sorting
             angular.element(ui.item).show(); // show clone while dragging
             angular.element(ui.item.parent()).sortable('option', 'revert', false); // prevent revert animation when dropping on saved elements list
         },
         stop: function (event, ui) {
             if (ui.item.sortable.droptarget && event.target !== ui.item.sortable.droptarget[0]) {
                 angular.extend(templates.savedTemplates, savedTemplatesBackup); // re-add element to saved elements if it was removed
-                //ui.item.sortable.model.options = angular.copy(eddditorData.options.element.defaults); // use default options for new element
-                templates.watchTemplate(ui.item.sortable.model);
             }
             $timeout(function(){
                 $animate.enabled(true);
