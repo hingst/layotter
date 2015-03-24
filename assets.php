@@ -4,8 +4,8 @@
 /**
  * Enqueue styles and scripts, provide l10n for use with Javascript
  */
-add_action('admin_head', 'eddditor_assets_admin_head');
-function eddditor_assets_admin_head() {
+add_action('admin_enqueue_scripts', 'eddditor_assets_admin_enqueue_scripts');
+function eddditor_assets_admin_enqueue_scripts() {
 
     // load assets only if necessary
     if (!Eddditor::is_enabled()) {
