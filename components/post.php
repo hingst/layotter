@@ -4,7 +4,7 @@
 /**
  * A single post
  */
-class Eddditor_Post implements JsonSerializable {
+class Eddditor_Post {
 
     private
         $options,
@@ -76,12 +76,20 @@ class Eddditor_Post implements JsonSerializable {
     /**
      * Return array representation of this post for use in json_encode()
      *
+     * PHP's JsonSerializable interface would be cleaner, but it's only available >= 5.4.0
+     *
      * @return array Array representation of this post
      */
-    public function jsonSerialize() {
+    public function to_array() {
+        $rows = array();
+
+        foreach ($this->rows as $row) {
+            $rows[] = $row->to_array();
+        }
+
         return array(
-            'options' => $this->options,
-            'rows' => $this->rows
+            'options' => $this->options->to_array(),
+            'rows' => $rows
         );
     }
 

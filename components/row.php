@@ -4,7 +4,7 @@
 /**
  * A single row
  */
-class Eddditor_Row implements JsonSerializable {
+class Eddditor_Row {
 
     private
         $layout = '',
@@ -82,13 +82,21 @@ class Eddditor_Row implements JsonSerializable {
     /**
      * Return array representation of this row for use in json_encode()
      *
+     * PHP's JsonSerializable interface would be cleaner, but it's only available >= 5.4.0
+     *
      * @return array Array representation of this row
      */
-    public function jsonSerialize() {
+    public function to_array() {
+        $cols = array();
+
+        foreach ($this->cols as $col) {
+            $cols[] = $col->to_array();
+        }
+
         return array(
             'layout' => $this->layout,
-            'options' => $this->options,
-            'cols' => $this->cols
+            'options' => $this->options->to_array(),
+            'cols' => $cols
         );
     }
 

@@ -58,7 +58,7 @@ function eddditor_ajax_parse_element() {
 
         $element = Eddditor::create_element($post_data['type'], $values);
         if ($element) {
-            echo json_encode($element);
+            echo json_encode($element->to_array());
         }
     }
 
@@ -122,7 +122,7 @@ function eddditor_ajax_parse_options() {
 
         $options = new Eddditor_Options($post_data['type'], $values, $post_id);
         if($options->is_enabled()) {
-            echo json_encode($options);
+            echo json_encode($options->to_array());
         }
     }
 
@@ -152,7 +152,7 @@ function eddditor_ajax_save_new_template() {
         $element = Eddditor::create_element($post_data['type'], $values);
         if ($element) {
             $template = Eddditor_Templates::save($element);
-            echo json_encode($template);
+            echo json_encode($template->to_array());
         }
     }
 
@@ -200,7 +200,7 @@ function eddditor_ajax_update_template() {
             if ($element) {
                 $element->set_template_id($id);
                 Eddditor_Templates::update($id, $element->get_template_data());
-                echo json_encode($element);
+                echo json_encode($element->to_array());
             }
         }
     }
@@ -222,7 +222,7 @@ function eddditor_ajax_delete_template() {
         if ($template_object) {
             Eddditor_Templates::delete($post_data['template_id']);
             $template_object->unset_template_id();
-            echo json_encode($template_object);
+            echo json_encode($template_object->to_array());
         }
     }
 
@@ -262,7 +262,7 @@ function eddditor_ajax_load_layout() {
     if (isset($post_data['layout_id'])) {
         $post = Eddditor_Layouts::get($post_data['layout_id']);
         if ($post) {
-            echo json_encode($post);
+            echo json_encode($post->to_array());
         }
     }
 

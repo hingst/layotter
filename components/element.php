@@ -4,7 +4,7 @@
 /**
  * All custom element types must extend this class
  */
-abstract class Eddditor_Element extends Eddditor_Editable implements JsonSerializable {
+abstract class Eddditor_Element extends Eddditor_Editable {
 
     
     protected
@@ -226,20 +226,22 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
     /**
      * Return array representation of this element for use in json_encode()
      *
+     * PHP's JsonSerializable interface would be cleaner, but it's only available >= 5.4.0
+     *
      * @return array Array representation of this element
      */
-    final public function jsonSerialize() {
+    public function to_array() {
         if ($this->template_id > -1) {
             return array(
                 'template_id' => $this->template_id,
-                'options' => $this->options,
+                'options' => $this->options->to_array(),
                 'view' => $this->get_backend_view()
             );
         } else {
             return array(
                 'type' => $this->type,
                 'values' => $this->clean_values,
-                'options' => $this->options,
+                'options' => $this->options->to_array(),
                 'view' => $this->get_backend_view()
             );
         }

@@ -4,7 +4,7 @@
 /**
  * Options for a post, row, columns or element
  */
-class Eddditor_Options extends Eddditor_Editable implements JsonSerializable {
+class Eddditor_Options extends Eddditor_Editable {
 
 
     private
@@ -89,9 +89,11 @@ class Eddditor_Options extends Eddditor_Editable implements JsonSerializable {
     /**
      * Return array representation of option values for use in json_encode()
      *
+     * PHP's JsonSerializable interface would be cleaner, but it's only available >= 5.4.0
+     *
      * @return array Array representation of option values
      */
-    public function jsonSerialize() {
+    public function to_array() {
         return $this->clean_values;
     }
     

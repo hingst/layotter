@@ -55,9 +55,9 @@ class Eddditor_Templates {
 
 
     /**
-     * Get blank element instances for all saved templates
+     * Get array representations of blank element instances for all saved templates
      *
-     * @return array Element instances for all templates
+     * @return array Array representations of lement instances for all templates
      */
     public static function get_all() {
         $templates = array();
@@ -71,7 +71,7 @@ class Eddditor_Templates {
         foreach ($saved_templates as $template) {
             $template_object = self::create_element($template);
             if ($template_object AND $template_object->is_enabled_for($post_id) AND (!isset($template['deleted']) OR !$template['deleted'])) {
-                $templates[] = $template_object;
+                $templates[] = $template_object->to_array();
             }
         }
 

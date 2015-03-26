@@ -4,7 +4,7 @@
 /**
  * A single column
  */
-class Eddditor_Col implements JsonSerializable {
+class Eddditor_Col {
 
     private
         $width = '',
@@ -75,12 +75,20 @@ class Eddditor_Col implements JsonSerializable {
     /**
      * Return array representation of this column for use in json_encode()
      *
+     * PHP's JsonSerializable interface would be cleaner, but it's only available >= 5.4.0
+     *
      * @return array Array representation of this column
      */
-    public function jsonSerialize() {
+    public function to_array() {
+        $elements = array();
+
+        foreach ($this->elements as $element) {
+            $elements[] = $element->to_array();
+        }
+
         return array(
-            'options' => $this->options,
-            'elements' => $this->elements
+            'options' => $this->options->to_array(),
+            'elements' => $elements
         );
     }
 
