@@ -24,7 +24,7 @@ class Layotter_Settings {
         // do stuff on plugin deactivation
         // use the following line FOR DEBUGGING ONLY
         // REMOVES ALL SETTINGS on plugin deactivation
-        register_deactivation_hook(__DIR__ . '/index.php', array(__CLASS__, 'remove_all_settings'));
+        // register_deactivation_hook(__DIR__ . '/index.php', array(__CLASS__, 'remove_all_settings'));
 
 
         // translate labels on admin_head - otherwise translations wouldn't be available yet
