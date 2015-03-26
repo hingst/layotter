@@ -6,12 +6,12 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
 
 
     // data received from php
-    $scope.allowedRowLayouts = eddditorData.allowedRowLayouts;
+    $scope.allowedRowLayouts = layotterData.allowedRowLayouts;
     $scope.optionsEnabled = {
-        post: eddditorData.options.post.enabled,
-        row: eddditorData.options.row.enabled,
-        col: eddditorData.options.col.enabled,
-        element: eddditorData.options.element.enabled
+        post: layotterData.options.post.enabled,
+        row: layotterData.options.row.enabled,
+        col: layotterData.options.col.enabled,
+        element: layotterData.options.element.enabled
     };
 
 
@@ -39,26 +39,26 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;');
 
-        // enter JSON data wrapped in eddditor shortcode into textarea
-        angular.element('#content').html('[eddditor]' + cleanValue + '[/eddditor]');
+        // enter JSON data wrapped in layotter shortcode into textarea
+        angular.element('#content').html('[layotter]' + cleanValue + '[/layotter]');
     }, true);
 
 
     // options for jQuery UI's sortable (via ui.sortable)
     $scope.rowSortableOptions = {
-        items: '.eddditor-row',
-        placeholder: 'eddditor-placeholder',
+        items: '.layotter-row',
+        placeholder: 'layotter-placeholder',
         forcePlaceholderSize: true,
         revert: 300,
-        handle: '.eddditor-row-move'
+        handle: '.layotter-row-move'
     };
     $scope.elementSortableOptions = {
-        items: '.eddditor-element',
-        placeholder: 'eddditor-placeholder',
+        items: '.layotter-element',
+        placeholder: 'layotter-placeholder',
         forcePlaceholderSize: true,
         revert: 300,
-        handle: '.eddditor-element-move',
-        connectWith: '#eddditor .eddditor-elements',
+        handle: '.layotter-element-move',
+        connectWith: '#layotter .layotter-elements',
         // prevent slide-in animation after moving an element
         start: function(event, ui){
             $animate.enabled(false);

@@ -4,7 +4,7 @@
 /**
  * A form for options or an element
  */
-class Eddditor_Form {
+class Layotter_Form {
     
     
     private

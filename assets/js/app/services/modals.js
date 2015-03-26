@@ -2,7 +2,7 @@ app.service('modals', function($compile, $rootScope, $timeout){
 
 
     // when enter is pressend in a prompt, submit the value
-    angular.element(document).on('keydown', '#eddditor-modal-prompt-input', function(e){
+    angular.element(document).on('keydown', '#layotter-modal-prompt-input', function(e){
         if (e.keyCode === 13) {
             $rootScope.prompt.okAction();
         }
@@ -16,7 +16,7 @@ app.service('modals', function($compile, $rootScope, $timeout){
      */
     this.prompt = function(options) {
         // try to create the lightbox
-        if (!create(angular.element('#eddditor-modal-prompt').html())) {
+        if (!create(angular.element('#layotter-modal-prompt').html())) {
             return;
         }
 
@@ -28,7 +28,7 @@ app.service('modals', function($compile, $rootScope, $timeout){
             okAction: function() {
                 close();
                 if (typeof options.okAction === 'function') {
-                    var newValue = angular.element('#eddditor-modal-prompt-input').val();
+                    var newValue = angular.element('#layotter-modal-prompt-input').val();
                     options.okAction(newValue);
                 }
             },
@@ -42,7 +42,7 @@ app.service('modals', function($compile, $rootScope, $timeout){
 
         // without the $timeout, pressing ESC in the input field would remove the value
         $timeout(function(){
-            angular.element('#eddditor-modal-prompt-input').select().focus();
+            angular.element('#layotter-modal-prompt-input').select().focus();
         }, 1);
     };
 
@@ -54,7 +54,7 @@ app.service('modals', function($compile, $rootScope, $timeout){
      */
     this.confirm = function(options) {
         // try to create the lightbox
-        if (!create(angular.element('#eddditor-modal-confirm').html())) {
+        if (!create(angular.element('#layotter-modal-confirm').html())) {
             return;
         }
 

@@ -1,74 +1,74 @@
-<div id="eddditor" ng-controller="EditorCtrl" ng-class="{ 'eddditor-loading' : data.isLoading }">
-    <span class="eddditor-button eddditor-button-with-icon" ng-click="editOptions('post', data)" ng-show="optionsEnabled.post"><i class="fa fa-cog"></i><?php _e('Post options', 'eddditor'); ?></span>
-    <span class="eddditor-button-wrapper">
-        <span class="eddditor-button eddditor-button-with-icon eddditor-save-layout-button" ng-click="saveNewLayout()"><i class="fa fa-download"></i><?php _e('Save layout', 'eddditor'); ?></span>
+<div id="layotter" ng-controller="EditorCtrl" ng-class="{ 'layotter-loading' : data.isLoading }">
+    <span class="layotter-button layotter-button-with-icon" ng-click="editOptions('post', data)" ng-show="optionsEnabled.post"><i class="fa fa-cog"></i><?php _e('Post options', 'layotter'); ?></span>
+    <span class="layotter-button-wrapper">
+        <span class="layotter-button layotter-button-with-icon layotter-save-layout-button" ng-click="saveNewLayout()"><i class="fa fa-download"></i><?php _e('Save layout', 'layotter'); ?></span>
     </span>
-    <span class="eddditor-button eddditor-button-with-icon" ng-click="loadLayout()"><i class="fa fa-upload"></i><?php _e('Load layout', 'eddditor'); ?></span>
-    <span class="eddditor-button eddditor-button-with-icon eddditor-templates-button" toggle-templates><i class="fa fa-star"></i><?php _e('Element templates', 'eddditor'); ?></span>
-    <span class="eddditor-button eddditor-add-row-button" ng-click="addRow(-1)" ng-class="{ 'eddditor-add-row-button-large': data.rows.length === 0 }">
-        <span ng-show="data.rows.length"><i class="fa fa-plus"></i><?php _e('Add row', 'eddditor'); ?></span>
-        <span ng-hide="data.rows.length"><i class="fa fa-plus"></i><?php _e('Add your first row to get started', 'eddditor'); ?></span>
+    <span class="layotter-button layotter-button-with-icon" ng-click="loadLayout()"><i class="fa fa-upload"></i><?php _e('Load layout', 'layotter'); ?></span>
+    <span class="layotter-button layotter-button-with-icon layotter-templates-button" toggle-templates><i class="fa fa-star"></i><?php _e('Element templates', 'layotter'); ?></span>
+    <span class="layotter-button layotter-add-row-button" ng-click="addRow(-1)" ng-class="{ 'layotter-add-row-button-large': data.rows.length === 0 }">
+        <span ng-show="data.rows.length"><i class="fa fa-plus"></i><?php _e('Add row', 'layotter'); ?></span>
+        <span ng-hide="data.rows.length"><i class="fa fa-plus"></i><?php _e('Add your first row to get started', 'layotter'); ?></span>
     </span>
-    <div class="eddditor-rows" ui-sortable="rowSortableOptions" ng-model="data.rows">
-        <div class="eddditor-row eddditor-animate" ng-repeat="row in data.rows" ng-class="{ 'eddditor-loading' : row.isLoading }">
-            <div class="eddditor-row-canvas">
-                <div class="eddditor-row-head">
-                    <span class="eddditor-row-move"><i class="fa fa-arrows-v"></i><?php _e('Move row', 'eddditor'); ?></span>
-                    <div class="eddditor-row-cols">
-                        <span class="eddditor-row-layout-button" ng-repeat="colbutton in allowedRowLayouts" ng-class="{ 'eddditor-row-layout-button-active': colbutton.layout === row.layout }" ng-click="setRowLayout(row, colbutton.layout)" data-layout="{{ colbutton.layout }}" title="{{ colbutton.title }}">{{ colbutton.title }}</span>
+    <div class="layotter-rows" ui-sortable="rowSortableOptions" ng-model="data.rows">
+        <div class="layotter-row layotter-animate" ng-repeat="row in data.rows" ng-class="{ 'layotter-loading' : row.isLoading }">
+            <div class="layotter-row-canvas">
+                <div class="layotter-row-head">
+                    <span class="layotter-row-move"><i class="fa fa-arrows-v"></i><?php _e('Move row', 'layotter'); ?></span>
+                    <div class="layotter-row-cols">
+                        <span class="layotter-row-layout-button" ng-repeat="colbutton in allowedRowLayouts" ng-class="{ 'layotter-row-layout-button-active': colbutton.layout === row.layout }" ng-click="setRowLayout(row, colbutton.layout)" data-layout="{{ colbutton.layout }}" title="{{ colbutton.title }}">{{ colbutton.title }}</span>
                     </div>
-                    <div class="eddditor-row-buttons">
-                        <span class="eddditor-row-delete" ng-click="deleteRow($index)" title="<?php _e('Delete row', 'eddditor'); ?>"><i class="fa fa-trash-o"></i></span>
-                        <span class="eddditor-row-duplicate" ng-click="duplicateRow($index)" title="<?php _e('Duplicate row', 'eddditor'); ?>"><i class="fa fa-files-o"></i></span>
-                        <span class="eddditor-row-options" ng-click="editOptions('row', row)" ng-show="optionsEnabled.row" title="<?php _e('Row options', 'eddditor'); ?>"><i class="fa fa-cog"></i></span>
+                    <div class="layotter-row-buttons">
+                        <span class="layotter-row-delete" ng-click="deleteRow($index)" title="<?php _e('Delete row', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>
+                        <span class="layotter-row-duplicate" ng-click="duplicateRow($index)" title="<?php _e('Duplicate row', 'layotter'); ?>"><i class="fa fa-files-o"></i></span>
+                        <span class="layotter-row-options" ng-click="editOptions('row', row)" ng-show="optionsEnabled.row" title="<?php _e('Row options', 'layotter'); ?>"><i class="fa fa-cog"></i></span>
                     </div>
                 </div>
-                <div class="eddditor-cols">
-                    <div class="eddditor-col {{ 'eddditor-col-' + getColLayout(row, $index) }}" ng-repeat="col in row.cols">
-                        <span class="eddditor-button eddditor-add-element-button" ng-click="showNewElementTypes(col.elements, -1)"><i class="fa fa-plus"></i><?php _e('Add element', 'eddditor'); ?></span>
-                        <div class="eddditor-elements" ui-sortable="elementSortableOptions" ng-model="col.elements">
-                            <div class="eddditor-element eddditor-animate" ng-repeat="element in col.elements" ng-class="{ 'eddditor-loading' : element.isLoading, 'eddditor-highlight' : element.isHighlighted }">
-                                <div class="eddditor-element-canvas">
-                                    <div class="eddditor-element-head">
-                                        <span class="eddditor-element-delete" ng-click="deleteElement(col.elements, $index)" title="<?php _e('Delete element', 'eddditor'); ?>"><i class="fa fa-trash-o"></i></span>
-                                        <span class="eddditor-element-edit" ng-hide="element.template_id !== undefined" ng-click="editElement(element)" title="<?php _e('Edit element', 'eddditor'); ?>"><i class="fa fa-pencil"></i></span>
-                                        <div class="eddditor-element-dropdown">
+                <div class="layotter-cols">
+                    <div class="layotter-col {{ 'layotter-col-' + getColLayout(row, $index) }}" ng-repeat="col in row.cols">
+                        <span class="layotter-button layotter-add-element-button" ng-click="showNewElementTypes(col.elements, -1)"><i class="fa fa-plus"></i><?php _e('Add element', 'layotter'); ?></span>
+                        <div class="layotter-elements" ui-sortable="elementSortableOptions" ng-model="col.elements">
+                            <div class="layotter-element layotter-animate" ng-repeat="element in col.elements" ng-class="{ 'layotter-loading' : element.isLoading, 'layotter-highlight' : element.isHighlighted }">
+                                <div class="layotter-element-canvas">
+                                    <div class="layotter-element-head">
+                                        <span class="layotter-element-delete" ng-click="deleteElement(col.elements, $index)" title="<?php _e('Delete element', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>
+                                        <span class="layotter-element-edit" ng-hide="element.template_id !== undefined" ng-click="editElement(element)" title="<?php _e('Edit element', 'layotter'); ?>"><i class="fa fa-pencil"></i></span>
+                                        <div class="layotter-element-dropdown">
                                             <i class="fa fa-caret-down"></i>
-                                            <div class="eddditor-element-dropdown-items">
-                                                <span class="eddditor-element-options" ng-click="editOptions('element', element)" ng-show="optionsEnabled.element"><i class="fa fa-cog"></i><?php _e('Element options', 'eddditor'); ?></span>
-                                                <span class="eddditor-element-duplicate" ng-click="duplicateElement(col.elements, $index)"><i class="fa fa-files-o"></i><?php _e('Duplicate element', 'eddditor'); ?></span>
-                                                <span class="eddditor-element-favorite" ng-hide="element.template_id !== undefined" ng-click="saveNewTemplate(element)"><i class="fa fa-star"></i><?php _e('Save as template', 'eddditor'); ?></span>
+                                            <div class="layotter-element-dropdown-items">
+                                                <span class="layotter-element-options" ng-click="editOptions('element', element)" ng-show="optionsEnabled.element"><i class="fa fa-cog"></i><?php _e('Element options', 'layotter'); ?></span>
+                                                <span class="layotter-element-duplicate" ng-click="duplicateElement(col.elements, $index)"><i class="fa fa-files-o"></i><?php _e('Duplicate element', 'layotter'); ?></span>
+                                                <span class="layotter-element-favorite" ng-hide="element.template_id !== undefined" ng-click="saveNewTemplate(element)"><i class="fa fa-star"></i><?php _e('Save as template', 'layotter'); ?></span>
                                             </div>
                                         </div>
-                                        <span class="eddditor-element-move"><i class="fa fa-arrows"></i><?php _e('Move', 'eddditor'); ?></span>
+                                        <span class="layotter-element-move"><i class="fa fa-arrows"></i><?php _e('Move', 'layotter'); ?></span>
                                     </div>
-                                    <div class="eddditor-element-message" ng-show="element.template_id !== undefined">
-                                        <?php _e('This is a template.', 'eddditor'); ?>
+                                    <div class="layotter-element-message" ng-show="element.template_id !== undefined">
+                                        <?php _e('This is a template.', 'layotter'); ?>
                                     </div>
-                                    <div class="eddditor-element-content" ng-bind-html="element.view"></div>
+                                    <div class="layotter-element-content" ng-bind-html="element.view"></div>
                                 </div>
-                                <span class="eddditor-button eddditor-add-element-button" ng-click="showNewElementTypes(col.elements, $index)"><i class="fa fa-plus"></i><?php _e('Add element', 'eddditor'); ?></span>
+                                <span class="layotter-button layotter-add-element-button" ng-click="showNewElementTypes(col.elements, $index)"><i class="fa fa-plus"></i><?php _e('Add element', 'layotter'); ?></span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <span class="eddditor-button eddditor-add-row-button" ng-click="addRow($index)"><i class="fa fa-plus"></i><?php _e('Add row', 'eddditor'); ?></span>
+            <span class="layotter-button layotter-add-row-button" ng-click="addRow($index)"><i class="fa fa-plus"></i><?php _e('Add row', 'layotter'); ?></span>
         </div>
     </div>
 </div>
-<div id="eddditor-loading">
-    <span><?php _e('Eddditor loading &hellip;', 'eddditor'); ?></span>
+<div id="layotter-loading">
+    <span><?php _e('Layotter loading &hellip;', 'layotter'); ?></span>
 </div>
-<script type="text/ng-template" id="eddditor-add-element">
+<script type="text/ng-template" id="layotter-add-element">
     <?php require dirname(__FILE__) . '/add-element.php'; ?>
 </script>
-<script type="text/ng-template" id="eddditor-load-layout">
+<script type="text/ng-template" id="layotter-load-layout">
     <?php require dirname(__FILE__) . '/load-layout.php'; ?>
 </script>
-<script type="text/ng-template" id="eddditor-modal-confirm">
+<script type="text/ng-template" id="layotter-modal-confirm">
     <?php require dirname(__FILE__) . '/confirm.php'; ?>
 </script>
-<script type="text/ng-template" id="eddditor-modal-prompt">
+<script type="text/ng-template" id="layotter-modal-prompt">
     <?php require dirname(__FILE__) . '/prompt.php'; ?>
 </script>

@@ -7,12 +7,12 @@ app.controller('TemplatesCtrl', function($scope, $animate, templates, $timeout) 
     // options for jQuery UI's sortable (via ui.sortable)
     var savedTemplatesBackup;
     $scope.templateSortableOptions = {
-        items: '.eddditor-element',
-        placeholder: 'eddditor-placeholder',
+        items: '.layotter-element',
+        placeholder: 'layotter-placeholder',
         forcePlaceholderSize: true,
         revert: 300,
-        handle: '.eddditor-element-move',
-        connectWith: '#eddditor .eddditor-elements',
+        handle: '.layotter-element-move',
+        connectWith: '#layotter .layotter-elements',
         helper: 'clone',
         start: function (event, ui) {
             $animate.enabled(false); // prevent animation when savedTemplatesBackup is restored after a template was dragged

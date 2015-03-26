@@ -4,7 +4,7 @@
 /**
  * A single post
  */
-class Eddditor_Post {
+class Layotter_Post {
 
     private
         $options,
@@ -15,22 +15,22 @@ class Eddditor_Post {
      * Create an object for a post
      *
      * @param int|string $id_or_json_or_post_content Post ID, JSON object holding post structure, or post content
-     *      containing [eddditor]JSON structure[/eddditor]
+     *      containing [layotter]JSON structure[/layotter]
      */
     public function __construct($id_or_json_or_post_content) {
         $structure = $this->get_structure($id_or_json_or_post_content);
         $structure = $this->validate_structure($structure);
 
-        $this->options = new Eddditor_Options('post', $structure['options']);
+        $this->options = new Layotter_Options('post', $structure['options']);
 
         foreach ($structure['rows'] as $row) {
-            $this->rows[] = new Eddditor_Row($row);
+            $this->rows[] = new Layotter_Row($row);
         }
     }
 
 
     /**
-     * Get post structure by post ID, JSON data or post content containing [eddditor]JSON structure[/eddditor]
+     * Get post structure by post ID, JSON data or post content containing [layotter]JSON structure[/layotter]
      *
      * @param int|string $id_or_json_or_post_content Post ID, JSON or post content
      * @return array|null Array containing post structure or null for new posts
@@ -106,11 +106,11 @@ class Eddditor_Post {
         }
 
         // if a custom filter for frontend was hooked, run through that filter and return HTML
-        if (has_filter('eddditor/post')) {
-            return apply_filters('eddditor/post', $rows_html, $this->options->get_formatted_values());
+        if (has_filter('layotter/post')) {
+            return apply_filters('layotter/post', $rows_html, $this->options->get_formatted_values());
         } else {
             // otherwise, get HTML wrapper from settings, apply and return HTML
-            $settings = Eddditor_Settings::get_settings('wrapper');
+            $settings = Layotter_Settings::get_settings('wrapper');
             return $settings['html_before'] . $rows_html . $settings['html_after'];
         }
     }
@@ -135,7 +135,7 @@ class Eddditor_Post {
      * @return array|null Array containing post structure or null for new posts
      */
     private function get_json_by_post_id($post_id) {
-        // get raw post content (should look like [eddditor]json_data[/eddditor] for existing posts)
+        // get raw post content (should look like [layotter]json_data[/layotter] for existing posts)
         $content_raw = get_post_field('post_content', $post_id);
         return $this->get_json_by_post_content($content_raw);
     }
@@ -144,7 +144,7 @@ class Eddditor_Post {
     /**
      * Extract post JSON from post content
      *
-     * @param string $content_raw Post content containing [eddditor]JSON structure[/eddditor]
+     * @param string $content_raw Post content containing [layotter]JSON structure[/layotter]
      * @return array|null Array containing post structure or null for new posts
      */
     private function get_json_by_post_content($content_raw) {
@@ -154,7 +154,7 @@ class Eddditor_Post {
 
         // verify that the content is correctly formatted, unwrap from shortcode
         $matches = array();
-        if (preg_match('/\[eddditor\](.*)\[\/eddditor\]/ms', $content_raw, $matches)) {
+        if (preg_match('/\[layotter\](.*)\[\/layotter\]/ms', $content_raw, $matches)) {
             $content_json = $matches[1];
             return $content_json;
         } else {

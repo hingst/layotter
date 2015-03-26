@@ -5,20 +5,20 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
     
     
     // data received from php
-    this.savedLayouts = eddditorData.savedLayouts;
+    this.savedLayouts = layotterData.savedLayouts;
 
 
     this.saveNewLayout = function() {
         var json = angular.toJson(data.contentStructure);
 
        modals.prompt({
-            message: eddditorData.i18n.save_new_layout_confirmation,
+            message: layotterData.i18n.save_new_layout_confirmation,
             initialValue: angular.element('#title').val(),
-            okText: eddditorData.i18n.save_layout,
+            okText: layotterData.i18n.save_layout,
             okAction: function(value) {
-                angular.element('.eddditor-save-layout-button').parent().addClass('eddditor-loading');
+                angular.element('.layotter-save-layout-button').parent().addClass('layotter-loading');
                 $http({
-                    url: ajaxurl + '?action=eddditor_save_new_layout',
+                    url: ajaxurl + '?action=layotter_save_new_layout',
                     method: 'POST',
                     data: {
                         name: value,
@@ -26,16 +26,16 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                     }
                 }).success(function(reply) {
                     _this.savedLayouts.push(reply);
-                    angular.element('.eddditor-save-layout-button').parent().removeClass('eddditor-loading');
+                    angular.element('.layotter-save-layout-button').parent().removeClass('layotter-loading');
                 });
             },
-            cancelText: eddditorData.i18n.cancel
+            cancelText: layotterData.i18n.cancel
         });
     };
 
 
     this.loadLayout = function() {
-        forms.show(angular.element('#eddditor-load-layout').html());
+        forms.show(angular.element('#layotter-load-layout').html());
     };
 
 
@@ -43,14 +43,14 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
         var id = layout.layout_id;
 
         modals.confirm({
-            message: eddditorData.i18n.load_layout_confirmation,
-            okText: eddditorData.i18n.load_layout,
+            message: layotterData.i18n.load_layout_confirmation,
+            okText: layotterData.i18n.load_layout,
             okAction: function(){
                 state.reset();
-                angular.element('#eddditor').addClass('eddditor-loading');
+                angular.element('#layotter').addClass('layotter-loading');
 
                 $http({
-                    url: ajaxurl + '?action=eddditor_load_layout',
+                    url: ajaxurl + '?action=layotter_load_layout',
                     method: 'POST',
                     data: {
                         layout_id: id
@@ -62,10 +62,10 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                     $timeout(function(){
                         $animate.enabled(true);
                     }, 1);
-                    angular.element('#eddditor').removeClass('eddditor-loading');
+                    angular.element('#layotter').removeClass('layotter-loading');
                 });
             },
-            cancelText: eddditorData.i18n.cancel
+            cancelText: layotterData.i18n.cancel
         });
     };
 
@@ -75,15 +75,15 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
         var layout = _this.savedLayouts[index];
 
         modals.prompt({
-            message: eddditorData.i18n.rename_layout_confirmation,
+            message: layotterData.i18n.rename_layout_confirmation,
             initialValue: layout.name,
-            okText: eddditorData.i18n.rename_layout,
+            okText: layotterData.i18n.rename_layout,
             okAction: function(value) {
                 var id = layout.layout_id;
                 layout.isLoading = true;
 
                 $http({
-                    url: ajaxurl + '?action=eddditor_rename_layout',
+                    url: ajaxurl + '?action=layotter_rename_layout',
                     method: 'POST',
                     data: {
                         layout_id: id,
@@ -94,7 +94,7 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                     layout.name = reply.name;
                 });
             },
-            cancelText: eddditorData.i18n.cancel
+            cancelText: layotterData.i18n.cancel
         });
     };
 
@@ -104,14 +104,14 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
         var layout = _this.savedLayouts[index];
 
         modals.confirm({
-            message: eddditorData.i18n.delete_layout_confirmation,
-            okText: eddditorData.i18n.delete_layout,
+            message: layotterData.i18n.delete_layout_confirmation,
+            okText: layotterData.i18n.delete_layout,
             okAction: function(){
                 var id = layout.layout_id;
                 layout.isLoading = true;
 
                 $http({
-                    url: ajaxurl + '?action=eddditor_delete_layout',
+                    url: ajaxurl + '?action=layotter_delete_layout',
                     method: 'POST',
                     data: {
                         layout_id: id
@@ -120,7 +120,7 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                     layout.isDeleted = true;
                 });
             },
-            cancelText: eddditorData.i18n.cancel
+            cancelText: layotterData.i18n.cancel
         });
     };
     

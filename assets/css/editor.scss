@@ -36,18 +36,18 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* reset wordpress styles */
 
-#eddditor h1,
-#eddditor h2,
-#eddditor h3,
-#eddditor h4,
-#eddditor h5,
-#eddditor h6,
-.eddditor-modal h1,
-.eddditor-modal h2,
-.eddditor-modal h3,
-.eddditor-modal h4,
-.eddditor-modal h5,
-.eddditor-modal h6 {
+#layotter h1,
+#layotter h2,
+#layotter h3,
+#layotter h4,
+#layotter h5,
+#layotter h6,
+.layotter-modal h1,
+.layotter-modal h2,
+.layotter-modal h3,
+.layotter-modal h4,
+.layotter-modal h5,
+.layotter-modal h6 {
     background: none;
     border: none;
     padding: 0;
@@ -61,14 +61,14 @@ $darkgray: #CCCCCC;
     user-select: text;
 }
 
-.eddditor-modal p,
-.eddditor-modal-confirm p {
+.layotter-modal p,
+.layotter-modal-confirm p {
     margin: 0 0 0.4em;
 }
 
-#eddditor p:last-child,
-.eddditor-modal p:last-child,
-.eddditor-modal-confirm p:last-child {
+#layotter p:last-child,
+.layotter-modal p:last-child,
+.layotter-modal-confirm p:last-child {
     margin-bottom: 0;
 }
 
@@ -76,22 +76,22 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* drag and drop */
 
-.eddditor-placeholder {
+.layotter-placeholder {
     margin-bottom: 10px;
     background: #e0e0e0;
         
-    &.eddditor-placeholder-invisible {
+    &.layotter-placeholder-invisible {
         height: 0 !important;
         margin-bottom: 0;
     }
 }
 
-.eddditor-row.ui-sortable-helper > .eddditor-row-canvas,
-.eddditor-element.ui-sortable-helper > .eddditor-element-canvas {
+.layotter-row.ui-sortable-helper > .layotter-row-canvas,
+.layotter-element.ui-sortable-helper > .layotter-element-canvas {
     box-shadow: 1px 1px 8px -5px #333;
 }
 
-.ui-sortable-helper > .eddditor-button { // hide buttons while dragging an element or row
+.ui-sortable-helper > .layotter-button { // hide buttons while dragging an element or row
     display: none;
 }
 
@@ -99,7 +99,7 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* loading */
 
-#eddditor-loading {
+#layotter-loading {
     font-size: $text-m;
     padding: 70px 0;
     text-align: center;
@@ -117,10 +117,10 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* wrapper */
 
-#eddditor {
+#layotter {
     display: none;
     
-    &.eddditor-loading {
+    &.layotter-loading {
         position: relative;
         
         &:after {
@@ -134,7 +134,7 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* buttons */
 
-.eddditor-button {
+.layotter-button {
     clear: both;
     font-size: $text-m;
     box-shadow: $box-shadow;
@@ -158,7 +158,7 @@ $darkgray: #CCCCCC;
         font-size: 16px;
     }
 
-    &.eddditor-button-with-icon {
+    &.layotter-button-with-icon {
         clear: none;
         opacity: 0.7;
         float: left;
@@ -171,12 +171,12 @@ $darkgray: #CCCCCC;
         }
     }
 
-    &.eddditor-templates-button {
+    &.layotter-templates-button {
         float: right;
         margin-right: 0;
     }
 
-    &.eddditor-add-row-button {
+    &.layotter-add-row-button {
         transition: height 0.6s, line-height 0.6s, font-size 0.6s, margin-bottom 0.6s;
 
         i.fa {
@@ -184,7 +184,7 @@ $darkgray: #CCCCCC;
             margin-right: 8px;
         }
         
-        &.eddditor-add-row-button-large {
+        &.layotter-add-row-button-large {
             height: 120px;
             line-height: 120px;
             font-size: 20px;
@@ -196,7 +196,7 @@ $darkgray: #CCCCCC;
         }
     }
 
-    &.eddditor-add-element-button {
+    &.layotter-add-element-button {
         background: #fff;
 
         i.fa {
@@ -206,16 +206,16 @@ $darkgray: #CCCCCC;
     }
 }
 
-.eddditor-button-wrapper {
+.layotter-button-wrapper {
     margin: 10px 10px 10px 0;
     display: block;
     float: left;
 
-    .eddditor-button.eddditor-button-with-icon {
+    .layotter-button.layotter-button-with-icon {
         margin: 0;
     }
 
-    &.eddditor-loading {
+    &.layotter-loading {
         position: relative;
 
         &:after {
@@ -229,8 +229,8 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* rows */
 
-.eddditor-row {
-    &.eddditor-loading .eddditor-row-canvas {
+.layotter-row {
+    &.layotter-loading .layotter-row-canvas {
         border-color: $lightgray;
         position: relative;
 
@@ -240,11 +240,11 @@ $darkgray: #CCCCCC;
         }
     }
 
-    .eddditor-row-canvas {
+    .layotter-row-canvas {
         box-shadow: $box-shadow;
         border: 1px solid $darkgray;
 
-        .eddditor-row-head {
+        .layotter-row-head {
             border-bottom: 1px solid $darkgray;
             background-color: $gray;
             box-shadow: $box-shadow;
@@ -252,17 +252,17 @@ $darkgray: #CCCCCC;
             font-size: $text-m;
             position: relative;
 
-            .eddditor-row-move,
-            .eddditor-row-cols,
-            .eddditor-row-delete,
-            .eddditor-row-duplicate,
-            .eddditor-row-options {
+            .layotter-row-move,
+            .layotter-row-cols,
+            .layotter-row-delete,
+            .layotter-row-duplicate,
+            .layotter-row-options {
                 height: 36px;
                 line-height: 36px;
                 display: block;
             }
 
-            .eddditor-row-move {
+            .layotter-row-move {
                 padding: 0 12px;
                 border-right: 1px solid $darkgray;
                 cursor: move;
@@ -275,13 +275,13 @@ $darkgray: #CCCCCC;
                 }
             }
 
-            .eddditor-row-cols {
+            .layotter-row-cols {
                 @extend %border-box;
                 display: inline-block;
                 padding-top: 13px;
                 line-height: 1;
 
-                .eddditor-row-layout-button {
+                .layotter-row-layout-button {
                     margin: 0 3px;
                     background-position: center;
                     background-repeat: no-repeat;
@@ -293,14 +293,14 @@ $darkgray: #CCCCCC;
                     opacity: 0.2;
                     width: 31px;
 
-                    &.eddditor-row-layout-button-active,
+                    &.layotter-row-layout-button-active,
                     &:hover {
                         opacity: 1;
                     }
                 }
             }
 
-            .eddditor-row-buttons {
+            .layotter-row-buttons {
                 position: absolute;
                 top: 0;
                 right: 0;
@@ -309,9 +309,9 @@ $darkgray: #CCCCCC;
                     font-size: 16px;
                 }
 
-                .eddditor-row-delete,
-                .eddditor-row-duplicate,
-                .eddditor-row-options {
+                .layotter-row-delete,
+                .layotter-row-duplicate,
+                .layotter-row-options {
                     float: right;
                     cursor: pointer;
                     border-left: 1px solid $darkgray;
@@ -322,20 +322,20 @@ $darkgray: #CCCCCC;
                     }
                 }
 
-                .eddditor-row-delete:hover {
+                .layotter-row-delete:hover {
                     background-color: #FFA8B4;
                 }
             }
         }
     }
 
-    &:last-child .eddditor-add-row-button {
+    &:last-child .layotter-add-row-button {
         margin-bottom: 0;
     }
 }
 
-.eddditor-row-layout-button,
-.eddditor-row-layout-option { // for settings page
+.layotter-row-layout-button,
+.layotter-row-layout-option { // for settings page
     &[data-layout="full"] {
         background-image: url(../images/cols/full.png);
     }
@@ -397,13 +397,13 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* cols */
 
-.eddditor-cols {
+.layotter-cols {
     background: $lightgray;
     display: table;
     width: 100%;
     table-layout: fixed;
 
-    .eddditor-col {
+    .layotter-col {
         @extend %border-box;
         padding: 0 10px;
         border-right: 1px solid $darkgray;
@@ -414,35 +414,35 @@ $darkgray: #CCCCCC;
             border-right: none;
         }
 
-        &.eddditor-col-full {
+        &.layotter-col-full {
             width: 100%;
         }
 
-        &.eddditor-col-half {
+        &.layotter-col-half {
             width: 50%;
         }
 
-        &.eddditor-col-third {
+        &.layotter-col-third {
             width: 33.33333%;
         }
 
-        &.eddditor-col-twothirds {
+        &.layotter-col-twothirds {
             width: 66.66666%;
         }
 
-        &.eddditor-col-fourth {
+        &.layotter-col-fourth {
             width: 25%;
         }
 
-        &.eddditor-col-threefourths {
+        &.layotter-col-threefourths {
             width: 75%;
         }
 
-        &.eddditor-col-fifth {
+        &.layotter-col-fifth {
             width: 20%;
         }
 
-        &.eddditor-col-sixth {
+        &.layotter-col-sixth {
             width: 16.66666%;
         }
     }
@@ -452,15 +452,15 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* elements */
 
-.eddditor-elements {
+.layotter-elements {
     // extend drop zone
     margin-top: -60px;
     padding-top: 60px;
     padding-bottom: 80px;
     margin-bottom: -80px;
 
-    .eddditor-element {
-        &.eddditor-loading .eddditor-element-canvas {
+    .layotter-element {
+        &.layotter-loading .layotter-element-canvas {
             position: relative;
             min-height: 100px;
 
@@ -469,24 +469,24 @@ $darkgray: #CCCCCC;
             }
         }
 
-        &.eddditor-highlight .eddditor-element-canvas {
+        &.layotter-highlight .layotter-element-canvas {
             box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
 
-            .eddditor-element-head {
+            .layotter-element-head {
                 opacity: 0.6;
             }
         }
 
-        .eddditor-element-canvas {
+        .layotter-element-canvas {
             box-shadow: $box-shadow;
             background: #fff;
             border: 1px solid #ddd;
 
-            &:hover .eddditor-element-head {
+            &:hover .layotter-element-head {
                 opacity: 1;
             }
 
-            .eddditor-element-head {
+            .layotter-element-head {
                 opacity: 0.1;
                 border-bottom: 1px solid #ddd;
 
@@ -494,17 +494,17 @@ $darkgray: #CCCCCC;
                     font-size: 14px;
                 }
 
-                .eddditor-element-move,
-                .eddditor-element-delete,
-                .eddditor-element-edit,
-                > .eddditor-element-options,
-                .eddditor-element-dropdown {
+                .layotter-element-move,
+                .layotter-element-delete,
+                .layotter-element-edit,
+                > .layotter-element-options,
+                .layotter-element-dropdown {
                     height: 30px;
                     line-height: 30px;
                     display: block;
                 }
 
-                .eddditor-element-move {
+                .layotter-element-move {
                     cursor: move;
                     padding-left: 8px;
 
@@ -513,10 +513,10 @@ $darkgray: #CCCCCC;
                     }
                 }
 
-                .eddditor-element-delete,
-                .eddditor-element-edit,
-                > .eddditor-element-options,
-                .eddditor-element-dropdown {
+                .layotter-element-delete,
+                .layotter-element-edit,
+                > .layotter-element-options,
+                .layotter-element-dropdown {
                     border-left: 1px solid #ddd;
                     cursor: pointer;
                     float: right;
@@ -528,18 +528,18 @@ $darkgray: #CCCCCC;
                     }
                 }
 
-                .eddditor-element-delete:hover {
+                .layotter-element-delete:hover {
                     background-color: #FFA8B4;
                 }
 
-                .eddditor-element-dropdown {
+                .layotter-element-dropdown {
                     position: relative;
 
-                    &:hover .eddditor-element-dropdown-items {
+                    &:hover .layotter-element-dropdown-items {
                         display: block;
                     }
 
-                    .eddditor-element-dropdown-items {
+                    .layotter-element-dropdown-items {
                         text-align: left;
                         position: absolute;
                         top: 100%;
@@ -571,12 +571,12 @@ $darkgray: #CCCCCC;
                 }
             }
 
-            .eddditor-element-message {
+            .layotter-element-message {
                 padding: 10px;
                 background: rgba(255,255,0,0.4) url(../images/stripes.png);
             }
 
-            .eddditor-element-content {
+            .layotter-element-content {
                 padding: 10px;
                 overflow: hidden;
 
@@ -613,11 +613,11 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* modals */
 
-.eddditor-modal {
+.layotter-modal {
     height: 100%;
     position: relative;
 
-    .eddditor-modal-head {
+    .layotter-modal-head {
         height: 40px;
         padding: 20px;
         background: $gray;
@@ -625,7 +625,7 @@ $darkgray: #CCCCCC;
         border-bottom: 1px solid $darkgray;
         position: relative;
         
-        .eddditor-modal-head-icon {
+        .layotter-modal-head-icon {
             position: absolute;
             top: 28px;
             left: 20px;
@@ -635,7 +635,7 @@ $darkgray: #CCCCCC;
             text-align: center;
         }
 
-        .eddditor-modal-head-info {
+        .layotter-modal-head-info {
             margin-left: 42px;
         }
 
@@ -646,7 +646,7 @@ $darkgray: #CCCCCC;
         }
     }
 
-    .eddditor-modal-body {
+    .layotter-modal-body {
         overflow-y: auto;
         position: absolute;
         top: 81px;
@@ -655,7 +655,7 @@ $darkgray: #CCCCCC;
         right: 0;
     }
 
-    .eddditor-modal-foot {
+    .layotter-modal-foot {
         height: 30px;
         padding: 20px;
         background: $gray;
@@ -671,16 +671,16 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* modal: confirm and prompt */
 
-.eddditor-modal-confirm {
+.layotter-modal-confirm {
     position: relative;
     height: 100%;
     
-    .eddditor-modal-confirm-message {
+    .layotter-modal-confirm-message {
         padding: 20px;
         font-size: 14px;
     }
     
-    .eddditor-modal-confirm-buttons {
+    .layotter-modal-confirm-buttons {
         position: absolute;
         bottom: 0;
         left: 0;
@@ -689,7 +689,7 @@ $darkgray: #CCCCCC;
         background: $lightgray;
     }
 
-    &.eddditor-modal-prompt {
+    &.layotter-modal-prompt {
         input {
             box-sizing: border-box;
             width: 90%;
@@ -702,7 +702,7 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* modal: add element */
 
-.eddditor-modal-add-element {
+.layotter-modal-add-element {
     cursor: pointer;
     padding: 20px;
     border-bottom: 1px solid #ddd;
@@ -726,7 +726,7 @@ $darkgray: #CCCCCC;
         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f8f8f8',GradientType=0 ); /* IE6-9 */
     }
 
-    .eddditor-modal-add-element-icon {
+    .layotter-modal-add-element-icon {
         position: absolute;
         top: 20px;
         left: 20px;
@@ -736,7 +736,7 @@ $darkgray: #CCCCCC;
         text-align: center;
     }
 
-    .eddditor-modal-add-element-info {
+    .layotter-modal-add-element-info {
         margin-left: 42px;
     }
 }
@@ -745,10 +745,10 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* modal: load post layout */
 
-.eddditor-modal-load-layout-wrapper {
+.layotter-modal-load-layout-wrapper {
     border-bottom: 1px solid #ddd;
 
-    &.eddditor-loading {
+    &.layotter-loading {
         position: relative;
 
         &:after {
@@ -757,7 +757,7 @@ $darkgray: #CCCCCC;
         }
     }
 
-    .eddditor-modal-load-layout {
+    .layotter-modal-load-layout {
         cursor: pointer;
         padding: 20px;
 
@@ -772,7 +772,7 @@ $darkgray: #CCCCCC;
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f8f8f8',GradientType=0 ); /* IE6-9 */
         }
 
-        .eddditor-modal-load-layout-header {
+        .layotter-modal-load-layout-header {
             display: block;
             margin-bottom: 8px;
 
@@ -804,7 +804,7 @@ $darkgray: #CCCCCC;
             }
         }
 
-        .eddditor-modal-load-layout-info {
+        .layotter-modal-load-layout-info {
             opacity: 0.5;
         }
     }
@@ -814,7 +814,7 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* modal: ACF customization */
 
-#eddditor-edit {
+#layotter-edit {
     > .acf-error-message:first-child { // form validation error
         position: absolute;
         top: 18px;
@@ -831,30 +831,30 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* settings */
 
-.eddditor-settings-paragraph {
+.layotter-settings-paragraph {
     max-width: 640px;
 }
 
-#eddditor-default-row-layout {
+#layotter-default-row-layout {
     min-width: 220px;
 }
 
-.eddditor-default-value {
+.layotter-default-value {
     cursor: pointer;
 }
 
-.eddditor-row-layout-option {
+.layotter-row-layout-option {
     opacity: 0.3;
     background-position: left center;
     background-repeat: no-repeat;
     padding-left: 40px;
 }
 
-input:checked ~ .eddditor-row-layout-option {
+input:checked ~ .layotter-row-layout-option {
     opacity: 1;
 }
 
-.eddditor-default-row-layout-message {
+.layotter-default-row-layout-message {
     display: none;
     opacity: 0.6;
 }
@@ -913,7 +913,7 @@ input:checked ~ .eddditor-row-layout-option {
 /****************************************************/
 /* saved element templates */
 
-#eddditor-templates {
+#layotter-templates {
     @extend %border-box;
     position: fixed;
     top: 32px;
@@ -926,11 +926,11 @@ input:checked ~ .eddditor-row-layout-option {
     margin-right: -320px;
     transition: margin-right 0.4s;
 
-    &.eddditor-visible {
+    &.layotter-visible {
         margin-right: 0;
     }
 
-    .eddditor-templates-close {
+    .layotter-templates-close {
         position: absolute;
         top: 0;
         right: 0;
@@ -947,7 +947,7 @@ input:checked ~ .eddditor-row-layout-option {
         }
     }
 
-    .eddditor-templates-head {
+    .layotter-templates-head {
         padding: 10px;
 
         > h3 {
@@ -959,24 +959,24 @@ input:checked ~ .eddditor-row-layout-option {
         }
     }
 
-    .eddditor-elements {
+    .layotter-elements {
         overflow: auto;
         margin: 0;
         padding: 0 10px;
 
-        .eddditor-element {
+        .layotter-element {
             margin-bottom: -48px;
 
             &:last-child {
                 margin-bottom: 0;
             }
 
-            .eddditor-button {
+            .layotter-button {
                 visibility: hidden;
             }
         }
 
-        .eddditor-placeholder {
+        .layotter-placeholder {
             height: 0 !important;
             margin-bottom: 0;
         }

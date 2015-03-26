@@ -4,7 +4,7 @@
 /**
  * Options for a post, row, columns or element
  */
-class Eddditor_Options extends Eddditor_Editable {
+class Layotter_Options extends Layotter_Editable {
 
 
     private
@@ -33,19 +33,19 @@ class Eddditor_Options extends Eddditor_Editable {
 
         switch ($this->type) {
             case 'post':
-                $this->form->set_title(__('Post options', 'eddditor'));
+                $this->form->set_title(__('Post options', 'layotter'));
                 $this->form->set_icon('file-text-o');
                 break;
             case 'row':
-                $this->form->set_title(__('Row options', 'eddditor'));
+                $this->form->set_title(__('Row options', 'layotter'));
                 $this->form->set_icon('align-justify');
                 break;
             case 'col':
-                $this->form->set_title(__('Column options', 'eddditor'));
+                $this->form->set_title(__('Column options', 'layotter'));
                 $this->form->set_icon('columns');
                 break;
             case 'element':
-                $this->form->set_title(__('Element options', 'eddditor'));
+                $this->form->set_title(__('Element options', 'layotter'));
                 $this->form->set_icon('table');
                 break;
         }
@@ -65,7 +65,7 @@ class Eddditor_Options extends Eddditor_Editable {
         // check if a field group exists for this option type
         $field_groups = acf_get_field_groups(array(
             'post_type' => $post_type,
-            'eddditor' => $this->type . '_options'
+            'layotter' => $this->type . '_options'
         ));
 
         if (is_array($field_groups) AND !empty($field_groups)) {

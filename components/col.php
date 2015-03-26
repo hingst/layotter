@@ -4,7 +4,7 @@
 /**
  * A single column
  */
-class Eddditor_Col {
+class Layotter_Col {
 
     private
         $width = '',
@@ -21,19 +21,19 @@ class Eddditor_Col {
         $structure = $this->validate_structure($structure);
 
         $this->width = $structure['width'];
-        $this->options = new Eddditor_Options('col', $structure['options']);
+        $this->options = new Layotter_Options('col', $structure['options']);
 
         foreach ($structure['elements'] as $element) {
             $element_object = false;
 
             // if a template_id is set, try to create a template
             if (isset($element['template_id'])) {
-                $element_object = Eddditor_Templates::create_element($element);
+                $element_object = Layotter_Templates::create_element($element);
             }
 
             // if the template doesn't exist anymore, create a regular element
             if (!$element_object) {
-                $element_object = Eddditor::create_element($element);
+                $element_object = Layotter::create_element($element);
             }
 
             if ($element_object) {
@@ -104,12 +104,12 @@ class Eddditor_Col {
             $elements_html .= $element->get_frontend_view();
         }
 
-        $class = Eddditor_Settings::get_col_layout_class($this->width);
+        $class = Layotter_Settings::get_col_layout_class($this->width);
 
-        if (has_filter('eddditor/col')) {
-            return apply_filters('eddditor/col', $elements_html, $class, $this->options->get_formatted_values());
+        if (has_filter('layotter/col')) {
+            return apply_filters('layotter/col', $elements_html, $class, $this->options->get_formatted_values());
         } else {
-            $settings = Eddditor_Settings::get_settings('cols');
+            $settings = Layotter_Settings::get_settings('cols');
             $html_before = str_replace('%%CLASS%%', $class, $settings['html_before']);
             return $html_before . $elements_html . $settings['html_after'];
         }

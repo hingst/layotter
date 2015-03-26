@@ -1,7 +1,7 @@
 app.service('forms', function($http, $compile, $rootScope, $timeout){
 
 
-    angular.element(document).on('click', '#eddditor-edit-fake-submit', function(){
+    angular.element(document).on('click', '#layotter-edit-fake-submit', function(){
         // ACF compatibility
         // ACF uses an ignore flag when the normal post form is submitted, so that the
         // submit button triggers validation, not form submission. after validation has
@@ -10,7 +10,7 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
         // set ignore to 0, otherwise validation will only be called the first time a
         // form is submitted.
         acf.validation.ignore = 0;
-        acf.validation.$trigger = jQuery('#eddditor-edit-submit');
+        acf.validation.$trigger = jQuery('#layotter-edit-submit');
 
         // TODO: prevent form changes while validation is running
     })
@@ -100,11 +100,11 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
             $rootScope.$apply($compile(angular.element('#dennisbox'))($rootScope));
 
             // setup javascript for fields
-            acf.get_fields({}, jQuery('#eddditor-form')).each(function(){
+            acf.get_fields({}, jQuery('#layotter-form')).each(function(){
                 acf.do_action('ready_field', jQuery(this));
                 acf.do_action('ready_field/type=' + acf.get_field_type(jQuery(this)), jQuery(this));
             });
-            acf.do_action('append', jQuery('#eddditor-edit'));
+            acf.do_action('append', jQuery('#layotter-edit'));
         }, 1);
     };
 

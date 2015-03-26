@@ -1,11 +1,11 @@
-var app = angular.module('eddditor', ['ngAnimate', 'ngSanitize', 'ui.sortable']);
+var app = angular.module('layotter', ['ngAnimate', 'ngSanitize', 'ui.sortable']);
 
 
 /**
  * Bootstrap the application
  */
 angular.element(document).ready(function() {
-    angular.bootstrap(document, ['eddditor']);
+    angular.bootstrap(document, ['layotter']);
 });
 
 
@@ -13,14 +13,14 @@ angular.element(document).ready(function() {
  * Initialize stuff after bootstrapping
  */
 app.run(function() {
-    // show eddditor, hide loading spinner
-    angular.element('#eddditor').show();
-    angular.element('#eddditor-loading').hide();
+    // show layotter, hide loading spinner
+    angular.element('#layotter').show();
+    angular.element('#layotter-loading').hide();
 
     // make the scrollable saved elements list fill the viewport height
     var adjustTemplatesContainerHeight = function() {
-        var templatesContainer = angular.element('#eddditor-templates .eddditor-elements');
-        var height = angular.element('#eddditor-templates').height() - templatesContainer.position().top - 10;
+        var templatesContainer = angular.element('#layotter-templates .layotter-elements');
+        var height = angular.element('#layotter-templates').height() - templatesContainer.position().top - 10;
         templatesContainer.height(height);
     };
 
@@ -35,7 +35,7 @@ app.run(function() {
 /**
  * Slide/fade in and out animations
  */
-app.animation('.eddditor-animate', function() {
+app.animation('.layotter-animate', function() {
     return {
         enter: function(element, done) {
             jQuery(element).hide().css('visibility', 'hidden').slideDown(400, function() {

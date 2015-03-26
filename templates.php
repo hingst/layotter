@@ -4,7 +4,7 @@
 /**
  * Manages element templates
  */
-class Eddditor_Templates {
+class Layotter_Templates {
 
 
     private static function validate_structure($structure) {
@@ -43,7 +43,7 @@ class Eddditor_Templates {
      * @return mixed Template data on success, false on failure
      */
     public static function get($id) {
-        $templates = get_option('eddditor_element_templates');
+        $templates = get_option('layotter_element_templates');
 
         if (isset($templates[$id])) {
             $template = self::validate_structure($templates[$id]);
@@ -61,7 +61,7 @@ class Eddditor_Templates {
      */
     public static function get_all() {
         $templates = array();
-        $saved_templates = get_option('eddditor_element_templates');
+        $saved_templates = get_option('layotter_element_templates');
         if (!is_array($saved_templates)) {
             $saved_templates = array();
         }
@@ -82,11 +82,11 @@ class Eddditor_Templates {
     /**
      * Save a new template
      *
-     * @param object $element Eddditor_Element object to be saved as a new template
-     * @return object Eddditor_Element object with template ID
+     * @param object $element Layotter_Element object to be saved as a new template
+     * @return object Layotter_Element object with template ID
      */
     public static function save($element) {
-        $templates = get_option('eddditor_element_templates');
+        $templates = get_option('layotter_element_templates');
         if (!is_array($templates)) {
             $templates = array();
         }
@@ -94,7 +94,7 @@ class Eddditor_Templates {
         $id = count($templates);
         $element->set_template_id($id);
         $templates[$id] = $element->get_template_data();
-        update_option('eddditor_element_templates', $templates);
+        update_option('layotter_element_templates', $templates);
         return $element;
     }
 
@@ -107,12 +107,12 @@ class Eddditor_Templates {
      * @return bool True if template has been updated, false on failure
      */
     public static function update($id, $structure) {
-        $templates = get_option('eddditor_element_templates');
+        $templates = get_option('layotter_element_templates');
 
         if (isset($templates[$id])) {
             $structure = self::validate_structure($structure);
             $templates[$id] = $structure;
-            update_option('eddditor_element_templates', $templates);
+            update_option('layotter_element_templates', $templates);
             return true;
         }
 
@@ -127,7 +127,7 @@ class Eddditor_Templates {
      * @return bool True if template has been deleted, false on failure
      */
     public static function delete($id) {
-        $templates = get_option('eddditor_element_templates');
+        $templates = get_option('layotter_element_templates');
 
         if (!is_int($id)) {
             return false;
@@ -135,7 +135,7 @@ class Eddditor_Templates {
 
         if (isset($templates[$id])) {
             $templates[$id]['deleted'] = true;
-            update_option('eddditor_element_templates', $templates);
+            update_option('layotter_element_templates', $templates);
             return true;
         }
 
@@ -158,10 +158,10 @@ class Eddditor_Templates {
         } else if (is_int($id_or_structure)) {
             $id = $id_or_structure;
 
-            $templates = get_option('eddditor_element_templates');
+            $templates = get_option('layotter_element_templates');
             if (is_array($templates) AND isset($templates[$id]) AND is_array($templates[$id])) {
                 $template = self::validate_structure($templates[$id]);
-                $element = Eddditor::create_element($template['type'], $template['values'], $options);
+                $element = Layotter::create_element($template['type'], $template['values'], $options);
             }
         }
 

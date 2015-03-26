@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: Eddditor
+Plugin Name: Layotter
 Description: Add and arrange your content freely with an intuitive drag and drop interface!
 Author: Dennis Hingst
 Version: 1.1.1
 Author URI: http://www.dennis-hingst.de/
-Text Domain: eddditor
+Text Domain: layotter
 */
 
 
@@ -19,7 +19,7 @@ require_once dirname(__FILE__) . '/check-acf.php';
 
 
 // include files only if ACF is available
-if (!defined('EDDDITOR_ACF_ERROR')) {
+if (!defined('LAYOTTER_ACF_ERROR')) {
     require_once dirname(__FILE__) . '/core.php';
     require_once dirname(__FILE__) . '/ajax.php';
     require_once dirname(__FILE__) . '/assets.php';
@@ -54,8 +54,8 @@ if (!defined('EDDDITOR_ACF_ERROR')) {
 
 
 
-//update_option('eddditor_element_templates', array());
-//update_option('eddditor_post_layouts', array());
+//update_option('layotter_element_templates', array());
+//update_option('layotter_post_layouts', array());
 
 
 
@@ -63,8 +63,8 @@ if (!defined('EDDDITOR_ACF_ERROR')) {
 
 // EXAMPLE FILTERS
 // 
-add_filter('eddditor/post', 'eddditor_filter_post', 10, 2);
-function eddditor_filter_post($content, $options)
+add_filter('layotter/post', 'layotter_filter_post', 10, 2);
+function layotter_filter_post($content, $options)
 {
     ob_start();
     var_dump($options);
@@ -73,21 +73,21 @@ function eddditor_filter_post($content, $options)
     return $op . '<div class="post">' . $content . '</div>';
 }
 //
-//add_filter('eddditor/row', 'eddditor_filter_row', 10, 2);
-//function eddditor_filter_row($content, $options)
+//add_filter('layotter/row', 'layotter_filter_row', 10, 2);
+//function layotter_filter_row($content, $options)
 //{
 //    return '<div class="row">' . $content . '</div>';
 //}
 //
-//add_filter('eddditor/col', 'eddditor_filter_col', 10, 2);
-//function eddditor_filter_col($content, $class)
+//add_filter('layotter/col', 'layotter_filter_col', 10, 2);
+//function layotter_filter_col($content, $class)
 //{
 //    return '<div class="' . $class . '">' . $content . '</div>';
 //}
 //
 /*
-add_filter('eddditor/element', 'eddditor_filter_element', 10, 2);
-function eddditor_filter_element($content, $options)
+add_filter('layotter/element', 'layotter_filter_element', 10, 2);
+function layotter_filter_element($content, $options)
 {
     ob_start();
     var_dump($options);

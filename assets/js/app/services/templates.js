@@ -5,7 +5,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
 
 
     // data received from php
-    this.savedTemplates = eddditorData.savedTemplates;
+    this.savedTemplates = layotterData.savedTemplates;
 
     
     /**
@@ -13,7 +13,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
      */
     this.editTemplate = function(element) {
         state.setElement(element);
-        forms.post(ajaxurl + '?action=eddditor_edit_template', {
+        forms.post(ajaxurl + '?action=layotter_edit_template', {
             template_id: element.template_id
         });
     };
@@ -24,12 +24,12 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
      */
     this.deleteTemplate = function(index) {
         modals.confirm({
-            message: eddditorData.i18n.delete_template_confirmation,
-            okText: eddditorData.i18n.delete_template,
+            message: layotterData.i18n.delete_template_confirmation,
+            okText: layotterData.i18n.delete_template,
             okAction: function(){
                 _this.savedTemplates[index].isLoading = true;
                 $http({
-                    url: ajaxurl + '?action=eddditor_delete_template',
+                    url: ajaxurl + '?action=layotter_delete_template',
                     method: 'POST',
                     data: {
                         template_id: _this.savedTemplates[index].template_id
@@ -41,7 +41,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
                     _this.savedTemplates.splice(index, 1);
                 });
             },
-            cancelText: eddditorData.i18n.cancel
+            cancelText: layotterData.i18n.cancel
         });
     };
     
@@ -53,7 +53,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
         element.isLoading = true;
         view.showTemplates();
         $http({
-            url: ajaxurl + '?action=eddditor_save_new_template',
+            url: ajaxurl + '?action=layotter_save_new_template',
             method: 'POST',
             data: {
                 type: element.type,
@@ -78,7 +78,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
      * 
      */
     this.saveTemplate = function() {
-        var values = jQuery('#eddditor-edit').serializeObject();
+        var values = jQuery('#layotter-edit').serializeObject();
         
         // copy editing.element so state can be reset while ajax is still loading
         var editingElement = state.getElement();
@@ -86,7 +86,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
         editingElement.isLoading = true;
         
         $http({
-            url: ajaxurl + '?action=eddditor_update_template',
+            url: ajaxurl + '?action=layotter_update_template',
             method: 'POST',
             data: {
                 template_id: editingElement.template_id,

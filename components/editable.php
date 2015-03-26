@@ -4,7 +4,7 @@
 /**
  * Abstract class for editable components (options and elements)
  */
-abstract class Eddditor_Editable {
+abstract class Layotter_Editable {
 
     protected
         $clean_values = array(),
@@ -32,7 +32,7 @@ abstract class Eddditor_Editable {
         $this->formatted_values = $this->format_values($fields, $this->clean_values);
 
         // create edit form
-        $this->form = new Eddditor_Form($fields, $this->clean_values);
+        $this->form = new Layotter_Form($fields, $this->clean_values);
     }
 
 
@@ -80,7 +80,7 @@ abstract class Eddditor_Editable {
             // note:
             // in default ACF, field values are run through the acf/validate_value and acf/update_value filters
             // before saving them to the database
-            // these filters can break fields in Eddditor's context and are therefore not applied
+            // these filters can break fields in Layotter's context and are therefore not applied
         }
 
         return $values;
@@ -108,7 +108,7 @@ abstract class Eddditor_Editable {
 
             // note:
             // in default ACF, field values are run through the acf/load_value filter before formatting
-            // this filter can break fields in Eddditor's context and is therefore not applied
+            // this filter can break fields in Layotter's context and is therefore not applied
 
             // format values using ACF's formatting filters
             $values[$field_name] = acf_format_value($clean_values[$field_name], 0, $field_data); // 0 = post_id

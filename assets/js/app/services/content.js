@@ -17,7 +17,7 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
         state.setElement(angular.copy(data.templates.element));
         state.setParent(parent);
         state.setIndex(index);
-        forms.show(angular.element('#eddditor-add-element').html());
+        forms.show(angular.element('#layotter-add-element').html());
     };
     
     
@@ -25,7 +25,7 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
      * Go back to show the list of available element types when editing a new element
      */
     this.backToShowNewElementTypes = function() {
-        forms.show(angular.element('#eddditor-add-element').html());
+        forms.show(angular.element('#layotter-add-element').html());
     };
     
     
@@ -59,7 +59,7 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
      */
     this.editElement = function(element) {
         state.setElement(element);
-        forms.post(ajaxurl + '?action=eddditor_edit_element', {
+        forms.post(ajaxurl + '?action=layotter_edit_element', {
             type: element.type,
             values: element.values
         });
@@ -71,7 +71,7 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
      */
     this.saveElement = function() {
         // ACF wraps all form fields in a required object called 'acf'
-        var values = jQuery('#eddditor-edit').serializeObject();
+        var values = jQuery('#layotter-edit').serializeObject();
         if (typeof values.acf == 'undefined') {
             values.acf = {};
         }
@@ -87,7 +87,7 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
         editingElement.isLoading = true;
         
         $http({
-            url: ajaxurl + '?action=eddditor_parse_element',
+            url: ajaxurl + '?action=layotter_parse_element',
             method: 'POST',
             data: {
                 type: editingElement.type,
@@ -107,10 +107,10 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
     this.editOptions = function(type, element) {
         state.setOptionsType(type);
         state.setElement(element);
-        forms.post(ajaxurl + '?action=eddditor_edit_options', {
+        forms.post(ajaxurl + '?action=layotter_edit_options', {
             type: type,
             values: element.options,
-            post_id: eddditorData.postID
+            post_id: layotterData.postID
         });
     };
     
@@ -120,7 +120,7 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
      */
     this.saveOptions = function() {
         // ACF wraps all form fields in a required object called 'acf'
-        var values = jQuery('#eddditor-edit').serializeObject();
+        var values = jQuery('#layotter-edit').serializeObject();
         if (typeof values.acf == 'undefined') {
             values.acf = {};
         }
@@ -133,12 +133,12 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
         editingElement.isLoading = true;
         
         $http({
-            url: ajaxurl + '?action=eddditor_parse_options',
+            url: ajaxurl + '?action=layotter_parse_options',
             method: 'POST',
             data: {
                 type: optionsType,
                 values: values,
-                post_id: eddditorData.postID
+                post_id: layotterData.postID
             }
         }).success(function(reply) {
             editingElement.options = reply;
@@ -152,12 +152,12 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
      */
     this.deleteElement = function(parent, index) {
         modals.confirm({
-            message: eddditorData.i18n.delete_element_confirmation,
-            okText: eddditorData.i18n.delete_element,
+            message: layotterData.i18n.delete_element_confirmation,
+            okText: layotterData.i18n.delete_element,
             okAction: function(){
                 parent.splice(index, 1);
             },
-            cancelText: eddditorData.i18n.cancel
+            cancelText: layotterData.i18n.cancel
         });
     };
     
@@ -180,12 +180,12 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
         }
         
         modals.confirm({
-            message: eddditorData.i18n.delete_row_confirmation,
-            okText: eddditorData.i18n.delete_row,
+            message: layotterData.i18n.delete_row_confirmation,
+            okText: layotterData.i18n.delete_row,
             okAction: function(){
                 data.contentStructure.rows.splice(index, 1);
             },
-            cancelText: eddditorData.i18n.cancel
+            cancelText: layotterData.i18n.cancel
         });
     };
     
@@ -250,14 +250,14 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
      * Close Lightbox only if no edit form is currently present
      */
     this.cancelEditing = function() {
-        if (angular.element('#eddditor-changed').val() === '1') {
+        if (angular.element('#layotter-changed').val() === '1') {
             modals.confirm({
-                message: eddditorData.i18n.discard_changes_confirmation,
-                okText: eddditorData.i18n.discard_changes,
+                message: layotterData.i18n.discard_changes_confirmation,
+                okText: layotterData.i18n.discard_changes,
                 okAction: function(){
                     state.reset();
                 },
-                cancelText: eddditorData.i18n.cancel
+                cancelText: layotterData.i18n.cancel
             });
         } else {
             state.reset();
@@ -269,8 +269,8 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
         _this.cancelEditing();
     });
     angular.element(document).on('keyup', function(e){
-        if (angular.element('#dennisbox').length && !angular.element('.eddditor-modal-confirm').length && e.keyCode === 27) {
-            angular.element('#eddditor-edit :focus').blur();
+        if (angular.element('#dennisbox').length && !angular.element('.layotter-modal-confirm').length && e.keyCode === 27) {
+            angular.element('#layotter-edit :focus').blur();
             _this.cancelEditing();
         }
     });

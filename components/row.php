@@ -4,7 +4,7 @@
 /**
  * A single row
  */
-class Eddditor_Row {
+class Layotter_Row {
 
     private
         $layout = '',
@@ -22,10 +22,10 @@ class Eddditor_Row {
         $structure = $this->apply_layout($structure);
 
         $this->layout = $structure['layout'];
-        $this->options = new Eddditor_Options('row', $structure['options']);
+        $this->options = new Layotter_Options('row', $structure['options']);
 
         foreach ($structure['cols'] as $col) {
-            $this->cols[] = new Eddditor_Col($col);
+            $this->cols[] = new Layotter_Col($col);
         }
     }
 
@@ -44,7 +44,7 @@ class Eddditor_Row {
         }
 
         if (!isset($structure['layout']) OR !is_string($structure['layout'])) {
-            $structure['layout'] = Eddditor_Settings::get_default_row_layout();
+            $structure['layout'] = Layotter_Settings::get_default_row_layout();
         }
 
         if (!isset($structure['options']) OR !is_array($structure['options'])) {
@@ -112,10 +112,10 @@ class Eddditor_Row {
             $cols_html .= $col->get_frontend_view();
         }
 
-        if (has_filter('eddditor/row')) {
-            return apply_filters('eddditor/row', $cols_html, $this->options->get_formatted_values());
+        if (has_filter('layotter/row')) {
+            return apply_filters('layotter/row', $cols_html, $this->options->get_formatted_values());
         } else {
-            $settings = Eddditor_Settings::get_settings('rows');
+            $settings = Layotter_Settings::get_settings('rows');
             return $settings['html_before'] . $cols_html . $settings['html_after'];
         }
     }

@@ -1,6 +1,6 @@
 <?php
 
-class eddditor_element_test extends Eddditor_Element {
+class layotter_element_test extends Layotter_Element {
     protected function attributes() {
         $this->title = 'Testbox';
         $this->description = 'Einfache Testbox mit Testkram';
@@ -20,5 +20,5 @@ class eddditor_element_test extends Eddditor_Element {
         echo '</p>';
     }
 }
-Eddditor::register_element('test', 'eddditor_element_test');
+Layotter::register_element('test', 'layotter_element_test');
 

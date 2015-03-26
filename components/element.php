@@ -4,7 +4,7 @@
 /**
  * All custom element types must extend this class
  */
-abstract class Eddditor_Element extends Eddditor_Editable {
+abstract class Layotter_Element extends Layotter_Editable {
 
     
     protected
@@ -53,7 +53,7 @@ abstract class Eddditor_Element extends Eddditor_Editable {
         $this->form->set_title($this->title);
         $this->form->set_icon($this->icon);
 
-        $this->options = new Eddditor_Options('element', $option_values);
+        $this->options = new Layotter_Options('element', $option_values);
     }
 
 
@@ -114,7 +114,7 @@ abstract class Eddditor_Element extends Eddditor_Editable {
         // get ACF field group for this post's type
         $field_groups = acf_get_field_groups(array(
             'post_type' => $post_type,
-            'eddditor' => 'element'
+            'layotter' => 'element'
         ));
 
         $identifier
@@ -162,7 +162,7 @@ abstract class Eddditor_Element extends Eddditor_Editable {
     /**
      * Declare this element as a template
      *
-     * Templates are managed through the Eddditor_Templates class, this method simply declares this element as an
+     * Templates are managed through the Layotter_Templates class, this method simply declares this element as an
      * instance of a saved template. The template ID will be present in this element's JSON representation.
      *
      * @param int $template_id Template ID
@@ -313,10 +313,10 @@ abstract class Eddditor_Element extends Eddditor_Editable {
         $this->frontend_view($this->formatted_values);
         $element_html = ob_get_clean();
 
-        if (has_filter('eddditor/element')) {
-            return apply_filters('eddditor/element', $element_html, $this->options->get_formatted_values());
+        if (has_filter('layotter/element')) {
+            return apply_filters('layotter/element', $element_html, $this->options->get_formatted_values());
         } else {
-            $settings = Eddditor_Settings::get_settings('elements');
+            $settings = Layotter_Settings::get_settings('elements');
             return $settings['html_before'] . $element_html . $settings['html_after'];
         }
     }

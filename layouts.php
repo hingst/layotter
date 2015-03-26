@@ -4,7 +4,7 @@
 /**
  * Manages post layouts
  */
-class Eddditor_Layouts {
+class Layotter_Layouts {
 
 
     private static function validate_structure($structure) {
@@ -17,7 +17,7 @@ class Eddditor_Layouts {
         }
 
         if (!isset($structure['name']) OR !is_string($structure['name'])) {
-            $structure['name'] = __('Unnamed layout', 'eddditor');
+            $structure['name'] = __('Unnamed layout', 'layotter');
         }
 
         if (!isset($structure['json']) OR !is_string($structure['json'])) {
@@ -33,7 +33,7 @@ class Eddditor_Layouts {
 
 
     public static function get($layout_id) {
-        $layouts = get_option('eddditor_post_layouts');
+        $layouts = get_option('layotter_post_layouts');
         if (!is_array($layouts)) {
             return false;
         }
@@ -41,7 +41,7 @@ class Eddditor_Layouts {
         foreach ($layouts as $layout) {
             $layout = self::validate_structure($layout);
             if ($layout['layout_id'] == $layout_id) {
-                $post = new Eddditor_Post($layout['json']);
+                $post = new Layotter_Post($layout['json']);
                 return $post;
             }
         }
@@ -52,7 +52,7 @@ class Eddditor_Layouts {
 
     public static function get_all() {
         $layouts = array();
-        $saved_layouts = get_option('eddditor_post_layouts');
+        $saved_layouts = get_option('layotter_post_layouts');
 
         if (!is_array($saved_layouts)) {
             $saved_layouts = array();
@@ -75,7 +75,7 @@ class Eddditor_Layouts {
             return false;
         }
 
-        $layouts = get_option('eddditor_post_layouts');
+        $layouts = get_option('layotter_post_layouts');
         if (!is_array($layouts)) {
             $layouts = array();
         }
@@ -88,14 +88,14 @@ class Eddditor_Layouts {
             'time_created' => time() // converted in Javascript, use microtime() instead of time()
         );
 
-        update_option('eddditor_post_layouts', $layouts);
+        update_option('layotter_post_layouts', $layouts);
 
         return $layouts[$id];
     }
 
 
     public static function rename($id, $name) {
-        $layouts = get_option('eddditor_post_layouts');
+        $layouts = get_option('layotter_post_layouts');
 
         if (!is_int($id)) {
             return false;
@@ -107,7 +107,7 @@ class Eddditor_Layouts {
 
         if (isset($layouts[$id])) {
             $layouts[$id]['name'] = $name;
-            update_option('eddditor_post_layouts', $layouts);
+            update_option('layotter_post_layouts', $layouts);
             return array(
                 'name' => $name
             );
@@ -118,7 +118,7 @@ class Eddditor_Layouts {
 
 
     public static function delete($id) {
-        $layouts = get_option('eddditor_post_layouts');
+        $layouts = get_option('layotter_post_layouts');
 
         if (!is_int($id)) {
             return false;
@@ -126,7 +126,7 @@ class Eddditor_Layouts {
 
         if (isset($layouts[$id])) {
             $layouts[$id] = null;
-            update_option('eddditor_post_layouts', $layouts);
+            update_option('layotter_post_layouts', $layouts);
             return true;
         }
 

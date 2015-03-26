@@ -1,15 +1,15 @@
 app.service('view', function() {
 
     this.showTemplates = function() {
-        angular.element('#eddditor-templates').addClass('eddditor-visible');
+        angular.element('#layotter-templates').addClass('layotter-visible');
     };
 
     this.hideTemplates = function() {
-        angular.element('#eddditor-templates').removeClass('eddditor-visible');
+        angular.element('#layotter-templates').removeClass('layotter-visible');
     };
 
     this.toggleTemplates = function() {
-        angular.element('#eddditor-templates').toggleClass('eddditor-visible');
+        angular.element('#layotter-templates').toggleClass('layotter-visible');
     };
     
 });

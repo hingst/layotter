@@ -2,19 +2,19 @@ app.service('data', function(){
     
 
     // use default post options for new posts
-    if (eddditorData.contentStructure === null) {
+    if (layotterData.contentStructure === null) {
         this.contentStructure = {
-            options: eddditorData.options.post.defaults,
+            options: layotterData.options.post.defaults,
             rows: []
         };
     } else {
-        this.contentStructure = angular.copy(eddditorData.contentStructure);
+        this.contentStructure = angular.copy(layotterData.contentStructure);
     }
     
     
     // empty templates
     this.templates = {};
-    var defaultRowLayout = eddditorData.defaultRowLayout;
+    var defaultRowLayout = layotterData.defaultRowLayout;
 
 
     // new element template
@@ -22,14 +22,14 @@ app.service('data', function(){
         type: undefined,
         values: [],
         view: '',
-        options: eddditorData.options.element.defaults
+        options: layotterData.options.element.defaults
     };
 
 
     // new col template
     this.templates.col = {
         elements: [],
-        options: eddditorData.options.col.defaults
+        options: layotterData.options.col.defaults
     };
 
 
@@ -45,7 +45,7 @@ app.service('data', function(){
     this.templates.row = {
         layout: defaultRowLayout,
         cols: defaultCols,
-        options: eddditorData.options.row.defaults
+        options: layotterData.options.row.defaults
     };
     
 });

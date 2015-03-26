@@ -1,13 +1,13 @@
 <?php
 
 
-Eddditor_Settings::init();
+Layotter_Settings::init();
 
 
 /**
  * Creates settings page and sets default settings on plugin activation. Completely self-contained.
  */
-class Eddditor_Settings {
+class Layotter_Settings {
     
     private static
         $current_settings,
@@ -96,36 +96,36 @@ class Eddditor_Settings {
 
     public static function translate_labels() {
         self::$col_class_translations = array(
-            'full' => __('Full width', 'eddditor'),
-            'half' => __('A half', 'eddditor'),
-            'third' => __('A third', 'eddditor'),
-            'twothirds' => __('Two thirds', 'eddditor'),
-            'fourth' => __('A fourth', 'eddditor'),
-            'threefourths' => __('Three fourths', 'eddditor'),
-            'fifth' => __('A fifth', 'eddditor'),
-            'sixth' => __('A sixth', 'eddditor')
+            'full' => __('Full width', 'layotter'),
+            'half' => __('A half', 'layotter'),
+            'third' => __('A third', 'layotter'),
+            'twothirds' => __('Two thirds', 'layotter'),
+            'fourth' => __('A fourth', 'layotter'),
+            'threefourths' => __('Three fourths', 'layotter'),
+            'fifth' => __('A fifth', 'layotter'),
+            'sixth' => __('A sixth', 'layotter')
         );
 
         self::$row_layout_translations = array(
-            'full' => __('Single column', 'eddditor'),
-            'half half' => __('Two halves', 'eddditor'),
-            'third third third' => __('Thirds', 'eddditor'),
-            'fourth fourth fourth fourth' => __('Fourths', 'eddditor'),
-            'fifth fifth fifth fifth fifth' => __('Fifths', 'eddditor'),
-            'sixth sixth sixth sixth sixth sixth' => __('Sixths', 'eddditor'),
-            'twothirds third' => __('Two thirds & one third', 'eddditor'),
-            'third twothirds' => __('One third & two thirds', 'eddditor'),
-            'threefourths fourth' => __('Three fourths & a fourth', 'eddditor'),
-            'fourth threefourths' => __('A fourth & three fourths', 'eddditor'),
-            'half fourth fourth' => __('A half & two fourths', 'eddditor'),
-            'fourth fourth half' => __('Two fourths & a half', 'eddditor'),
-            'fourth half fourth' => __('A fourth & a half & a fourth', 'eddditor')
+            'full' => __('Single column', 'layotter'),
+            'half half' => __('Two halves', 'layotter'),
+            'third third third' => __('Thirds', 'layotter'),
+            'fourth fourth fourth fourth' => __('Fourths', 'layotter'),
+            'fifth fifth fifth fifth fifth' => __('Fifths', 'layotter'),
+            'sixth sixth sixth sixth sixth sixth' => __('Sixths', 'layotter'),
+            'twothirds third' => __('Two thirds & one third', 'layotter'),
+            'third twothirds' => __('One third & two thirds', 'layotter'),
+            'threefourths fourth' => __('Three fourths & a fourth', 'layotter'),
+            'fourth threefourths' => __('A fourth & three fourths', 'layotter'),
+            'half fourth fourth' => __('A half & two fourths', 'layotter'),
+            'fourth fourth half' => __('Two fourths & a half', 'layotter'),
+            'fourth half fourth' => __('A fourth & a half & a fourth', 'layotter')
         );
     }
 
 
     public static function get_settings($which = '') {
-        $settings = get_option('eddditor_settings');
+        $settings = get_option('layotter_settings');
         if (isset($settings[$which])) {
             return $settings[$which];
         } else {
@@ -135,7 +135,7 @@ class Eddditor_Settings {
 
 
     public static function get_allowed_row_layouts() {
-        $settings = Eddditor_Settings::get_settings('rows');
+        $settings = Layotter_Settings::get_settings('rows');
         $allowed_layouts = array();
 
         foreach ($settings['allow'] as $col_type => $allowed) {
@@ -152,7 +152,7 @@ class Eddditor_Settings {
     
     
     public static function get_default_row_layout() {
-        $settings = Eddditor_Settings::get_settings('rows');
+        $settings = Layotter_Settings::get_settings('rows');
         return $settings['default_layout'];
     }
     
@@ -164,7 +164,7 @@ class Eddditor_Settings {
      * @return string CSS class for the col layout, as provided by the user
      */
     public static function get_col_layout_class($layout) {
-        $settings = Eddditor_Settings::get_settings('cols');
+        $settings = Layotter_Settings::get_settings('cols');
         return $settings['classes'][$layout];
     }
     
@@ -174,7 +174,7 @@ class Eddditor_Settings {
      */
     public static function set_defaults_on_activation() {
         // add_option makes sure existing settings will not be overwritten (as opposed to update_option)
-        add_option('eddditor_settings', self::$default_settings);
+        add_option('layotter_settings', self::$default_settings);
     }
 
 
@@ -184,7 +184,7 @@ class Eddditor_Settings {
      * For debugging only!
      */
     public static function remove_all_settings() {
-        delete_option('eddditor_settings');
+        delete_option('layotter_settings');
     }
     
     
@@ -192,7 +192,7 @@ class Eddditor_Settings {
      * Register settings group
      */
     public static function admin_init() {
-        register_setting('eddditor_settings', 'eddditor_settings');
+        register_setting('layotter_settings', 'layotter_settings');
     }
     
     
@@ -202,17 +202,17 @@ class Eddditor_Settings {
     public static function admin_head() {
         // load assets only if necessary
         $current_screen = get_current_screen();
-        if ($current_screen->id !== 'toplevel_page_eddditor-settings') {
+        if ($current_screen->id !== 'toplevel_page_layotter-settings') {
             return;
         }
         
         wp_enqueue_script(
-            'eddditor-settings',
+            'layotter-settings',
             plugins_url('assets/js/settings.js', __FILE__),
             array('jquery')
         );
         wp_enqueue_style(
-            'eddditor-settings',
+            'layotter-settings',
             plugins_url('assets/css/editor.css', __FILE__)
         );
         
@@ -228,22 +228,22 @@ class Eddditor_Settings {
      */
     public static function settings_saved_notice() {
         ?>
-            <div class="updated" id="eddditor-settings-saved-notice">
-                <p><?php _e('Your settings have been saved.', 'eddditor'); ?></p>
+            <div class="updated" id="layotter-settings-saved-notice">
+                <p><?php _e('Your settings have been saved.', 'layotter'); ?></p>
             </div>
         <?php
     }
     
     
     /**
-     * Create an admin menu entry for Eddditor
+     * Create an admin menu entry for Layotter
      */
     public static function admin_menu() {
         add_menu_page(
-            __('Eddditor Settings', 'eddditor'), // title
-            'Eddditor', // menu name
+            __('Layotter Settings', 'layotter'), // title
+            'Layotter', // menu name
             'activate_plugins', // capability
-            'eddditor-settings', // page name
+            'layotter-settings', // page name
             array(__CLASS__, 'settings_page'), // callback
             'dashicons-tagcloud', // icon
             null // position
@@ -258,13 +258,13 @@ class Eddditor_Settings {
         ?>
             <div class="wrap">
                 <div id="icon-themes" class="icon32"></div>
-                <h2><?php _e('Eddditor Settings', 'eddditor'); ?></h2>
+                <h2><?php _e('Layotter Settings', 'layotter'); ?></h2>
                 <h2 class="nav-tab-wrapper">
-                    <a href="#eddditor-settings-general" class="nav-tab nav-tab-active"><?php _e('General', 'eddditor'); ?></a>
-                    <a href="#eddditor-settings-wrapper" class="nav-tab"><?php _e('Wrapper', 'eddditor'); ?></a>
-                    <a href="#eddditor-settings-rows" class="nav-tab"><?php _e('Rows', 'eddditor'); ?></a>
-                    <a href="#eddditor-settings-cols" class="nav-tab"><?php _e('Columns', 'eddditor'); ?></a>
-                    <a href="#eddditor-settings-elements" class="nav-tab"><?php _e('Elements', 'eddditor'); ?></a>
+                    <a href="#layotter-settings-general" class="nav-tab nav-tab-active"><?php _e('General', 'layotter'); ?></a>
+                    <a href="#layotter-settings-wrapper" class="nav-tab"><?php _e('Wrapper', 'layotter'); ?></a>
+                    <a href="#layotter-settings-rows" class="nav-tab"><?php _e('Rows', 'layotter'); ?></a>
+                    <a href="#layotter-settings-cols" class="nav-tab"><?php _e('Columns', 'layotter'); ?></a>
+                    <a href="#layotter-settings-elements" class="nav-tab"><?php _e('Elements', 'layotter'); ?></a>
                 </h2>
                 <form action="options.php" method="post">
                     <?php
@@ -273,7 +273,7 @@ class Eddditor_Settings {
                     // settings_fields() creates a nonce and other necessary form elements
                     // Wordpress takes care of saving form data, which is nice
 
-                    settings_fields('eddditor_settings');
+                    settings_fields('layotter_settings');
 
                     self::$current_settings = self::get_settings();
 
@@ -298,12 +298,12 @@ class Eddditor_Settings {
         $settings = self::$current_settings['general'];
         
         ?>
-            <div id="eddditor-settings-general" class="eddditor-settings-tab-content">
+            <div id="layotter-settings-general" class="layotter-settings-tab-content">
                 <h3>
-                    <?php _e('Post types', 'eddditor'); ?>
+                    <?php _e('Post types', 'layotter'); ?>
                 </h3>
-                <p class="eddditor-settings-paragraph">
-                    <?php _e('Select the post types for which Eddditor should be enabled.', 'eddditor'); ?>
+                <p class="layotter-settings-paragraph">
+                    <?php _e('Select the post types for which Layotter should be enabled.', 'layotter'); ?>
                 </p>
                 <table class="form-table">
                     <tbody>
@@ -311,14 +311,14 @@ class Eddditor_Settings {
                             <td>
                                 <p>
                                     <label>
-                                        <input type="checkbox" name="eddditor_settings[general][enable_for][post]" value="1" <?php if(isset($settings['enable_for']['post'])) { checked($settings['enable_for']['post']); } ?>>
-                                        <?php _e('Posts', 'eddditor'); ?>
+                                        <input type="checkbox" name="layotter_settings[general][enable_for][post]" value="1" <?php if(isset($settings['enable_for']['post'])) { checked($settings['enable_for']['post']); } ?>>
+                                        <?php _e('Posts', 'layotter'); ?>
                                     </label>
                                 </p>
                                 <p>
                                     <label>
-                                        <input type="checkbox" name="eddditor_settings[general][enable_for][page]" value="1" <?php if(isset($settings['enable_for']['page'])) { checked($settings['enable_for']['page']); } ?>>
-                                        <?php _e('Pages','eddditor'); ?>
+                                        <input type="checkbox" name="layotter_settings[general][enable_for][page]" value="1" <?php if(isset($settings['enable_for']['page'])) { checked($settings['enable_for']['page']); } ?>>
+                                        <?php _e('Pages','layotter'); ?>
                                     </label>
                                 </p>
                                 <?php
@@ -338,7 +338,7 @@ class Eddditor_Settings {
                                     ?>
                                     <p>
                                         <label>
-                                            <input type="checkbox" name="eddditor_settings[general][enable_for][<?php echo $post_type->name; ?>]" value="1" <?php if(isset($settings['enable_for'][$post_type->name])) { checked($settings['enable_for'][$post_type->name]); } ?>>
+                                            <input type="checkbox" name="layotter_settings[general][enable_for][<?php echo $post_type->name; ?>]" value="1" <?php if(isset($settings['enable_for'][$post_type->name])) { checked($settings['enable_for'][$post_type->name]); } ?>>
                                             <?php echo $post_type->label; ?>
                                         </label>
                                     </p>
@@ -351,10 +351,10 @@ class Eddditor_Settings {
                     </tbody>
                 </table>
                 <h3>
-                    <?php _e('Debug mode', 'eddditor'); ?>
+                    <?php _e('Debug mode', 'layotter'); ?>
                 </h3>
-                <p class="eddditor-settings-paragraph">
-                    <?php _e('With debug mode enabled you can inspect and manually edit the JSON structure generated by Eddditor. Enable debug mode for these user roles:', 'eddditor'); ?>
+                <p class="layotter-settings-paragraph">
+                    <?php _e('With debug mode enabled you can inspect and manually edit the JSON structure generated by Layotter. Enable debug mode for these user roles:', 'layotter'); ?>
                 </p>
                 <table class="form-table">
                     <tbody>
@@ -371,7 +371,7 @@ class Eddditor_Settings {
                                     ?>
                                     <p>
                                         <label>
-                                            <input type="checkbox" name="eddditor_settings[general][debug_mode][<?php echo $role_key; ?>]" value="1" <?php if(isset($settings['debug_mode'][$role_key])) { checked($settings['debug_mode'][$role_key]); } ?>>
+                                            <input type="checkbox" name="layotter_settings[general][debug_mode][<?php echo $role_key; ?>]" value="1" <?php if(isset($settings['debug_mode'][$role_key])) { checked($settings['debug_mode'][$role_key]); } ?>>
                                             <?php echo translate_user_role($role['name']); ?>
                                         </label>
                                     </p>
@@ -384,7 +384,7 @@ class Eddditor_Settings {
                     </tbody>
                 </table>
                 <?php
-                submit_button(__('Save settings', 'eddditor'));
+                submit_button(__('Save settings', 'layotter'));
                 ?>
             </div>
         <?php
@@ -399,45 +399,45 @@ class Eddditor_Settings {
         $settings = self::$current_settings['wrapper'];
         
         ?>
-            <div id="eddditor-settings-wrapper" class="eddditor-settings-tab-content hidden">
+            <div id="layotter-settings-wrapper" class="layotter-settings-tab-content hidden">
                 <h3>
-                    <?php _e('HTML wrapper', 'eddditor'); ?>
+                    <?php _e('HTML wrapper', 'layotter'); ?>
                 </h3>
-                <p class="eddditor-settings-paragraph">
-                    <?php _e('Enter HTML code to wrap around the whole content.', 'eddditor'); ?>
+                <p class="layotter-settings-paragraph">
+                    <?php _e('Enter HTML code to wrap around the whole content.', 'layotter'); ?>
                 </p>
-                <p class="eddditor-settings-paragraph">
-                    <strong><?php _e('Tip:', 'eddditor'); ?></strong>
-                    <?php printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'eddditor'), '#', '#'); ?>
+                <p class="layotter-settings-paragraph">
+                    <strong><?php _e('Tip:', 'layotter'); ?></strong>
+                    <?php printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#'); ?>
                 </p>
                 <table class="form-table">
                     <tbody>
                         <tr valign="top">
                             <th scope="row">
-                                <?php _e('HTML before content:', 'eddditor'); ?>
+                                <?php _e('HTML before content:', 'layotter'); ?>
                                 <p>
-                                    <span class="description"><?php _e('Default:', 'eddditor'); ?></span><br><code class="eddditor-default-value" title="<?php _e('Click to reset', 'eddditor'); ?>">&lt;div id="content"&gt;</code>
+                                    <span class="description"><?php _e('Default:', 'layotter'); ?></span><br><code class="layotter-default-value" title="<?php _e('Click to reset', 'layotter'); ?>">&lt;div id="content"&gt;</code>
                                 </p>
                             </th>
                             <td>
-                                <textarea name="eddditor_settings[wrapper][html_before]" rows="4" cols="60"><?php echo $settings['html_before']; ?></textarea>
+                                <textarea name="layotter_settings[wrapper][html_before]" rows="4" cols="60"><?php echo $settings['html_before']; ?></textarea>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <?php _e('HTML after content:', 'eddditor'); ?>
+                                <?php _e('HTML after content:', 'layotter'); ?>
                                 <p>
-                                    <span class="description"><?php _e('Default:', 'eddditor'); ?></span><br><code class="eddditor-default-value" title="<?php _e('Click to reset', 'eddditor'); ?>">&lt;/div&gt;</code>
+                                    <span class="description"><?php _e('Default:', 'layotter'); ?></span><br><code class="layotter-default-value" title="<?php _e('Click to reset', 'layotter'); ?>">&lt;/div&gt;</code>
                                 </p>
                             </th>
                             <td>
-                                <textarea name="eddditor_settings[wrapper][html_after]" rows="4" cols="60"><?php echo $settings['html_after']; ?></textarea>
+                                <textarea name="layotter_settings[wrapper][html_after]" rows="4" cols="60"><?php echo $settings['html_after']; ?></textarea>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <?php
-                submit_button(__('Save settings', 'eddditor'));
+                submit_button(__('Save settings', 'layotter'));
                 ?>
             </div>
         <?php
@@ -452,59 +452,59 @@ class Eddditor_Settings {
         $settings = self::$current_settings['rows'];
         
         ?>
-            <div id="eddditor-settings-rows" class="eddditor-settings-tab-content hidden">
+            <div id="layotter-settings-rows" class="layotter-settings-tab-content hidden">
                 <h3>
-                    <?php _e('HTML wrapper', 'eddditor'); ?>
+                    <?php _e('HTML wrapper', 'layotter'); ?>
                 </h3>
-                <p class="eddditor-settings-paragraph">
-                    <?php _e('Enter HTML code to wrap around each row.', 'eddditor'); ?>
+                <p class="layotter-settings-paragraph">
+                    <?php _e('Enter HTML code to wrap around each row.', 'layotter'); ?>
                 </p>
-                <p class="eddditor-settings-paragraph">
-                    <strong><?php _e('Tip:', 'eddditor'); ?></strong>
-                    <?php printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'eddditor'), '#', '#'); ?>
+                <p class="layotter-settings-paragraph">
+                    <strong><?php _e('Tip:', 'layotter'); ?></strong>
+                    <?php printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#'); ?>
                 </p>
                 <table class="form-table">
                     <tbody>
                         <tr valign="top">
                             <th scope="row">
-                                <?php _e('HTML before each row:', 'eddditor'); ?>
+                                <?php _e('HTML before each row:', 'layotter'); ?>
                                 <p>
-                                    <span class="description"><?php _e('Default:', 'eddditor'); ?></span><br><code class="eddditor-default-value" title="<?php _e('Click to reset', 'eddditor'); ?>">&lt;div class="row"&gt;</code>
+                                    <span class="description"><?php _e('Default:', 'layotter'); ?></span><br><code class="layotter-default-value" title="<?php _e('Click to reset', 'layotter'); ?>">&lt;div class="row"&gt;</code>
                                 </p>
                             </th>
                             <td>
-                                <textarea name="eddditor_settings[rows][html_before]" rows="4" cols="60"><?php echo $settings['html_before']; ?></textarea>
+                                <textarea name="layotter_settings[rows][html_before]" rows="4" cols="60"><?php echo $settings['html_before']; ?></textarea>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <?php  _e('HTML after each row:', 'eddditor'); ?>
+                                <?php  _e('HTML after each row:', 'layotter'); ?>
                                 <p>
-                                    <span class="description"><?php _e('Default:', 'eddditor'); ?></span><br><code class="eddditor-default-value" title="<?php _e('Click to reset', 'eddditor'); ?>">&lt;/div&gt;</code>
+                                    <span class="description"><?php _e('Default:', 'layotter'); ?></span><br><code class="layotter-default-value" title="<?php _e('Click to reset', 'layotter'); ?>">&lt;/div&gt;</code>
                                 </p>
                             </th>
                             <td>
-                                <textarea name="eddditor_settings[rows][html_after]" rows="4" cols="60"><?php echo $settings['html_after']; ?></textarea>
+                                <textarea name="layotter_settings[rows][html_after]" rows="4" cols="60"><?php echo $settings['html_after']; ?></textarea>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <h3>
-                    <?php _e('Allowed layouts', 'eddditor'); ?>
+                    <?php _e('Allowed layouts', 'layotter'); ?>
                 </h3>
-                <p class="eddditor-settings-paragraph">
-                    <?php _e('Choose the row layouts you want to use. Disabling a layout means it will not be available for newly created rows from now on &ndash; existing rows with that layout will stay the way they are until you change them by hand.', 'eddditor'); ?>
+                <p class="layotter-settings-paragraph">
+                    <?php _e('Choose the row layouts you want to use. Disabling a layout means it will not be available for newly created rows from now on &ndash; existing rows with that layout will stay the way they are until you change them by hand.', 'layotter'); ?>
                 </p>
-                <fieldset id="eddditor-row-layouts">
+                <fieldset id="layotter-row-layouts">
                     <?php
                     foreach (self::$default_settings['rows']['allow'] as $layout => $default_value) {
 
                         ?>
                         <p>
                             <label>
-                                <input type="checkbox" data-layout="<?php echo $layout; ?>" name="eddditor_settings[rows][allow][<?php echo $layout; ?>]" value="1" <?php if(isset($settings['allow'][$layout])) { checked($settings['allow'][$layout]); } ?>>
-                                <span class="eddditor-row-layout-option" data-layout="<?php echo $layout; ?>" alt="">
-                                    <?php echo self::$row_layout_translations[$layout]; ?> <span class="eddditor-default-row-layout-message description">&ndash; <?php _e('default for new rows', 'eddditor'); ?></span>
+                                <input type="checkbox" data-layout="<?php echo $layout; ?>" name="layotter_settings[rows][allow][<?php echo $layout; ?>]" value="1" <?php if(isset($settings['allow'][$layout])) { checked($settings['allow'][$layout]); } ?>>
+                                <span class="layotter-row-layout-option" data-layout="<?php echo $layout; ?>" alt="">
+                                    <?php echo self::$row_layout_translations[$layout]; ?> <span class="layotter-default-row-layout-message description">&ndash; <?php _e('default for new rows', 'layotter'); ?></span>
                                 </span>
                             </label>
                         </p>
@@ -514,12 +514,12 @@ class Eddditor_Settings {
                     ?>
                 </fieldset>
                 <h3>
-                    <?php _e('Default layout', 'eddditor'); ?>
+                    <?php _e('Default layout', 'layotter'); ?>
                 </h3>
-                <p class="eddditor-settings-paragraph">
-                    <?php _e('Select a default layout that will be used in all newly created rows.', 'eddditor');?>
+                <p class="layotter-settings-paragraph">
+                    <?php _e('Select a default layout that will be used in all newly created rows.', 'layotter');?>
                 </p>
-                <select id="eddditor-default-row-layout" name="eddditor_settings[rows][default_layout]">
+                <select id="layotter-default-row-layout" name="layotter_settings[rows][default_layout]">
                     <?php
                     foreach (self::$default_settings['rows']['allow'] as $layout => $default_value) {
 
@@ -531,7 +531,7 @@ class Eddditor_Settings {
                     ?>
                 </select>
                 <?php
-                submit_button(__('Save settings', 'eddditor'));
+                submit_button(__('Save settings', 'layotter'));
                 ?>
             </div>
         <?php
@@ -546,46 +546,46 @@ class Eddditor_Settings {
         $settings = self::$current_settings['cols'];
         
         ?>
-            <div id="eddditor-settings-cols" class="eddditor-settings-tab-content hidden">
+            <div id="layotter-settings-cols" class="layotter-settings-tab-content hidden">
                 <h3>
-                    <?php _e('HTML wrapper', 'eddditor'); ?>
+                    <?php _e('HTML wrapper', 'layotter'); ?>
                 </h3>
-                <p class="eddditor-settings-paragraph">
-                    <?php printf(__('Enter HTML code to wrap around each column. You can use the variable %s which will be replaced with the corresponding class name entered below.', 'eddditor'), '<code>%%CLASS%%</code>'); ?>
+                <p class="layotter-settings-paragraph">
+                    <?php printf(__('Enter HTML code to wrap around each column. You can use the variable %s which will be replaced with the corresponding class name entered below.', 'layotter'), '<code>%%CLASS%%</code>'); ?>
                 </p>
-                <p class="eddditor-settings-paragraph">
-                    <strong><?php _e('Tip:', 'eddditor'); ?></strong>
-                    <?php printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'eddditor'), '#', '#'); ?>
+                <p class="layotter-settings-paragraph">
+                    <strong><?php _e('Tip:', 'layotter'); ?></strong>
+                    <?php printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#'); ?>
                 </p>
                 <table class="form-table">
                     <tbody>
                         <tr valign="top">
                             <th scope="row">
-                                <?php _e('HTML before each column:', 'eddditor'); ?>
+                                <?php _e('HTML before each column:', 'layotter'); ?>
                                 <p>
-                                    <span class="description"><?php _e('Default:', 'eddditor'); ?></span><br><code class="eddditor-default-value" title="<?php _e('Click to reset', 'eddditor'); ?>">&lt;div class="%%CLASS%%"&gt;</code>
+                                    <span class="description"><?php _e('Default:', 'layotter'); ?></span><br><code class="layotter-default-value" title="<?php _e('Click to reset', 'layotter'); ?>">&lt;div class="%%CLASS%%"&gt;</code>
                                 </p>
                             </th>
                             <td>
-                                <textarea name="eddditor_settings[cols][html_before]" rows="4" cols="60"><?php echo $settings['html_before']; ?></textarea>
+                                <textarea name="layotter_settings[cols][html_before]" rows="4" cols="60"><?php echo $settings['html_before']; ?></textarea>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <?php _e('HTML after each column:', 'eddditor'); ?>
+                                <?php _e('HTML after each column:', 'layotter'); ?>
                                 <p>
-                                    <span class="description"><?php _e('Default:', 'eddditor'); ?></span><br><code class="eddditor-default-value" title="<?php _e('Click to reset', 'eddditor'); ?>">&lt;/div&gt;</code>
+                                    <span class="description"><?php _e('Default:', 'layotter'); ?></span><br><code class="layotter-default-value" title="<?php _e('Click to reset', 'layotter'); ?>">&lt;/div&gt;</code>
                                 </p>
                             </th>
                             <td>
-                                <textarea name="eddditor_settings[cols][html_after]" rows="4" cols="60"><?php echo $settings['html_after']; ?></textarea>
+                                <textarea name="layotter_settings[cols][html_after]" rows="4" cols="60"><?php echo $settings['html_after']; ?></textarea>
                             </td>
                         </tr>
                     </tbody>
                 </table>
-                <h3><?php _e('Class attributes for columns', 'eddditor'); ?></h3>
-                <p class="eddditor-settings-paragraph">
-                    <?php  _e('Enter a class attribute for each type of column so you\'ll be able to target them via CSS.', 'eddditor'); ?>
+                <h3><?php _e('Class attributes for columns', 'layotter'); ?></h3>
+                <p class="layotter-settings-paragraph">
+                    <?php  _e('Enter a class attribute for each type of column so you\'ll be able to target them via CSS.', 'layotter'); ?>
                 </p>
                 <table class="form-table">
                     <tbody>
@@ -598,8 +598,8 @@ class Eddditor_Settings {
                                     <?php echo self::$col_class_translations[$col]; ?>
                                 </th>
                                 <td>
-                                    <input type="text" name="eddditor_settings[cols][classes][<?php echo $col; ?>]" value="<?php echo $settings['classes'][$col]; ?>">
-                                    <span class="description"><?php _e('Default:', 'eddditor'); ?></span> <code class="eddditor-default-value" title="<?php _e('Click to reset', 'eddditor'); ?>"><?php echo $default_class; ?></code>
+                                    <input type="text" name="layotter_settings[cols][classes][<?php echo $col; ?>]" value="<?php echo $settings['classes'][$col]; ?>">
+                                    <span class="description"><?php _e('Default:', 'layotter'); ?></span> <code class="layotter-default-value" title="<?php _e('Click to reset', 'layotter'); ?>"><?php echo $default_class; ?></code>
                                 </td>
                             </tr>
                             <?php
@@ -609,7 +609,7 @@ class Eddditor_Settings {
                     </tbody>
                 </table>
                 <?php
-                submit_button(__('Save settings', 'eddditor'));
+                submit_button(__('Save settings', 'layotter'));
                 ?>
             </div>
         <?php
@@ -624,45 +624,45 @@ class Eddditor_Settings {
         $settings = self::$current_settings['elements'];
         
         ?>
-            <div id="eddditor-settings-elements" class="eddditor-settings-tab-content hidden">
+            <div id="layotter-settings-elements" class="layotter-settings-tab-content hidden">
                 <h3>
-                    <?php _e('HTML wrapper', 'eddditor'); ?>
+                    <?php _e('HTML wrapper', 'layotter'); ?>
                 </h3>
-                <p class="eddditor-settings-paragraph">
-                    <?php _e('Enter HTML code to wrap around each element.', 'eddditor'); ?>
+                <p class="layotter-settings-paragraph">
+                    <?php _e('Enter HTML code to wrap around each element.', 'layotter'); ?>
                 </p>
-                <p class="eddditor-settings-paragraph">
-                    <strong><?php _e('Tip:', 'eddditor'); ?></strong>
-                    <?php printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'eddditor'), '#', '#'); ?>
+                <p class="layotter-settings-paragraph">
+                    <strong><?php _e('Tip:', 'layotter'); ?></strong>
+                    <?php printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#'); ?>
                 </p>
                 <table class="form-table">
                     <tbody>
                         <tr valign="top">
                             <th scope="row">
-                                <?php _e('HTML before each element:', 'eddditor'); ?>
+                                <?php _e('HTML before each element:', 'layotter'); ?>
                                 <p>
-                                    <span class="description"><?php _e('Default:', 'eddditor'); ?></span><br><code class="eddditor-default-value" title="<?php _e('Click to reset', 'eddditor'); ?>">&lt;div class="element"&gt;</code>
+                                    <span class="description"><?php _e('Default:', 'layotter'); ?></span><br><code class="layotter-default-value" title="<?php _e('Click to reset', 'layotter'); ?>">&lt;div class="element"&gt;</code>
                                 </p>
                             </th>
                             <td>
-                                <textarea name="eddditor_settings[elements][html_before]" rows="4" cols="60"><?php echo $settings['html_before']; ?></textarea>
+                                <textarea name="layotter_settings[elements][html_before]" rows="4" cols="60"><?php echo $settings['html_before']; ?></textarea>
                             </td>
                         </tr>
                         <tr valign="top">
                             <th scope="row">
-                                <?php _e('HTML after each element:', 'eddditor'); ?>
+                                <?php _e('HTML after each element:', 'layotter'); ?>
                                 <p>
-                                    <span class="description"><?php _e('Default:', 'eddditor'); ?></span><br><code class="eddditor-default-value" title="<?php _e('Click to reset', 'eddditor'); ?>">&lt;/div&gt;</code>
+                                    <span class="description"><?php _e('Default:', 'layotter'); ?></span><br><code class="layotter-default-value" title="<?php _e('Click to reset', 'layotter'); ?>">&lt;/div&gt;</code>
                                 </p>
                             </th>
                             <td>
-                                <textarea name="eddditor_settings[elements][html_after]" rows="4" cols="60"><?php echo $settings['html_after']; ?></textarea>
+                                <textarea name="layotter_settings[elements][html_after]" rows="4" cols="60"><?php echo $settings['html_after']; ?></textarea>
                             </td>
                         </tr>
                     </tbody>
                 </table>
                 <?php
-                submit_button(__('Save settings', 'eddditor'));
+                submit_button(__('Save settings', 'layotter'));
                 ?>
             </div>
         <?php

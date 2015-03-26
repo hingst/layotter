@@ -13,11 +13,11 @@
 
 
 /**
- * Add 'Use with eddditor' as first-level location option
+ * Add 'Use with layotter' as first-level location option
  */
-add_filter('acf/location/rule_types', 'eddditor_acf_location_category');
-function eddditor_acf_location_category($choices) {
-    $choices['Advanced']['eddditor'] = __('Use with Eddditor', 'eddditor');
+add_filter('acf/location/rule_types', 'layotter_acf_location_category');
+function layotter_acf_location_category($choices) {
+    $choices['Advanced']['layotter'] = __('Use with Layotter', 'layotter');
     return $choices;
 }
 
@@ -25,12 +25,12 @@ function eddditor_acf_location_category($choices) {
 /**
  * Add second-level location options
  */
-add_filter('acf/location/rule_values/eddditor', 'eddditor_acf_location_options');
-function eddditor_acf_location_options($choices) {
-    $choices['element'] = __('Use as element', 'eddditor');
-    $choices['post_options'] = __('Use for post options', 'eddditor');
-    $choices['row_options'] = __('Use for row options', 'eddditor');
-    $choices['element_options'] = __('Use for element options', 'eddditor');
+add_filter('acf/location/rule_values/layotter', 'layotter_acf_location_options');
+function layotter_acf_location_options($choices) {
+    $choices['element'] = __('Use as element', 'layotter');
+    $choices['post_options'] = __('Use for post options', 'layotter');
+    $choices['row_options'] = __('Use for row options', 'layotter');
+    $choices['element_options'] = __('Use for element options', 'layotter');
     return $choices;
 }
 
@@ -38,9 +38,9 @@ function eddditor_acf_location_options($choices) {
 /**
  * Determine whether a field group is associated with a specific option
  */
-add_filter('acf/location/rule_match/eddditor', 'eddditor_acf_location_match_rules', 10, 3);
-function eddditor_acf_location_match_rules($match, $rule, $options) {
-    if (isset($options['eddditor']) AND $rule['value'] == $options['eddditor']) {
+add_filter('acf/location/rule_match/layotter', 'layotter_acf_location_match_rules', 10, 3);
+function layotter_acf_location_match_rules($match, $rule, $options) {
+    if (isset($options['layotter']) AND $rule['value'] == $options['layotter']) {
         return true;
     } else {
         return $match;

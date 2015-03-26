@@ -4,7 +4,7 @@
 /**
  * Holds registered element types and serves as a factory for element instances
  */
-class Eddditor {
+class Layotter {
     
     
     private static
@@ -18,12 +18,12 @@ class Eddditor {
      * Register a new element type
      * 
      * @param string $type Unique type identifier
-     * @param string $class Class name for this element type, must extend Eddditor_Element
+     * @param string $class Class name for this element type, must extend Layotter_Element
      * @return bool Whether the element type has been registered successfully
      */
     public static function register_element($type, $class) {
         // fail if provided class name is not a valid class
-        if (!class_exists($class) OR !is_subclass_of($class, 'Eddditor_Element')) {
+        if (!class_exists($class) OR !is_subclass_of($class, 'Layotter_Element')) {
             return false;
         }
         
@@ -98,7 +98,7 @@ class Eddditor {
         $elements = array();
 
         foreach (array_keys(self::$registered_elements) as $element_type) {
-            $element = Eddditor::create_element($element_type);
+            $element = Layotter::create_element($element_type);
             if ($element AND $element->is_enabled_for($post_id)) {
                 $elements[] = $element;
             }
@@ -109,9 +109,9 @@ class Eddditor {
     
     
     /**
-     * Check if Eddditor is enabled for the current screen
+     * Check if Layotter is enabled for the current screen
      * 
-     * @return bool Whether Eddditor is enabled
+     * @return bool Whether Layotter is enabled
      */
     public static function is_enabled() {
         // bail if not in the backend
@@ -119,8 +119,8 @@ class Eddditor {
             return false;
         }
 
-        // false if eddditor isn't enabled for the current post type
-        $settings = Eddditor_Settings::get_settings('general');
+        // false if layotter isn't enabled for the current post type
+        $settings = Layotter_Settings::get_settings('general');
         $current_post_type = get_post_type();
         if (!is_array($settings) OR !isset($settings['enable_for'][$current_post_type]) OR $settings['enable_for'][$current_post_type] != '1')  {
             return false;
