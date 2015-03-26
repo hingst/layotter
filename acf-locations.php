@@ -40,8 +40,9 @@ function eddditor_acf_location_options($choices) {
  */
 add_filter('acf/location/rule_match/eddditor', 'eddditor_acf_location_match_rules', 10, 3);
 function eddditor_acf_location_match_rules($match, $rule, $options) {
-    if ($rule['param'] == 'eddditor' AND isset($options['eddditor']) AND $rule['value'] == $options['eddditor']) {
+    if (isset($options['eddditor']) AND $rule['value'] == $options['eddditor']) {
         return true;
+    } else {
+        return $match;
     }
-    return $match;
 }

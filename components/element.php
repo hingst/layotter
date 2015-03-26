@@ -74,6 +74,7 @@ abstract class Eddditor_Element extends Eddditor_Editable implements JsonSeriali
             ? 'p' // get post by ID
             : 'name'; // get post by slug
 
+        // TODO: include field groups that were added via PHP filters (see filter 'acf/get_field_groups')
         // get ACF field group
         $field_groups = get_posts(array(
             'post_type' => 'acf-field-group',
