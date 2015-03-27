@@ -35,9 +35,12 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
                         template_id: _this.savedTemplates[index].template_id
                     }
                 }).success(function(reply) {
+                    console.log(reply);
+                    _this.savedTemplates[index].type = reply.type;
+                    _this.savedTemplates[index].values = reply.values;
+                    _this.savedTemplates[index].view = reply.view;
                     _this.savedTemplates[index].isLoading = undefined;
-                    _this.savedTemplates[index].template_id = undefined;
-                    angular.extend(_this.savedTemplates[index], reply);
+                    _this.savedTemplates[index].template_deleted = true;
                     _this.savedTemplates.splice(index, 1);
                 });
             },

@@ -42,7 +42,7 @@
                                         </div>
                                         <span class="layotter-element-move"><i class="fa fa-arrows"></i><?php _e('Move', 'layotter'); ?></span>
                                     </div>
-                                    <div class="layotter-element-message" ng-show="element.template_id !== undefined">
+                                    <div class="layotter-element-message" ng-show="element.template_id !== undefined && !element.template_deleted">
                                         <?php _e('This is a template.', 'layotter'); ?>
                                     </div>
                                     <div class="layotter-element-content" ng-bind-html="element.view"></div>
