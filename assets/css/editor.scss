@@ -675,17 +675,17 @@ $darkgray: #CCCCCC;
 
 
 /****************************************************/
-/* modal: confirm and prompt */
+/* modal: confirm */
 
 .layotter-modal-confirm {
     position: relative;
     height: 100%;
-    
+
     .layotter-modal-confirm-message {
         padding: 20px;
         font-size: 14px;
     }
-    
+
     .layotter-modal-confirm-buttons {
         position: absolute;
         bottom: 0;
@@ -694,13 +694,34 @@ $darkgray: #CCCCCC;
         padding: 20px;
         background: $lightgray;
     }
+}
 
-    &.layotter-modal-prompt {
-        input {
-            box-sizing: border-box;
-            width: 90%;
-            margin: 8px 0 0;
-        }
+
+/****************************************************/
+/* modal: prompt */
+
+.layotter-modal-prompt {
+    position: relative;
+    height: 100%;
+
+    .layotter-modal-prompt-message {
+        padding: 20px;
+        font-size: 14px;
+    }
+
+    .layotter-modal-prompt-buttons {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        background: $lightgray;
+    }
+
+    input {
+        box-sizing: border-box;
+        width: 90%;
+        margin: 8px 0 0;
     }
 }
 
@@ -874,6 +895,7 @@ input:checked ~ .layotter-row-layout-option {
     z-index: 99990;
 
     .dennisbox-overlay {
+        cursor: pointer;
         position: fixed;
         z-index: 99991;
         top: 0;
@@ -896,12 +918,6 @@ input:checked ~ .layotter-row-layout-option {
         &.dennisbox-loading {
             background: #fff url(../images/loading.gif) center no-repeat;
         }
-    }
-}
-
-#dennisbox {
-    .dennisbox-overlay {
-        cursor: pointer;
     }
 }
 

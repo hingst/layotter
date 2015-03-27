@@ -9,10 +9,14 @@ app.service('modals', function($compile, $rootScope, $timeout){
     });
 
 
-    // when ESC is pressed, cancel confirmation
+    // when ESC is pressed, cancel confirmation or close prompt
     angular.element(document).on('keyup', function(e){
-        if (e.keyCode === 27 && angular.element('.layotter-modal-confirm').length) {
-            $rootScope.confirm.cancelAction();
+        if (e.keyCode === 27) {
+            if (angular.element('.layotter-modal-confirm').length) {
+                $rootScope.confirm.cancelAction();
+            } else if (angular.element('.layotter-modal-prompt').length) {
+                $rootScope.prompt.cancelAction();
+            }
         }
     });
 
@@ -34,9 +38,17 @@ app.service('modals', function($compile, $rootScope, $timeout){
             okText: options.okText,
             cancelText: options.cancelText,
             okAction: function() {
+                var $input = angular.element('#layotter-modal-prompt-input');
+                var value = $input.val();
+
+                if (value == '') {
+                    $input.focus();
+                    return;
+                }
+
                 close();
                 if (typeof options.okAction === 'function') {
-                    var newValue = angular.element('#layotter-modal-prompt-input').val();
+                    var newValue = value;
                     options.okAction(newValue);
                 }
             },

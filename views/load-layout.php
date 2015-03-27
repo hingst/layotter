@@ -4,7 +4,7 @@
             <i class="fa fa-upload"></i>
         </div>
         <div class="layotter-modal-head-info">
-            <h2><?php _e('Load a layout', 'layotter'); ?></h2>
+            <h2><?php _e('Load layout', 'layotter'); ?></h2>
         </div>
     </div>
     <div class="layotter-modal-body">

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Layotter\n"
-"POT-Creation-Date: 2015-03-27 18:19+0100\n"
-"PO-Revision-Date: 2015-03-27 18:19+0100\n"
+"POT-Creation-Date: 2015-03-27 20:46+0100\n"
+"PO-Revision-Date: 2015-03-27 20:47+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -48,7 +48,7 @@ msgstr "Element löschen"
 msgid "Delete favorite"
 msgstr "Favoriten löschen"
 
-#: ../assets.php:117 ../views/add-element.php:26 ../views/form.php:24
+#: ../assets.php:117 ../views/add-element.php:31 ../views/form.php:24
 #: ../views/load-layout.php:25
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -115,7 +115,7 @@ msgstr ""
 "Möchtest du dieses Layout laden und den bestehenden Inhalt überschreiben? Du "
 "kannst diese Aktion nicht rückgängig machen."
 
-#: ../assets.php:130 ../views/editor.php:6
+#: ../assets.php:130 ../views/editor.php:6 ../views/load-layout.php:7
 msgid "Load layout"
 msgstr "Layout laden"
 
@@ -151,15 +151,15 @@ msgstr ""
 msgid "Post options"
 msgstr "Post-Optionen"
 
-#: ../components/options.php:40 ../views/editor.php:23
+#: ../components/options.php:37 ../views/editor.php:23
 msgid "Row options"
 msgstr "Zeilen-Optionen"
 
-#: ../components/options.php:44
+#: ../components/options.php:38
 msgid "Column options"
 msgstr "Spalten-Optionen"
 
-#: ../components/options.php:48 ../views/editor.php:38
+#: ../components/options.php:39 ../views/editor.php:38
 msgid "Element options"
 msgstr "Element-Optionen"
 
@@ -457,7 +457,7 @@ msgstr "HTML vor jedem Element:"
 msgid "HTML after each element:"
 msgstr "HTML nach jedem Element:"
 
-#: ../views/add-element.php:3 ../views/editor.php:28 ../views/editor.php:50
+#: ../views/add-element.php:7 ../views/editor.php:28 ../views/editor.php:50
 msgid "Add element"
 msgstr "Neues Element"
 
@@ -517,10 +517,6 @@ msgstr "Speichern"
 msgid "Back"
 msgstr "Zurück"
 
-#: ../views/load-layout.php:7
-msgid "Load a layout"
-msgstr "Ein Layout laden"
-
 #: ../views/load-layout.php:19
 #, php-format
 msgid "Created on %s"
@@ -537,6 +533,9 @@ msgstr "Template löschen"
 #: ../views/templates.php:13
 msgid "Edit template"
 msgstr "Template bearbeiten"
+
+#~ msgid "Load a layout"
+#~ msgstr "Ein Layout laden"
 
 #~ msgid "Save post layout"
 #~ msgstr "Post-Layout speichern"

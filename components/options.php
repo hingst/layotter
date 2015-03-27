@@ -31,23 +31,15 @@ class Layotter_Options extends Layotter_Editable {
             $this->enabled = true;
         }
 
-        switch ($this->type) {
-            case 'post':
-                $this->form->set_title(__('Post options', 'layotter'));
-                $this->form->set_icon('file-text-o');
-                break;
-            case 'row':
-                $this->form->set_title(__('Row options', 'layotter'));
-                $this->form->set_icon('align-justify');
-                break;
-            case 'col':
-                $this->form->set_title(__('Column options', 'layotter'));
-                $this->form->set_icon('columns');
-                break;
-            case 'element':
-                $this->form->set_title(__('Element options', 'layotter'));
-                $this->form->set_icon('table');
-                break;
+        $this->form->set_icon('cog');
+        $titles = array(
+            'post' => __('Post options', 'layotter'),
+            'row' => __('Row options', 'layotter'),
+            'col' => __('Column options', 'layotter'),
+            'element' => __('Element options', 'layotter')
+        );
+        if (isset($titles[$this->type])) {
+            $this->form->set_title($titles[$this->type]);
         }
     }
 

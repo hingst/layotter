@@ -263,14 +263,22 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
             state.reset();
         }
     };
-    
-    
+
+
     angular.element(document).on('click', '#dennisbox .dennisbox-overlay', function(){
         _this.cancelEditing();
     });
+    angular.element(document).on('click', '#dennisbox-modal .dennisbox-overlay', function(){
+        if (typeof $rootScope.confirm !== 'undefined') {
+            $rootScope.confirm.cancelAction();
+        }
+        if (typeof $rootScope.prompt !== 'undefined') {
+            $rootScope.prompt.cancelAction();
+        }
+    });
     angular.element(document).on('keyup', function(e){
-        // when ESC is pressed and an edit form is open but no confirmation modal, cancel editing
-        if (e.keyCode == 27 && angular.element('#dennisbox').length && !angular.element('.layotter-modal-confirm').length) {
+        // when ESC is pressed and an edit form is open (but no confirmation or prompt modal), cancel editing
+        if (e.keyCode == 27 && angular.element('#dennisbox').length && !angular.element('.layotter-modal-confirm').length && !angular.element('.layotter-modal-prompt').length) {
             angular.element('#layotter-edit :focus').blur();
             _this.cancelEditing();
         }

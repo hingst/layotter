@@ -1,6 +1,11 @@
 <div class="layotter-modal" ng-controller="FormCtrl">
     <div class="layotter-modal-head">
-        <h2><?php _e('Add element', 'layotter'); ?></h2>
+        <div class="layotter-modal-head-icon">
+            <i class="fa fa-plus"></i>
+        </div>
+        <div class="layotter-modal-head-info">
+            <h2><?php _e('Add element', 'layotter'); ?></h2>
+        </div>
     </div>
     <div class="layotter-modal-body">
         <?php

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Layotter\n"
-"POT-Creation-Date: 2015-03-27 18:19+0100\n"
-"PO-Revision-Date: 2015-03-27 18:19+0100\n"
+"POT-Creation-Date: 2015-03-27 20:46+0100\n"
+"PO-Revision-Date: 2015-03-27 20:46+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -48,7 +48,7 @@ msgstr ""
 msgid "Delete favorite"
 msgstr ""
 
-#: ../assets.php:117 ../views/add-element.php:26 ../views/form.php:24
+#: ../assets.php:117 ../views/add-element.php:31 ../views/form.php:24
 #: ../views/load-layout.php:25
 msgid "Cancel"
 msgstr ""
@@ -105,7 +105,7 @@ msgid ""
 "can not be undone."
 msgstr ""
 
-#: ../assets.php:130 ../views/editor.php:6
+#: ../assets.php:130 ../views/editor.php:6 ../views/load-layout.php:7
 msgid "Load layout"
 msgstr ""
 
@@ -134,15 +134,15 @@ msgstr ""
 msgid "Post options"
 msgstr ""
 
-#: ../components/options.php:40 ../views/editor.php:23
+#: ../components/options.php:37 ../views/editor.php:23
 msgid "Row options"
 msgstr ""
 
-#: ../components/options.php:44
+#: ../components/options.php:38
 msgid "Column options"
 msgstr ""
 
-#: ../components/options.php:48 ../views/editor.php:38
+#: ../components/options.php:39 ../views/editor.php:38
 msgid "Element options"
 msgstr ""
 
@@ -417,7 +417,7 @@ msgstr ""
 msgid "HTML after each element:"
 msgstr ""
 
-#: ../views/add-element.php:3 ../views/editor.php:28 ../views/editor.php:50
+#: ../views/add-element.php:7 ../views/editor.php:28 ../views/editor.php:50
 msgid "Add element"
 msgstr ""
 
@@ -475,10 +475,6 @@ msgstr ""
 
 #: ../views/form.php:25
 msgid "Back"
-msgstr ""
-
-#: ../views/load-layout.php:7
-msgid "Load a layout"
 msgstr ""
 
 #: ../views/load-layout.php:19
