@@ -653,6 +653,12 @@ $darkgray: #CCCCCC;
         bottom: 71px;
         left: 0;
         right: 0;
+
+        &.layotter-loading {
+            &:after {
+                @include loading;
+            }
+        }
     }
 
     .layotter-modal-foot {

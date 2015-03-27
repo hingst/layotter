@@ -12,8 +12,22 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
         acf.validation.ignore = 0;
         acf.validation.$trigger = jQuery('#layotter-edit-submit');
 
-        // TODO: prevent form changes while validation is running
-    })
+        // prevent form changes while validation is running
+        jQuery(':focus').blur();
+        jQuery('.layotter-modal-body').addClass('layotter-loading');
+        jQuery('.layotter-modal-foot button').prop('disabled', true);
+    });
+
+
+    // when validation is complete:
+    // if there was an error, remove loading spinner and show form
+    acf.add_filter('validation_complete', function(json, $form){
+        if ($form.prop('id') == 'layotter-edit' && !json.result) {
+            jQuery('.layotter-modal-body').removeClass('layotter-loading');
+            jQuery('.layotter-modal-foot button').prop('disabled', false);
+        }
+        return json;
+    });
 
 
     /**
