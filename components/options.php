@@ -68,11 +68,34 @@ class Layotter_Options extends Layotter_Editable {
             'layotter' => $this->type . '_options'
         ));
 
-        if (is_array($field_groups) AND !empty($field_groups)) {
-            return acf_get_fields($field_groups[0]);
-        } else {
-            return array();
+        // ACF's location rule matching is kind of buggy - the above query includes field groups that are enabled for
+        // the current post type, but aren't set as options (the 'layotter' parameter is simply ignored if no layotter
+        // location was selected for a field group). Therefore we have to check again for each returned field group,
+        // manually, if it's actually enabled for this options type
+        // note: the 'layotter' parameter should not be necessary, but might improve performance slightly (not tested)
+        $fields = array();
+        $filters = array(
+            'layotter' => $this->type . '_options'
+        );
+
+        // the following loop was mostly copied from acf_get_field_group_visibility()
+        foreach ($field_groups as $field_group) {
+            foreach($field_group['location'] as $location_group) {
+                if(!empty($location_group)) {
+                    foreach($location_group as $rule) {
+                        if ($rule['param'] == 'layotter') {
+                            // force rule match for 'layotter' rules
+                            $match = apply_filters('acf/location/rule_match/layotter', false, $rule, $filters);
+                            if ($match) {
+                                $fields = array_merge($fields, acf_get_fields($field_group));
+                            }
+                        }
+                    }
+                }
+            }
         }
+
+        return $fields;
     }
 
 

@@ -64,30 +64,26 @@ abstract class Layotter_Element extends Layotter_Editable {
      * @throws Exception If $this->field_group wasn't assigned correctly in $this->attributes()
      */
     final protected function get_fields() {
-        // field group can be provided as post id (int) or slug ("group_xyz") of post type 'acf-field-group'
+        // ACF field group can be provided as post id (int) or slug ('group_xyz')
         if (!is_int($this->field_group) AND !is_string($this->field_group)) {
-            throw new Exception('$this->field_group must be assigned in attributes()');
+            throw new Exception('$this->field_group must be assigned in attributes() (error in class ' . get_called_class() . ')');
         }
 
-        $identifier
-            = is_int($this->field_group)
-            ? 'p' // get post by ID
-            : 'name'; // get post by slug
-
-        // TODO: include field groups that were added via PHP filters (see filter 'acf/get_field_groups')
-        // get ACF field group
-        $field_groups = get_posts(array(
-            'post_type' => 'acf-field-group',
-            $identifier => $this->field_group
-        ));
+        if (is_int($this->field_group)) {
+            $field_group = _acf_get_field_group_by_id($this->field_group);
+            $identifier = 'post_id';
+        } else {
+            $field_group = _acf_get_field_group_by_key($this->field_group);
+            $identifier = 'acf-field-group';
+        }
 
         // check if the field group exists
-        if (!is_array($field_groups) OR empty($field_groups)) {
-            throw new Exception('No ACF field group found for ' . $identifier . '=' . $this->field_group . '.');
+        if (!$field_group) {
+            throw new Exception('No ACF field group found for ' . $identifier . '=' . $this->field_group . ' (error in class ' . get_called_class() . ')');
         }
 
         // return fields for the provided ACF field group
-        return acf_get_fields($field_groups[0]);
+        return acf_get_fields($field_group);
     }
 
 
