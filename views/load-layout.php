@@ -22,6 +22,6 @@
         </div>
     </div>
     <div class="layotter-modal-foot">
-        <span class="button button-large" ng-click="cancelEditing()"><?php _e('Cancel', 'layotter'); ?></span>
+        <button type="button" class="button button-large" ng-click="cancelEditing()"><?php _e('Cancel', 'layotter'); ?></button>
     </div>
 </div>

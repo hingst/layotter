@@ -21,8 +21,8 @@
         </div>
         <div class="layotter-modal-foot">
             <button id="layotter-edit-fake-submit" type="submit" class="button button-primary button-large"><?php _e('Save', 'layotter'); ?></button>
-            <span class="button button-large" ng-click="cancelEditing()"><?php _e('Cancel', 'layotter'); ?></span>
-            <span class="button button-large" ng-click="backToShowNewElementTypes()" ng-show="showBackButton"><?php _e('Back', 'layotter'); ?></span>
+            <button type="button" class="button button-large" ng-click="cancelEditing()"><?php _e('Cancel', 'layotter'); ?></button>
+            <button type="button" class="button button-large" ng-click="backToShowNewElementTypes()" ng-show="showBackButton"><?php _e('Back', 'layotter'); ?></button>
         </div>
         <span id="layotter-edit-submit" class="hidden" ng-click="saveForm()">triggered by ACF after validation</span>
     </form>

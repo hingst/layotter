@@ -5,7 +5,7 @@
         </p>
     </div>
     <div class="layotter-modal-confirm-buttons">
-        <span class="button button-danger button-large" ng-click="confirm.okAction()">{{ confirm.okText }}</span>
-        <span class="button button-large" ng-click="confirm.cancelAction()">{{ confirm.cancelText }}</span>
+        <button type="button" class="button button-danger button-large" ng-click="confirm.okAction()">{{ confirm.okText }}</button>
+        <button type="button" class="button button-large" ng-click="confirm.cancelAction()">{{ confirm.cancelText }}</button>
     </div>
 </div>

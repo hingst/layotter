@@ -8,7 +8,7 @@
         </p>
     </div>
     <div class="layotter-modal-confirm-buttons">
-        <span class="button button-primary button-large" ng-click="prompt.okAction()">{{ prompt.okText }}</span>
-        <span class="button button-large" ng-click="prompt.cancelAction()">{{ prompt.cancelText }}</span>
+        <button type="button" class="button button-primary button-large" ng-click="prompt.okAction()">{{ prompt.okText }}</button>
+        <button type="button" class="button button-large" ng-click="prompt.cancelAction()">{{ prompt.cancelText }}</button>
     </div>
 </div>
