@@ -9,6 +9,14 @@ app.service('modals', function($compile, $rootScope, $timeout){
     });
 
 
+    // when ESC is pressed, cancel confirmation
+    angular.element(document).on('keyup', function(e){
+        if (e.keyCode === 27 && angular.element('.layotter-modal-confirm').length) {
+            $rootScope.confirm.cancelAction();
+        }
+    });
+
+
     /**
      * Create a confirm()-style modal prompting the user to input a string
      *
@@ -75,6 +83,8 @@ app.service('modals', function($compile, $rootScope, $timeout){
                 }
             }
         };
+
+        angular.element('#layotter-modal-confirm-button').focus();
     };
 
 

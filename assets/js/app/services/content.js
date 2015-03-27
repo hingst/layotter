@@ -269,7 +269,8 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
         _this.cancelEditing();
     });
     angular.element(document).on('keyup', function(e){
-        if (angular.element('#dennisbox').length && !angular.element('.layotter-modal-confirm').length && e.keyCode === 27) {
+        // when ESC is pressed and an edit form is open but no confirmation modal, cancel editing
+        if (e.keyCode == 27 && angular.element('#dennisbox').length && !angular.element('.layotter-modal-confirm').length) {
             angular.element('#layotter-edit :focus').blur();
             _this.cancelEditing();
         }
