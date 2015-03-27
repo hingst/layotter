@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Layotter\n"
-"POT-Creation-Date: 2015-03-26 15:30+0100\n"
-"PO-Revision-Date: 2015-03-26 15:30+0100\n"
+"POT-Creation-Date: 2015-03-27 18:19+0100\n"
+"PO-Revision-Date: 2015-03-27 18:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
@@ -130,7 +130,7 @@ msgid ""
 "%s or higher to be able to use Layotter."
 msgstr ""
 
-#: ../components/options.php:36 ../views/editor.php:2
+#: ../components/options.php:36
 msgid "Post options"
 msgstr ""
 
@@ -419,6 +419,10 @@ msgstr ""
 
 #: ../views/add-element.php:3 ../views/editor.php:28 ../views/editor.php:50
 msgid "Add element"
+msgstr ""
+
+#: ../views/editor.php:2
+msgid "Options"
 msgstr ""
 
 #: ../views/editor.php:7 ../views/templates.php:5

@@ -1,5 +1,5 @@
 <div id="layotter" ng-controller="EditorCtrl" ng-class="{ 'layotter-loading' : data.isLoading }">
-    <span class="layotter-button layotter-button-with-icon" ng-click="editOptions('post', data)" ng-show="optionsEnabled.post"><i class="fa fa-cog"></i><?php _e('Post options', 'layotter'); ?></span>
+    <span class="layotter-button layotter-button-with-icon" ng-click="editOptions('post', data)" ng-show="optionsEnabled.post"><i class="fa fa-cog"></i><?php _e('Options', 'layotter'); ?></span>
     <span class="layotter-button-wrapper">
         <span class="layotter-button layotter-button-with-icon layotter-save-layout-button" ng-click="saveNewLayout()"><i class="fa fa-download"></i><?php _e('Save layout', 'layotter'); ?></span>
     </span>

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Layotter\n"
-"POT-Creation-Date: 2015-03-26 15:30+0100\n"
-"PO-Revision-Date: 2015-03-26 15:30+0100\n"
+"POT-Creation-Date: 2015-03-27 18:19+0100\n"
+"PO-Revision-Date: 2015-03-27 18:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -147,7 +147,7 @@ msgstr ""
 "Deine Version von Advanced Custom Fields ist veraltet. Bitte installiere "
 "mindestens Version %s, um Layotter zu benutzen."
 
-#: ../components/options.php:36 ../views/editor.php:2
+#: ../components/options.php:36
 msgid "Post options"
 msgstr "Post-Optionen"
 
@@ -461,6 +461,10 @@ msgstr "HTML nach jedem Element:"
 msgid "Add element"
 msgstr "Neues Element"
 
+#: ../views/editor.php:2
+msgid "Options"
+msgstr "Optionen"
+
 #: ../views/editor.php:7 ../views/templates.php:5
 msgid "Element templates"
 msgstr "Element-Templates"
@@ -573,9 +577,6 @@ msgstr "Template bearbeiten"
 
 #~ msgid "Element gallery"
 #~ msgstr "Element-Galerie"
-
-#~ msgid "Options"
-#~ msgstr "Optionen"
 
 #~ msgid "Add to gallery"
 #~ msgstr "In der Galerie speichern"
