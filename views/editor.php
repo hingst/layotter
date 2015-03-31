@@ -21,7 +21,6 @@
                         <span class="layotter-row-delete" ng-click="deleteRow($index)" title="<?php _e('Delete row', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>
                         <span class="layotter-row-duplicate" ng-click="duplicateRow($index)" title="<?php _e('Duplicate row', 'layotter'); ?>"><i class="fa fa-files-o"></i></span>
                         <span class="layotter-row-options" ng-click="editOptions('row', row)" ng-show="optionsEnabled.row" title="<?php _e('Row options', 'layotter'); ?>"><i class="fa fa-cog"></i></span>
-                        <span class="layotter-row-options" title="<?php _e('Row layout', 'layotter'); ?>"><i class="fa fa-columns"></i></span>
                     </div>
                 </div>
                 <div class="layotter-cols">

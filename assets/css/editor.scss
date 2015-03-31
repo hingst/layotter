@@ -79,7 +79,7 @@ $darkgray: #CCCCCC;
 .layotter-placeholder {
     margin-bottom: 10px;
     background: #e0e0e0;
-        
+
     &.layotter-placeholder-invisible {
         height: 0 !important;
         margin-bottom: 0;
@@ -91,7 +91,8 @@ $darkgray: #CCCCCC;
     box-shadow: 1px 1px 8px -5px #333;
 }
 
-.ui-sortable-helper > .layotter-button { // hide buttons while dragging an element or row
+.ui-sortable-helper > .layotter-button,
+.ui-sortable-helper > .layotter-button-container { // hide buttons while dragging an element or row
     display: none;
 }
 
@@ -177,6 +178,8 @@ $darkgray: #CCCCCC;
     }
 
     &.layotter-add-row-button {
+        z-index: 9;
+        position: relative;
         transition: height 0.6s, line-height 0.6s, font-size 0.6s, margin-bottom 0.6s;
 
         i.fa {
@@ -270,12 +273,23 @@ $darkgray: #CCCCCC;
         border: 1px solid $darkgray;
         position: relative;
 
+        &:hover .layotter-row-head {
+            opacity: 1;
+            z-index: 10;
+        }
+
         .layotter-row-head {
             background-color: $gray;
             box-shadow: $box-shadow;
             text-align: center;
             font-size: $text-m;
-            border-bottom: 1px solid $darkgray;
+            position: absolute;
+            left: -1px;
+            right: -1px;
+            bottom: 100%;
+            border: 1px solid $darkgray;
+            opacity: 0;
+            transition: opacity 0.4s;
             color: #888;
 
             .layotter-row-move,
@@ -428,6 +442,10 @@ $darkgray: #CCCCCC;
     display: table;
     width: 100%;
     table-layout: fixed;
+
+    .layotter-placeholder {
+        margin-bottom: 0;
+    }
 
     .layotter-col {
         @extend %border-box;

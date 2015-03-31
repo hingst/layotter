@@ -11,11 +11,12 @@
                 <div class="layotter-element-head">
                     <span class="layotter-element-delete" ng-click="deleteTemplate($index)" title="<?php _e('Delete template', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>
                     <span class="layotter-element-edit" ng-click="editTemplate(element)" title="<?php _e('Edit template', 'layotter'); ?>"><i class="fa fa-pencil"></i></span>
-                    <span class="layotter-element-move"><i class="fa fa-arrows"></i><?php _e('Move', 'layotter'); ?></span>
                 </div>
                 <div class="layotter-element-content" ng-bind-html="element.view"></div>
             </div>
-            <span class="layotter-button layotter-add-element-button"></span>
+            <div class="layotter-button-container">
+                <span type="button" class="layotter-add-element-button" ng-click="showNewElementTypes(col.elements, $index)"><i class="fa fa-plus"></i><?php _e('Add element', 'layotter'); ?></span>
+            </div>
         </div>
     </div>
 </div>
