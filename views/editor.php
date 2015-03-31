@@ -21,12 +21,13 @@
                         <span class="layotter-row-delete" ng-click="deleteRow($index)" title="<?php _e('Delete row', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>
                         <span class="layotter-row-duplicate" ng-click="duplicateRow($index)" title="<?php _e('Duplicate row', 'layotter'); ?>"><i class="fa fa-files-o"></i></span>
                         <span class="layotter-row-options" ng-click="editOptions('row', row)" ng-show="optionsEnabled.row" title="<?php _e('Row options', 'layotter'); ?>"><i class="fa fa-cog"></i></span>
+                        <span class="layotter-row-options" title="<?php _e('Row layout', 'layotter'); ?>"><i class="fa fa-columns"></i></span>
                     </div>
                 </div>
                 <div class="layotter-cols">
                     <div class="layotter-col {{ 'layotter-col-' + getColLayout(row, $index) }}" ng-repeat="col in row.cols">
                         <div class="layotter-button-container">
-                            <span type="button" class="layotter-add-element-button" ng-click="showNewElementTypes(col.elements, -1)"><i class="fa fa-plus"></i><?php _e('Add element', 'layotter'); ?></span>
+                            <span type="button" class="layotter-add-element-button" ng-click="showNewElementTypes(col.elements, -1)" title="<?php _e('Add element', 'layotter'); ?>"><i class="fa fa-plus"></i></span>
                         </div>
                         <div class="layotter-elements" ui-sortable="elementSortableOptions" ng-model="col.elements">
                             <div class="layotter-element layotter-animate" ng-repeat="element in col.elements" ng-class="{ 'layotter-loading' : element.isLoading, 'layotter-highlight' : element.isHighlighted }">
@@ -49,7 +50,7 @@
                                     <div class="layotter-element-content" ng-bind-html="element.view"></div>
                                 </div>
                                 <div class="layotter-button-container">
-                                    <span type="button" class="layotter-add-element-button" ng-click="showNewElementTypes(col.elements, $index)"><i class="fa fa-plus"></i><?php _e('Add element', 'layotter'); ?></span>
+                                    <span type="button" class="layotter-add-element-button" ng-click="showNewElementTypes(col.elements, $index)" title="<?php _e('Add element', 'layotter'); ?>"><i class="fa fa-plus"></i></span>
                                 </div>
                             </div>
                         </div>

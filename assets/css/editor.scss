@@ -198,36 +198,37 @@ $darkgray: #CCCCCC;
             }
         }
     }
-
-    &.layotter-add-element-button {
-        background: #fff;
-
-        i.fa {
-            font-size: 14px;
-            margin-right: 8px;
-        }
-    }
 }
 
 .layotter-button-container {
     text-align: center;
-    clear: both;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: -5px;
+    z-index: 999;
 
     .layotter-add-element-button {
         font-size: $text-m;
-        display: inline-block;
         cursor: pointer;
-        text-align: center;
-        opacity: 0.3;
-        padding: 8px 20px;
+        height: 26px;
+        width: 26px;
+        line-height: 26px;
+        margin-top: -13px;
+        border-radius: 13px;
+        border: 1px solid $darkgray;
+        background: #fff;
+        box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+        display: none;
+        color: #aaa;
 
         &:hover {
-            opacity: 0.7;
+            color: #222;
         }
 
         i.fa {
             font-size: 14px;
-            margin-right: 8px;
         }
     }
 }
@@ -449,10 +450,15 @@ $darkgray: #CCCCCC;
 
     .layotter-col {
         @extend %border-box;
-        padding: 2px 10px;
         border-right: 1px solid $darkgray;
         display: table-cell;
         vertical-align: top;
+        padding: 10px;
+        position: relative;
+
+        > .layotter-button-container {
+            top: 0;
+        }
 
         &:last-child {
             border-right: none;
@@ -489,6 +495,10 @@ $darkgray: #CCCCCC;
         &.layotter-col-sixth {
             width: 16.66666%;
         }
+
+        &:hover .layotter-add-element-button {
+            display: inline-block;
+        }
     }
 }
 
@@ -504,6 +514,17 @@ $darkgray: #CCCCCC;
     margin-bottom: -10px;
 
     .layotter-element {
+        position: relative;
+        margin: 10px 0;
+
+        &:first-child {
+            margin-top: 0;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
         &.layotter-loading .layotter-element-canvas {
             position: relative;
             min-height: 100px;
@@ -528,6 +549,7 @@ $darkgray: #CCCCCC;
                 opacity: 1;
             }
 
+            // invisible overlay used as drag area
             &:after {
                 content: '';
                 position: absolute;
