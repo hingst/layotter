@@ -21,11 +21,14 @@
                         <span class="layotter-row-delete" ng-click="deleteRow($index)" title="<?php _e('Delete row', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>
                         <span class="layotter-row-duplicate" ng-click="duplicateRow($index)" title="<?php _e('Duplicate row', 'layotter'); ?>"><i class="fa fa-files-o"></i></span>
                         <span class="layotter-row-options" ng-click="editOptions('row', row)" ng-show="optionsEnabled.row" title="<?php _e('Row options', 'layotter'); ?>"><i class="fa fa-cog"></i></span>
+                        <span class="layotter-row-options" title="<?php _e('Row layout', 'layotter'); ?>"><i class="fa fa-columns"></i></span>
                     </div>
                 </div>
                 <div class="layotter-cols">
                     <div class="layotter-col {{ 'layotter-col-' + getColLayout(row, $index) }}" ng-repeat="col in row.cols">
-                        <span class="layotter-button layotter-add-element-button" ng-click="showNewElementTypes(col.elements, -1)"><i class="fa fa-plus"></i><?php _e('Add element', 'layotter'); ?></span>
+                        <div class="layotter-button-container">
+                            <span type="button" class="layotter-add-element-button" ng-click="showNewElementTypes(col.elements, -1)"><i class="fa fa-plus"></i><?php _e('Add element', 'layotter'); ?></span>
+                        </div>
                         <div class="layotter-elements" ui-sortable="elementSortableOptions" ng-model="col.elements">
                             <div class="layotter-element layotter-animate" ng-repeat="element in col.elements" ng-class="{ 'layotter-loading' : element.isLoading, 'layotter-highlight' : element.isHighlighted }">
                                 <div class="layotter-element-canvas">
@@ -40,14 +43,15 @@
                                                 <span class="layotter-element-favorite" ng-hide="element.template_id !== undefined" ng-click="saveNewTemplate(element)"><i class="fa fa-star"></i><?php _e('Save as template', 'layotter'); ?></span>
                                             </div>
                                         </div>
-                                        <span class="layotter-element-move"><i class="fa fa-arrows"></i><?php _e('Move', 'layotter'); ?></span>
                                     </div>
                                     <div class="layotter-element-message" ng-show="element.template_id !== undefined && !element.template_deleted">
                                         <?php _e('This is a template.', 'layotter'); ?>
                                     </div>
                                     <div class="layotter-element-content" ng-bind-html="element.view"></div>
                                 </div>
-                                <span class="layotter-button layotter-add-element-button" ng-click="showNewElementTypes(col.elements, $index)"><i class="fa fa-plus"></i><?php _e('Add element', 'layotter'); ?></span>
+                                <div class="layotter-button-container">
+                                    <span type="button" class="layotter-add-element-button" ng-click="showNewElementTypes(col.elements, $index)"><i class="fa fa-plus"></i><?php _e('Add element', 'layotter'); ?></span>
+                                </div>
                             </div>
                         </div>
                     </div>

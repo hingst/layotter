@@ -100,7 +100,7 @@
   cursor: pointer;
   border: 1px solid #CCCCCC;
   text-align: center;
-  opacity: 0.3;
+  opacity: 0.4;
   height: 36px;
   line-height: 36px;
   margin: 10px 0;
@@ -139,6 +139,22 @@
       font-size: 14px;
       margin-right: 8px; }
 
+.layotter-button-container {
+  text-align: center;
+  clear: both; }
+  .layotter-button-container .layotter-add-element-button {
+    font-size: 14px;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    opacity: 0.3;
+    padding: 8px 20px; }
+    .layotter-button-container .layotter-add-element-button:hover {
+      opacity: 0.7; }
+    .layotter-button-container .layotter-add-element-button i.fa {
+      font-size: 14px;
+      margin-right: 8px; }
+
 .layotter-button-wrapper {
   margin: 10px 10px 10px 0;
   display: block;
@@ -161,85 +177,88 @@
 
 /****************************************************/
 /* rows */
-.layotter-row.layotter-loading .layotter-row-canvas {
-  border-color: #EEEEEE;
-  position: relative; }
-  .layotter-row.layotter-loading .layotter-row-canvas:after {
-    content: '';
-    display: block;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(255, 255, 255, 0.9) url(../images/loading.gif) center no-repeat;
-    position: absolute;
-    z-index: 999;
-    background-color: rgba(255, 255, 255, 0.8); }
-.layotter-row .layotter-row-canvas {
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  border: 1px solid #CCCCCC; }
-  .layotter-row .layotter-row-canvas .layotter-row-head {
-    border-bottom: 1px solid #CCCCCC;
-    background-color: #E5E5E5;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-    text-align: center;
-    font-size: 14px;
+.layotter-row {
+  clear: both; }
+  .layotter-row.layotter-loading .layotter-row-canvas {
+    border-color: #EEEEEE;
     position: relative; }
-    .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-move,
-    .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-cols,
-    .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-delete,
-    .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-duplicate,
-    .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-options {
-      height: 36px;
-      line-height: 36px;
-      display: block; }
-    .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-move {
-      padding: 0 12px;
-      border-right: 1px solid #CCCCCC;
-      cursor: move;
-      position: absolute;
+    .layotter-row.layotter-loading .layotter-row-canvas:after {
+      content: '';
+      display: block;
       top: 0;
-      left: 0; }
-      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-move i.fa {
-        margin-right: 8px; }
-    .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-cols {
-      display: inline-block;
-      padding-top: 13px;
-      line-height: 1; }
-      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-cols .layotter-row-layout-button {
-        margin: 0 3px;
-        background-position: center;
-        background-repeat: no-repeat;
-        height: 10px;
-        text-indent: -9999px;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(255, 255, 255, 0.9) url(../images/loading.gif) center no-repeat;
+      position: absolute;
+      z-index: 999;
+      background-color: rgba(255, 255, 255, 0.8); }
+  .layotter-row .layotter-row-canvas {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    border: 1px solid #CCCCCC;
+    position: relative; }
+    .layotter-row .layotter-row-canvas .layotter-row-head {
+      background-color: #E5E5E5;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      text-align: center;
+      font-size: 14px;
+      border-bottom: 1px solid #CCCCCC;
+      color: #888; }
+      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-move,
+      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-cols,
+      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-delete,
+      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-duplicate,
+      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-options {
+        height: 36px;
+        line-height: 36px;
+        display: block; }
+      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-move {
+        padding: 0 12px;
+        border-right: 1px solid #CCCCCC;
+        cursor: move;
+        position: absolute;
+        top: 0;
+        left: 0; }
+        .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-move i.fa {
+          margin-right: 8px; }
+      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-cols {
         display: inline-block;
-        vertical-align: top;
-        cursor: pointer;
-        opacity: 0.2;
-        width: 31px; }
-        .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-cols .layotter-row-layout-button.layotter-row-layout-button-active, .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-cols .layotter-row-layout-button:hover {
-          opacity: 1; }
-    .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons {
-      position: absolute;
-      top: 0;
-      right: 0; }
-      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons i.fa {
-        font-size: 16px; }
-      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons .layotter-row-delete,
-      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons .layotter-row-duplicate,
-      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons .layotter-row-options {
-        float: right;
-        cursor: pointer;
-        border-left: 1px solid #CCCCCC;
-        width: 36px; }
-        .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons .layotter-row-delete:hover,
-        .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons .layotter-row-duplicate:hover,
-        .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons .layotter-row-options:hover {
-          background-color: #ddd; }
-      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons .layotter-row-delete:hover {
-        background-color: #FFA8B4; }
-.layotter-row:last-child .layotter-add-row-button {
-  margin-bottom: 0; }
+        padding-top: 13px;
+        line-height: 1; }
+        .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-cols .layotter-row-layout-button {
+          margin: 0 3px;
+          background-position: center;
+          background-repeat: no-repeat;
+          height: 10px;
+          text-indent: -9999px;
+          display: inline-block;
+          vertical-align: top;
+          cursor: pointer;
+          opacity: 0.2;
+          width: 31px; }
+          .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-cols .layotter-row-layout-button.layotter-row-layout-button-active, .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-cols .layotter-row-layout-button:hover {
+            opacity: 0.7; }
+      .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons {
+        position: absolute;
+        top: 0;
+        right: 0; }
+        .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons i.fa {
+          font-size: 16px; }
+        .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons .layotter-row-delete,
+        .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons .layotter-row-duplicate,
+        .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons .layotter-row-options {
+          float: right;
+          cursor: pointer;
+          border-left: 1px solid #CCCCCC;
+          width: 36px; }
+          .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons .layotter-row-delete:hover,
+          .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons .layotter-row-duplicate:hover,
+          .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons .layotter-row-options:hover {
+            background-color: #ddd; }
+        .layotter-row .layotter-row-canvas .layotter-row-head .layotter-row-buttons .layotter-row-delete:hover {
+          background-color: #FFA8B4; }
+  .layotter-row:last-child .layotter-add-row-button {
+    margin-bottom: 0; }
 
 .layotter-row-layout-button[data-layout="full"],
 .layotter-row-layout-option[data-layout="full"] {
@@ -293,7 +312,7 @@
   width: 100%;
   table-layout: fixed; }
   .layotter-cols .layotter-col {
-    padding: 0 10px;
+    padding: 2px 10px;
     border-right: 1px solid #CCCCCC;
     display: table-cell;
     vertical-align: top; }
@@ -319,10 +338,10 @@
 /****************************************************/
 /* elements */
 .layotter-elements {
-  margin-top: -60px;
-  padding-top: 60px;
-  padding-bottom: 80px;
-  margin-bottom: -80px; }
+  margin-top: -10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-bottom: -10px; }
   .layotter-elements .layotter-element.layotter-loading .layotter-element-canvas {
     position: relative;
     min-height: 100px; }
@@ -338,17 +357,34 @@
       z-index: 999; }
   .layotter-elements .layotter-element.layotter-highlight .layotter-element-canvas {
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2); }
-    .layotter-elements .layotter-element.layotter-highlight .layotter-element-canvas .layotter-element-head {
-      opacity: 0.6; }
   .layotter-elements .layotter-element .layotter-element-canvas {
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     background: #fff;
-    border: 1px solid #ddd; }
+    border: 1px solid #ddd;
+    position: relative; }
     .layotter-elements .layotter-element .layotter-element-canvas:hover .layotter-element-head {
       opacity: 1; }
+    .layotter-elements .layotter-element .layotter-element-canvas:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      opacity: 0;
+      cursor: move;
+      z-index: 1; }
     .layotter-elements .layotter-element .layotter-element-canvas .layotter-element-head {
-      opacity: 0.1;
-      border-bottom: 1px solid #ddd; }
+      position: absolute;
+      top: 0;
+      right: 0;
+      opacity: 0;
+      border-bottom: 1px solid #ddd;
+      background: #fff;
+      transition: opacity 0.4s;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      z-index: 2; }
       .layotter-elements .layotter-element .layotter-element-canvas .layotter-element-head i.fa {
         font-size: 14px; }
       .layotter-elements .layotter-element .layotter-element-canvas .layotter-element-head .layotter-element-move,
