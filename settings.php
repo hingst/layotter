@@ -135,7 +135,7 @@ class Layotter_Settings {
 
 
     public static function get_allowed_row_layouts() {
-        $settings = Layotter_Settings::get_settings('rows');
+        $settings = self::get_settings('rows');
         $allowed_layouts = array();
 
         foreach ($settings['allow'] as $col_type => $allowed) {
@@ -152,7 +152,7 @@ class Layotter_Settings {
     
     
     public static function get_default_row_layout() {
-        $settings = Layotter_Settings::get_settings('rows');
+        $settings = self::get_settings('rows');
         return $settings['default_layout'];
     }
     

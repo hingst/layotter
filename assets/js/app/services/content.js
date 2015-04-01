@@ -1,4 +1,4 @@
-app.service('content', function($rootScope, $http, data, forms, modals, state, templates){
+app.service('content', function($rootScope, $http, $animate, $timeout, data, forms, modals, state, templates){
 
 
     var _this = this;
@@ -236,12 +236,16 @@ app.service('content', function($rootScope, $http, data, forms, modals, state, t
                 row.cols.push(angular.copy(data.templates.col));
             }
         } else { // move surplus elements to last remaining col if number of cols is decreased
+            $animate.enabled(false);
             for (var i = newColCount; i < oldColCount; i++) {
                 angular.forEach(row.cols[i].elements, function(element){
                     row.cols[newColCount - 1].elements.push(element);
                 });
             }
             row.cols.splice(newColCount);
+            $timeout(function(){
+                $animate.enabled(true);
+            }, 1);
         }
     };
     

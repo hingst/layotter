@@ -25,16 +25,16 @@
                 <div class="layotter-row-move">
                     <i class="fa fa-arrows-v"></i><?php _e('Move row', 'layotter'); ?>
                 </div>
-                <!--
-                <div class="layotter-row-cols">
-                    <span class="layotter-row-layout-button" ng-repeat="colbutton in allowedRowLayouts" ng-class="{ 'layotter-row-layout-button-active': colbutton.layout === row.layout }" ng-click="setRowLayout(row, colbutton.layout)" data-layout="{{ colbutton.layout }}" title="{{ colbutton.title }}">{{ colbutton.title }}</span>
-                </div>
-                -->
                 <div class="layotter-row-buttons">
                     <span ng-click="deleteRow($index)" title="<?php _e('Delete row', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>
                     <span ng-click="duplicateRow($index)" title="<?php _e('Duplicate row', 'layotter'); ?>"><i class="fa fa-files-o"></i></span>
                     <span ng-click="editOptions('row', row)" ng-show="optionsEnabled.row" title="<?php _e('Row options', 'layotter'); ?>"><i class="fa fa-cog"></i></span>
-                    <span title="<?php _e('Row layout', 'layotter'); ?>"><i class="fa fa-columns"></i></span>
+                    <div class="layotter-row-select-layout">
+                        <i class="fa fa-columns"></i>
+                        <div class="layotter-row-select-layout-items">
+                            <span class="layotter-row-layout-button" ng-repeat="colbutton in allowedRowLayouts" ng-class="{ 'layotter-row-layout-button-active': colbutton.layout === row.layout }" ng-click="setRowLayout(row, colbutton.layout)" data-layout="{{ colbutton.layout }}" title="{{ colbutton.title }}"></span>
+                        </div>
+                    </div>
                 </div>
                 <div class="layotter-cols">
                     <div class="layotter-col {{ 'layotter-col-' + getColLayout(row, $index) }}" ng-repeat="col in row.cols">

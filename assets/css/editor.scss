@@ -107,19 +107,28 @@ $darkgray: #CCCCCC;
     height: 0 !important;
 }
 
-.layotter-row.ui-sortable-helper {
-    > .layotter-row-canvas {
-        box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1) !important;
-    }
-}
-
-.layotter-element.ui-sortable-helper {
+.layotter-row.ui-sortable-helper,
+.layotter-element.ui-sortable-helper{
     > .layotter-element-canvas {
         box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1) !important;
     }
 
+    > .layotter-add-row-button-wrapper,
     > .layotter-add-element-button-wrapper {
         display: none !important;
+    }
+}
+
+.layotter-rows {
+    > .layotter-placeholder {
+        position: relative;
+
+        &:after {
+            @include pseudo(true);
+            top: auto;
+            height: 10px;
+            background-color: #fff;
+        }
     }
 }
 
@@ -400,12 +409,14 @@ $darkgray: #CCCCCC;
 
         .layotter-row-buttons {
             right: -1px;
+            z-index: 5;
 
             i.fa {
                 font-size: $text-fa-m;
             }
 
-            span {
+            > span,
+            .layotter-row-select-layout {
                 text-align: center;
                 float: right;
                 cursor: pointer;
@@ -420,7 +431,114 @@ $darkgray: #CCCCCC;
                     border: none;
                 }
             }
+
+            .layotter-row-select-layout {
+                cursor: default;
+                position: relative;
+
+                &:hover .layotter-row-select-layout-items {
+                    display: block;
+                }
+
+                .layotter-row-select-layout-items {
+                    display: none;
+                    position: absolute;
+                    top: 100%;
+                    left: 0;
+                    background: $lightgray;
+                    border: 1px solid $darkgray;
+                    padding: 6px;
+                    margin-left: -1px;
+                    width: 172px;
+
+                    &:after {
+                        @include pseudo(true);
+                        right: -30px;
+                        bottom: -30px;
+                        left: -30px;
+                        z-index: -1;
+                    }
+
+                    .layotter-row-layout-button {
+                        height: 10px;
+                        display: block;
+                        background-position: 6px 6px;
+                        background-repeat: no-repeat;
+                        cursor: pointer;
+                        opacity: 0.2;
+                        float: left;
+                        width: 31px;
+                        padding: 6px;
+
+                        &:hover,
+                        &.layotter-row-layout-button-active {
+                            opacity: 0.7;
+                        }
+                    }
+                }
+            }
         }
+    }
+}
+
+.layotter-row-layout-button,
+.layotter-row-layout-option { // for settings page
+    width: 31px;
+
+    &[data-layout="full"] {
+        background-image: url(../images/cols/full.png);
+    }
+
+    &[data-layout="half half"] {
+        background-image: url(../images/cols/halves.png);
+    }
+
+    &[data-layout="third third third"] {
+        background-image: url(../images/cols/thirds.png);
+    }
+
+    &[data-layout="fourth fourth fourth fourth"] {
+        background-image: url(../images/cols/fourths.png);
+        width: 29px;
+    }
+
+    &[data-layout="fifth fifth fifth fifth fifth"] {
+        background-image: url(../images/cols/fifths.png);
+    }
+
+    &[data-layout="sixth sixth sixth sixth sixth sixth"] {
+        background-image: url(../images/cols/sixths.png);
+    }
+
+    &[data-layout="half fourth fourth"] {
+        background-image: url(../images/cols/half-fourth-fourth.png);
+        width: 29px;
+    }
+
+    &[data-layout="fourth fourth half"] {
+        background-image: url(../images/cols/fourth-fourth-half.png);
+        width: 29px;
+    }
+
+    &[data-layout="fourth half fourth"] {
+        background-image: url(../images/cols/fourth-half-fourth.png);
+        width: 29px;
+    }
+
+    &[data-layout="twothirds third"] {
+        background-image: url(../images/cols/twothirds-third.png);
+    }
+
+    &[data-layout="third twothirds"] {
+        background-image: url(../images/cols/third-twothirds.png);
+    }
+
+    &[data-layout="threefourths fourth"] {
+        background-image: url(../images/cols/threefourths-fourth.png);
+    }
+
+    &[data-layout="fourth threefourths"] {
+        background-image: url(../images/cols/fourth-threefourths.png);
     }
 }
 
@@ -497,7 +615,6 @@ $darkgray: #CCCCCC;
 
     .layotter-element {
         position: relative; // for "add element" buttons
-        z-index: 1; // on top of "add element" button when deleting the last element from a column
         margin: 10px 0;
 
         &.layotter-loading .layotter-element-canvas {

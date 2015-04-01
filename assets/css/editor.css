@@ -57,13 +57,28 @@
 #layotter-templates .layotter-placeholder {
   height: 0 !important; }
 
-.layotter-row.ui-sortable-helper > .layotter-row-canvas {
-  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1) !important; }
-
+.layotter-row.ui-sortable-helper > .layotter-element-canvas,
 .layotter-element.ui-sortable-helper > .layotter-element-canvas {
   box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1) !important; }
+.layotter-row.ui-sortable-helper > .layotter-add-row-button-wrapper,
+.layotter-row.ui-sortable-helper > .layotter-add-element-button-wrapper,
+.layotter-element.ui-sortable-helper > .layotter-add-row-button-wrapper,
 .layotter-element.ui-sortable-helper > .layotter-add-element-button-wrapper {
   display: none !important; }
+
+.layotter-rows > .layotter-placeholder {
+  position: relative; }
+  .layotter-rows > .layotter-placeholder:after {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: auto;
+    height: 10px;
+    background-color: #fff; }
 
 .layotter-col .layotter-placeholder {
   margin: 10px 0; }
@@ -266,19 +281,109 @@
       font-size: 14px;
       margin-right: 10px; }
   .layotter-row .layotter-row-canvas .layotter-row-buttons {
-    right: -1px; }
+    right: -1px;
+    z-index: 5; }
     .layotter-row .layotter-row-canvas .layotter-row-buttons i.fa {
       font-size: 14px; }
-    .layotter-row .layotter-row-canvas .layotter-row-buttons span {
+    .layotter-row .layotter-row-canvas .layotter-row-buttons > span,
+    .layotter-row .layotter-row-canvas .layotter-row-buttons .layotter-row-select-layout {
       text-align: center;
       float: right;
       cursor: pointer;
       border-right: 1px solid #CCCCCC;
       width: 30px; }
-      .layotter-row .layotter-row-canvas .layotter-row-buttons span:hover {
+      .layotter-row .layotter-row-canvas .layotter-row-buttons > span:hover,
+      .layotter-row .layotter-row-canvas .layotter-row-buttons .layotter-row-select-layout:hover {
         background-color: #ddd; }
-      .layotter-row .layotter-row-canvas .layotter-row-buttons span:first-child {
+      .layotter-row .layotter-row-canvas .layotter-row-buttons > span:first-child,
+      .layotter-row .layotter-row-canvas .layotter-row-buttons .layotter-row-select-layout:first-child {
         border: none; }
+    .layotter-row .layotter-row-canvas .layotter-row-buttons .layotter-row-select-layout {
+      cursor: default;
+      position: relative; }
+      .layotter-row .layotter-row-canvas .layotter-row-buttons .layotter-row-select-layout:hover .layotter-row-select-layout-items {
+        display: block; }
+      .layotter-row .layotter-row-canvas .layotter-row-buttons .layotter-row-select-layout .layotter-row-select-layout-items {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #EEEEEE;
+        border: 1px solid #CCCCCC;
+        padding: 6px;
+        margin-left: -1px;
+        width: 172px; }
+        .layotter-row .layotter-row-canvas .layotter-row-buttons .layotter-row-select-layout .layotter-row-select-layout-items:after {
+          display: block;
+          content: '';
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          right: -30px;
+          bottom: -30px;
+          left: -30px;
+          z-index: -1; }
+        .layotter-row .layotter-row-canvas .layotter-row-buttons .layotter-row-select-layout .layotter-row-select-layout-items .layotter-row-layout-button {
+          height: 10px;
+          display: block;
+          background-position: 6px 6px;
+          background-repeat: no-repeat;
+          cursor: pointer;
+          opacity: 0.2;
+          float: left;
+          width: 31px;
+          padding: 6px; }
+          .layotter-row .layotter-row-canvas .layotter-row-buttons .layotter-row-select-layout .layotter-row-select-layout-items .layotter-row-layout-button:hover, .layotter-row .layotter-row-canvas .layotter-row-buttons .layotter-row-select-layout .layotter-row-select-layout-items .layotter-row-layout-button.layotter-row-layout-button-active {
+            opacity: 0.7; }
+
+.layotter-row-layout-button,
+.layotter-row-layout-option {
+  width: 31px; }
+  .layotter-row-layout-button[data-layout="full"],
+  .layotter-row-layout-option[data-layout="full"] {
+    background-image: url(../images/cols/full.png); }
+  .layotter-row-layout-button[data-layout="half half"],
+  .layotter-row-layout-option[data-layout="half half"] {
+    background-image: url(../images/cols/halves.png); }
+  .layotter-row-layout-button[data-layout="third third third"],
+  .layotter-row-layout-option[data-layout="third third third"] {
+    background-image: url(../images/cols/thirds.png); }
+  .layotter-row-layout-button[data-layout="fourth fourth fourth fourth"],
+  .layotter-row-layout-option[data-layout="fourth fourth fourth fourth"] {
+    background-image: url(../images/cols/fourths.png);
+    width: 29px; }
+  .layotter-row-layout-button[data-layout="fifth fifth fifth fifth fifth"],
+  .layotter-row-layout-option[data-layout="fifth fifth fifth fifth fifth"] {
+    background-image: url(../images/cols/fifths.png); }
+  .layotter-row-layout-button[data-layout="sixth sixth sixth sixth sixth sixth"],
+  .layotter-row-layout-option[data-layout="sixth sixth sixth sixth sixth sixth"] {
+    background-image: url(../images/cols/sixths.png); }
+  .layotter-row-layout-button[data-layout="half fourth fourth"],
+  .layotter-row-layout-option[data-layout="half fourth fourth"] {
+    background-image: url(../images/cols/half-fourth-fourth.png);
+    width: 29px; }
+  .layotter-row-layout-button[data-layout="fourth fourth half"],
+  .layotter-row-layout-option[data-layout="fourth fourth half"] {
+    background-image: url(../images/cols/fourth-fourth-half.png);
+    width: 29px; }
+  .layotter-row-layout-button[data-layout="fourth half fourth"],
+  .layotter-row-layout-option[data-layout="fourth half fourth"] {
+    background-image: url(../images/cols/fourth-half-fourth.png);
+    width: 29px; }
+  .layotter-row-layout-button[data-layout="twothirds third"],
+  .layotter-row-layout-option[data-layout="twothirds third"] {
+    background-image: url(../images/cols/twothirds-third.png); }
+  .layotter-row-layout-button[data-layout="third twothirds"],
+  .layotter-row-layout-option[data-layout="third twothirds"] {
+    background-image: url(../images/cols/third-twothirds.png); }
+  .layotter-row-layout-button[data-layout="threefourths fourth"],
+  .layotter-row-layout-option[data-layout="threefourths fourth"] {
+    background-image: url(../images/cols/threefourths-fourth.png); }
+  .layotter-row-layout-button[data-layout="fourth threefourths"],
+  .layotter-row-layout-option[data-layout="fourth threefourths"] {
+    background-image: url(../images/cols/fourth-threefourths.png); }
 
 /****************************************************/
 /* columns */
@@ -325,7 +430,6 @@
   min-height: 60px; }
   .layotter-elements .layotter-element {
     position: relative;
-    z-index: 1;
     margin: 10px 0; }
     .layotter-elements .layotter-element.layotter-loading .layotter-element-canvas {
       position: relative;
