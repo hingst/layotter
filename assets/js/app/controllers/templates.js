@@ -11,7 +11,6 @@ app.controller('TemplatesCtrl', function($scope, $animate, templates, $timeout) 
         placeholder: 'layotter-placeholder',
         forcePlaceholderSize: true,
         revert: 300,
-        //handle: '.layotter-element-move',
         connectWith: '#layotter .layotter-elements',
         helper: 'clone',
         start: function (event, ui) {

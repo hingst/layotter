@@ -40,6 +40,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
                     _this.savedTemplates[index].values = reply.values;
                     _this.savedTemplates[index].view = reply.view;
                     _this.savedTemplates[index].isLoading = undefined;
+                    _this.savedTemplates[index].isHighlighted = undefined;
                     _this.savedTemplates[index].template_deleted = true;
                     _this.savedTemplates.splice(index, 1);
                 });

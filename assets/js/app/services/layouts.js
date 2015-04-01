@@ -16,7 +16,7 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
             initialValue: angular.element('#title').val(),
             okText: layotterData.i18n.save_layout,
             okAction: function(value) {
-                angular.element('.layotter-save-layout-button').parent().addClass('layotter-loading');
+                angular.element('.layotter-save-layout-button-wrapper').addClass('layotter-loading');
                 $http({
                     url: ajaxurl + '?action=layotter_save_new_layout',
                     method: 'POST',
@@ -26,7 +26,7 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                     }
                 }).success(function(reply) {
                     _this.savedLayouts.push(reply);
-                    angular.element('.layotter-save-layout-button').parent().removeClass('layotter-loading');
+                    angular.element('.layotter-save-layout-button-wrapper').removeClass('layotter-loading');
                 });
             },
             cancelText: layotterData.i18n.cancel

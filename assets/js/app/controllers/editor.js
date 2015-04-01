@@ -57,7 +57,6 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
         placeholder: 'layotter-placeholder',
         forcePlaceholderSize: true,
         revert: 300,
-        //handle: '.layotter-element-move',
         connectWith: '#layotter .layotter-elements',
         // prevent slide-in animation after moving an element
         start: function(event, ui){
