@@ -79,7 +79,13 @@ function layotter_assets_admin_enqueue_scripts() {
     // fetch post layouts and element templates
     $saved_layouts = Layotter_Layouts::get_all();
     $saved_templates = Layotter_Templates::get_all();
-    
+
+
+    // fetch general settings
+    $general_settings = Layotter_Settings::get_settings('general');
+    $enable_post_layouts = (isset($general_settings['enable_post_layouts']) AND $general_settings['enable_post_layouts'] === '1');
+    $enable_element_templates = (isset($general_settings['enable_element_templates']) AND $general_settings['enable_element_templates'] === '1');
+
     
     // inject data for use with Javascript
     wp_localize_script(
@@ -92,6 +98,8 @@ function layotter_assets_admin_enqueue_scripts() {
             'defaultRowLayout' => $default_row_layout,
             'savedLayouts' => $saved_layouts,
             'savedTemplates' => $saved_templates,
+            'enablePostLayouts' => $enable_post_layouts,
+            'enableElementTemplates' => $enable_element_templates,
             'options' => array(
                 'post' => array(
                     'enabled' => $default_post_options->is_enabled(),

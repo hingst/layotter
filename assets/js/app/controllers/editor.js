@@ -13,6 +13,8 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
         col: layotterData.options.col.enabled,
         element: layotterData.options.element.enabled
     };
+    $scope.enablePostLayouts = layotterData.enablePostLayouts;
+    $scope.enableElementTemplates = layotterData.enableElementTemplates;
 
 
     // on content change, update textarea
@@ -54,6 +56,7 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
     };
     $scope.elementSortableOptions = {
         items: '.layotter-element',
+        cancel: '.layotter-element-buttons',
         placeholder: 'layotter-placeholder',
         forcePlaceholderSize: true,
         revert: 300,

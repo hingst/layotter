@@ -24,11 +24,11 @@ class Layotter_Settings {
         // do stuff on plugin deactivation
         // use the following line FOR DEBUGGING ONLY
         // REMOVES ALL SETTINGS on plugin deactivation
-        // register_deactivation_hook(__DIR__ . '/index.php', array(__CLASS__, 'remove_all_settings'));
+        register_deactivation_hook(__DIR__ . '/index.php', array(__CLASS__, 'remove_all_settings'));
 
 
-        // translate labels on admin_head - otherwise translations wouldn't be available yet
-        add_action('admin_head', array(__CLASS__, 'translate_labels'));
+        // translate labels on admin_init - otherwise translations wouldn't be available yet
+        add_action('admin_init', array(__CLASS__, 'translate_labels'));
 
 
         // enable settings page only if we're in the backend
@@ -44,6 +44,8 @@ class Layotter_Settings {
                 'enable_for' => array(
                     'page' => '1'
                 ),
+                'enable_post_layouts' => '1',
+                'enable_element_templates' => '1',
                  'debug_mode' => array(
                      'administrator' => '0'
                 )
@@ -164,7 +166,7 @@ class Layotter_Settings {
      * @return string CSS class for the col layout, as provided by the user
      */
     public static function get_col_layout_class($layout) {
-        $settings = Layotter_Settings::get_settings('cols');
+        $settings = self::get_settings('cols');
         return $settings['classes'][$layout];
     }
     
@@ -215,6 +217,10 @@ class Layotter_Settings {
             'layotter-settings',
             plugins_url('assets/css/editor.css', __FILE__)
         );
+        wp_enqueue_style(
+            'layotter-font-awesome',
+            plugins_url('assets/css/font-awesome.min.css', __FILE__)
+        );
         
         // display notice if settings have been saved
         if (isset($_GET['settings-updated'])) {
@@ -260,7 +266,8 @@ class Layotter_Settings {
                 <div id="icon-themes" class="icon32"></div>
                 <h2><?php _e('Layotter Settings', 'layotter'); ?></h2>
                 <h2 class="nav-tab-wrapper">
-                    <a href="#layotter-settings-general" class="nav-tab nav-tab-active"><?php _e('General', 'layotter'); ?></a>
+                    <a href="#layotter-settings-basic" class="nav-tab nav-tab-active"><?php _e('Basic', 'layotter'); ?></a>
+                    <a href="#layotter-settings-general" class="nav-tab"><?php _e('General', 'layotter'); ?></a>
                     <a href="#layotter-settings-wrapper" class="nav-tab"><?php _e('Wrapper', 'layotter'); ?></a>
                     <a href="#layotter-settings-rows" class="nav-tab"><?php _e('Rows', 'layotter'); ?></a>
                     <a href="#layotter-settings-cols" class="nav-tab"><?php _e('Columns', 'layotter'); ?></a>
@@ -277,6 +284,7 @@ class Layotter_Settings {
 
                     self::$current_settings = self::get_settings();
 
+                    self::settings_basic();
                     self::settings_general();
                     self::settings_wrapper();
                     self::settings_rows();
@@ -288,106 +296,135 @@ class Layotter_Settings {
             </div>
         <?php
     }
-    
-    
+
+
+    /**
+     * Outputs form HTML for basic settings
+     */
+    public static function settings_basic() {
+        // first, get current settings
+        $settings = self::$current_settings['general'];
+
+        ?>
+        <div id="layotter-settings-basic" class="layotter-settings-tab-content">
+            <h3>
+                <?php _e('Post types', 'layotter'); ?>
+            </h3>
+            <p class="layotter-settings-paragraph">
+                <?php _e('Select the post types for which Layotter should be enabled.', 'layotter'); ?>
+            </p>
+            <div class="layotter-settings-checkboxes">
+                <p>
+                    <label>
+                        <input type="checkbox" name="layotter_settings[general][enable_for][post]" value="1" <?php if(isset($settings['enable_for']['post'])) { checked($settings['enable_for']['post']); } ?>>
+                        <?php _e('Posts', 'layotter'); ?>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" name="layotter_settings[general][enable_for][page]" value="1" <?php if(isset($settings['enable_for']['page'])) { checked($settings['enable_for']['page']); } ?>>
+                        <?php _e('Pages','layotter'); ?>
+                    </label>
+                </p>
+                <?php
+
+                $post_types = get_post_types(array(
+                    '_builtin' => false,
+                    'show_ui' => true
+                ), 'objects');
+
+                foreach ($post_types as $post_type) {
+
+                    // exclude ACF field groups
+                    if ($post_type->name == 'acf-field-group') {
+                        continue;
+                    }
+
+                    ?>
+                    <p>
+                        <label>
+                            <input type="checkbox" name="layotter_settings[general][enable_for][<?php echo $post_type->name; ?>]" value="1" <?php if(isset($settings['enable_for'][$post_type->name])) { checked($settings['enable_for'][$post_type->name]); } ?>>
+                            <?php echo $post_type->label; ?>
+                        </label>
+                    </p>
+                <?php
+
+                }
+                ?>
+            </div>
+            <?php
+            submit_button(__('Save settings', 'layotter'));
+            ?>
+        </div>
+    <?php
+    }
+
+
     /**
      * Outputs form HTML for general settings
      */
     public static function settings_general() {
         // first, get current settings
         $settings = self::$current_settings['general'];
-        
+
         ?>
-            <div id="layotter-settings-general" class="layotter-settings-tab-content">
-                <h3>
-                    <?php _e('Post types', 'layotter'); ?>
-                </h3>
-                <p class="layotter-settings-paragraph">
-                    <?php _e('Select the post types for which Layotter should be enabled.', 'layotter'); ?>
-                </p>
-                <table class="form-table">
-                    <tbody>
-                        <tr valign="top">
-                            <td>
-                                <p>
-                                    <label>
-                                        <input type="checkbox" name="layotter_settings[general][enable_for][post]" value="1" <?php if(isset($settings['enable_for']['post'])) { checked($settings['enable_for']['post']); } ?>>
-                                        <?php _e('Posts', 'layotter'); ?>
-                                    </label>
-                                </p>
-                                <p>
-                                    <label>
-                                        <input type="checkbox" name="layotter_settings[general][enable_for][page]" value="1" <?php if(isset($settings['enable_for']['page'])) { checked($settings['enable_for']['page']); } ?>>
-                                        <?php _e('Pages','layotter'); ?>
-                                    </label>
-                                </p>
-                                <?php
-
-                                $post_types = get_post_types(array(
-                                    '_builtin' => false,
-                                    'show_ui' => true
-                                ), 'objects');
-
-                                foreach ($post_types as $post_type) {
-
-                                    // exclude ACF field groups
-                                    if ($post_type->name == 'acf-field-group') {
-                                        continue;
-                                    }
-
-                                    ?>
-                                    <p>
-                                        <label>
-                                            <input type="checkbox" name="layotter_settings[general][enable_for][<?php echo $post_type->name; ?>]" value="1" <?php if(isset($settings['enable_for'][$post_type->name])) { checked($settings['enable_for'][$post_type->name]); } ?>>
-                                            <?php echo $post_type->label; ?>
-                                        </label>
-                                    </p>
-                                    <?php
-
-                                }
-                                ?>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <h3>
-                    <?php _e('Debug mode', 'layotter'); ?>
-                </h3>
-                <p class="layotter-settings-paragraph">
-                    <?php _e('With debug mode enabled you can inspect and manually edit the JSON structure generated by Layotter. Enable debug mode for these user roles:', 'layotter'); ?>
-                </p>
-                <table class="form-table">
-                    <tbody>
-                        <tr valign="top">
-                            <td>
-                                <?php
-                                foreach (get_editable_roles() as $role_key => $role) {
-
-                                    // subscribers will never even see the backend
-                                    if ($role_key == 'subscriber') {
-                                        continue;
-                                    }
-
-                                    ?>
-                                    <p>
-                                        <label>
-                                            <input type="checkbox" name="layotter_settings[general][debug_mode][<?php echo $role_key; ?>]" value="1" <?php if(isset($settings['debug_mode'][$role_key])) { checked($settings['debug_mode'][$role_key]); } ?>>
-                                            <?php echo translate_user_role($role['name']); ?>
-                                        </label>
-                                    </p>
-                                    <?php
-
-                                }
-                                ?>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div id="layotter-settings-general" class="layotter-settings-tab-content hidden">
+            <h3>
+                <?php _e('Post layouts', 'layotter'); ?>
+            </h3>
+            <p class="layotter-settings-paragraph">
+                <?php _e('This feature lets you save entire post layouts as templates to be used as a starting point for new posts.', 'layotter'); ?>
+            </p>
+            <p class="layotter-settings-checkboxes">
+                <label>
+                    <input type="checkbox" name="layotter_settings[general][enable_post_layouts]" value="1" <?php if(isset($settings['enable_post_layouts'])) { checked($settings['enable_post_layouts']); } ?>>
+                    <?php _e('Enable post layouts', 'layotter'); ?>
+                </label>
+            </p>
+            <h3>
+                <?php _e('Element templates', 'layotter'); ?>
+            </h3>
+            <p class="layotter-settings-paragraph">
+                <?php _e("This feature lets you save elements as templates. Element templates look just like regular elements, but if you edit them on one page, they'll be updated on every other page as well.", 'layotter'); ?>
+            </p>
+            <p class="layotter-settings-checkboxes">
+                <label>
+                    <input type="checkbox" name="layotter_settings[general][enable_element_templates]" value="1" <?php if(isset($settings['enable_element_templates'])) { checked($settings['enable_element_templates']); } ?>>
+                    <?php _e('Enable element layouts', 'layotter'); ?>
+                </label>
+            </p>
+            <h3>
+                <?php _e('Debug mode', 'layotter'); ?>
+            </h3>
+            <p class="layotter-settings-paragraph">
+                <?php _e('With debug mode enabled you can inspect and manually edit the JSON structure generated by Layotter. Enable debug mode for these user roles:', 'layotter'); ?>
+            </p>
+            <div class="layotter-settings-checkboxes">
                 <?php
-                submit_button(__('Save settings', 'layotter'));
+                foreach (get_editable_roles() as $role_key => $role) {
+
+                    // subscribers will never even see the backend
+                    if ($role_key == 'subscriber') {
+                        continue;
+                    }
+
+                    ?>
+                    <p>
+                        <label>
+                            <input type="checkbox" name="layotter_settings[general][debug_mode][<?php echo $role_key; ?>]" value="1" <?php if(isset($settings['debug_mode'][$role_key])) { checked($settings['debug_mode'][$role_key]); } ?>>
+                            <?php echo translate_user_role($role['name']); ?>
+                        </label>
+                    </p>
+                <?php
+
+                }
                 ?>
             </div>
-        <?php
+            <?php
+            submit_button(__('Save settings', 'layotter'));
+            ?>
+        </div>
+    <?php
     }
     
     
@@ -406,9 +443,8 @@ class Layotter_Settings {
                 <p class="layotter-settings-paragraph">
                     <?php _e('Enter HTML code to wrap around the whole content.', 'layotter'); ?>
                 </p>
-                <p class="layotter-settings-paragraph">
-                    <strong><?php _e('Tip:', 'layotter'); ?></strong>
-                    <?php printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#'); ?>
+                <p class="layotter-settings-paragraph layotter-with-icon">
+                    <i class="fa fa-info"></i><?php printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#'); ?>
                 </p>
                 <table class="form-table">
                     <tbody>

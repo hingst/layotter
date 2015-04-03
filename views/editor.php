@@ -2,13 +2,13 @@
     <div id="layotter-top-buttons">
         <div id="layotter-top-buttons-left">
             <span class="layotter-button" ng-click="editOptions('post', data)" ng-show="optionsEnabled.post"><i class="fa fa-cog"></i><?php _e('Options', 'layotter'); ?></span>
-            <div class="layotter-save-layout-button-wrapper">
+            <div class="layotter-save-layout-button-wrapper" ng-if="enablePostLayouts">
                 <span class="layotter-button" ng-click="saveNewLayout()"><i class="fa fa-download"></i><?php _e('Save layout', 'layotter'); ?></span>
             </div>
-            <span class="layotter-button" ng-click="loadLayout()"><i class="fa fa-upload"></i><?php _e('Load layout', 'layotter'); ?></span>
+            <span class="layotter-button" ng-click="loadLayout()" ng-if="enablePostLayouts"><i class="fa fa-upload"></i><?php _e('Load layout', 'layotter'); ?></span>
         </div>
         <div id="layotter-top-buttons-right">
-            <span class="layotter-button" toggle-templates><i class="fa fa-star"></i><?php _e('Element templates', 'layotter'); ?></span>
+            <span class="layotter-button" toggle-templates ng-if="enableElementTemplates"><i class="fa fa-star"></i><?php _e('Element templates', 'layotter'); ?></span>
         </div>
     </div>
 
@@ -29,10 +29,10 @@
                     <span ng-click="deleteRow($index)" title="<?php _e('Delete row', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>
                     <span ng-click="duplicateRow($index)" title="<?php _e('Duplicate row', 'layotter'); ?>"><i class="fa fa-files-o"></i></span>
                     <span ng-click="editOptions('row', row)" ng-show="optionsEnabled.row" title="<?php _e('Row options', 'layotter'); ?>"><i class="fa fa-cog"></i></span>
-                    <div class="layotter-row-select-layout">
+                    <div class="layotter-row-select-layout" ng-if="allowedRowLayouts.length > 1">
                         <i class="fa fa-columns"></i>
                         <div class="layotter-row-select-layout-items">
-                            <span class="layotter-row-layout-button" ng-repeat="colbutton in allowedRowLayouts" ng-class="{ 'layotter-row-layout-button-active': colbutton.layout === row.layout }" ng-click="setRowLayout(row, colbutton.layout)" data-layout="{{ colbutton.layout }}" title="{{ colbutton.title }}"></span>
+                            <span class="layotter-row-layout-button" ng-repeat="colbutton in allowedRowLayouts" ng-class="{ 'layotter-row-layout-button-active': colbutton.layout === row.layout }" ng-click="setRowLayout(row, colbutton.layout)" data-layout="{{ colbutton.layout }}" title="">{{ colbutton.title }}</span>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                                             <div class="layotter-element-dropdown-items">
                                                 <span ng-click="editOptions('element', element)" ng-show="optionsEnabled.element"><i class="fa fa-cog"></i><?php _e('Element options', 'layotter'); ?></span>
                                                 <span ng-click="duplicateElement(col.elements, $index)"><i class="fa fa-files-o"></i><?php _e('Duplicate element', 'layotter'); ?></span>
-                                                <span ng-hide="element.template_id !== undefined" ng-click="saveNewTemplate(element)"><i class="fa fa-star"></i><?php _e('Save as template', 'layotter'); ?></span>
+                                                <span ng-hide="element.template_id !== undefined" ng-click="saveNewTemplate(element)" ng-if="enableElementTemplates"><i class="fa fa-star"></i><?php _e('Save as template', 'layotter'); ?></span>
                                             </div>
                                         </div>
                                     </div>
