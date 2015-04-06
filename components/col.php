@@ -106,8 +106,8 @@ class Layotter_Col {
 
         $class = Layotter_Settings::get_col_layout_class($this->width);
 
-        if (has_filter('layotter/col')) {
-            return apply_filters('layotter/col', $elements_html, $class, $this->options->get_formatted_values());
+        if (has_filter('layotter/column')) {
+            return apply_filters('layotter/column', $elements_html, $class, $this->options->get_formatted_values());
         } else {
             $settings = Layotter_Settings::get_settings('cols');
             $html_before = str_replace('%%CLASS%%', $class, $settings['html_before']);

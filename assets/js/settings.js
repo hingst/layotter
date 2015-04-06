@@ -4,6 +4,7 @@ jQuery(function($){
     var selectTab = function(tab) {
         $('.nav-tab').removeClass('nav-tab-active');
         $('.nav-tab[href="' + tab + '"]').addClass('nav-tab-active');
+        $('#layotter-last-edited-tab').val(tab);
         $('.layotter-settings-tab-content:visible').hide();
         $(tab).show();
         if ($('#layotter-settings-saved-notice').length) {

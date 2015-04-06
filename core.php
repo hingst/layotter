@@ -120,7 +120,7 @@ class Layotter {
         }
 
         // false if layotter isn't enabled for the current post type
-        $settings = Layotter_Settings::get_settings('general');
+        $settings = Layotter_Settings::get_settings('basic');
         $current_post_type = get_post_type();
         if (!is_array($settings) OR !isset($settings['enable_for'][$current_post_type]) OR $settings['enable_for'][$current_post_type] != '1')  {
             return false;

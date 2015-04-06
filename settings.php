@@ -10,6 +10,7 @@ Layotter_Settings::init();
 class Layotter_Settings {
     
     private static
+        $last_edited_tab,
         $current_settings,
         $default_settings,
         $col_class_translations,
@@ -40,14 +41,17 @@ class Layotter_Settings {
         }
         
         self::$default_settings = array(
-            'general' => array(
+            'basic' => array(
                 'enable_for' => array(
                     'page' => '1'
                 ),
+                'enable_default_element_type' => '1'
+            ),
+            'general' => array(
                 'enable_post_layouts' => '1',
                 'enable_element_templates' => '1',
-                 'debug_mode' => array(
-                     'administrator' => '0'
+                'debug_mode' => array(
+                    'administrator' => '0'
                 )
             ),
             'wrapper' => array(
@@ -62,8 +66,8 @@ class Layotter_Settings {
                     'half half' => '1',
                     'third third third' => '1',
                     'fourth fourth fourth fourth' => '1',
-                    'fifth fifth fifth fifth fifth' => '0',
                     'sixth sixth sixth sixth sixth sixth' => '0',
+                    'twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth' => '0',
                     'twothirds third' => '1',
                     'third twothirds' => '1',
                     'threefourths fourth' => '0',
@@ -78,14 +82,14 @@ class Layotter_Settings {
                 'html_before' => '<div class="%%CLASS%%">',
                 'html_after' => '</div>',
                 'classes' => array(
-                    'full' => 'col full',
-                    'half' => 'col half',
-                    'third' => 'col third',
-                    'twothirds' => 'col twothirds',
-                    'fourth' => 'col fourth',
-                    'threefourths' => 'col threefourths',
-                    'fifth' => 'col fifth',
-                    'sixth' => 'col sixth'
+                    'full' => 'col size12of12',
+                    'half' => 'col size6of12',
+                    'third' => 'col size4of12',
+                    'twothirds' => 'col size8of12',
+                    'fourth' => 'col size3of12',
+                    'threefourths' => 'col size9of12',
+                    'sixth' => 'col size2of12',
+                    'twelfth' => 'col size1of12'
                 ),
             ),
             'elements' => array(
@@ -104,8 +108,8 @@ class Layotter_Settings {
             'twothirds' => __('Two thirds', 'layotter'),
             'fourth' => __('A fourth', 'layotter'),
             'threefourths' => __('Three fourths', 'layotter'),
-            'fifth' => __('A fifth', 'layotter'),
-            'sixth' => __('A sixth', 'layotter')
+            'sixth' => __('A sixth', 'layotter'),
+            'twelfth' => __('A twelfth', 'layotter')
         );
 
         self::$row_layout_translations = array(
@@ -113,8 +117,8 @@ class Layotter_Settings {
             'half half' => __('Two halves', 'layotter'),
             'third third third' => __('Thirds', 'layotter'),
             'fourth fourth fourth fourth' => __('Fourths', 'layotter'),
-            'fifth fifth fifth fifth fifth' => __('Fifths', 'layotter'),
             'sixth sixth sixth sixth sixth sixth' => __('Sixths', 'layotter'),
+            'twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth' => __('Twelfths', 'layotter'),
             'twothirds third' => __('Two thirds & one third', 'layotter'),
             'third twothirds' => __('One third & two thirds', 'layotter'),
             'threefourths fourth' => __('Three fourths & a fourth', 'layotter'),
@@ -128,7 +132,9 @@ class Layotter_Settings {
 
     public static function get_settings($which = '') {
         $settings = get_option('layotter_settings');
-        if (isset($settings[$which])) {
+        if (!is_array($settings)) {
+            return array();
+        } else if (isset($settings[$which])) {
             return $settings[$which];
         } else {
             return $settings;
@@ -261,17 +267,24 @@ class Layotter_Settings {
      * Output HTML for the settings page
      */
     public static function settings_page() {
+        self::$current_settings = self::get_settings();
+
+        self::$last_edited_tab = '#layotter-settings-basic';
+        if (isset($_GET['settings-updated']) AND isset(self::$current_settings['internal']['last_edited_tab']) AND !empty(self::$current_settings['internal']['last_edited_tab'])) {
+            self::$last_edited_tab = self::$current_settings['internal']['last_edited_tab'];
+        }
+
         ?>
             <div class="wrap">
                 <div id="icon-themes" class="icon32"></div>
                 <h2><?php _e('Layotter Settings', 'layotter'); ?></h2>
                 <h2 class="nav-tab-wrapper">
-                    <a href="#layotter-settings-basic" class="nav-tab nav-tab-active"><?php _e('Basic', 'layotter'); ?></a>
-                    <a href="#layotter-settings-general" class="nav-tab"><?php _e('General', 'layotter'); ?></a>
-                    <a href="#layotter-settings-wrapper" class="nav-tab"><?php _e('Wrapper', 'layotter'); ?></a>
-                    <a href="#layotter-settings-rows" class="nav-tab"><?php _e('Rows', 'layotter'); ?></a>
-                    <a href="#layotter-settings-cols" class="nav-tab"><?php _e('Columns', 'layotter'); ?></a>
-                    <a href="#layotter-settings-elements" class="nav-tab"><?php _e('Elements', 'layotter'); ?></a>
+                    <a href="#layotter-settings-basic" class="nav-tab<?php echo self::$last_edited_tab == '#layotter-settings-basic' ? ' nav-tab-active' : ''; ?>"><?php _e('Basic', 'layotter'); ?></a>
+                    <a href="#layotter-settings-general" class="nav-tab<?php echo self::$last_edited_tab == '#layotter-settings-general' ? ' nav-tab-active' : ''; ?>"><?php _e('General', 'layotter'); ?></a>
+                    <a href="#layotter-settings-wrapper" class="nav-tab<?php echo self::$last_edited_tab == '#layotter-settings-wrapper' ? ' nav-tab-active' : ''; ?>"><?php _e('Wrapper', 'layotter'); ?></a>
+                    <a href="#layotter-settings-rows" class="nav-tab<?php echo self::$last_edited_tab == '#layotter-settings-rows' ? ' nav-tab-active' : ''; ?>"><?php _e('Rows', 'layotter'); ?></a>
+                    <a href="#layotter-settings-cols" class="nav-tab<?php echo self::$last_edited_tab == '#layotter-settings-cols' ? ' nav-tab-active' : ''; ?>"><?php _e('Columns', 'layotter'); ?></a>
+                    <a href="#layotter-settings-elements" class="nav-tab<?php echo self::$last_edited_tab == '#layotter-settings-elements' ? ' nav-tab-active' : ''; ?>"><?php _e('Elements', 'layotter'); ?></a>
                 </h2>
                 <form action="options.php" method="post">
                     <?php
@@ -282,8 +295,6 @@ class Layotter_Settings {
 
                     settings_fields('layotter_settings');
 
-                    self::$current_settings = self::get_settings();
-
                     self::settings_basic();
                     self::settings_general();
                     self::settings_wrapper();
@@ -292,6 +303,7 @@ class Layotter_Settings {
                     self::settings_elements();
                         
                     ?>
+                    <input type="hidden" id="layotter-last-edited-tab" name="layotter_settings[internal][last_edited_tab]" value="<?php echo self::$last_edited_tab; ?>">
                 </form>
             </div>
         <?php
@@ -303,10 +315,14 @@ class Layotter_Settings {
      */
     public static function settings_basic() {
         // first, get current settings
-        $settings = self::$current_settings['general'];
+        if (isset(self::$current_settings['basic'])) {
+            $settings = self::$current_settings['basic'];
+        } else {
+            $settings = array();
+        }
 
         ?>
-        <div id="layotter-settings-basic" class="layotter-settings-tab-content">
+        <div id="layotter-settings-basic" class="layotter-settings-tab-content<?php echo self::$last_edited_tab != '#layotter-settings-basic' ? ' hidden' : ''; ?>">
             <h3>
                 <?php _e('Post types', 'layotter'); ?>
             </h3>
@@ -316,13 +332,13 @@ class Layotter_Settings {
             <div class="layotter-settings-checkboxes">
                 <p>
                     <label>
-                        <input type="checkbox" name="layotter_settings[general][enable_for][post]" value="1" <?php if(isset($settings['enable_for']['post'])) { checked($settings['enable_for']['post']); } ?>>
+                        <input type="checkbox" name="layotter_settings[basic][enable_for][post]" value="1" <?php if(isset($settings['enable_for']['post'])) { checked($settings['enable_for']['post']); } ?>>
                         <?php _e('Posts', 'layotter'); ?>
                     </label>
                 </p>
                 <p>
                     <label>
-                        <input type="checkbox" name="layotter_settings[general][enable_for][page]" value="1" <?php if(isset($settings['enable_for']['page'])) { checked($settings['enable_for']['page']); } ?>>
+                        <input type="checkbox" name="layotter_settings[basic][enable_for][page]" value="1" <?php if(isset($settings['enable_for']['page'])) { checked($settings['enable_for']['page']); } ?>>
                         <?php _e('Pages','layotter'); ?>
                     </label>
                 </p>
@@ -352,6 +368,22 @@ class Layotter_Settings {
                 }
                 ?>
             </div>
+            <h3>
+                <?php _e('Default element type', 'layotter'); ?>
+            </h3>
+            <p class="layotter-settings-paragraph">
+                <?php _e("Layotter comes with an example element type to get started and try out the editor. If you don't want to use the default element type, you can disable it here.", 'layotter'); ?>
+            </p>
+            <p class="layotter-settings-paragraph layotter-with-icon">
+                <i class="fa fa-warning"></i>
+                <?php _e('When disabling, any elements you may have created with the default element type will disappear.', 'layotter'); ?>
+            </p>
+            <p class="layotter-settings-checkboxes">
+                <label>
+                    <input type="checkbox" name="layotter_settings[basic][use_default_element_type]" value="1" <?php if(isset($settings['use_default_element_type'])) { checked($settings['use_default_element_type']); } ?>>
+                    <?php _e('Enable default element type', 'layotter'); ?>
+                </label>
+            </p>
             <?php
             submit_button(__('Save settings', 'layotter'));
             ?>
@@ -365,10 +397,14 @@ class Layotter_Settings {
      */
     public static function settings_general() {
         // first, get current settings
-        $settings = self::$current_settings['general'];
+        if (isset(self::$current_settings['general'])) {
+            $settings = self::$current_settings['general'];
+        } else {
+            $settings = array();
+        }
 
         ?>
-        <div id="layotter-settings-general" class="layotter-settings-tab-content hidden">
+        <div id="layotter-settings-general" class="layotter-settings-tab-content<?php echo self::$last_edited_tab != '#layotter-settings-general' ? ' hidden' : ''; ?>">
             <h3>
                 <?php _e('Post layouts', 'layotter'); ?>
             </h3>
@@ -390,7 +426,7 @@ class Layotter_Settings {
             <p class="layotter-settings-checkboxes">
                 <label>
                     <input type="checkbox" name="layotter_settings[general][enable_element_templates]" value="1" <?php if(isset($settings['enable_element_templates'])) { checked($settings['enable_element_templates']); } ?>>
-                    <?php _e('Enable element layouts', 'layotter'); ?>
+                    <?php _e('Enable element templates', 'layotter'); ?>
                 </label>
             </p>
             <h3>
@@ -433,10 +469,14 @@ class Layotter_Settings {
      */
     public static function settings_wrapper() {
         // first, get current settings
-        $settings = self::$current_settings['wrapper'];
+        if (isset(self::$current_settings['wrapper'])) {
+            $settings = self::$current_settings['wrapper'];
+        } else {
+            $settings = array();
+        }
         
         ?>
-            <div id="layotter-settings-wrapper" class="layotter-settings-tab-content hidden">
+            <div id="layotter-settings-wrapper" class="layotter-settings-tab-content<?php echo self::$last_edited_tab != '#layotter-settings-wrapper' ? ' hidden' : ''; ?>">
                 <h3>
                     <?php _e('HTML wrapper', 'layotter'); ?>
                 </h3>
@@ -444,7 +484,19 @@ class Layotter_Settings {
                     <?php _e('Enter HTML code to wrap around the whole content.', 'layotter'); ?>
                 </p>
                 <p class="layotter-settings-paragraph layotter-with-icon">
-                    <i class="fa fa-info"></i><?php printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#'); ?>
+                    <?php
+                    if (has_filter('layotter/post')) {
+                        ?>
+                        <i class="fa fa-warning"></i>
+                        <?php
+                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code. See <a href="%s" target="_blank">the documentation</a> for more info.', 'layotter'), '<code>layotter/post</code>', '#');
+                    } else {
+                        ?>
+                        <i class="fa fa-info"></i>
+                        <?php
+                        printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#');
+                    }
+                    ?>
                 </p>
                 <table class="form-table">
                     <tbody>
@@ -485,19 +537,34 @@ class Layotter_Settings {
      */
     public static function settings_rows() {
         // first, get current settings
-        $settings = self::$current_settings['rows'];
+        if (isset(self::$current_settings['rows'])) {
+            $settings = self::$current_settings['rows'];
+        } else {
+            $settings = array();
+        }
         
         ?>
-            <div id="layotter-settings-rows" class="layotter-settings-tab-content hidden">
+            <div id="layotter-settings-rows" class="layotter-settings-tab-content<?php echo self::$last_edited_tab != '#layotter-settings-rows' ? ' hidden' : ''; ?>">
                 <h3>
                     <?php _e('HTML wrapper', 'layotter'); ?>
                 </h3>
                 <p class="layotter-settings-paragraph">
                     <?php _e('Enter HTML code to wrap around each row.', 'layotter'); ?>
                 </p>
-                <p class="layotter-settings-paragraph">
-                    <strong><?php _e('Tip:', 'layotter'); ?></strong>
-                    <?php printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#'); ?>
+                <p class="layotter-settings-paragraph layotter-with-icon">
+                    <?php
+                    if (has_filter('layotter/row')) {
+                        ?>
+                        <i class="fa fa-warning"></i>
+                        <?php
+                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code. See <a href="%s" target="_blank">the documentation</a> for more info.', 'layotter'), '<code>layotter/row</code>', '#');
+                    } else {
+                        ?>
+                        <i class="fa fa-info"></i>
+                        <?php
+                        printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#');
+                    }
+                    ?>
                 </p>
                 <table class="form-table">
                     <tbody>
@@ -579,19 +646,34 @@ class Layotter_Settings {
      */
     public static function settings_cols() {
         // first, get current settings
-        $settings = self::$current_settings['cols'];
+        if (isset(self::$current_settings['cols'])) {
+            $settings = self::$current_settings['cols'];
+        } else {
+            $settings = array();
+        }
         
         ?>
-            <div id="layotter-settings-cols" class="layotter-settings-tab-content hidden">
+            <div id="layotter-settings-cols" class="layotter-settings-tab-content<?php echo self::$last_edited_tab != '#layotter-settings-cols' ? ' hidden' : ''; ?>">
                 <h3>
                     <?php _e('HTML wrapper', 'layotter'); ?>
                 </h3>
                 <p class="layotter-settings-paragraph">
                     <?php printf(__('Enter HTML code to wrap around each column. You can use the variable %s which will be replaced with the corresponding class name entered below.', 'layotter'), '<code>%%CLASS%%</code>'); ?>
                 </p>
-                <p class="layotter-settings-paragraph">
-                    <strong><?php _e('Tip:', 'layotter'); ?></strong>
-                    <?php printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#'); ?>
+                <p class="layotter-settings-paragraph layotter-with-icon">
+                    <?php
+                    if (has_filter('layotter/column')) {
+                        ?>
+                        <i class="fa fa-warning"></i>
+                        <?php
+                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code. See <a href="%s" target="_blank">the documentation</a> for more info.', 'layotter'), '<code>layotter/column</code>', '#');
+                    } else {
+                        ?>
+                        <i class="fa fa-info"></i>
+                        <?php
+                        printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#');
+                    }
+                    ?>
                 </p>
                 <table class="form-table">
                     <tbody>
@@ -657,19 +739,34 @@ class Layotter_Settings {
      */
     public static function settings_elements() {
         // first, get current settings
-        $settings = self::$current_settings['elements'];
+        if (isset(self::$current_settings['elements'])) {
+            $settings = self::$current_settings['elements'];
+        } else {
+            $settings = array();
+        }
         
         ?>
-            <div id="layotter-settings-elements" class="layotter-settings-tab-content hidden">
+            <div id="layotter-settings-elements" class="layotter-settings-tab-content<?php echo self::$last_edited_tab != '#layotter-settings-elements' ? ' hidden' : ''; ?>">
                 <h3>
                     <?php _e('HTML wrapper', 'layotter'); ?>
                 </h3>
                 <p class="layotter-settings-paragraph">
                     <?php _e('Enter HTML code to wrap around each element.', 'layotter'); ?>
                 </p>
-                <p class="layotter-settings-paragraph">
-                    <strong><?php _e('Tip:', 'layotter'); ?></strong>
-                    <?php printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#'); ?>
+                <p class="layotter-settings-paragraph layotter-with-icon">
+                    <?php
+                    if (has_filter('layotter/element')) {
+                        ?>
+                        <i class="fa fa-warning"></i>
+                        <?php
+                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code. See <a href="%s" target="_blank">the documentation</a> for more info.', 'layotter'), '<code>layotter/element</code>', '#');
+                    } else {
+                        ?>
+                        <i class="fa fa-info"></i>
+                        <?php
+                        printf(__('Use <a href="%s" target="_blank">filters</a> for way more flexibility! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#');
+                    }
+                    ?>
                 </p>
                 <table class="form-table">
                     <tbody>
