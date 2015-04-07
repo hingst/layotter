@@ -359,7 +359,7 @@ class Layotter_Settings {
                     ?>
                     <p>
                         <label>
-                            <input type="checkbox" name="layotter_settings[general][enable_for][<?php echo $post_type->name; ?>]" value="1" <?php if(isset($settings['enable_for'][$post_type->name])) { checked($settings['enable_for'][$post_type->name]); } ?>>
+                            <input type="checkbox" name="layotter_settings[basic][enable_for][<?php echo $post_type->name; ?>]" value="1" <?php if(isset($settings['enable_for'][$post_type->name])) { checked($settings['enable_for'][$post_type->name]); } ?>>
                             <?php echo $post_type->label; ?>
                         </label>
                     </p>
