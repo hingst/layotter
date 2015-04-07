@@ -159,7 +159,7 @@ class Layotter_Templates {
             $id = $id_or_structure;
 
             $templates = get_option('layotter_element_templates');
-            if (is_array($templates) AND isset($templates[$id]) AND is_array($templates[$id])) {
+            if (is_array($templates) AND isset($templates[$id])) {
                 $template = self::validate_structure($templates[$id]);
                 $element = Layotter::create_element($template['type'], $template['values'], $options);
             }
@@ -169,7 +169,7 @@ class Layotter_Templates {
             return false;
         }
 
-        if (!$template['deleted']) {
+        if (!isset($template['deleted']) OR !$template['deleted']) {
             $element->set_template_id($id);
         }
         return $element;

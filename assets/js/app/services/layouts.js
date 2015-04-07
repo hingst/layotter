@@ -1,4 +1,4 @@
-app.service('layouts', function($rootScope, $http, $animate, $timeout, data, forms, modals, state){
+app.service('layouts', function($rootScope, $http, $animate, $timeout, data, forms, modals, state, history){
     
 
     var _this = this;
@@ -16,7 +16,7 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
             initialValue: angular.element('#title').val(),
             okText: layotterData.i18n.save_layout,
             okAction: function(value) {
-                angular.element('.layotter-save-layout-button').parent().addClass('layotter-loading');
+                angular.element('.layotter-save-layout-button-wrapper').addClass('layotter-loading');
                 $http({
                     url: ajaxurl + '?action=layotter_save_new_layout',
                     method: 'POST',
@@ -26,7 +26,7 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                     }
                 }).success(function(reply) {
                     _this.savedLayouts.push(reply);
-                    angular.element('.layotter-save-layout-button').parent().removeClass('layotter-loading');
+                    angular.element('.layotter-save-layout-button-wrapper').removeClass('layotter-loading');
                 });
             },
             cancelText: layotterData.i18n.cancel
@@ -42,30 +42,40 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
     this.selectSavedLayout = function(layout) {
         var id = layout.layout_id;
 
-        modals.confirm({
-            message: layotterData.i18n.load_layout_confirmation,
-            okText: layotterData.i18n.load_layout,
-            okAction: function(){
-                state.reset();
-                angular.element('#layotter').addClass('layotter-loading');
+        if (data.contentStructure.rows.length === 0) {
+            _this.loadSelectedLayout(id);
+        } else {
+            modals.confirm({
+                message: layotterData.i18n.load_layout_confirmation,
+                okText: layotterData.i18n.load_layout,
+                okAction: function(){
+                    _this.loadSelectedLayout(id);
+                },
+                cancelText: layotterData.i18n.cancel
+            });
+        }
+    };
 
-                $http({
-                    url: ajaxurl + '?action=layotter_load_layout',
-                    method: 'POST',
-                    data: {
-                        layout_id: id
-                    }
-                }).success(function(reply) {
-                    $animate.enabled(false);
-                    data.contentStructure.options = reply.options;
-                    data.contentStructure.rows = reply.rows;
-                    $timeout(function(){
-                        $animate.enabled(true);
-                    }, 1);
-                    angular.element('#layotter').removeClass('layotter-loading');
-                });
-            },
-            cancelText: layotterData.i18n.cancel
+
+    this.loadSelectedLayout = function(id) {
+        state.reset();
+        angular.element('#layotter').addClass('layotter-loading');
+
+        $http({
+            url: ajaxurl + '?action=layotter_load_layout',
+            method: 'POST',
+            data: {
+                layout_id: id
+            }
+        }).success(function(reply) {
+            $animate.enabled(false);
+            data.contentStructure.options = reply.options;
+            data.contentStructure.rows = reply.rows;
+            $timeout(function(){
+                $animate.enabled(true);
+            }, 1);
+            angular.element('#layotter').removeClass('layotter-loading');
+            history.pushStep(layotterData.i18n.history.load_post_layout);
         });
     };
 

@@ -49,7 +49,8 @@ function layotter_assets_admin_enqueue_scripts() {
         'layotter-service-layouts' => 'assets/js/app/services/layouts.js',
         'layotter-service-view' => 'assets/js/app/services/view.js',
         'layotter-service-forms' => 'assets/js/app/services/forms.js',
-        'layotter-service-modals' => 'assets/js/app/services/modals.js'
+        'layotter-service-modals' => 'assets/js/app/services/modals.js',
+        'layotter-service-history' => 'assets/js/app/services/history.js'
     );
     foreach ($scripts as $name => $path) {
         wp_enqueue_script(
@@ -79,7 +80,13 @@ function layotter_assets_admin_enqueue_scripts() {
     // fetch post layouts and element templates
     $saved_layouts = Layotter_Layouts::get_all();
     $saved_templates = Layotter_Templates::get_all();
-    
+
+
+    // fetch general settings
+    $general_settings = Layotter_Settings::get_settings('general');
+    $enable_post_layouts = (isset($general_settings['enable_post_layouts']) AND $general_settings['enable_post_layouts'] === '1');
+    $enable_element_templates = (isset($general_settings['enable_element_templates']) AND $general_settings['enable_element_templates'] === '1');
+
     
     // inject data for use with Javascript
     wp_localize_script(
@@ -92,6 +99,8 @@ function layotter_assets_admin_enqueue_scripts() {
             'defaultRowLayout' => $default_row_layout,
             'savedLayouts' => $saved_layouts,
             'savedTemplates' => $saved_templates,
+            'enablePostLayouts' => $enable_post_layouts,
+            'enableElementTemplates' => $enable_element_templates,
             'options' => array(
                 'post' => array(
                     'enabled' => $default_post_options->is_enabled(),
@@ -117,17 +126,38 @@ function layotter_assets_admin_enqueue_scripts() {
                 'cancel' => __('Cancel', 'layotter'),
                 'discard_changes' => __('Discard changes', 'layotter'),
                 'discard_changes_confirmation' => __('Do you want to cancel and discard all changes?', 'layotter'),
-                'delete_row_confirmation' => __('Do you want to delete this row and all its elements? This action can not be undone.', 'layotter'),
-                'delete_element_confirmation' => __('Do you want to delete this element? This action can not be undone.', 'layotter'),
-                'delete_template_confirmation' => __('Do you want to delete this template? This action can not be undone.', 'layotter'),
+                'delete_row_confirmation' => __('Do you want to delete this row and all its elements?', 'layotter'),
+                'delete_element_confirmation' => __('Do you want to delete this element?', 'layotter'),
+                'delete_template_confirmation' => __('Do you want to delete this template? You can not undo this action.', 'layotter'),
                 'save_new_layout_confirmation' => __('Please enter a name for your layout:', 'layotter'),
                 'save_layout' => __('Save layout', 'layotter'),
                 'rename_layout_confirmation' => __('Please enter the new name for this layout:', 'layotter'),
                 'rename_layout' => __('Rename layout', 'layotter'),
-                'delete_layout_confirmation' => __('Do want to delete this layout? This action can not be undone.', 'layotter'),
+                'delete_layout_confirmation' => __('Do want to delete this layout? You can not undo this action.', 'layotter'),
                 'delete_layout' => __('Delete layout', 'layotter'),
-                'load_layout_confirmation' => __('Do want to load this layout and overwrite the existing content? This action can not be undone.', 'layotter'),
+                'load_layout_confirmation' => __('Do want to load this layout and overwrite the existing content?', 'layotter'),
                 'load_layout' => __('Load layout', 'layotter'),
+                'history' => array(
+                    'undo' => __('Undo:', 'layotter'),
+                    'redo' => __('Redo:', 'layotter'),
+                    'add_element' => __('Add element', 'layotter'),
+                    'edit_element' => __('Edit element', 'layotter'),
+                    'duplicate_element' => __('Duplicate element', 'layotter'),
+                    'delete_element' => __('Delete element', 'layotter'),
+                    'move_element' => __('Move element', 'layotter'),
+                    'save_element_as_template' => __('Save element as template', 'layotter'),
+                    'create_element_from_template' => __('Create element from template', 'layotter'),
+                    'add_row' => 'Add row', __('layotter'),
+                    'change_row_layout' => __('Change row layout', 'layotter'),
+                    'duplicate_row' => __('Duplicate row', 'layotter'),
+                    'delete_row' => __('Delete row', 'layotter'),
+                    'move_row' => __('Move row', 'layotter'),
+                    'edit_post_options' => __('Edit post options', 'layotter'),
+                    'edit_row_options' => __('Edit row options', 'layotter'),
+                    'edit_column_options' => __('Edit column options', 'layotter'),
+                    'edit_element_options' => __('Edit element options', 'layotter'),
+                    'load_post_layout' => __('Load layout', 'layotter')
+                )
             )
         )
     );

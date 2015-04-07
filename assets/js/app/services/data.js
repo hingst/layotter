@@ -1,6 +1,9 @@
+/**
+ * Keeps content structure and blank templates for rows, columns and elements
+ *
+ * TODO: What about settings data? If there's a central data service it should probably keep track of that as well
+ */
 app.service('data', function(){
-    
-
     // use default post options for new posts
     if (layotterData.contentStructure === null) {
         this.contentStructure = {
@@ -47,5 +50,4 @@ app.service('data', function(){
         cols: defaultCols,
         options: layotterData.options.row.defaults
     };
-    
 });
