@@ -21,9 +21,25 @@ abstract class Layotter_Element extends Layotter_Editable {
 
 
     /**
-     * attributes() is required and should assign $this->title, $this->description, $this->icon and $this->field_group
+     * Should assign $this->title, $this->description, $this->icon and $this->field_group
      */
     abstract protected function attributes();
+
+
+    /**
+     * Should output HTMl for the element's backend representation
+     *
+     * @param array $fields Field values
+     */
+    abstract protected function backend_view($fields);
+
+
+    /**
+     * Should output HTMl for the element's frontend representation
+     *
+     * @param array $fields Field values
+     */
+    abstract protected function frontend_view($fields);
 
 
     /**
@@ -240,49 +256,6 @@ abstract class Layotter_Element extends Layotter_Editable {
                 'options' => $this->options->to_array(),
                 'view' => $this->get_backend_view()
             );
-        }
-    }
-    
-    
-    /**
-     * Output a basic backend view
-     * 
-     * Should be overwritten by custom element types.
-     * 
-     * @param array $fields Field values
-     */
-    protected function backend_view($fields) {
-        $this->default_view($fields);
-    }
-    
-    
-    /**
-     * Output a basic frontend view
-     * 
-     * Should be overwritten by custom element types.
-     * 
-     * @param array $fields Field values
-     */
-    protected function frontend_view($fields) {
-        $this->default_view($fields);
-    }
-    
-    
-    /**
-     * Output a basic default view
-     * 
-     * Used only if a custom element type doesn't provide its own backend or
-     * frontend view.
-     * 
-     * @param array $fields Field values
-     */
-    final protected function default_view($fields) {
-        echo '<p><strong>' . $this->title . '</strong></p>';
-
-        foreach ($fields as $field_name => $field_value) {
-            echo $field_name . ': ';
-            print_r($field_value);
-            echo '<br>';
         }
     }
 
