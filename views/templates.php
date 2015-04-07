@@ -4,7 +4,7 @@
         <h3><?php _e('Element templates', 'layotter'); ?></h3>
     </div>
     <div class="layotter-elements" ui-sortable="templateSortableOptions" ng-model="savedTemplates">
-        <div class="layotter-element layotter-animate" ng-repeat="element in savedTemplates" ng-mouseenter="highlightTemplate(element)" ng-mouseleave="lowlightTemplate(element)" ng-class="{ 'layotter-loading' : element.isLoading }" ng-init="watchTemplate(element)">
+        <div class="layotter-element layotter-animate" ng-repeat="element in savedTemplates" ng-mouseenter="highlightTemplate(element)" ng-mouseleave="unhighlightTemplate(element)" ng-class="{ 'layotter-loading' : element.isLoading }" ng-init="watchTemplate(element)">
             <div class="layotter-element-canvas">
                 <div class="layotter-element-buttons">
                     <span class="layotter-element-button" ng-click="deleteTemplate($index)" title="<?php _e('Delete template', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>

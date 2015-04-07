@@ -1,4 +1,4 @@
-app.service('content', function($rootScope, $http, $animate, $timeout, data, forms, modals, state, templates){
+app.service('content', function($rootScope, $http, $animate, $timeout, data, forms, modals, state, templates, history){
 
 
     var _this = this;
@@ -77,7 +77,9 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         }
         
         // add element to model if creating a new element
+        var isNewElement = false;
         if (state.getParent() !== null) {
+            isNewElement = true;
             state.getParent().splice(state.getIndex()+1, 0, state.getElement());
         }
         
@@ -97,6 +99,11 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
             editingElement.values = reply.values;
             editingElement.view = reply.view;
             editingElement.isLoading = undefined;
+            if (isNewElement) {
+                history.pushStep(layotterData.i18n.history.add_element);
+            } else {
+                history.pushStep(layotterData.i18n.history.edit_element);
+            }
         });
     };
     
@@ -143,6 +150,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         }).success(function(reply) {
             editingElement.options = reply;
             editingElement.isLoading = undefined;
+            history.pushStep(layotterData.i18n.history['edit_' + optionsType + '_options']);
         });
     };
     
@@ -156,6 +164,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
             okText: layotterData.i18n.delete_element,
             okAction: function(){
                 parent.splice(index, 1);
+                history.pushStep(layotterData.i18n.history.delete_element);
             },
             cancelText: layotterData.i18n.cancel
         });
@@ -176,6 +185,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         
         if (!hasElements) {
             data.contentStructure.rows.splice(index, 1);
+            history.pushStep(layotterData.i18n.history.delete_row);
             return;
         }
         
@@ -184,6 +194,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
             okText: layotterData.i18n.delete_row,
             okAction: function(){
                 data.contentStructure.rows.splice(index, 1);
+                history.pushStep(layotterData.i18n.history.delete_row);
             },
             cancelText: layotterData.i18n.cancel
         });
@@ -195,6 +206,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
      */
     this.addRow = function(index) {
         data.contentStructure.rows.splice(index+1, 0, angular.copy(data.templates.row));
+        history.pushStep(layotterData.i18n.history.add_row);
     };
     
     
@@ -203,6 +215,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
      */
     this.duplicateRow = function(index) {
         data.contentStructure.rows.splice(index, 0, angular.copy(data.contentStructure.rows[index]));
+        history.pushStep(layotterData.i18n.history.duplicate_row);
     };
     
     
@@ -211,6 +224,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
      */
     this.duplicateElement = function(parent, index) {
         parent.splice(index, 0, angular.copy(parent[index]));
+        history.pushStep(layotterData.i18n.history.duplicate_element);
     };
     
     
@@ -247,6 +261,8 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
                 $animate.enabled(true);
             }, 1);
         }
+
+        history.pushStep(layotterData.i18n.history.change_row_layout);
     };
     
     

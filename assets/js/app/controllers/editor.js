@@ -1,8 +1,16 @@
-app.controller('EditorCtrl', function($scope, $animate, data, content, templates, layouts) {
-
-    // add common data properties and methods to the current scope
-    angular.extend($scope, content, templates, layouts);
+/**
+ * Controller for the main editor
+ */
+app.controller('EditorCtrl', function($scope, $animate, data, content, templates, layouts, history) {
+    angular.extend($scope, content, templates, layouts, history);
     $scope.data = data.contentStructure;
+
+
+    $scope.$watch(function() {
+        return history.data;
+    }, function(value) {
+        $scope.history = value;
+    });
 
 
     // data received from php
@@ -42,7 +50,7 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
             .replace(/>/g, '&gt;');
 
         // enter JSON data wrapped in layotter shortcode into textarea
-        angular.element('#content').html('[layotter]' + cleanValue + '[/layotter]');
+        jQuery('#content').html('[layotter]' + cleanValue + '[/layotter]');
     }, true);
 
 
@@ -52,7 +60,10 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
         placeholder: 'layotter-placeholder',
         forcePlaceholderSize: true,
         revert: 300,
-        handle: '.layotter-row-move'
+        handle: '.layotter-row-move',
+        stop: function(){
+            history.pushStep(layotterData.i18n.history.move_row);
+        }
     };
     $scope.elementSortableOptions = {
         items: '.layotter-element',
@@ -62,11 +73,12 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
         revert: 300,
         connectWith: '#layotter .layotter-elements',
         // prevent slide-in animation after moving an element
-        start: function(event, ui){
+        start: function(){
             $animate.enabled(false);
         },
-        stop: function(event, ui){
+        stop: function(){
             $animate.enabled(true);
+            history.pushStep(layotterData.i18n.history.move_element);
         }
     };
 });

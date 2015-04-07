@@ -1,7 +1,7 @@
+/**
+ * Keep track of what's currently being edited
+ */
 app.service('state', function(forms){
-    
-    
-    // keep state of what's currently being edited
     var _this = this;
     this.showBackButton = false;
     var editing = {

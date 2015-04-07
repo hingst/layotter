@@ -1,4 +1,4 @@
-app.service('layouts', function($rootScope, $http, $animate, $timeout, data, forms, modals, state){
+app.service('layouts', function($rootScope, $http, $animate, $timeout, data, forms, modals, state, history){
     
 
     var _this = this;
@@ -75,6 +75,7 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                 $animate.enabled(true);
             }, 1);
             angular.element('#layotter').removeClass('layotter-loading');
+            history.pushStep(layotterData.i18n.history.load_post_layout);
         });
     };
 

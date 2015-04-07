@@ -1,4 +1,4 @@
-app.service('templates', function($rootScope, $http, $animate, $timeout, view, forms, modals, state, data){
+app.service('templates', function($rootScope, $http, $animate, $timeout, view, forms, modals, state, data, history){
     
 
     var _this = this;
@@ -7,7 +7,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
     // data received from php
     this.savedTemplates = layotterData.savedTemplates;
 
-    
+
     /**
      * Show edit form for an $element template
      */
@@ -35,7 +35,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
                         template_id: _this.savedTemplates[index].template_id
                     }
                 }).success(function(reply) {
-                    console.log(reply);
+                    history.deletedTemplates.push(_this.savedTemplates[index].template_id);
                     _this.savedTemplates[index].type = reply.type;
                     _this.savedTemplates[index].values = reply.values;
                     _this.savedTemplates[index].view = reply.view;
@@ -54,6 +54,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
      * 
      */
     this.saveNewTemplate = function(element) {
+        delete element.template_deleted;
         element.isLoading = true;
         view.showTemplates();
         $http({
@@ -74,6 +75,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
             element.type = undefined;
             element.values = undefined;
             _this.watchTemplate(element);
+            history.pushStep(layotterData.i18n.history.save_element_as_template);
         });
     };
     
@@ -108,7 +110,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
     };
 
 
-    this.lowlightTemplate = function (element) {
+    this.unhighlightTemplate = function (element) {
         element.isHighlighted = undefined;
     };
 

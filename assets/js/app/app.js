@@ -4,7 +4,7 @@ var app = angular.module('layotter', ['ngAnimate', 'ngSanitize', 'ui.sortable'])
 /**
  * Bootstrap the application
  */
-angular.element(document).ready(function() {
+jQuery(document).ready(function() {
     angular.bootstrap(document, ['layotter']);
 });
 
@@ -14,19 +14,19 @@ angular.element(document).ready(function() {
  */
 app.run(function() {
     // show layotter, hide loading spinner
-    angular.element('#layotter').show();
-    angular.element('#layotter-loading').hide();
+    jQuery('#layotter').show();
+    jQuery('#layotter-loading').hide();
 
     // make the scrollable saved elements list fill the viewport height
     var adjustTemplatesContainerHeight = function() {
-        var templatesContainer = angular.element('#layotter-templates .layotter-elements');
-        var height = angular.element('#layotter-templates').height() - templatesContainer.position().top - 10;
-        templatesContainer.height(height);
+        var $templatesContainer = jQuery('#layotter-templates .layotter-elements');
+        var height = jQuery('#layotter-templates').height() - $templatesContainer.position().top - 10;
+        $templatesContainer.height(height);
     };
 
     // adjust saved elements height on page load and browser resize
     adjustTemplatesContainerHeight();
-    angular.element(window).on('resize', function() {
+    jQuery(window).on('resize', function() {
         adjustTemplatesContainerHeight();
     });
 });

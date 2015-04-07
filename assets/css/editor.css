@@ -123,34 +123,48 @@
   cursor: pointer;
   border: 1px solid #CCCCCC;
   opacity: 0.7;
-  padding: 0 14px;
-  height: 36px;
-  line-height: 36px; }
+  padding: 0 12px;
+  height: 30px;
+  line-height: 30px; }
   .layotter-button:hover {
     opacity: 1; }
+  .layotter-button.layotter-disabled {
+    cursor: default;
+    opacity: 0.3; }
   .layotter-button i.fa {
     margin-right: 10px;
     font-size: 16px; }
 
 /****************************************************/
 /* top row of buttons */
-#layotter-top-buttons {
+.layotter-top-buttons {
   overflow: hidden; }
-  #layotter-top-buttons .layotter-button {
+  .layotter-top-buttons .layotter-button {
     display: block;
     float: left;
     margin-top: 10px;
     margin-bottom: 6px; }
-  #layotter-top-buttons #layotter-top-buttons-left {
+    .layotter-top-buttons .layotter-button.layotter-undo, .layotter-top-buttons .layotter-button.layotter-redo {
+      position: relative;
+      z-index: 2; }
+      .layotter-top-buttons .layotter-button.layotter-undo i.fa, .layotter-top-buttons .layotter-button.layotter-redo i.fa {
+        margin-right: 0; }
+      .layotter-top-buttons .layotter-button.layotter-undo.layotter-disabled, .layotter-top-buttons .layotter-button.layotter-redo.layotter-disabled {
+        z-index: 1; }
+    .layotter-top-buttons .layotter-button.layotter-undo {
+      margin-right: 0 !important; }
+    .layotter-top-buttons .layotter-button.layotter-redo {
+      margin-left: -1px; }
+  .layotter-top-buttons .layotter-top-buttons-left {
     float: left; }
-    #layotter-top-buttons #layotter-top-buttons-left .layotter-button {
+    .layotter-top-buttons .layotter-top-buttons-left .layotter-button {
       margin-right: 10px; }
-    #layotter-top-buttons #layotter-top-buttons-left .layotter-save-layout-button-wrapper {
+    .layotter-top-buttons .layotter-top-buttons-left .layotter-save-layout-button-wrapper {
       display: block;
       float: left;
       margin-right: 10px;
       position: relative; }
-      #layotter-top-buttons #layotter-top-buttons-left .layotter-save-layout-button-wrapper.layotter-loading:after {
+      .layotter-top-buttons .layotter-top-buttons-left .layotter-save-layout-button-wrapper.layotter-loading:after {
         display: block;
         content: '';
         position: absolute;
@@ -161,12 +175,27 @@
         z-index: 9999;
         background: rgba(255, 255, 255, 0.9) url(../images/loading.gif) center no-repeat;
         background-image: url(../images/loading-small.gif); }
-      #layotter-top-buttons #layotter-top-buttons-left .layotter-save-layout-button-wrapper .layotter-button {
+      .layotter-top-buttons .layotter-top-buttons-left .layotter-save-layout-button-wrapper .layotter-button {
         margin-right: 0; }
-  #layotter-top-buttons #layotter-top-buttons-right {
+  .layotter-top-buttons .layotter-top-buttons-right {
     float: right; }
-    #layotter-top-buttons #layotter-top-buttons-right .layotter-button {
+    .layotter-top-buttons .layotter-top-buttons-right .layotter-button {
       margin-left: 10px; }
+
+#layotter-top-buttons-2 {
+  position: fixed;
+  top: 32px;
+  background: #fff;
+  z-index: 9999;
+  right: 0;
+  padding: 0 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  margin-top: -60px;
+  transition: margin-top 0.3s; }
+  #layotter-top-buttons-2 .layotter-button {
+    margin-bottom: 10px; }
+  #layotter-top-buttons-2.layotter-visible {
+    margin-top: 0; }
 
 /****************************************************/
 /* add row buttons */
@@ -544,9 +573,10 @@
   width: 300px;
   border-left: 1px solid #CCCCCC;
   background: #fafafa;
-  box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
   margin-right: -320px;
-  transition: margin-right 0.5s; }
+  transition: margin-right 0.5s;
+  z-index: 10000; }
   #layotter-templates.layotter-visible {
     margin-right: 0; }
   #layotter-templates .layotter-templates-close {
