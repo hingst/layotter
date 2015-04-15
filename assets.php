@@ -147,7 +147,7 @@ function layotter_assets_admin_enqueue_scripts() {
                     'move_element' => __('Move element', 'layotter'),
                     'save_element_as_template' => __('Save element as template', 'layotter'),
                     'create_element_from_template' => __('Create element from template', 'layotter'),
-                    'add_row' => 'Add row', __('layotter'),
+                    'add_row' => __('Add row', 'layotter'),
                     'change_row_layout' => __('Change row layout', 'layotter'),
                     'duplicate_row' => __('Duplicate row', 'layotter'),
                     'delete_row' => __('Delete row', 'layotter'),
