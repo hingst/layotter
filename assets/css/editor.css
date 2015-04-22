@@ -461,7 +461,8 @@
         bottom: 0;
         left: 0;
         z-index: 9;
-        background: rgba(255, 255, 255, 0.9) url(../images/loading.gif) center no-repeat; }
+        background: rgba(255, 255, 255, 0.9) url(../images/loading.gif) center no-repeat;
+        z-index: 2; }
     .layotter-elements .layotter-element.layotter-highlight .layotter-element-canvas {
       box-shadow: 0 0 6px rgba(0, 0, 0, 0.4); }
     .layotter-elements .layotter-element .layotter-element-canvas {

@@ -661,6 +661,7 @@ $darkgray: #CCCCCC;
 
             &:after {
                 @include loading();
+                z-index: 2;
             }
         }
 
