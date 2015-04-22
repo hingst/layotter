@@ -38,7 +38,7 @@ $darkgray: #CCCCCC;
 
 @mixin loading($opacity: 0.9) {
     @include pseudo(true);
-    z-index: 9999;
+    z-index: 9; // arbitrary
     background: rgba(255,255,255,$opacity) url(../images/loading.gif) center no-repeat;
 }
 
@@ -219,14 +219,9 @@ $darkgray: #CCCCCC;
         &.layotter-undo,
         &.layotter-redo {
             position: relative;
-            z-index: 2;
 
             i.fa {
                 margin-right: 0;
-            }
-
-            &.layotter-disabled {
-                z-index: 1;
             }
         }
 
@@ -274,7 +269,7 @@ $darkgray: #CCCCCC;
     }
 }
 
-#layotter-top-buttons-2 {
+#layotter-top-buttons-2 { // should be postfixed -sticky, but -2 is easier to do with Angular
     position: fixed;
     top: 32px; // admin bar
     background: #fff;
@@ -342,11 +337,11 @@ $darkgray: #CCCCCC;
 .layotter-add-element-button-wrapper {
     text-align: center;
     position: absolute;
-    z-index: 9;
     top: 100%;
     left: 0;
     right: 0;
     margin-top: -5px;
+    z-index: 5; // on top of elements and row buttons
 
     .layotter-add-element-button {
         font-size: $text-m;
@@ -372,10 +367,10 @@ $darkgray: #CCCCCC;
             border: 1px solid $darkgray;
             background: #fff;
             box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-            opacity: 0;
             color: #aaa;
-            display: inline-block;
+            opacity: 0;
             transition: opacity 0.5s;
+            display: none;
 
             &:hover {
                 color: #222;
@@ -388,8 +383,8 @@ $darkgray: #CCCCCC;
     }
 
     &.layotter-always-visible {
-        z-index: 1;
         margin-top: 17px;
+        z-index: 1; // below placeholder
 
         .layotter-add-element-button {
             opacity: 0.4 !important;
@@ -438,12 +433,14 @@ $darkgray: #CCCCCC;
             line-height: 30px;
             opacity: 0;
             transition: opacity 0.5s;
+            display: none;
         }
 
         &:hover {
             .layotter-row-move,
             .layotter-row-buttons {
                 opacity: 1;
+                display: block;
             }
         }
 
@@ -460,7 +457,7 @@ $darkgray: #CCCCCC;
 
         .layotter-row-buttons {
             right: -1px;
-            z-index: 5;
+            z-index: 4; // on top of elements but below "add element" button
 
             i.fa {
                 font-size: $text-fa-m;
@@ -500,15 +497,6 @@ $darkgray: #CCCCCC;
                     border: 1px solid $darkgray;
                     padding: 6px;
                     margin-left: -1px;
-
-                    // larger hover area
-                    &:after {
-                        @include pseudo(true);
-                        right: -30px;
-                        bottom: -30px;
-                        left: -30px;
-                        z-index: -1;
-                    }
 
                     .layotter-row-layout-button {
                         display: block;
@@ -619,6 +607,7 @@ $darkgray: #CCCCCC;
 
         &:hover .layotter-add-element-button {
             opacity: 1;
+            display: inline-block;
         }
 
         &.layotter-col-full {
@@ -691,22 +680,24 @@ $darkgray: #CCCCCC;
                 @include pseudo(true);
                 opacity: 0;
                 cursor: move;
-                z-index: 2;
+                z-index: 1; // below element buttons
             }
 
             &:hover .layotter-element-buttons {
                 opacity: 1;
+                display: block;
             }
 
             .layotter-element-buttons {
                 position: absolute;
                 top: 0;
                 right: 0;
-                opacity: 0;
+                z-index: 2; // on top of invisible drag area
                 border-bottom: 1px solid #ddd;
                 background: #fff;
+                opacity: 0;
                 transition: opacity 0.5s;
-                z-index: 3;
+                display: none;
 
                 .layotter-element-button,
                 .layotter-element-dropdown {
@@ -740,7 +731,6 @@ $darkgray: #CCCCCC;
                         border: 1px solid #ddd;
                         white-space: nowrap;
                         display: none;
-                        z-index: 500000;
 
                         span {
                             display: block;
