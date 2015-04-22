@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="layotter-modal-foot">
-            <button id="layotter-edit-fake-submit" type="submit" class="button button-primary button-large"><?php _e('Save', 'layotter'); ?></button>
+            <button type="submit" class="button button-primary button-large"><?php _e('Save', 'layotter'); ?></button>
             <button type="button" class="button button-large" ng-click="cancelEditing()"><?php _e('Cancel', 'layotter'); ?></button>
             <button type="button" class="button button-large" ng-click="backToShowNewElementTypes()" ng-show="showBackButton"><?php _e('Back', 'layotter'); ?></button>
         </div>

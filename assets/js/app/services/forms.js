@@ -1,7 +1,7 @@
 app.service('forms', function($http, $compile, $rootScope, $timeout){
 
 
-    angular.element(document).on('click', '#layotter-edit-fake-submit', function(){
+    angular.element(document).on('submit', '#layotter-edit', function(){
         // ACF compatibility
         // ACF uses an ignore flag when the normal post form is submitted, so that the
         // submit button triggers validation, not form submission. after validation has
