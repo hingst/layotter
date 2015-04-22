@@ -891,8 +891,19 @@ $darkgray: #CCCCCC;
         bottom: 71px;
         left: 0;
         right: 0;
+    }
+
+    .layotter-modal-loading-container {
+        position: absolute;
+        top: 81px;
+        bottom: 71px;
+        left: 0;
+        right: 0;
+        z-index: -1;
 
         &.layotter-loading {
+            z-index: 1;
+
             &:after {
                 @include loading();
             }

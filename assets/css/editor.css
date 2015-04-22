@@ -622,16 +622,25 @@
     bottom: 71px;
     left: 0;
     right: 0; }
-    .layotter-modal .layotter-modal-body.layotter-loading:after {
-      display: block;
-      content: '';
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: 9;
-      background: rgba(255, 255, 255, 0.9) url(../images/loading.gif) center no-repeat; }
+  .layotter-modal .layotter-modal-loading-container {
+    position: absolute;
+    top: 81px;
+    bottom: 71px;
+    left: 0;
+    right: 0;
+    z-index: -1; }
+    .layotter-modal .layotter-modal-loading-container.layotter-loading {
+      z-index: 1; }
+      .layotter-modal .layotter-modal-loading-container.layotter-loading:after {
+        display: block;
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 9;
+        background: rgba(255, 255, 255, 0.9) url(../images/loading.gif) center no-repeat; }
   .layotter-modal .layotter-modal-foot {
     height: 30px;
     padding: 20px;

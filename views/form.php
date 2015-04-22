@@ -19,6 +19,8 @@
                 </div>
             </div>
         </div>
+        <div class="layotter-modal-loading-container">
+        </div>
         <div class="layotter-modal-foot">
             <button type="submit" class="button button-primary button-large"><?php _e('Save', 'layotter'); ?></button>
             <button type="button" class="button button-large" ng-click="cancelEditing()"><?php _e('Cancel', 'layotter'); ?></button>
