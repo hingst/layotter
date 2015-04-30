@@ -237,7 +237,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
     
     
     /**
-     * Change row layout for $row to new $layout (e.g. 'half fourth fourth')
+     * Change row layout for $row to new $layout (e.g. '1/2 1/4 1/4')
      */
     this.setRowLayout = function(row, layout) {
         var oldColCount = row.layout.split(' ').length;

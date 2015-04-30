@@ -57,8 +57,7 @@ jQuery(function($){
         var layout = $('#layotter-default-row-layout').val();
         $('#layotter-row-layouts .layotter-default-row-layout-message').hide();
         $('#layotter-row-layouts input[data-layout="' + layout + '"]')
-            .siblings('.layotter-row-layout-option')
-            .children('.layotter-default-row-layout-message')
+            .siblings('.layotter-default-row-layout-message')
             .show();
     };
     

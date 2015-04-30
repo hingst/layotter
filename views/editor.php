@@ -34,12 +34,14 @@
                     <div class="layotter-row-select-layout" ng-if="allowedRowLayouts.length > 1">
                         <i class="fa fa-columns"></i>
                         <div class="layotter-row-select-layout-items">
-                            <span class="layotter-row-layout-button" ng-repeat="colbutton in allowedRowLayouts" ng-class="{ 'layotter-row-layout-button-active': colbutton.layout === row.layout }" ng-click="setRowLayout(row, colbutton.layout)" data-layout="{{ colbutton.layout }}" title="">{{ colbutton.title }}</span>
+                            <span class="layotter-row-layout-button" ng-repeat="colbutton in allowedRowLayouts" ng-class="{ 'layotter-row-layout-button-active': colbutton === row.layout }" ng-click="setRowLayout(row, colbutton)">
+                                <span ng-repeat="width in colbutton.split(' ') track by $index" data-width="{{ width }}"></span>
+                            </span>
                         </div>
                     </div>
                 </div>
                 <div class="layotter-cols">
-                    <div class="layotter-col {{ 'layotter-col-' + getColLayout(row, $index) }}" ng-repeat="col in row.cols">
+                    <div class="layotter-col" ng-repeat="col in row.cols" data-width="{{ getColLayout(row, $index) }}">
                         <div class="layotter-add-element-button-wrapper" ng-class="{ 'layotter-always-visible': col.elements.length === 0 }">
                             <span class="layotter-add-element-button" ng-click="showNewElementTypes(col.elements, -1)" title="<?php _e('Add element', 'layotter'); ?>"><i class="fa fa-plus"></i><span><?php _e('Add element', 'layotter'); ?></span></span>
                         </div>

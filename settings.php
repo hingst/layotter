@@ -13,8 +13,7 @@ class Layotter_Settings {
         $last_edited_tab,
         $current_settings,
         $default_settings,
-        $col_class_translations,
-        $row_layout_translations;
+        $col_class_translations;
     
     
     public static function init() {
@@ -62,34 +61,32 @@ class Layotter_Settings {
                 'html_before' => '<div class="row">',
                 'html_after' => '</div>',
                 'allow' => array(
-                    'full' => '1',
-                    'half half' => '1',
-                    'third third third' => '1',
-                    'fourth fourth fourth fourth' => '1',
-                    'sixth sixth sixth sixth sixth sixth' => '0',
-                    'twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth' => '0',
-                    'twothirds third' => '1',
-                    'third twothirds' => '1',
-                    'threefourths fourth' => '0',
-                    'fourth threefourths' => '0',
-                    'half fourth fourth' => '0',
-                    'fourth fourth half' => '0',
-                    'fourth half fourth' => '0'
+                    '1/1' => '1',
+                    '1/2 1/2' => '1',
+                    '1/3 1/3 1/3' => '1',
+                    '1/3 2/3' => '1',
+                    '2/3 1/3' => '1',
+                    '1/4 1/4 1/4 1/4' => '0',
+                    '3/4 1/4' => '0',
+                    '1/4 3/4' => '0',
                 ),
-                'default_layout' => 'third third third'
+                'default_layout' => '1/3 1/3 1/3'
             ),
             'cols' => array(
                 'html_before' => '<div class="%%CLASS%%">',
                 'html_after' => '</div>',
                 'classes' => array(
-                    'full' => 'col size12of12',
-                    'half' => 'col size6of12',
-                    'third' => 'col size4of12',
-                    'twothirds' => 'col size8of12',
-                    'fourth' => 'col size3of12',
-                    'threefourths' => 'col size9of12',
-                    'sixth' => 'col size2of12',
-                    'twelfth' => 'col size1of12'
+                    '1/1' => 'col size12of12',
+                    '1/2' => 'col size6of12',
+                    '1/3' => 'col size4of12',
+                    '2/3' => 'col size8of12',
+                    '1/4' => 'col size3of12',
+                    '3/4' => 'col size9of12',
+                    '1/6' => 'col size2of12',
+                    '1/12' => 'col size1of12',
+                    '5/12' => 'col size5of12',
+                    '7/12' => 'col size7of12',
+                    '11/12' => 'col size11of12',
                 ),
             ),
             'elements' => array(
@@ -102,30 +99,17 @@ class Layotter_Settings {
 
     public static function translate_labels() {
         self::$col_class_translations = array(
-            'full' => __('Full width', 'layotter'),
-            'half' => __('A half', 'layotter'),
-            'third' => __('A third', 'layotter'),
-            'twothirds' => __('Two thirds', 'layotter'),
-            'fourth' => __('A fourth', 'layotter'),
-            'threefourths' => __('Three fourths', 'layotter'),
-            'sixth' => __('A sixth', 'layotter'),
-            'twelfth' => __('A twelfth', 'layotter')
-        );
-
-        self::$row_layout_translations = array(
-            'full' => __('Single column', 'layotter'),
-            'half half' => __('Two halves', 'layotter'),
-            'third third third' => __('Thirds', 'layotter'),
-            'fourth fourth fourth fourth' => __('Fourths', 'layotter'),
-            'sixth sixth sixth sixth sixth sixth' => __('Sixths', 'layotter'),
-            'twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth twelfth' => __('Twelfths', 'layotter'),
-            'twothirds third' => __('Two thirds & one third', 'layotter'),
-            'third twothirds' => __('One third & two thirds', 'layotter'),
-            'threefourths fourth' => __('Three fourths & a fourth', 'layotter'),
-            'fourth threefourths' => __('A fourth & three fourths', 'layotter'),
-            'half fourth fourth' => __('A half & two fourths', 'layotter'),
-            'fourth fourth half' => __('Two fourths & a half', 'layotter'),
-            'fourth half fourth' => __('A fourth & a half & a fourth', 'layotter')
+            '1/1' => __('Full width', 'layotter'),
+            '1/2' => __('A half', 'layotter'),
+            '1/3' => __('A third', 'layotter'),
+            '2/3' => __('Two thirds', 'layotter'),
+            '1/4' => __('A fourth', 'layotter'),
+            '3/4' => __('Three fourths', 'layotter'),
+            '1/6' => __('A sixth', 'layotter'),
+            '1/12' => __('A twelfth', 'layotter'),
+            '5/12' => __('Five twelfths', 'layotter'),
+            '7/12' => __('Seven twelfths', 'layotter'),
+            '11/12' => __('Eleven twelfths', 'layotter')
         );
     }
 
@@ -143,15 +127,16 @@ class Layotter_Settings {
 
 
     public static function get_allowed_row_layouts() {
-        $settings = self::get_settings('rows');
         $allowed_layouts = array();
 
-        foreach ($settings['allow'] as $col_type => $allowed) {
-            if ($allowed == '1') {
-                $allowed_layouts[] = array(
-                    'title' => self::$row_layout_translations[$col_type],
-                    'layout' => $col_type
-                );
+        if (has_filter('layotter/row_layouts')) {
+            $allowed_layouts = apply_filters('layotter/row_layouts', array());
+        } else {
+            $settings = self::get_settings('rows');
+            foreach ($settings['allow'] as $layout => $allowed) {
+                if ($allowed == '1') {
+                    $allowed_layouts[] = $layout;
+                }
             }
         }
 
@@ -598,17 +583,40 @@ class Layotter_Settings {
                 <p class="layotter-settings-paragraph">
                     <?php _e('Choose the row layouts you want to use. Disabling a layout means it will not be available for newly created rows from now on &ndash; existing rows with that layout will stay the way they are until you change them by hand.', 'layotter'); ?>
                 </p>
+                <p class="layotter-settings-paragraph layotter-with-icon">
+                    <?php
+                    if (has_filter('layotter/row_layouts')) {
+                        ?>
+                        <i class="fa fa-warning"></i>
+                        <?php
+                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code. See <a href="%s" target="_blank">the documentation</a> for more info.', 'layotter'), '<code>layotter/row_layouts</code>', '#');
+                    } else {
+                        ?>
+                        <i class="fa fa-info"></i>
+                        <?php
+                        printf(__('Create more complex layouts using <a href="%s" target="_blank">filters</a>! Take a look at <a href="%s" target="_blank">the docs</a> to see what\'s possible.', 'layotter'), '#', '#');
+                    }
+                    ?>
+                </p>
                 <fieldset id="layotter-row-layouts">
                     <?php
                     foreach (self::$default_settings['rows']['allow'] as $layout => $default_value) {
+                        $layout_array = explode(' ', $layout);
 
                         ?>
                         <p>
                             <label>
                                 <input type="checkbox" data-layout="<?php echo $layout; ?>" name="layotter_settings[rows][allow][<?php echo $layout; ?>]" value="1" <?php if(isset($settings['allow'][$layout])) { checked($settings['allow'][$layout]); } ?>>
-                                <span class="layotter-row-layout-option" data-layout="<?php echo $layout; ?>" alt="">
-                                    <?php echo self::$row_layout_translations[$layout]; ?> <span class="layotter-default-row-layout-message description">&ndash; <?php _e('default for new rows', 'layotter'); ?></span>
+                                <span class="layotter-row-layout-option">
+                                    <?php
+
+                                    foreach ($layout_array as $col_width) {
+                                        echo '<span data-width="' . $col_width . '"></span>';
+                                    }
+
+                                    ?>
                                 </span>
+                                <span class="layotter-default-row-layout-message description"><?php _e('default for new rows', 'layotter'); ?></span>
                             </label>
                         </p>
                         <?php
@@ -627,7 +635,7 @@ class Layotter_Settings {
                     foreach (self::$default_settings['rows']['allow'] as $layout => $default_value) {
 
                         ?>
-                        <option value="<?php echo $layout; ?>" <?php selected($settings['default_layout'] == $layout); ?>><?php echo self::$row_layout_translations[$layout]; ?></option>
+                        <option value="<?php echo $layout; ?>" <?php selected($settings['default_layout'] == $layout); ?>><?php echo $layout; ?></option>
                         <?php
 
                     }
