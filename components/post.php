@@ -106,8 +106,8 @@ class Layotter_Post {
         }
 
         // if a custom filter for frontend was hooked, run through that filter and return HTML
-        if (has_filter('layotter/post')) {
-            return apply_filters('layotter/post', $rows_html, $this->options->get_formatted_values());
+        if (has_filter('layotter/view/post')) {
+            return apply_filters('layotter/view/post', $rows_html, $this->options->get_formatted_values());
         } else {
             // otherwise, get HTML wrapper from settings, apply and return HTML
             $settings = Layotter_Settings::get_settings('wrapper');

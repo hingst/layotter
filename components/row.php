@@ -112,8 +112,8 @@ class Layotter_Row {
             $cols_html .= $col->get_frontend_view();
         }
 
-        if (has_filter('layotter/row')) {
-            return apply_filters('layotter/row', $cols_html, $this->options->get_formatted_values());
+        if (has_filter('layotter/view/row')) {
+            return apply_filters('layotter/view/row', $cols_html, $this->options->get_formatted_values());
         } else {
             $settings = Layotter_Settings::get_settings('rows');
             return $settings['html_before'] . $cols_html . $settings['html_after'];

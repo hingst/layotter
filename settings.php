@@ -485,11 +485,11 @@ class Layotter_Settings {
                 </p>
                 <p class="layotter-settings-paragraph layotter-with-icon">
                     <?php
-                    if (has_filter('layotter/post')) {
+                    if (has_filter('layotter/view/post')) {
                         ?>
                         <i class="fa fa-warning"></i>
                         <?php
-                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code. See <a href="%s" target="_blank">the documentation</a> for more info.', 'layotter'), '<code>layotter/post</code>', '#');
+                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code. See <a href="%s" target="_blank">the documentation</a> for more info.', 'layotter'), '<code>layotter/view/post</code>', '#');
                     } else {
                         ?>
                         <i class="fa fa-info"></i>
@@ -553,11 +553,11 @@ class Layotter_Settings {
                 </p>
                 <p class="layotter-settings-paragraph layotter-with-icon">
                     <?php
-                    if (has_filter('layotter/row')) {
+                    if (has_filter('layotter/view/row')) {
                         ?>
                         <i class="fa fa-warning"></i>
                         <?php
-                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code. See <a href="%s" target="_blank">the documentation</a> for more info.', 'layotter'), '<code>layotter/row</code>', '#');
+                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code. See <a href="%s" target="_blank">the documentation</a> for more info.', 'layotter'), '<code>layotter/view/row</code>', '#');
                     } else {
                         ?>
                         <i class="fa fa-info"></i>
@@ -662,11 +662,11 @@ class Layotter_Settings {
                 </p>
                 <p class="layotter-settings-paragraph layotter-with-icon">
                     <?php
-                    if (has_filter('layotter/column')) {
+                    if (has_filter('layotter/view/column')) {
                         ?>
                         <i class="fa fa-warning"></i>
                         <?php
-                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code. See <a href="%s" target="_blank">the documentation</a> for more info.', 'layotter'), '<code>layotter/column</code>', '#');
+                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code. See <a href="%s" target="_blank">the documentation</a> for more info.', 'layotter'), '<code>layotter/view/column</code>', '#');
                     } else {
                         ?>
                         <i class="fa fa-info"></i>
@@ -755,11 +755,11 @@ class Layotter_Settings {
                 </p>
                 <p class="layotter-settings-paragraph layotter-with-icon">
                     <?php
-                    if (has_filter('layotter/element')) {
+                    if (has_filter('layotter/view/element')) {
                         ?>
                         <i class="fa fa-warning"></i>
                         <?php
-                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code. See <a href="%s" target="_blank">the documentation</a> for more info.', 'layotter'), '<code>layotter/element</code>', '#');
+                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code. See <a href="%s" target="_blank">the documentation</a> for more info.', 'layotter'), '<code>layotter/view/element</code>', '#');
                     } else {
                         ?>
                         <i class="fa fa-info"></i>

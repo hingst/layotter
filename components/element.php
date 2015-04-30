@@ -282,8 +282,8 @@ abstract class Layotter_Element extends Layotter_Editable {
         $this->frontend_view($this->formatted_values);
         $element_html = ob_get_clean();
 
-        if (has_filter('layotter/element')) {
-            return apply_filters('layotter/element', $element_html, $this->options->get_formatted_values());
+        if (has_filter('layotter/view/element')) {
+            return apply_filters('layotter/view/element', $element_html, $this->options->get_formatted_values());
         } else {
             $settings = Layotter_Settings::get_settings('elements');
             return $settings['html_before'] . $element_html . $settings['html_after'];
