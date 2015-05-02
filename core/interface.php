@@ -74,17 +74,5 @@ function layotter_output_interface($post) {
         echo '<textarea id="content" name="content" style="width: 1px; height: 1px; position: fixed; top: -999px; left: -999px;">' . $clean_content_for_textarea . '</textarea>';
     }
     
-    require_once dirname(__FILE__) . '/views/editor.php';
-}
-
-
-/**
- * Include saved_elements sidebar template in admin footer
- */
-add_action('admin_footer-post.php', 'layotter_admin_footer_assets');
-add_action('admin_footer-post-new.php', 'layotter_admin_footer_assets');
-function layotter_admin_footer_assets() {
-    if (Layotter::is_enabled()) {
-        require dirname(__FILE__) . '/views/templates.php';
-    }
+    require_once __DIR__ . '/../views/editor.php';
 }

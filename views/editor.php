@@ -1,3 +1,6 @@
+<div id="layotter-loading">
+    <span><?php _e('Layotter loading &hellip;', 'layotter'); ?></span>
+</div>
 <div id="layotter" ng-controller="EditorCtrl" ng-class="{ 'layotter-loading' : data.isLoading }">
     <div class="layotter-top-buttons" ng-repeat="num in [1,2]" ng-attr-id="{{ 'layotter-top-buttons-' + num }}">
         <div class="layotter-top-buttons-left">
@@ -79,18 +82,3 @@
         </div>
     </div>
 </div>
-<div id="layotter-loading">
-    <span><?php _e('Layotter loading &hellip;', 'layotter'); ?></span>
-</div>
-<script type="text/ng-template" id="layotter-add-element">
-    <?php require dirname(__FILE__) . '/add-element.php'; ?>
-</script>
-<script type="text/ng-template" id="layotter-load-layout">
-    <?php require dirname(__FILE__) . '/load-layout.php'; ?>
-</script>
-<script type="text/ng-template" id="layotter-modal-confirm">
-    <?php require dirname(__FILE__) . '/confirm.php'; ?>
-</script>
-<script type="text/ng-template" id="layotter-modal-prompt">
-    <?php require dirname(__FILE__) . '/prompt.php'; ?>
-</script>

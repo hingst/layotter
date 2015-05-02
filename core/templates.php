@@ -3,6 +3,9 @@
 
 /**
  * Manages element templates
+ *
+ * Not to be confused with "views"! In Layotter's terminology, "templates" refers to saved elements (the ones you can
+ * save to the sidebar and reuse on other pages).
  */
 class Layotter_Templates {
 

@@ -16,18 +16,18 @@ function layotter_assets_admin_enqueue_scripts() {
     // styles
     wp_enqueue_style(
         'layotter',
-        plugins_url('assets/css/editor.css', __FILE__)
+        plugins_url('assets/css/editor.css', __DIR__)
     );
     wp_enqueue_style(
         'layotter-font-awesome',
-        plugins_url('assets/css/font-awesome.min.css', __FILE__)
+        plugins_url('assets/css/font-awesome.min.css', __DIR__)
     );
 
 
     // jQuery plugin used to serialize form data
     wp_enqueue_script(
         'layotter-serialize',
-        plugins_url('assets/js/vendor/jquery.serialize-object.compiled.js', __FILE__),
+        plugins_url('assets/js/vendor/jquery.serialize-object.compiled.js', __DIR__),
         array('jquery')
     );
 
@@ -55,7 +55,7 @@ function layotter_assets_admin_enqueue_scripts() {
     foreach ($scripts as $name => $path) {
         wp_enqueue_script(
             $name,
-            plugins_url($path, __FILE__)
+            plugins_url($path, __DIR__)
         );
     }
     

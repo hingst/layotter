@@ -39,7 +39,7 @@ $darkgray: #CCCCCC;
 @mixin loading($opacity: 0.9) {
     @include pseudo(true);
     z-index: 9; // arbitrary
-    background: rgba(255,255,255,$opacity) url(../images/loading.gif) center no-repeat;
+    background: rgba(255,255,255,$opacity) url(../img/loading.gif) center no-repeat;
 }
 
 %border-box {
@@ -150,7 +150,7 @@ $darkgray: #CCCCCC;
     span {
         padding: 20px 24px 20px 72px;
         display: inline-block;
-        background: $lightgray url(../images/loading.gif) 24px center no-repeat;
+        background: $lightgray url(../img/loading.gif) 24px center no-repeat;
         border: 1px solid $darkgray;
         box-shadow: $box-shadow;
     }
@@ -250,7 +250,7 @@ $darkgray: #CCCCCC;
             &.layotter-loading {
                 &:after {
                     @include loading();
-                    background-image: url(../images/loading-small.gif);
+                    background-image: url(../img/loading-small.gif);
                 }
             }
 
@@ -766,7 +766,7 @@ $darkgray: #CCCCCC;
 
             .layotter-element-message {
                 padding: 10px;
-                background: rgba(255,255,0,0.2) url(../images/stripes.png);
+                background: rgba(255,255,0,0.2) url(../img/stripes.png);
             }
 
             .layotter-element-content {
@@ -1201,7 +1201,7 @@ input:checked ~ .layotter-row-layout-option {
         border: 5px solid #000;
 
         &.dennisbox-loading {
-            background: #fff url(../images/loading.gif) center no-repeat;
+            background: #fff url(../img/loading.gif) center no-repeat;
         }
     }
 }
