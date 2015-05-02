@@ -84,29 +84,29 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
         var topOffset = parseInt(angular.element(document).scrollTop() + angular.element(window).height() / 2); // vertical center of current screen
         var height = parseInt(angular.element(window).height() * 0.8); // 80% of viewport height
         var marginTop = animate ? (-height/2) + 10 : -height/2; // add a bit of an offset if animation is enabled
-        
-        box.appendTo('body')
-            .find('.dennisbox-content')
-                .css('height', height)
-                .css('width', 700)
-                .css('margin-top', marginTop)
-                .css('top', topOffset);
+
+        box.appendTo('body');
+        var contentBox = box.children('.dennisbox-content');
+
+        contentBox
+            .css('height', height)
+            .css('width', 700)
+            .css('margin-top', marginTop)
+            .css('top', topOffset);
 
         // fade and slide in if animation is enabled
         if (animate) {
-            box.find('.dennisbox-content')
+            contentBox
                 .css('opacity', 0)
                 .animate({ marginTop: -height/2, opacity: 1 }, 300);
         }
 
         // undefined content means "just show a loading spinner for now"
         if (typeof content === 'undefined') {
-            box.find('.dennisbox-content')
-                .addClass('dennisbox-loading');
+            contentBox.addClass('dennisbox-loading');
             return;
         } else {
-            box.find('.dennisbox-content')
-                .html(content);
+            contentBox.html(content);
         }
 
         // compile lightbox contents
@@ -120,6 +120,42 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
             });
             acf.do_action('append', jQuery('#layotter-edit'));
         }, 1);
+    };
+
+
+    /**
+     * Toggle fullscreen editing
+     */
+    this.toggleFullscreen = function() {
+        var box = jQuery('#dennisbox .dennisbox-content');
+        var isFullscreen = box.outerWidth() !== 700;
+        var top, height, marginTop;
+
+        if (isFullscreen) {
+            top = parseInt(angular.element(document).scrollTop() + angular.element(window).height() / 2); // vertical center of current screen
+            height = parseInt(angular.element(window).height() * 0.8); // 80% of viewport height
+            marginTop = -height/2;
+            box.animate({
+                height: height,
+                width: 700,
+                marginTop: marginTop,
+                top: top
+            }, function() {
+                jQuery('.layotter-modal-head-fullscreen-expand').show();
+                jQuery('.layotter-modal-head-fullscreen-compress').hide();
+            });
+        } else {
+            top = jQuery(document).scrollTop();
+            box.animate({
+                height: '100%',
+                width: '100%',
+                marginTop: 0,
+                top: top
+            }, function() {
+                jQuery('.layotter-modal-head-fullscreen-expand').hide();
+                jQuery('.layotter-modal-head-fullscreen-compress').show();
+            });
+        }
     };
 
 

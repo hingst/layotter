@@ -7,6 +7,10 @@
             <div class="layotter-modal-head-info">
                 <h2>{{ title }}</h2>
             </div>
+            <div class="layotter-modal-head-fullscreen">
+                <span class="layotter-modal-head-fullscreen-expand" ng-click="toggleFullscreen()" title="{{ size_fullscreen }}"><i class="fa fa-expand"></i></span>
+                <span class="layotter-modal-head-fullscreen-compress hidden" ng-click="toggleFullscreen()" title="{{ size_default }}"><i class="fa fa-compress"></i></span>
+            </div>
         </div>
         <div class="layotter-modal-body">
             <div id="acf-form-data" class="acf-postbox">

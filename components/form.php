@@ -81,7 +81,9 @@ class Layotter_Form {
             'fields' => $fields_html,
             'save' => __('Save', 'layotter'),
             'cancel' => __('Cancel', 'layotter'),
-            'back' => __('Back', 'layotter')
+            'back' => __('Back', 'layotter'),
+            'size_fullscreen' => __('Switch to fullscreen editor', 'layotter'),
+            'size_default' => __('Switch to small editor', 'layotter')
         ));
     }
 

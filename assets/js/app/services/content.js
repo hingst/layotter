@@ -3,6 +3,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
 
     var _this = this;
     this.showBackButton = state.showBackButton;
+    this.toggleFullscreen = forms.toggleFullscreen;
     $rootScope.$watch(function(){
         return state.showBackButton;
     }, function(value){

@@ -887,6 +887,25 @@ $darkgray: #CCCCCC;
             margin-left: 42px;
         }
 
+        .layotter-modal-head-fullscreen {
+            position: absolute;
+            top: 33px;
+            right: 20px;
+
+            span {
+                cursor: pointer;
+                opacity: 0.7;
+
+                &:hover {
+                    opacity: 1;
+                }
+
+                i.fa {
+                    font-size: $text-fa-xl;
+                }
+            }
+        }
+
         h2 {
             font-size: 26px;
             line-height: 40px;
@@ -1199,6 +1218,7 @@ input:checked ~ .layotter-row-layout-option {
         margin: 0 auto;
         background: white;
         border: 5px solid #000;
+        box-sizing: border-box;
 
         &.dennisbox-loading {
             background: #fff url(../img/loading.gif) center no-repeat;
