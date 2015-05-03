@@ -26,7 +26,7 @@ jQuery(function($){
     });
     
     
-    var update_default_row_dropdown = function() {
+    function update_default_row_dropdown() {
         $('#layotter-row-layouts input[type="checkbox"]').each(function(){
             var layout = $(this).data('layout');
             var $option = $('#layotter-default-row-layout').children('option[value="' + layout + '"]');
@@ -40,7 +40,7 @@ jQuery(function($){
                 }
             }
         });
-    };
+    }
     
     
     $('#layotter-row-layouts input[type="checkbox"]').change(function(){
@@ -53,13 +53,13 @@ jQuery(function($){
     update_default_row_dropdown();
     
     
-    var display_default_row_option_message = function() {
+    function display_default_row_option_message() {
         var layout = $('#layotter-default-row-layout').val();
         $('#layotter-row-layouts .layotter-default-row-layout-message').hide();
         $('#layotter-row-layouts input[data-layout="' + layout + '"]')
             .siblings('.layotter-default-row-layout-message')
             .show();
-    };
+    }
     
     
     $('#layotter-default-row-layout').change(function(){

@@ -18,13 +18,13 @@ class Layotter_Settings {
     
     public static function init() {
         // do stuff on plugin activation
-        register_activation_hook(__DIR__ . '/index.php', array(__CLASS__, 'set_defaults_on_activation'));
+        register_activation_hook(__DIR__ . '/../index.php', array(__CLASS__, 'set_defaults_on_activation'));
 
 
         // do stuff on plugin deactivation
         // use the following line FOR DEBUGGING ONLY
         // REMOVES ALL SETTINGS on plugin deactivation
-        register_deactivation_hook(__DIR__ . '/index.php', array(__CLASS__, 'remove_all_settings'));
+        register_deactivation_hook(__DIR__ . '/../index.php', array(__CLASS__, 'remove_all_settings'));
 
 
         // translate labels on admin_init - otherwise translations wouldn't be available yet
@@ -201,16 +201,16 @@ class Layotter_Settings {
         
         wp_enqueue_script(
             'layotter-settings',
-            plugins_url('assets/js/settings.js', __FILE__),
+            plugins_url('assets/js/settings.js', __DIR__),
             array('jquery')
         );
         wp_enqueue_style(
             'layotter-settings',
-            plugins_url('assets/css/editor.css', __FILE__)
+            plugins_url('assets/css/editor.css', __DIR__)
         );
         wp_enqueue_style(
             'layotter-font-awesome',
-            plugins_url('assets/css/font-awesome.min.css', __FILE__)
+            plugins_url('assets/css/font-awesome.min.css', __DIR__)
         );
         
         // display notice if settings have been saved
