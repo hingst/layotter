@@ -40,22 +40,3 @@ if (!defined('LAYOTTER_ACF_ERROR')) {
     require_once __DIR__ . '/components/col.php';
     require_once __DIR__ . '/components/element.php';
 }
-
-
-class ly_ex extends Layotter_Element {
-    public function attributes() {
-        $this->title = 'Example element';
-        $this->description = 'Desc.';
-        $this->icon = 'file';
-        $this->field_group = 8;
-    }
-
-    public function frontend_view($fields) {
-        print_r($fields);
-    }
-
-    public function backend_view($fields) {
-        print_r($fields);
-    }
-}
-Layotter::register_element('example', 'ly_ex');
