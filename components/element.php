@@ -44,8 +44,11 @@ abstract class Layotter_Element extends Layotter_Editable {
 
     /**
      * admin_assets() is optional and should be used to enqueue scripts and styles
+     *
+     * Must be static because it is called immediately after the element was registered, long before an instance is
+     * created anywhere.
      */
-    public function admin_assets() {}
+    public static function admin_assets() {}
 
 
     /**
@@ -56,7 +59,6 @@ abstract class Layotter_Element extends Layotter_Editable {
      */
     final public function __construct($structure) {
         $this->attributes();
-        $this->hooks();
 
         $structure = $this->validate_structure($structure);
         $this->type = $structure['type'];
@@ -106,9 +108,9 @@ abstract class Layotter_Element extends Layotter_Editable {
     /**
      * Register all necessary actions and filters
      */
-    final protected function hooks() {
-        if (is_callable(array($this, 'admin_assets'))) {
-            add_action('admin_footer', array($this, 'admin_assets'));
+    final public static function hooks() {
+        if (is_callable(array(get_called_class(), 'admin_assets'))) {
+            add_action('admin_footer', array(get_called_class(), 'admin_assets'));
         }
     }
 

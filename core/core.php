@@ -35,6 +35,10 @@ class Layotter {
         
         // no errors, register the new element type
         self::$registered_elements[$type] = $class;
+
+        // register element type's hooks
+        call_user_func(array($class, 'hooks'));
+
         return true;
     }
 
