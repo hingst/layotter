@@ -6,7 +6,7 @@
  */
 add_action('plugins_loaded', 'layotter_load_i18n');
 function layotter_load_i18n() {
-    load_plugin_textdomain('layotter', false, basename(__DIR__) . '/languages/');
+    load_plugin_textdomain('layotter', false, dirname(__DIR__) . '/languages/');
 }
 
 
