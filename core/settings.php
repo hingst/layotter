@@ -3,7 +3,6 @@
 
 Layotter_Settings::init();
 
-
 /**
  * Creates settings page and sets default settings on plugin activation. Completely self-contained.
  */
@@ -18,13 +17,13 @@ class Layotter_Settings {
     
     public static function init() {
         // do stuff on plugin activation
-        register_activation_hook(__DIR__ . '/../index.php', array(__CLASS__, 'set_defaults_on_activation'));
+        register_activation_hook(dirname(__DIR__) . '/index.php', array(__CLASS__, 'set_defaults_on_activation'));
 
 
         // do stuff on plugin deactivation
         // use the following line FOR DEBUGGING ONLY
         // REMOVES ALL SETTINGS on plugin deactivation
-        register_deactivation_hook(__DIR__ . '/../index.php', array(__CLASS__, 'remove_all_settings'));
+        register_deactivation_hook(dirname(__DIR__) . '/index.php', array(__CLASS__, 'remove_all_settings'));
 
 
         // translate labels on admin_init - otherwise translations wouldn't be available yet
