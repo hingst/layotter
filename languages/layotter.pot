@@ -1,202 +1,48 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Layotter\n"
-"POT-Creation-Date: 2015-04-15 17:20+0100\n"
-"PO-Revision-Date: 2015-04-15 17:20+0100\n"
+"POT-Creation-Date: 2015-05-05 14:56+0100\n"
+"PO-Revision-Date: 2015-05-05 14:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.7.6\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
 "X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPathExcluded-0: ../assets/js/vendor\n"
+"X-Poedit-SearchPathExcluded-1: ../vendor\n"
 
-#: ../acf-locations.php:20
-msgid "Use with Layotter"
+#: ../components/form.php:82
+msgid "Save"
 msgstr ""
 
-#: ../acf-locations.php:30
-msgid "Use as element"
-msgstr ""
-
-#: ../acf-locations.php:31
-msgid "Use for post options"
-msgstr ""
-
-#: ../acf-locations.php:32
-msgid "Use for row options"
-msgstr ""
-
-#: ../acf-locations.php:34
-msgid "Use for element options"
-msgstr ""
-
-#: ../assets.php:123 ../assets.php:153 ../views/editor.php:31
-msgid "Delete row"
-msgstr ""
-
-#: ../assets.php:124 ../assets.php:146 ../views/editor.php:50
-msgid "Delete element"
-msgstr ""
-
-#: ../assets.php:125
-msgid "Delete favorite"
-msgstr ""
-
-#: ../assets.php:126 ../views/add-element.php:31 ../views/form.php:24
+#: ../components/form.php:83 ../core/assets.php:126 ../core/views.php:34
 #: ../views/load-layout.php:25
 msgid "Cancel"
 msgstr ""
 
-#: ../assets.php:127
-msgid "Discard changes"
+#: ../components/form.php:84
+msgid "Back"
 msgstr ""
 
-#: ../assets.php:128
-msgid "Do you want to cancel and discard all changes?"
+#: ../components/form.php:85
+msgid "Switch to fullscreen editor"
 msgstr ""
 
-#: ../assets.php:129
-msgid "Do you want to delete this row and all its elements?"
-msgstr ""
-
-#: ../assets.php:130
-msgid "Do you want to delete this element?"
-msgstr ""
-
-#: ../assets.php:131
-msgid "Do you want to delete this template? You can not undo this action."
-msgstr ""
-
-#: ../assets.php:132
-msgid "Please enter a name for your layout:"
-msgstr ""
-
-#: ../assets.php:133 ../views/editor.php:8
-msgid "Save layout"
-msgstr ""
-
-#: ../assets.php:134
-msgid "Please enter the new name for this layout:"
-msgstr ""
-
-#: ../assets.php:135 ../views/load-layout.php:15
-msgid "Rename layout"
-msgstr ""
-
-#: ../assets.php:136
-msgid "Do want to delete this layout? You can not undo this action."
-msgstr ""
-
-#: ../assets.php:137 ../views/load-layout.php:16
-msgid "Delete layout"
-msgstr ""
-
-#: ../assets.php:138
-msgid "Do want to load this layout and overwrite the existing content?"
-msgstr ""
-
-#: ../assets.php:139 ../assets.php:159 ../views/editor.php:10
-#: ../views/load-layout.php:7
-msgid "Load layout"
-msgstr ""
-
-#: ../assets.php:141
-msgid "Undo:"
-msgstr ""
-
-#: ../assets.php:142
-msgid "Redo:"
-msgstr ""
-
-#: ../assets.php:143 ../views/add-element.php:7 ../views/editor.php:44
-#: ../views/editor.php:67
-msgid "Add element"
-msgstr ""
-
-#: ../assets.php:144 ../views/editor.php:51
-msgid "Edit element"
-msgstr ""
-
-#: ../assets.php:145 ../views/editor.php:56
-msgid "Duplicate element"
-msgstr ""
-
-#: ../assets.php:147
-msgid "Move element"
-msgstr ""
-
-#: ../assets.php:148
-msgid "Save element as template"
-msgstr ""
-
-#: ../assets.php:149
-msgid "Create element from template"
-msgstr ""
-
-#: ../assets.php:150 ../views/editor.php:19 ../views/editor.php:75
-msgid "Add row"
-msgstr ""
-
-#: ../assets.php:151
-msgid "Change row layout"
-msgstr ""
-
-#: ../assets.php:152 ../views/editor.php:32
-msgid "Duplicate row"
-msgstr ""
-
-#: ../assets.php:154 ../views/editor.php:28
-msgid "Move row"
-msgstr ""
-
-#: ../assets.php:155
-msgid "Edit post options"
-msgstr ""
-
-#: ../assets.php:156
-msgid "Edit row options"
-msgstr ""
-
-#: ../assets.php:157
-msgid "Edit column options"
-msgstr ""
-
-#: ../assets.php:158
-msgid "Edit element options"
-msgstr ""
-
-#: ../check-acf.php:10
-#, php-format
-msgid ""
-"Layotter requires the <a href=\"%s\" target=\"_blank\">Advanced Custom "
-"Fields Pro</a> plugin, please install it before using Layotter."
-msgstr ""
-
-#: ../check-acf.php:13
-msgid ""
-"Layotter currently only works with the Pro version of Advanced Custom "
-"Fields. Please install it before using Layotter. We apologize for the "
-"inconvenience."
-msgstr ""
-
-#: ../check-acf.php:16
-#, php-format
-msgid ""
-"Your version of Advanced Custom Fields is outdated. Please install version "
-"%s or higher to be able to use Layotter."
+#: ../components/form.php:86
+msgid "Switch to small editor"
 msgstr ""
 
 #: ../components/options.php:36
 msgid "Post options"
 msgstr ""
 
-#: ../components/options.php:37 ../views/editor.php:33
+#: ../components/options.php:37 ../views/editor.php:36
 msgid "Row options"
 msgstr ""
 
@@ -204,11 +50,182 @@ msgstr ""
 msgid "Column options"
 msgstr ""
 
-#: ../components/options.php:39 ../views/editor.php:55
+#: ../components/options.php:39 ../views/editor.php:60
 msgid "Element options"
 msgstr ""
 
-#: ../interface.php:70
+#: ../core/acf-locations.php:20
+msgid "Use with Layotter"
+msgstr ""
+
+#: ../core/acf-locations.php:30
+msgid "Use as element"
+msgstr ""
+
+#: ../core/acf-locations.php:31
+msgid "Use for post options"
+msgstr ""
+
+#: ../core/acf-locations.php:32
+msgid "Use for row options"
+msgstr ""
+
+#: ../core/acf-locations.php:34
+msgid "Use for element options"
+msgstr ""
+
+#: ../core/assets.php:123 ../core/assets.php:153 ../views/editor.php:34
+msgid "Delete row"
+msgstr ""
+
+#: ../core/assets.php:124 ../core/assets.php:146 ../views/editor.php:55
+msgid "Delete element"
+msgstr ""
+
+#: ../core/assets.php:125
+msgid "Delete favorite"
+msgstr ""
+
+#: ../core/assets.php:127
+msgid "Discard changes"
+msgstr ""
+
+#: ../core/assets.php:128
+msgid "Do you want to cancel and discard all changes?"
+msgstr ""
+
+#: ../core/assets.php:129
+msgid "Do you want to delete this row and all its elements?"
+msgstr ""
+
+#: ../core/assets.php:130
+msgid "Do you want to delete this element?"
+msgstr ""
+
+#: ../core/assets.php:131
+msgid "Do you want to delete this template? You can not undo this action."
+msgstr ""
+
+#: ../core/assets.php:132
+msgid "Please enter a name for your layout:"
+msgstr ""
+
+#: ../core/assets.php:133 ../views/editor.php:11
+msgid "Save layout"
+msgstr ""
+
+#: ../core/assets.php:134
+msgid "Please enter the new name for this layout:"
+msgstr ""
+
+#: ../core/assets.php:135 ../views/load-layout.php:15
+msgid "Rename layout"
+msgstr ""
+
+#: ../core/assets.php:136
+msgid "Do want to delete this layout? You can not undo this action."
+msgstr ""
+
+#: ../core/assets.php:137 ../views/load-layout.php:16
+msgid "Delete layout"
+msgstr ""
+
+#: ../core/assets.php:138
+msgid "Do want to load this layout and overwrite the existing content?"
+msgstr ""
+
+#: ../core/assets.php:139 ../core/assets.php:159 ../views/editor.php:13
+#: ../views/load-layout.php:7
+msgid "Load layout"
+msgstr ""
+
+#: ../core/assets.php:141
+msgid "Undo:"
+msgstr ""
+
+#: ../core/assets.php:142
+msgid "Redo:"
+msgstr ""
+
+#: ../core/assets.php:143 ../core/views.php:32 ../views/editor.php:49
+#: ../views/editor.php:72
+msgid "Add element"
+msgstr ""
+
+#: ../core/assets.php:144 ../views/editor.php:56
+msgid "Edit element"
+msgstr ""
+
+#: ../core/assets.php:145 ../views/editor.php:61
+msgid "Duplicate element"
+msgstr ""
+
+#: ../core/assets.php:147
+msgid "Move element"
+msgstr ""
+
+#: ../core/assets.php:148
+msgid "Save element as template"
+msgstr ""
+
+#: ../core/assets.php:149
+msgid "Create element from template"
+msgstr ""
+
+#: ../core/assets.php:150 ../views/editor.php:22 ../views/editor.php:80
+msgid "Add row"
+msgstr ""
+
+#: ../core/assets.php:151
+msgid "Change row layout"
+msgstr ""
+
+#: ../core/assets.php:152 ../views/editor.php:35
+msgid "Duplicate row"
+msgstr ""
+
+#: ../core/assets.php:154 ../views/editor.php:31
+msgid "Move row"
+msgstr ""
+
+#: ../core/assets.php:155
+msgid "Edit post options"
+msgstr ""
+
+#: ../core/assets.php:156
+msgid "Edit row options"
+msgstr ""
+
+#: ../core/assets.php:157
+msgid "Edit column options"
+msgstr ""
+
+#: ../core/assets.php:158
+msgid "Edit element options"
+msgstr ""
+
+#: ../core/check-acf.php:10
+#, php-format
+msgid ""
+"Layotter requires the <a href=\"%s\" target=\"_blank\">Advanced Custom "
+"Fields Pro</a> plugin, please install it before using Layotter."
+msgstr ""
+
+#: ../core/check-acf.php:13
+msgid ""
+"Layotter currently only works with the Pro version of Advanced Custom "
+"Fields. Please install it before using Layotter. We apologize for the "
+"inconvenience."
+msgstr ""
+
+#: ../core/check-acf.php:16
+#, php-format
+msgid ""
+"Your version of Advanced Custom Fields is outdated. Please install version "
+"%s or higher to be able to use Layotter."
+msgstr ""
+
+#: ../core/interface.php:70
 #, php-format
 msgid ""
 "Debug mode enabled: Inspect and manually edit the JSON structure generated "
@@ -217,218 +234,178 @@ msgid ""
 "disable debug mode."
 msgstr ""
 
-#: ../layouts.php:20
+#: ../core/layouts.php:20
 msgid "Unnamed layout"
 msgstr ""
 
-#: ../settings.php:105
+#: ../core/settings.php:102
 msgid "Full width"
 msgstr ""
 
-#: ../settings.php:106
+#: ../core/settings.php:103
 msgid "A half"
 msgstr ""
 
-#: ../settings.php:107
+#: ../core/settings.php:104
 msgid "A third"
 msgstr ""
 
-#: ../settings.php:108
+#: ../core/settings.php:105
 msgid "Two thirds"
 msgstr ""
 
-#: ../settings.php:109
+#: ../core/settings.php:106
 msgid "A fourth"
 msgstr ""
 
-#: ../settings.php:110
+#: ../core/settings.php:107
 msgid "Three fourths"
 msgstr ""
 
-#: ../settings.php:111
+#: ../core/settings.php:108
 msgid "A sixth"
 msgstr ""
 
-#: ../settings.php:112
+#: ../core/settings.php:109
 msgid "A twelfth"
 msgstr ""
 
-#: ../settings.php:116
-msgid "Single column"
+#: ../core/settings.php:110
+msgid "Five twelfths"
 msgstr ""
 
-#: ../settings.php:117
-msgid "Two halves"
+#: ../core/settings.php:111
+msgid "Seven twelfths"
 msgstr ""
 
-#: ../settings.php:118
-msgid "Thirds"
+#: ../core/settings.php:112
+msgid "Eleven twelfths"
 msgstr ""
 
-#: ../settings.php:119
-msgid "Fourths"
-msgstr ""
-
-#: ../settings.php:120
-msgid "Sixths"
-msgstr ""
-
-#: ../settings.php:121
-msgid "Twelfths"
-msgstr ""
-
-#: ../settings.php:122
-msgid "Two thirds & one third"
-msgstr ""
-
-#: ../settings.php:123
-msgid "One third & two thirds"
-msgstr ""
-
-#: ../settings.php:124
-msgid "Three fourths & a fourth"
-msgstr ""
-
-#: ../settings.php:125
-msgid "A fourth & three fourths"
-msgstr ""
-
-#: ../settings.php:126
-msgid "A half & two fourths"
-msgstr ""
-
-#: ../settings.php:127
-msgid "Two fourths & a half"
-msgstr ""
-
-#: ../settings.php:128
-msgid "A fourth & a half & a fourth"
-msgstr ""
-
-#: ../settings.php:244
+#: ../core/settings.php:229
 msgid "Your settings have been saved."
 msgstr ""
 
-#: ../settings.php:255 ../settings.php:280
+#: ../core/settings.php:240 ../core/settings.php:265
 msgid "Layotter Settings"
 msgstr ""
 
-#: ../settings.php:282
+#: ../core/settings.php:267
 msgid "Basic"
 msgstr ""
 
-#: ../settings.php:283
+#: ../core/settings.php:268
 msgid "General"
 msgstr ""
 
-#: ../settings.php:284
+#: ../core/settings.php:269
 msgid "Wrapper"
 msgstr ""
 
-#: ../settings.php:285
+#: ../core/settings.php:270
 msgid "Rows"
 msgstr ""
 
-#: ../settings.php:286
+#: ../core/settings.php:271
 msgid "Columns"
 msgstr ""
 
-#: ../settings.php:287
+#: ../core/settings.php:272
 msgid "Elements"
 msgstr ""
 
-#: ../settings.php:327
+#: ../core/settings.php:312
 msgid "Post types"
 msgstr ""
 
-#: ../settings.php:330
+#: ../core/settings.php:315
 msgid "Select the post types for which Layotter should be enabled."
 msgstr ""
 
-#: ../settings.php:336
+#: ../core/settings.php:321
 msgid "Posts"
 msgstr ""
 
-#: ../settings.php:342
+#: ../core/settings.php:327
 msgid "Pages"
 msgstr ""
 
-#: ../settings.php:372
+#: ../core/settings.php:357
 msgid "Default element type"
 msgstr ""
 
-#: ../settings.php:375
+#: ../core/settings.php:360
 msgid ""
 "Layotter comes with an example element type to get started and try out the "
 "editor. If you don't want to use the default element type, you can disable "
 "it here."
 msgstr ""
 
-#: ../settings.php:379
+#: ../core/settings.php:364
 msgid ""
 "When disabling, any elements you may have created with the default element "
 "type will disappear."
 msgstr ""
 
-#: ../settings.php:384
+#: ../core/settings.php:369
 msgid "Enable default element type"
 msgstr ""
 
-#: ../settings.php:388 ../settings.php:460 ../settings.php:528
-#: ../settings.php:637 ../settings.php:730 ../settings.php:798
+#: ../core/settings.php:373 ../core/settings.php:445 ../core/settings.php:513
+#: ../core/settings.php:645 ../core/settings.php:738 ../core/settings.php:806
 msgid "Save settings"
 msgstr ""
 
-#: ../settings.php:409
+#: ../core/settings.php:394
 msgid "Post layouts"
 msgstr ""
 
-#: ../settings.php:412
+#: ../core/settings.php:397
 msgid ""
 "This feature lets you save entire post layouts as templates to be used as a "
 "starting point for new posts."
 msgstr ""
 
-#: ../settings.php:417
+#: ../core/settings.php:402
 msgid "Enable post layouts"
 msgstr ""
 
-#: ../settings.php:421 ../views/editor.php:13 ../views/templates.php:4
+#: ../core/settings.php:406 ../views/editor.php:16 ../views/templates.php:4
 msgid "Element templates"
 msgstr ""
 
-#: ../settings.php:424
+#: ../core/settings.php:409
 msgid ""
 "This feature lets you save elements as templates. Element templates look "
 "just like regular elements, but if you edit them on one page, they'll be "
 "updated on every other page as well."
 msgstr ""
 
-#: ../settings.php:429
+#: ../core/settings.php:414
 msgid "Enable element templates"
 msgstr ""
 
-#: ../settings.php:433
+#: ../core/settings.php:418
 msgid "Debug mode"
 msgstr ""
 
-#: ../settings.php:436
+#: ../core/settings.php:421
 msgid ""
 "With debug mode enabled you can inspect and manually edit the JSON structure "
 "generated by Layotter. Enable debug mode for these user roles:"
 msgstr ""
 
-#: ../settings.php:481 ../settings.php:549 ../settings.php:658
-#: ../settings.php:751
+#: ../core/settings.php:466 ../core/settings.php:534 ../core/settings.php:666
+#: ../core/settings.php:759
 msgid "HTML wrapper"
 msgstr ""
 
-#: ../settings.php:484
+#: ../core/settings.php:469
 msgid "Enter HTML code to wrap around the whole content."
 msgstr ""
 
-#: ../settings.php:492 ../settings.php:560 ../settings.php:669
-#: ../settings.php:762
+#: ../core/settings.php:477 ../core/settings.php:545 ../core/settings.php:592
+#: ../core/settings.php:677 ../core/settings.php:770
 #, php-format
 msgid ""
 "These settings currently have no effect because they're overwritten by a %s "
@@ -436,8 +413,8 @@ msgid ""
 "documentation</a> for more info."
 msgstr ""
 
-#: ../settings.php:497 ../settings.php:565 ../settings.php:674
-#: ../settings.php:767
+#: ../core/settings.php:482 ../core/settings.php:550 ../core/settings.php:682
+#: ../core/settings.php:775
 #, php-format
 msgid ""
 "Use <a href=\"%s\" target=\"_blank\">filters</a> for way more flexibility! "
@@ -445,124 +422,124 @@ msgid ""
 "possible."
 msgstr ""
 
-#: ../settings.php:505
+#: ../core/settings.php:490
 msgid "HTML before content:"
 msgstr ""
 
-#: ../settings.php:507 ../settings.php:518 ../settings.php:575
-#: ../settings.php:586 ../settings.php:684 ../settings.php:695
-#: ../settings.php:720 ../settings.php:777 ../settings.php:788
+#: ../core/settings.php:492 ../core/settings.php:503 ../core/settings.php:560
+#: ../core/settings.php:571 ../core/settings.php:692 ../core/settings.php:703
+#: ../core/settings.php:728 ../core/settings.php:785 ../core/settings.php:796
 msgid "Default:"
 msgstr ""
 
-#: ../settings.php:507 ../settings.php:518 ../settings.php:575
-#: ../settings.php:586 ../settings.php:684 ../settings.php:695
-#: ../settings.php:720 ../settings.php:777 ../settings.php:788
+#: ../core/settings.php:492 ../core/settings.php:503 ../core/settings.php:560
+#: ../core/settings.php:571 ../core/settings.php:692 ../core/settings.php:703
+#: ../core/settings.php:728 ../core/settings.php:785 ../core/settings.php:796
 msgid "Click to reset"
 msgstr ""
 
-#: ../settings.php:516
+#: ../core/settings.php:501
 msgid "HTML after content:"
 msgstr ""
 
-#: ../settings.php:552
+#: ../core/settings.php:537
 msgid "Enter HTML code to wrap around each row."
 msgstr ""
 
-#: ../settings.php:573
+#: ../core/settings.php:558
 msgid "HTML before each row:"
 msgstr ""
 
-#: ../settings.php:584
+#: ../core/settings.php:569
 msgid "HTML after each row:"
 msgstr ""
 
-#: ../settings.php:596
+#: ../core/settings.php:581
 msgid "Allowed layouts"
 msgstr ""
 
-#: ../settings.php:599
+#: ../core/settings.php:584
 msgid ""
 "Choose the row layouts you want to use. Disabling a layout means it will not "
 "be available for newly created rows from now on &ndash; existing rows with "
 "that layout will stay the way they are until you change them by hand."
 msgstr ""
 
-#: ../settings.php:610
+#: ../core/settings.php:597
+#, php-format
+msgid ""
+"Create more complex layouts using <a href=\"%s\" target=\"_blank\">filters</"
+"a>! Take a look at <a href=\"%s\" target=\"_blank\">the docs</a> to see "
+"what's possible."
+msgstr ""
+
+#: ../core/settings.php:619
 msgid "default for new rows"
 msgstr ""
 
-#: ../settings.php:620
+#: ../core/settings.php:628
 msgid "Default layout"
 msgstr ""
 
-#: ../settings.php:623
+#: ../core/settings.php:631
 msgid "Select a default layout that will be used in all newly created rows."
 msgstr ""
 
-#: ../settings.php:661
+#: ../core/settings.php:669
 #, php-format
 msgid ""
 "Enter HTML code to wrap around each column. You can use the variable %s "
 "which will be replaced with the corresponding class name entered below."
 msgstr ""
 
-#: ../settings.php:682
+#: ../core/settings.php:690
 msgid "HTML before each column:"
 msgstr ""
 
-#: ../settings.php:693
+#: ../core/settings.php:701
 msgid "HTML after each column:"
 msgstr ""
 
-#: ../settings.php:704
+#: ../core/settings.php:712
 msgid "Class attributes for columns"
 msgstr ""
 
-#: ../settings.php:706
+#: ../core/settings.php:714
 msgid ""
 "Enter a class attribute for each type of column so you'll be able to target "
 "them via CSS."
 msgstr ""
 
-#: ../settings.php:754
+#: ../core/settings.php:762
 msgid "Enter HTML code to wrap around each element."
 msgstr ""
 
-#: ../settings.php:775
+#: ../core/settings.php:783
 msgid "HTML before each element:"
 msgstr ""
 
-#: ../settings.php:786
+#: ../core/settings.php:794
 msgid "HTML after each element:"
 msgstr ""
 
-#: ../views/editor.php:4
-msgid "Options"
-msgstr ""
-
-#: ../views/editor.php:20
-msgid "Add your first row to get started"
-msgstr ""
-
-#: ../views/editor.php:57
-msgid "Save as template"
-msgstr ""
-
-#: ../views/editor.php:62
-msgid "This is a template."
-msgstr ""
-
-#: ../views/editor.php:81
+#: ../views/editor.php:2
 msgid "Layotter loading &hellip;"
 msgstr ""
 
-#: ../views/form.php:23
-msgid "Save"
+#: ../views/editor.php:7
+msgid "Options"
 msgstr ""
 
-#: ../views/form.php:25
-msgid "Back"
+#: ../views/editor.php:23
+msgid "Add your first row to get started"
+msgstr ""
+
+#: ../views/editor.php:62
+msgid "Save as template"
+msgstr ""
+
+#: ../views/editor.php:67
+msgid "This is a template."
 msgstr ""
 
 #: ../views/load-layout.php:19
