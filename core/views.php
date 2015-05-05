@@ -3,8 +3,8 @@
 /**
  * Include views HTML
  */
-add_action('admin_head-post.php', 'layotter_views_admin_footer');
-add_action('admin_head-post-new.php', 'layotter_views_admin_footer');
+add_action('admin_footer-post.php', 'layotter_views_admin_footer');
+add_action('admin_footer-post-new.php', 'layotter_views_admin_footer');
 function layotter_views_admin_footer() {
     $loader = new Twig_Loader_Filesystem(__DIR__ . '/../views/twig');
     $twig = new Twig_Environment($loader);
