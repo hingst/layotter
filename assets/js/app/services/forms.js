@@ -22,7 +22,7 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
     // when validation is complete:
     // if there was an error, remove loading spinner and show form
     acf.add_filter('validation_complete', function(json, $form){
-        if ($form.prop('id') == 'layotter-edit' && !json.result) {
+        if ($form.prop('id') == 'layotter-edit' && typeof json !== 'undefined' && !json.result) {
             jQuery('.layotter-modal-loading-container').removeClass('layotter-loading');
             jQuery('.layotter-modal-foot button').prop('disabled', false);
         }
