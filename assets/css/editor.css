@@ -860,12 +860,12 @@ input:checked ~ .layotter-row-layout-option {
 /* lightbox aka dennisbox */
 #dennisbox,
 #dennisbox-modal {
-  z-index: 99990; }
+  z-index: 999990; }
   #dennisbox .dennisbox-overlay,
   #dennisbox-modal .dennisbox-overlay {
     cursor: pointer;
     position: fixed;
-    z-index: 99991;
+    z-index: 999991;
     top: 0;
     right: 0;
     left: 0;
@@ -874,7 +874,7 @@ input:checked ~ .layotter-row-layout-option {
   #dennisbox .dennisbox-content,
   #dennisbox-modal .dennisbox-content {
     position: absolute;
-    z-index: 99992;
+    z-index: 999992;
     top: 0;
     left: 0;
     right: 0;
@@ -887,9 +887,9 @@ input:checked ~ .layotter-row-layout-option {
       background: #fff url(../img/loading.gif) center no-repeat; }
 
 #dennisbox-modal .dennisbox-overlay {
-  z-index: 99993; }
+  z-index: 999993; }
 #dennisbox-modal .dennisbox-content {
-  z-index: 99994; }
+  z-index: 999994; }
 
 /****************************************************/
 /* Wordpress style red button */

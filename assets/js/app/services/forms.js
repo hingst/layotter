@@ -163,15 +163,20 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
      * Close the lightbox
      */
     this.close = function() {
-        // ACF compatibility - see create() for more info
-        acf.validation.$trigger = null;
-        acf.validation.ignore = 0;
-        
         var box = angular.element('#dennisbox');
         if (box.length) {
             box.children().fadeOut(300, function(){
                 angular.element(this).parent().remove();
+
+                // ACF compatibility
+                // unlock Wordpress save post form (remove loading spinner and enable form submit)
+                acf.validation.toggle(jQuery('#layotter-form'), 'unlock');
             });
+
+            // ACF compatibility
+            // see create() for more info
+            acf.validation.$trigger = null;
+            acf.validation.ignore = 0;
         }
     }
     
