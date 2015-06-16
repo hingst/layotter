@@ -127,7 +127,8 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                         layout_id: id
                     }
                 }).success(function() {
-                    layout.isDeleted = true;
+                    _this.savedLayouts.splice(index, 1);
+                    //layout.isDeleted = true;
                 });
             },
             cancelText: layotterData.i18n.cancel

@@ -196,29 +196,56 @@
 
 /****************************************************/
 /* add row buttons */
-.layotter-add-row-button-wrapper {
+.layotter-add-row-button-wrapper,
+.layotter-get-started-buttons {
   text-align: center; }
-  .layotter-add-row-button-wrapper .layotter-add-row-button {
+  .layotter-add-row-button-wrapper .layotter-add-row-button,
+  .layotter-add-row-button-wrapper .layotter-load-layout-button,
+  .layotter-get-started-buttons .layotter-add-row-button,
+  .layotter-get-started-buttons .layotter-load-layout-button {
     font-size: 14px;
     padding: 12px 30px;
     opacity: 0.4;
-    display: inline-block;
+    display: block;
     cursor: pointer;
-    transition: padding 0.5s, font-size 0.5s; }
-    .layotter-add-row-button-wrapper .layotter-add-row-button i.fa {
+    transition: padding 0.5s, font-size 0.5s, height 0.5s; }
+    .layotter-add-row-button-wrapper .layotter-add-row-button i.fa,
+    .layotter-add-row-button-wrapper .layotter-load-layout-button i.fa,
+    .layotter-get-started-buttons .layotter-add-row-button i.fa,
+    .layotter-get-started-buttons .layotter-load-layout-button i.fa {
       font-size: 14px;
       margin-right: 8px; }
-    .layotter-add-row-button-wrapper .layotter-add-row-button:hover {
+    .layotter-add-row-button-wrapper .layotter-add-row-button:hover,
+    .layotter-add-row-button-wrapper .layotter-load-layout-button:hover,
+    .layotter-get-started-buttons .layotter-add-row-button:hover,
+    .layotter-get-started-buttons .layotter-load-layout-button:hover {
       opacity: 0.7; }
-    .layotter-add-row-button-wrapper .layotter-add-row-button.layotter-large {
-      font-size: 16px;
+    .layotter-add-row-button-wrapper .layotter-add-row-button.layotter-large,
+    .layotter-add-row-button-wrapper .layotter-load-layout-button.layotter-large,
+    .layotter-get-started-buttons .layotter-add-row-button.layotter-large,
+    .layotter-get-started-buttons .layotter-load-layout-button.layotter-large {
+      font-size: 18px;
       padding: 50px;
       opacity: 0.7; }
-      .layotter-add-row-button-wrapper .layotter-add-row-button.layotter-large i.fa {
+      .layotter-add-row-button-wrapper .layotter-add-row-button.layotter-large i.fa,
+      .layotter-add-row-button-wrapper .layotter-load-layout-button.layotter-large i.fa,
+      .layotter-get-started-buttons .layotter-add-row-button.layotter-large i.fa,
+      .layotter-get-started-buttons .layotter-load-layout-button.layotter-large i.fa {
         font-size: 16px;
         margin-right: 10px; }
-      .layotter-add-row-button-wrapper .layotter-add-row-button.layotter-large:hover {
+      .layotter-add-row-button-wrapper .layotter-add-row-button.layotter-large:hover,
+      .layotter-add-row-button-wrapper .layotter-load-layout-button.layotter-large:hover,
+      .layotter-get-started-buttons .layotter-add-row-button.layotter-large:hover,
+      .layotter-get-started-buttons .layotter-load-layout-button.layotter-large:hover {
         opacity: 1; }
+  .layotter-add-row-button-wrapper .layotter-load-layout-button,
+  .layotter-get-started-buttons .layotter-load-layout-button {
+    padding-top: 0;
+    margin-top: -10px;
+    opacity: 0.3; }
+    .layotter-add-row-button-wrapper .layotter-load-layout-button.layotter-hidden,
+    .layotter-get-started-buttons .layotter-load-layout-button.layotter-hidden {
+      display: none; }
 
 /****************************************************/
 /* add element buttons */

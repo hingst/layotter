@@ -10,17 +10,20 @@
             <div class="layotter-save-layout-button-wrapper" ng-if="enablePostLayouts">
                 <span class="layotter-button" ng-click="saveNewLayout()"><i class="fa fa-download"></i><?php _e('Save layout', 'layotter'); ?></span>
             </div>
-            <span class="layotter-button" ng-click="loadLayout()" ng-if="enablePostLayouts"><i class="fa fa-upload"></i><?php _e('Load layout', 'layotter'); ?></span>
+            <span class="layotter-button" ng-click="loadLayout()" ng-if="enablePostLayouts" ng-show="savedLayouts.length"><i class="fa fa-upload"></i><?php _e('Load layout', 'layotter'); ?></span>
         </div>
         <div class="layotter-top-buttons-right">
             <span class="layotter-button" toggle-templates ng-if="enableElementTemplates"><i class="fa fa-star"></i><?php _e('Element templates', 'layotter'); ?></span>
         </div>
     </div>
 
-    <div class="layotter-add-row-button-wrapper">
+    <div class="layotter-get-started-buttons">
         <span class="layotter-add-row-button" ng-click="addRow(-1)" ng-class="{ 'layotter-large': data.rows.length === 0 }">
             <span ng-show="data.rows.length"><i class="fa fa-plus"></i><?php _e('Add row', 'layotter'); ?></span>
             <span ng-hide="data.rows.length"><i class="fa fa-plus"></i><?php _e('Add your first row to get started', 'layotter'); ?></span>
+        </span>
+        <span class="layotter-load-layout-button" ng-click="loadLayout()" ng-if="enablePostLayouts" ng-show="savedLayouts.length && !data.rows.length" ng-class="{ 'layotter-hidden': data.rows.length !== 0 }">
+            <i class="fa fa-upload"></i><?php _e('Or start with a layout that you created earlier', 'layotter'); ?>
         </span>
     </div>
 

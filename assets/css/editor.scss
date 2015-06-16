@@ -3,6 +3,7 @@
 
 $text-m: 14px;
 $text-l: 16px;
+$text-xl: 18px;
 $text-fa-m: 14px;
 $text-fa-l: 16px;
 $text-fa-xl: 18px;
@@ -293,16 +294,18 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* add row buttons */
 
-.layotter-add-row-button-wrapper {
+.layotter-add-row-button-wrapper,
+.layotter-get-started-buttons {
     text-align: center;
 
-    .layotter-add-row-button {
+    .layotter-add-row-button,
+    .layotter-load-layout-button {
         font-size: $text-m;
         padding: 12px 30px;
         opacity: 0.4;
-        display: inline-block;
+        display: block;
         cursor: pointer;
-        transition: padding 0.5s, font-size 0.5s;
+        transition: padding 0.5s, font-size 0.5s, height 0.5s;
 
         i.fa {
             font-size: $text-fa-m;
@@ -314,7 +317,7 @@ $darkgray: #CCCCCC;
         }
 
         &.layotter-large {
-            font-size: $text-l;
+            font-size: $text-xl;
             padding: 50px;
             opacity: 0.7;
 
@@ -326,6 +329,16 @@ $darkgray: #CCCCCC;
             &:hover {
                 opacity: 1;
             }
+        }
+    }
+
+    .layotter-load-layout-button {
+        padding-top: 0;
+        margin-top: -10px;
+        opacity: 0.3;
+
+        &.layotter-hidden {
+            display: none;
         }
     }
 }
