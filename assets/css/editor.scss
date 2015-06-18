@@ -110,6 +110,8 @@ $darkgray: #CCCCCC;
 
 .layotter-row.ui-sortable-helper,
 .layotter-element.ui-sortable-helper{
+    z-index: 9999 !important; // below templates sidebar
+
     > .layotter-element-canvas {
         box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1) !important;
     }
