@@ -62,3 +62,13 @@ app.directive('toggleTemplates', function(view) {
         }
     };
 });
+
+
+/**
+ * Show unsafe content (form fields) in raw HTML output
+ */
+app.filter('rawHtml', ['$sce', function($sce){
+    return function(text) {
+        return $sce.trustAsHtml(text);
+    };
+}]);

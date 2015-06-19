@@ -1,6 +1,9 @@
 app.service('forms', function($http, $compile, $rootScope, $timeout){
 
 
+    var _this = this;
+
+
     angular.element(document).on('submit', '#layotter-edit', function(){
         // ACF compatibility
         // ACF uses an ignore flag when the normal post form is submitted, so that the
@@ -70,9 +73,9 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
     /**
      * Open up the lightbox - internal use only
      *
-     * @param content HTML string to be displayed
+     * @param data An HTML string to be displayed directly or an object with form data to be applied to a template
      */
-    var create = function(content) {
+    var create = function(data) {
         // animate if opening a new lightbox, don't animate if replacing another lightbox
         var animate = true;
         if (angular.element('#dennisbox').length) {
@@ -102,11 +105,14 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
         }
 
         // undefined content means "just show a loading spinner for now"
-        if (typeof content === 'undefined') {
+        if (typeof data === 'undefined') {
             contentBox.addClass('dennisbox-loading');
             return;
+        } else if (typeof data === 'string') {
+            contentBox.html(data);
         } else {
-            contentBox.html(content);
+            contentBox.html(jQuery('#layotter-form').html());
+            _this.data = data;
         }
 
         // compile lightbox contents

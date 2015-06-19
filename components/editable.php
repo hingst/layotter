@@ -141,8 +141,8 @@ abstract class Layotter_Editable {
     /**
      * Output edit form for this component
      */
-    final public function output_form() {
-        echo $this->form->output();
+    final public function get_form_data() {
+        return $this->form->get_data();
     }
     
 }

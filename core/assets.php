@@ -82,6 +82,20 @@ function layotter_assets_admin_enqueue_scripts() {
     $saved_templates = Layotter_Templates::get_all();
 
 
+    // fetch available element types
+    $element_objects = Layotter::get_filtered_element_types($post_id);
+    $element_types = array();
+
+    foreach ($element_objects as $element_object) {
+        $element_types[] = array(
+            'type' => $element_object->get('type'),
+            'title' => $element_object->get('title'),
+            'description' => $element_object->get('description'),
+            'icon' => $element_object->get('icon'),
+        );
+    }
+
+
     // fetch general settings
     $general_settings = Layotter_Settings::get_settings('general');
     $enable_post_layouts = (isset($general_settings['enable_post_layouts']) AND $general_settings['enable_post_layouts'] === '1');
@@ -101,6 +115,7 @@ function layotter_assets_admin_enqueue_scripts() {
             'savedTemplates' => $saved_templates,
             'enablePostLayouts' => $enable_post_layouts,
             'enableElementTemplates' => $enable_element_templates,
+            'elementTypes' => $element_types,
             'options' => array(
                 'post' => array(
                     'enabled' => $default_post_options->is_enabled(),

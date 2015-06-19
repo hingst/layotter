@@ -20,8 +20,6 @@ require_once __DIR__ . '/core/check-acf.php';
 
 // include files only if ACF is available
 if (!defined('LAYOTTER_ACF_ERROR')) {
-    require_once __DIR__ . '/vendor/autoload.php';
-    
     require_once __DIR__ . '/core/core.php';
     require_once __DIR__ . '/core/ajax.php';
     require_once __DIR__ . '/core/assets.php';

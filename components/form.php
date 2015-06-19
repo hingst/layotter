@@ -48,12 +48,11 @@ class Layotter_Form {
     
     
     /**
-     * Output form HTML
+     * Get form data as array
+     *
+     * @return array Form data
      */
-    public function output() {
-        $loader = new Twig_Loader_Filesystem(__DIR__ . '/../views/twig');
-        $twig = new Twig_Environment($loader);
-
+    public function get_data() {
         // used in the form.php template
         $title = $this->title;
         $icon = $this->icon;
@@ -74,17 +73,12 @@ class Layotter_Form {
         acf_render_fields(0, $fields);
         $fields_html = ob_get_clean();
 
-        echo $twig->render('form.twig', array(
+        return array(
             'title' => $title,
             'icon' => $icon,
             'nonce' => wp_create_nonce('post'),
-            'fields' => $fields_html,
-            'save' => __('Save', 'layotter'),
-            'cancel' => __('Cancel', 'layotter'),
-            'back' => __('Back', 'layotter'),
-            'size_fullscreen' => __('Switch to fullscreen editor', 'layotter'),
-            'size_default' => __('Switch to small editor', 'layotter')
-        ));
+            'fields' => $fields_html
+        );
     }
 
     

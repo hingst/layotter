@@ -35,7 +35,7 @@ function layotter_ajax_edit_element() {
 
         $element = Layotter::create_element($post_data['type'], $values);
         if ($element) {
-            $element->output_form();
+            echo json_encode($element->get_form_data());
         }
     }
 
@@ -93,7 +93,7 @@ function layotter_ajax_edit_options() {
 
         $options = new Layotter_Options($post_data['type'], $values, $post_id);
         if ($options->is_enabled()) {
-            $options->output_form();
+            echo json_encode($options->get_form_data());
         }
     }
 
@@ -171,7 +171,7 @@ function layotter_ajax_edit_template() {
     if (isset($post_data['template_id']) AND is_int($post_data['template_id'])) {
         $element = Layotter_Templates::create_element($post_data['template_id']);
         if ($element) {
-            $element->output_form();
+            echo json_encode($element->get_form_data());
         }
     }
 
