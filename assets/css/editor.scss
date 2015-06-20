@@ -1000,6 +1000,10 @@ $darkgray: #CCCCCC;
     .layotter-modal-prompt-message {
         padding: 20px;
         font-size: $text-m;
+
+        p:first-child {
+            margin-top: 0;
+        }
     }
 
     .layotter-modal-prompt-buttons {

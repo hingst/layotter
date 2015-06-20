@@ -1,209 +1,21 @@
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Layotter\n"
-"POT-Creation-Date: 2015-06-16 12:32+0100\n"
-"PO-Revision-Date: 2015-05-05 14:56+0100\n"
+"POT-Creation-Date: 2015-06-20 12:37+0100\n"
+"PO-Revision-Date: 2015-06-20 12:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
-"X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPathExcluded-0: ../assets/js/vendor\n"
 "X-Poedit-SearchPathExcluded-1: ../vendor\n"
-
-#: ../components/form.php:82
-msgid "Save"
-msgstr ""
-
-#: ../components/form.php:83 ../core/assets.php:126 ../core/views.php:32
-#: ../views/load-layout.php:25
-msgid "Cancel"
-msgstr ""
-
-#: ../components/form.php:84
-msgid "Back"
-msgstr ""
-
-#: ../components/form.php:85
-msgid "Switch to fullscreen editor"
-msgstr ""
-
-#: ../components/form.php:86
-msgid "Switch to small editor"
-msgstr ""
-
-#: ../components/options.php:36
-msgid "Post options"
-msgstr ""
-
-#: ../components/options.php:37 ../views/editor.php:39
-msgid "Row options"
-msgstr ""
-
-#: ../components/options.php:38
-msgid "Column options"
-msgstr ""
-
-#: ../components/options.php:39 ../views/editor.php:63
-msgid "Element options"
-msgstr ""
-
-#: ../core/acf-locations.php:20
-msgid "Use with Layotter"
-msgstr ""
-
-#: ../core/acf-locations.php:30
-msgid "Use as element"
-msgstr ""
-
-#: ../core/acf-locations.php:31
-msgid "Use for post options"
-msgstr ""
-
-#: ../core/acf-locations.php:32
-msgid "Use for row options"
-msgstr ""
-
-#: ../core/acf-locations.php:34
-msgid "Use for element options"
-msgstr ""
-
-#: ../core/assets.php:123 ../core/assets.php:153 ../views/editor.php:37
-msgid "Delete row"
-msgstr ""
-
-#: ../core/assets.php:124 ../core/assets.php:146 ../views/editor.php:58
-msgid "Delete element"
-msgstr ""
-
-#: ../core/assets.php:125
-msgid "Delete favorite"
-msgstr ""
-
-#: ../core/assets.php:127
-msgid "Discard changes"
-msgstr ""
-
-#: ../core/assets.php:128
-msgid "Do you want to cancel and discard all changes?"
-msgstr ""
-
-#: ../core/assets.php:129
-msgid "Do you want to delete this row and all its elements?"
-msgstr ""
-
-#: ../core/assets.php:130
-msgid "Do you want to delete this element?"
-msgstr ""
-
-#: ../core/assets.php:131
-msgid "Do you want to delete this template? You can not undo this action."
-msgstr ""
-
-#: ../core/assets.php:132
-msgid "Please enter a name for your layout:"
-msgstr ""
-
-#: ../core/assets.php:133 ../views/editor.php:11
-msgid "Save layout"
-msgstr ""
-
-#: ../core/assets.php:134
-msgid "Please enter the new name for this layout:"
-msgstr ""
-
-#: ../core/assets.php:135 ../views/load-layout.php:15
-msgid "Rename layout"
-msgstr ""
-
-#: ../core/assets.php:136
-msgid "Do want to delete this layout? You can not undo this action."
-msgstr ""
-
-#: ../core/assets.php:137 ../views/load-layout.php:16
-msgid "Delete layout"
-msgstr ""
-
-#: ../core/assets.php:138
-msgid "Do want to load this layout and overwrite the existing content?"
-msgstr ""
-
-#: ../core/assets.php:139 ../core/assets.php:159 ../views/editor.php:13
-#: ../views/load-layout.php:7
-msgid "Load layout"
-msgstr ""
-
-#: ../core/assets.php:141
-msgid "Undo:"
-msgstr ""
-
-#: ../core/assets.php:142
-msgid "Redo:"
-msgstr ""
-
-#: ../core/assets.php:143 ../core/views.php:30 ../views/editor.php:52
-#: ../views/editor.php:75
-msgid "Add element"
-msgstr ""
-
-#: ../core/assets.php:144 ../views/editor.php:59
-msgid "Edit element"
-msgstr ""
-
-#: ../core/assets.php:145 ../views/editor.php:64
-msgid "Duplicate element"
-msgstr ""
-
-#: ../core/assets.php:147
-msgid "Move element"
-msgstr ""
-
-#: ../core/assets.php:148
-msgid "Save element as template"
-msgstr ""
-
-#: ../core/assets.php:149
-msgid "Create element from template"
-msgstr ""
-
-#: ../core/assets.php:150 ../views/editor.php:22 ../views/editor.php:83
-msgid "Add row"
-msgstr ""
-
-#: ../core/assets.php:151
-msgid "Change row layout"
-msgstr ""
-
-#: ../core/assets.php:152 ../views/editor.php:38
-msgid "Duplicate row"
-msgstr ""
-
-#: ../core/assets.php:154 ../views/editor.php:34
-msgid "Move row"
-msgstr ""
-
-#: ../core/assets.php:155
-msgid "Edit post options"
-msgstr ""
-
-#: ../core/assets.php:156
-msgid "Edit row options"
-msgstr ""
-
-#: ../core/assets.php:157
-msgid "Edit column options"
-msgstr ""
-
-#: ../core/assets.php:158
-msgid "Edit element options"
-msgstr ""
+"X-Poedit-SearchPath-0: ..\n"
 
 #: ../core/check-acf.php:10
 #, php-format
@@ -235,8 +47,169 @@ msgid ""
 "disable debug mode."
 msgstr ""
 
-#: ../core/layouts.php:20
-msgid "Unnamed layout"
+#: ../core/acf-locations.php:20
+msgid "Use with Layotter"
+msgstr ""
+
+#: ../core/acf-locations.php:30
+msgid "Use as element"
+msgstr ""
+
+#: ../core/acf-locations.php:31
+msgid "Use for post options"
+msgstr ""
+
+#: ../core/acf-locations.php:32
+msgid "Use for row options"
+msgstr ""
+
+#: ../core/acf-locations.php:34
+msgid "Use for element options"
+msgstr ""
+
+#: ../core/assets.php:138 ../core/assets.php:170 ../views/editor.php:37
+msgid "Delete row"
+msgstr ""
+
+#: ../core/assets.php:139 ../core/assets.php:163 ../views/editor.php:58
+msgid "Delete element"
+msgstr ""
+
+#: ../core/assets.php:140 ../views/templates.php:10
+msgid "Delete template"
+msgstr ""
+
+#: ../core/assets.php:141 ../views/templates.php:11
+msgid "Edit template"
+msgstr ""
+
+#: ../core/assets.php:142 ../views/add-element.php:22 ../views/form.php:30
+#: ../views/load-layout.php:25
+msgid "Cancel"
+msgstr ""
+
+#: ../core/assets.php:143
+msgid "Discard changes"
+msgstr ""
+
+#: ../core/assets.php:144
+msgid "Do you want to cancel and discard all changes?"
+msgstr ""
+
+#: ../core/assets.php:145
+msgid "Do you want to delete this row and all its elements?"
+msgstr ""
+
+#: ../core/assets.php:146
+msgid "Do you want to delete this element?"
+msgstr ""
+
+#: ../core/assets.php:147
+msgid "Do you want to delete this template? You can not undo this action."
+msgstr ""
+
+#: ../core/assets.php:148
+msgid ""
+"When editing a template, your changes will be reflected on all pages that "
+"are using it. Do you want to edit this template?"
+msgstr ""
+
+#: ../core/assets.php:149
+msgid "Please enter a name for your layout:"
+msgstr ""
+
+#: ../core/assets.php:150 ../views/editor.php:11
+msgid "Save layout"
+msgstr ""
+
+#: ../core/assets.php:151
+msgid "Please enter the new name for this layout:"
+msgstr ""
+
+#: ../core/assets.php:152 ../views/load-layout.php:15
+msgid "Rename layout"
+msgstr ""
+
+#: ../core/assets.php:153
+msgid "Do want to delete this layout? You can not undo this action."
+msgstr ""
+
+#: ../core/assets.php:154 ../views/load-layout.php:16
+msgid "Delete layout"
+msgstr ""
+
+#: ../core/assets.php:155
+msgid "Do want to load this layout and overwrite the existing content?"
+msgstr ""
+
+#: ../core/assets.php:156 ../core/assets.php:176 ../views/load-layout.php:7
+#: ../views/editor.php:13
+msgid "Load layout"
+msgstr ""
+
+#: ../core/assets.php:158
+msgid "Undo:"
+msgstr ""
+
+#: ../core/assets.php:159
+msgid "Redo:"
+msgstr ""
+
+#: ../core/assets.php:160 ../views/add-element.php:7 ../views/editor.php:52
+#: ../views/editor.php:75
+msgid "Add element"
+msgstr ""
+
+#: ../core/assets.php:161 ../views/editor.php:59
+msgid "Edit element"
+msgstr ""
+
+#: ../core/assets.php:162 ../views/editor.php:64
+msgid "Duplicate element"
+msgstr ""
+
+#: ../core/assets.php:164
+msgid "Move element"
+msgstr ""
+
+#: ../core/assets.php:165
+msgid "Save element as template"
+msgstr ""
+
+#: ../core/assets.php:166
+msgid "Create element from template"
+msgstr ""
+
+#: ../core/assets.php:167 ../views/editor.php:22 ../views/editor.php:83
+msgid "Add row"
+msgstr ""
+
+#: ../core/assets.php:168
+msgid "Change row layout"
+msgstr ""
+
+#: ../core/assets.php:169 ../views/editor.php:38
+msgid "Duplicate row"
+msgstr ""
+
+#: ../core/assets.php:171 ../views/editor.php:34
+msgid "Move row"
+msgstr ""
+
+#: ../core/assets.php:172
+msgid "Edit post options"
+msgstr ""
+
+#: ../core/assets.php:173
+msgid "Edit row options"
+msgstr ""
+
+#: ../core/assets.php:174
+msgid "Edit column options"
+msgstr ""
+
+#: ../core/assets.php:175
+msgid "Edit element options"
 msgstr ""
 
 #: ../core/settings.php:101
@@ -371,7 +344,7 @@ msgstr ""
 msgid "Enable post layouts"
 msgstr ""
 
-#: ../core/settings.php:405 ../views/editor.php:16 ../views/templates.php:4
+#: ../core/settings.php:405 ../views/templates.php:4 ../views/editor.php:16
 msgid "Element templates"
 msgstr ""
 
@@ -523,6 +496,35 @@ msgstr ""
 msgid "HTML after each element:"
 msgstr ""
 
+#: ../core/layouts.php:20
+msgid "Unnamed layout"
+msgstr ""
+
+#: ../views/templates.php:2
+msgid "Hide templates"
+msgstr ""
+
+#: ../views/form.php:11
+msgid "Switch to fullscreen editor"
+msgstr ""
+
+#: ../views/form.php:12
+msgid "Switch to small editor"
+msgstr ""
+
+#: ../views/form.php:29
+msgid "Save"
+msgstr ""
+
+#: ../views/form.php:31
+msgid "Back"
+msgstr ""
+
+#: ../views/load-layout.php:19
+#, php-format
+msgid "Created on %s"
+msgstr ""
+
 #: ../views/editor.php:2
 msgid "Layotter loading &hellip;"
 msgstr ""
@@ -539,6 +541,14 @@ msgstr ""
 msgid "Or start with a layout that you created earlier"
 msgstr ""
 
+#: ../views/editor.php:39 ../components/options.php:37
+msgid "Row options"
+msgstr ""
+
+#: ../views/editor.php:63 ../components/options.php:39
+msgid "Element options"
+msgstr ""
+
 #: ../views/editor.php:65
 msgid "Save as template"
 msgstr ""
@@ -547,19 +557,10 @@ msgstr ""
 msgid "This is a template."
 msgstr ""
 
-#: ../views/load-layout.php:19
-#, php-format
-msgid "Created on %s"
+#: ../components/options.php:36
+msgid "Post options"
 msgstr ""
 
-#: ../views/templates.php:2
-msgid "Hide templates"
-msgstr ""
-
-#: ../views/templates.php:10
-msgid "Delete template"
-msgstr ""
-
-#: ../views/templates.php:11
-msgid "Edit template"
+#: ../components/options.php:38
+msgid "Column options"
 msgstr ""

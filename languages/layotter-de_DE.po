@@ -1,213 +1,21 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Layotter\n"
-"POT-Creation-Date: 2015-06-16 12:33+0100\n"
-"PO-Revision-Date: 2015-06-16 12:33+0100\n"
+"POT-Creation-Date: 2015-06-20 12:38+0100\n"
+"PO-Revision-Date: 2015-06-20 12:39+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.1\n"
+"X-Generator: Poedit 1.5.4\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
-"X-Poedit-SearchPath-0: ..\n"
 "X-Poedit-SearchPathExcluded-0: ../assets/js/vendor\n"
 "X-Poedit-SearchPathExcluded-1: ../vendor\n"
-
-#: ../components/form.php:82
-msgid "Save"
-msgstr "Speichern"
-
-#: ../components/form.php:83 ../core/assets.php:126 ../core/views.php:32
-#: ../views/load-layout.php:25
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: ../components/form.php:84
-msgid "Back"
-msgstr "Zurück"
-
-#: ../components/form.php:85
-msgid "Switch to fullscreen editor"
-msgstr "Zum Fullscreen-Editor wechseln"
-
-#: ../components/form.php:86
-msgid "Switch to small editor"
-msgstr "Zum kleinen Editor wechseln"
-
-#: ../components/options.php:36
-msgid "Post options"
-msgstr "Seitenoptionen"
-
-#: ../components/options.php:37 ../views/editor.php:39
-msgid "Row options"
-msgstr "Zeilenoptionen"
-
-#: ../components/options.php:38
-msgid "Column options"
-msgstr "Spaltenoptionen"
-
-#: ../components/options.php:39 ../views/editor.php:63
-msgid "Element options"
-msgstr "Elementoptionen"
-
-#: ../core/acf-locations.php:20
-msgid "Use with Layotter"
-msgstr "Mit Layotter benutzen"
-
-#: ../core/acf-locations.php:30
-msgid "Use as element"
-msgstr "Als Element nutzen"
-
-#: ../core/acf-locations.php:31
-msgid "Use for post options"
-msgstr "Für Seitenoptionen nutzen"
-
-#: ../core/acf-locations.php:32
-msgid "Use for row options"
-msgstr "Für Zeilenoptionen nutzen"
-
-#: ../core/acf-locations.php:34
-msgid "Use for element options"
-msgstr "Für Elementoptionen nutzen"
-
-#: ../core/assets.php:123 ../core/assets.php:153 ../views/editor.php:37
-msgid "Delete row"
-msgstr "Zeile löschen"
-
-#: ../core/assets.php:124 ../core/assets.php:146 ../views/editor.php:58
-msgid "Delete element"
-msgstr "Element löschen"
-
-#: ../core/assets.php:125
-msgid "Delete favorite"
-msgstr "Favoriten löschen"
-
-#: ../core/assets.php:127
-msgid "Discard changes"
-msgstr "Änderungen verwerfen"
-
-#: ../core/assets.php:128
-msgid "Do you want to cancel and discard all changes?"
-msgstr "Wirklich abbrechen und alle Änderungen verwerfen?"
-
-#: ../core/assets.php:129
-msgid "Do you want to delete this row and all its elements?"
-msgstr "Möchtest du diese Zeile und alle enthaltenen Elemente löschen?"
-
-#: ../core/assets.php:130
-msgid "Do you want to delete this element?"
-msgstr "Möchtest du dieses Element löschen?"
-
-#: ../core/assets.php:131
-msgid "Do you want to delete this template? You can not undo this action."
-msgstr ""
-"Möchtest du dieses Template löschen? Du kannst diese Aktion nicht rückgängig "
-"machen."
-
-#: ../core/assets.php:132
-msgid "Please enter a name for your layout:"
-msgstr "Bitte gib einen Namen für dein Layout ein:"
-
-#: ../core/assets.php:133 ../views/editor.php:11
-msgid "Save layout"
-msgstr "Layout speichern"
-
-#: ../core/assets.php:134
-msgid "Please enter the new name for this layout:"
-msgstr "Bitte gib den neuen Namen für dieses Layout ein:"
-
-#: ../core/assets.php:135 ../views/load-layout.php:15
-msgid "Rename layout"
-msgstr "Layout umbenennen"
-
-#: ../core/assets.php:136
-msgid "Do want to delete this layout? You can not undo this action."
-msgstr ""
-"Möchtest du dieses Layout löschen? Du kannst diese Aktion nicht rückgängig "
-"machen."
-
-#: ../core/assets.php:137 ../views/load-layout.php:16
-msgid "Delete layout"
-msgstr "Layout löschen"
-
-#: ../core/assets.php:138
-msgid "Do want to load this layout and overwrite the existing content?"
-msgstr ""
-"Möchtest du dieses Layout laden und den bestehenden Inhalt überschreiben?"
-
-#: ../core/assets.php:139 ../core/assets.php:159 ../views/editor.php:13
-#: ../views/load-layout.php:7
-msgid "Load layout"
-msgstr "Layout laden"
-
-#: ../core/assets.php:141
-msgid "Undo:"
-msgstr "Rückgängig:"
-
-#: ../core/assets.php:142
-msgid "Redo:"
-msgstr "Wiederholen:"
-
-#: ../core/assets.php:143 ../core/views.php:30 ../views/editor.php:52
-#: ../views/editor.php:75
-msgid "Add element"
-msgstr "Neues Element"
-
-#: ../core/assets.php:144 ../views/editor.php:59
-msgid "Edit element"
-msgstr "Element bearbeiten"
-
-#: ../core/assets.php:145 ../views/editor.php:64
-msgid "Duplicate element"
-msgstr "Element duplizieren"
-
-#: ../core/assets.php:147
-msgid "Move element"
-msgstr "Element verschieben"
-
-#: ../core/assets.php:148
-msgid "Save element as template"
-msgstr "Element als Template speichern"
-
-#: ../core/assets.php:149
-msgid "Create element from template"
-msgstr "Element aus einem Template erstellen"
-
-#: ../core/assets.php:150 ../views/editor.php:22 ../views/editor.php:83
-msgid "Add row"
-msgstr "Neue Zeile"
-
-#: ../core/assets.php:151
-msgid "Change row layout"
-msgstr "Zeilenlayout ändern"
-
-#: ../core/assets.php:152 ../views/editor.php:38
-msgid "Duplicate row"
-msgstr "Zeile duplizieren"
-
-#: ../core/assets.php:154 ../views/editor.php:34
-msgid "Move row"
-msgstr "Zeile verschieben"
-
-#: ../core/assets.php:155
-msgid "Edit post options"
-msgstr "Seitenoptionen bearbeiten"
-
-#: ../core/assets.php:156
-msgid "Edit row options"
-msgstr "Zeilenoptionen bearbeiten"
-
-#: ../core/assets.php:157
-msgid "Edit column options"
-msgstr "Spaltenoptionen bearbeiten"
-
-#: ../core/assets.php:158
-msgid "Edit element options"
-msgstr "Elementoptionen bearbeiten"
+"X-Poedit-SearchPath-0: ..\n"
 
 #: ../core/check-acf.php:10
 #, php-format
@@ -250,9 +58,177 @@ msgstr ""
 "wird das Layout und alle Inhalte dieses Posts löschen. Du kannst den Debug-"
 "Modus in den <a href=\"%s\">Layotter-Einstellungen</a> deaktivieren."
 
-#: ../core/layouts.php:20
-msgid "Unnamed layout"
-msgstr "Unbenanntes Layout"
+#: ../core/acf-locations.php:20
+msgid "Use with Layotter"
+msgstr "Mit Layotter benutzen"
+
+#: ../core/acf-locations.php:30
+msgid "Use as element"
+msgstr "Als Element nutzen"
+
+#: ../core/acf-locations.php:31
+msgid "Use for post options"
+msgstr "Für Seitenoptionen nutzen"
+
+#: ../core/acf-locations.php:32
+msgid "Use for row options"
+msgstr "Für Zeilenoptionen nutzen"
+
+#: ../core/acf-locations.php:34
+msgid "Use for element options"
+msgstr "Für Elementoptionen nutzen"
+
+#: ../core/assets.php:138 ../core/assets.php:170 ../views/editor.php:37
+msgid "Delete row"
+msgstr "Zeile löschen"
+
+#: ../core/assets.php:139 ../core/assets.php:163 ../views/editor.php:58
+msgid "Delete element"
+msgstr "Element löschen"
+
+#: ../core/assets.php:140 ../views/templates.php:10
+msgid "Delete template"
+msgstr "Template löschen"
+
+#: ../core/assets.php:141 ../views/templates.php:11
+msgid "Edit template"
+msgstr "Template bearbeiten"
+
+#: ../core/assets.php:142 ../views/add-element.php:22 ../views/form.php:30
+#: ../views/load-layout.php:25
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: ../core/assets.php:143
+msgid "Discard changes"
+msgstr "Änderungen verwerfen"
+
+#: ../core/assets.php:144
+msgid "Do you want to cancel and discard all changes?"
+msgstr "Wirklich abbrechen und alle Änderungen verwerfen?"
+
+#: ../core/assets.php:145
+msgid "Do you want to delete this row and all its elements?"
+msgstr "Möchtest du diese Zeile und alle enthaltenen Elemente löschen?"
+
+#: ../core/assets.php:146
+msgid "Do you want to delete this element?"
+msgstr "Möchtest du dieses Element löschen?"
+
+#: ../core/assets.php:147
+msgid "Do you want to delete this template? You can not undo this action."
+msgstr ""
+"Möchtest du dieses Template löschen? Du kannst diese Aktion nicht rückgängig "
+"machen."
+
+#: ../core/assets.php:148
+msgid ""
+"When editing a template, your changes will be reflected on all pages that "
+"are using it. Do you want to edit this template?"
+msgstr ""
+"Wenn du ein Template bearbeitest, erscheinen deine Änderungen auf allen "
+"Seiten die es verwenden. Möchtest du dieses Template bearbeiten?"
+
+#: ../core/assets.php:149
+msgid "Please enter a name for your layout:"
+msgstr "Bitte gib einen Namen für dein Layout ein:"
+
+#: ../core/assets.php:150 ../views/editor.php:11
+msgid "Save layout"
+msgstr "Layout speichern"
+
+#: ../core/assets.php:151
+msgid "Please enter the new name for this layout:"
+msgstr "Bitte gib den neuen Namen für dieses Layout ein:"
+
+#: ../core/assets.php:152 ../views/load-layout.php:15
+msgid "Rename layout"
+msgstr "Layout umbenennen"
+
+#: ../core/assets.php:153
+msgid "Do want to delete this layout? You can not undo this action."
+msgstr ""
+"Möchtest du dieses Layout löschen? Du kannst diese Aktion nicht rückgängig "
+"machen."
+
+#: ../core/assets.php:154 ../views/load-layout.php:16
+msgid "Delete layout"
+msgstr "Layout löschen"
+
+#: ../core/assets.php:155
+msgid "Do want to load this layout and overwrite the existing content?"
+msgstr ""
+"Möchtest du dieses Layout laden und den bestehenden Inhalt überschreiben?"
+
+#: ../core/assets.php:156 ../core/assets.php:176 ../views/load-layout.php:7
+#: ../views/editor.php:13
+msgid "Load layout"
+msgstr "Layout laden"
+
+#: ../core/assets.php:158
+msgid "Undo:"
+msgstr "Rückgängig:"
+
+#: ../core/assets.php:159
+msgid "Redo:"
+msgstr "Wiederholen:"
+
+#: ../core/assets.php:160 ../views/add-element.php:7 ../views/editor.php:52
+#: ../views/editor.php:75
+msgid "Add element"
+msgstr "Neues Element"
+
+#: ../core/assets.php:161 ../views/editor.php:59
+msgid "Edit element"
+msgstr "Element bearbeiten"
+
+#: ../core/assets.php:162 ../views/editor.php:64
+msgid "Duplicate element"
+msgstr "Element duplizieren"
+
+#: ../core/assets.php:164
+msgid "Move element"
+msgstr "Element verschieben"
+
+#: ../core/assets.php:165
+msgid "Save element as template"
+msgstr "Element als Template speichern"
+
+#: ../core/assets.php:166
+msgid "Create element from template"
+msgstr "Element aus einem Template erstellen"
+
+#: ../core/assets.php:167 ../views/editor.php:22 ../views/editor.php:83
+msgid "Add row"
+msgstr "Neue Zeile"
+
+#: ../core/assets.php:168
+msgid "Change row layout"
+msgstr "Zeilenlayout ändern"
+
+#: ../core/assets.php:169 ../views/editor.php:38
+msgid "Duplicate row"
+msgstr "Zeile duplizieren"
+
+#: ../core/assets.php:171 ../views/editor.php:34
+msgid "Move row"
+msgstr "Zeile verschieben"
+
+#: ../core/assets.php:172
+msgid "Edit post options"
+msgstr "Seitenoptionen bearbeiten"
+
+#: ../core/assets.php:173
+msgid "Edit row options"
+msgstr "Zeilenoptionen bearbeiten"
+
+#: ../core/assets.php:174
+msgid "Edit column options"
+msgstr "Spaltenoptionen bearbeiten"
+
+#: ../core/assets.php:175
+msgid "Edit element options"
+msgstr "Elementoptionen bearbeiten"
 
 #: ../core/settings.php:101
 msgid "Full width"
@@ -393,7 +369,7 @@ msgstr ""
 msgid "Enable post layouts"
 msgstr "Seitenlayouts verwenden"
 
-#: ../core/settings.php:405 ../views/editor.php:16 ../views/templates.php:4
+#: ../core/settings.php:405 ../views/templates.php:4 ../views/editor.php:16
 msgid "Element templates"
 msgstr "Element-Templates"
 
@@ -574,6 +550,35 @@ msgstr "HTML vor jedem Element:"
 msgid "HTML after each element:"
 msgstr "HTML nach jedem Element:"
 
+#: ../core/layouts.php:20
+msgid "Unnamed layout"
+msgstr "Unbenanntes Layout"
+
+#: ../views/templates.php:2
+msgid "Hide templates"
+msgstr "Templates verstecken"
+
+#: ../views/form.php:11
+msgid "Switch to fullscreen editor"
+msgstr "Zum Fullscreen-Editor wechseln"
+
+#: ../views/form.php:12
+msgid "Switch to small editor"
+msgstr "Zum kleinen Editor wechseln"
+
+#: ../views/form.php:29
+msgid "Save"
+msgstr "Speichern"
+
+#: ../views/form.php:31
+msgid "Back"
+msgstr "Zurück"
+
+#: ../views/load-layout.php:19
+#, php-format
+msgid "Created on %s"
+msgstr "Erstellt am %s"
+
 #: ../views/editor.php:2
 msgid "Layotter loading &hellip;"
 msgstr "Layotter lädt &hellip;"
@@ -590,6 +595,14 @@ msgstr "Erstelle als erstes eine neue Zeile"
 msgid "Or start with a layout that you created earlier"
 msgstr "Oder starte mit einer Layout-Vorlage"
 
+#: ../views/editor.php:39 ../components/options.php:37
+msgid "Row options"
+msgstr "Zeilenoptionen"
+
+#: ../views/editor.php:63 ../components/options.php:39
+msgid "Element options"
+msgstr "Elementoptionen"
+
 #: ../views/editor.php:65
 msgid "Save as template"
 msgstr "Als Template speichern"
@@ -598,22 +611,16 @@ msgstr "Als Template speichern"
 msgid "This is a template."
 msgstr "Dies ist ein Template."
 
-#: ../views/load-layout.php:19
-#, php-format
-msgid "Created on %s"
-msgstr "Erstellt am %s"
+#: ../components/options.php:36
+msgid "Post options"
+msgstr "Seitenoptionen"
 
-#: ../views/templates.php:2
-msgid "Hide templates"
-msgstr "Templates verstecken"
+#: ../components/options.php:38
+msgid "Column options"
+msgstr "Spaltenoptionen"
 
-#: ../views/templates.php:10
-msgid "Delete template"
-msgstr "Template löschen"
-
-#: ../views/templates.php:11
-msgid "Edit template"
-msgstr "Template bearbeiten"
+#~ msgid "Delete favorite"
+#~ msgstr "Favoriten löschen"
 
 #~ msgid "Single column"
 #~ msgstr "Einzelne Spalte"

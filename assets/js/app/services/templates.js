@@ -12,9 +12,16 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
      * Show edit form for an $element template
      */
     this.editTemplate = function(element) {
-        state.setElement(element);
-        forms.post(ajaxurl + '?action=layotter_edit_template', {
-            template_id: element.template_id
+        modals.confirm({
+            message: layotterData.i18n.edit_template_confirmation,
+            okText: layotterData.i18n.edit_template,
+            okAction: function(){
+                state.setElement(element);
+                forms.post(ajaxurl + '?action=layotter_edit_template', {
+                    template_id: element.template_id
+                });
+            },
+            cancelText: layotterData.i18n.cancel
         });
     };
     

@@ -2,6 +2,7 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
 
 
     var _this = this;
+    this.data = {};
 
 
     angular.element(document).on('submit', '#layotter-edit', function(){

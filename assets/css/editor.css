@@ -57,14 +57,17 @@
 #layotter-templates .layotter-placeholder {
   height: 0 !important; }
 
-.layotter-row.ui-sortable-helper > .layotter-element-canvas,
-.layotter-element.ui-sortable-helper > .layotter-element-canvas {
-  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1) !important; }
-.layotter-row.ui-sortable-helper > .layotter-add-row-button-wrapper,
-.layotter-row.ui-sortable-helper > .layotter-add-element-button-wrapper,
-.layotter-element.ui-sortable-helper > .layotter-add-row-button-wrapper,
-.layotter-element.ui-sortable-helper > .layotter-add-element-button-wrapper {
-  display: none !important; }
+.layotter-row.ui-sortable-helper,
+.layotter-element.ui-sortable-helper {
+  z-index: 9999 !important; }
+  .layotter-row.ui-sortable-helper > .layotter-element-canvas,
+  .layotter-element.ui-sortable-helper > .layotter-element-canvas {
+    box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1) !important; }
+  .layotter-row.ui-sortable-helper > .layotter-add-row-button-wrapper,
+  .layotter-row.ui-sortable-helper > .layotter-add-element-button-wrapper,
+  .layotter-element.ui-sortable-helper > .layotter-add-row-button-wrapper,
+  .layotter-element.ui-sortable-helper > .layotter-add-element-button-wrapper {
+    display: none !important; }
 
 .layotter-rows > .layotter-placeholder {
   position: relative; }
@@ -717,6 +720,8 @@
   .layotter-modal-prompt .layotter-modal-prompt-message {
     padding: 20px;
     font-size: 14px; }
+    .layotter-modal-prompt .layotter-modal-prompt-message p:first-child {
+      margin-top: 0; }
   .layotter-modal-prompt .layotter-modal-prompt-buttons {
     position: absolute;
     bottom: 0;
