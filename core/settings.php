@@ -20,10 +20,9 @@ class Layotter_Settings {
         register_activation_hook(dirname(__DIR__) . '/index.php', array(__CLASS__, 'set_defaults_on_activation'));
 
 
-        // do stuff on plugin deactivation
         // use the following line FOR DEBUGGING ONLY
-        // REMOVES ALL SETTINGS on plugin deactivation
-        register_deactivation_hook(dirname(__DIR__) . '/index.php', array(__CLASS__, 'remove_all_settings'));
+        // REMOVES ALL SETTINGS on plugin deactivation!
+        // register_deactivation_hook(dirname(__DIR__) . '/index.php', array(__CLASS__, 'remove_all_settings'));
 
 
         // translate labels on admin_init - otherwise translations wouldn't be available yet
@@ -352,6 +351,7 @@ class Layotter_Settings {
                 }
                 ?>
             </div>
+            <!--
             <h3>
                 <?php _e('Default element type', 'layotter'); ?>
             </h3>
@@ -368,6 +368,7 @@ class Layotter_Settings {
                     <?php _e('Enable default element type', 'layotter'); ?>
                 </label>
             </p>
+            -->
             <?php
             submit_button(__('Save settings', 'layotter'));
             ?>
