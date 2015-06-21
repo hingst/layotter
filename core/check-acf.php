@@ -1,7 +1,7 @@
 <?php
 
 
-define('LAYOTTER_ACF_VERSION_REQUIRED', '5.2.0');
+define('LAYOTTER_ACF_VERSION_REQUIRED', '5.2.6');
 
 
 // check if ACF is installed and the version is compatible with this version of Layotter
