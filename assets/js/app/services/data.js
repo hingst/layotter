@@ -1,7 +1,5 @@
 /**
- * Keeps content structure and blank templates for rows, columns and elements
- *
- * TODO: What about settings data? If there's a central data service it should probably keep track of that as well
+ * Central provider for content structure and blank templates for rows, columns and elements
  */
 app.service('data', function(){
     // use default post options for new posts

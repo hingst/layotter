@@ -1,3 +1,6 @@
+/**
+ * All things related to post layouts
+ */
 app.service('layouts', function($rootScope, $http, $animate, $timeout, data, forms, modals, state, history){
     
 
@@ -8,10 +11,13 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
     this.savedLayouts = layotterData.savedLayouts;
 
 
+    /**
+     * Save current post content as a new layout
+     */
     this.saveNewLayout = function() {
         var json = angular.toJson(data.contentStructure);
 
-       modals.prompt({
+        modals.prompt({
             message: layotterData.i18n.save_new_layout_confirmation,
             initialValue: angular.element('#title').val(),
             okText: layotterData.i18n.save_layout,
@@ -34,14 +40,21 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
     };
 
 
+    /**
+     * Show a list of existing post layouts
+     */
     this.loadLayout = function() {
-        forms.show(angular.element('#layotter-load-layout').html());
+        forms.showHTML(angular.element('#layotter-load-layout').html());
     };
 
 
+    /**
+     * Triggered when selecting an existing post layout to be loaded
+     */
     this.selectSavedLayout = function(layout) {
         var id = layout.layout_id;
 
+        // ask for confirmation if current post content is not empy
         if (data.contentStructure.rows.length === 0) {
             _this.loadSelectedLayout(id);
         } else {
@@ -57,6 +70,9 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
     };
 
 
+    /**
+     * Fetch data for an existing post layout and overwrite current content
+     */
     this.loadSelectedLayout = function(id) {
         state.reset();
         angular.element('#layotter').addClass('layotter-loading');
@@ -80,6 +96,9 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
     };
 
 
+    /**
+     * Rename an existing post layout
+     */
     this.renameLayout = function(index, $event) {
         $event.stopPropagation();
         var layout = _this.savedLayouts[index];
@@ -109,6 +128,9 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
     };
 
 
+    /**
+     * Delete a post layout
+     */
     this.deleteLayout = function(index, $event) {
         $event.stopPropagation();
         var layout = _this.savedLayouts[index];

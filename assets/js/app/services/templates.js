@@ -1,3 +1,6 @@
+/**
+ * All things related to element templates
+ */
 app.service('templates', function($rootScope, $http, $animate, $timeout, view, forms, modals, state, data, history){
     
 
@@ -17,7 +20,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
             okText: layotterData.i18n.edit_template,
             okAction: function(){
                 state.setElement(element);
-                forms.post(ajaxurl + '?action=layotter_edit_template', {
+                forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_template', {
                     template_id: element.template_id
                 });
             },
@@ -58,7 +61,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
     
     
     /**
-     * 
+     * Create a new template from an existing element's data
      */
     this.saveNewTemplate = function(element) {
         delete element.template_deleted;
@@ -88,7 +91,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
     
     
     /**
-     * 
+     * Save template data from the form that's currently being displayed
      */
     this.saveTemplate = function() {
         var values = jQuery('#layotter-edit').serializeObject();
@@ -112,17 +115,22 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
     };
 
 
+    /**
+     * Highlight a template instance (triggered when hovering over the template in the sidebar)
+     */
     this.highlightTemplate = function (element) {
         element.isHighlighted = true;
     };
-
-
     this.unhighlightTemplate = function (element) {
         element.isHighlighted = undefined;
     };
 
 
-    // TODO: improve performance, currently all elements are inspected every time a template changes
+    /**
+     * Watch all template instances to be able to highlight them when hovering over the template in the sidebar
+     *
+     * TODO: improve performance, currently all elements are inspected every time a template changes
+     */
     this.watchTemplate = function (template) {
         $rootScope.$watch(function () {
             return template;

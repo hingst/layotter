@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
 
 
 /**
- * Initialize stuff after bootstrapping
+ * Initialize UI after bootstrapping
  */
 app.run(function() {
     // show layotter, hide loading spinner

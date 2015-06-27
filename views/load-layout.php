@@ -1,4 +1,4 @@
-<div class="layotter-modal" ng-controller="FormCtrl">
+<div class="layotter-modal" ng-controller="ModalCtrl">
     <div class="layotter-modal-head">
         <div class="layotter-modal-head-icon">
             <i class="fa fa-upload"></i>

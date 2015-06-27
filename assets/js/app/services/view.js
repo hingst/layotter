@@ -2,6 +2,9 @@
  * Things that change the view but have no effect on data
  */
 app.service('view', function() {
+    /**
+     * Show/hide templates sidebar
+     */
     this.showTemplates = function() {
         jQuery('#layotter-templates').addClass('layotter-visible');
     };
@@ -9,6 +12,10 @@ app.service('view', function() {
         jQuery('#layotter-templates').toggleClass('layotter-visible');
     };
 
+
+    /**
+     * Show/hide toolbar when scrolling
+     */
     jQuery(window).scroll(function(){
         var scrolled = jQuery(document).scrollTop();
         var trigger = jQuery('#layotter-top-buttons-1').offset().top;

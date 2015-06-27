@@ -1,3 +1,6 @@
+/**
+ * Main provider for content and editing
+ */
 app.service('content', function($rootScope, $http, $animate, $timeout, data, forms, modals, state, templates, history){
 
 
@@ -18,7 +21,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         state.setElement(angular.copy(data.templates.element));
         state.setParent(parent);
         state.setIndex(index);
-        forms.show(angular.element('#layotter-add-element').html());
+        forms.showHTML(angular.element('#layotter-add-element').html());
     };
     
     
@@ -26,7 +29,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
      * Go back to show the list of available element types when editing a new element
      */
     this.backToShowNewElementTypes = function() {
-        forms.show(angular.element('#layotter-add-element').html());
+        forms.showHTML(angular.element('#layotter-add-element').html());
     };
     
     
@@ -60,7 +63,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
      */
     this.editElement = function(element) {
         state.setElement(element);
-        forms.post(ajaxurl + '?action=layotter_edit_element', {
+        forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_element', {
             type: element.type,
             values: element.values
         });
@@ -68,7 +71,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
     
     
     /**
-     * Save values from the edit form being currently displayed
+     * Save values from the element edit form being currently displayed
      */
     this.saveElement = function() {
         // ACF wraps all form fields in a required object called 'acf'
@@ -110,21 +113,21 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
     
     
     /**
-     * 
+     * Show edit form for an $item's (post, row, col or element) $options
      */
-    this.editOptions = function(type, element) {
+    this.editOptions = function(type, item) {
         state.setOptionsType(type);
-        state.setElement(element);
-        forms.post(ajaxurl + '?action=layotter_edit_options', {
+        state.setElement(item);
+        forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_options', {
             type: type,
-            values: element.options,
+            values: item.options,
             post_id: layotterData.postID
         });
     };
     
     
     /**
-     * 
+     * Save values from the options edit form being currently displayed
      */
     this.saveOptions = function() {
         // ACF wraps all form fields in a required object called 'acf'
@@ -134,11 +137,10 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         }
         
         // copy editing.element so editing can be reset while ajax is still loading
-        var editingElement = state.getElement();
+        var editingItem = state.getElement();
         var optionsType = state.getOptionsType();
         state.reset();
-        
-        editingElement.isLoading = true;
+        editingItem.isLoading = true;
         
         $http({
             url: ajaxurl + '?action=layotter_parse_options',
@@ -149,8 +151,8 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
                 post_id: layotterData.postID
             }
         }).success(function(reply) {
-            editingElement.options = reply;
-            editingElement.isLoading = undefined;
+            editingItem.options = reply;
+            editingItem.isLoading = undefined;
             history.pushStep(layotterData.i18n.history['edit_' + optionsType + '_options']);
         });
     };
@@ -173,7 +175,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
     
     
     /**
-     * Delete row at $index - ask for confirmation if it contains any elements
+     * Delete row at $index
      */
     this.deleteRow = function(index) {
         var hasElements = false;
@@ -183,13 +185,14 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
                 hasElements = true;
             }
         });
-        
+
+        // ask for confirmation only if the row contains any elements
         if (!hasElements) {
             data.contentStructure.rows.splice(index, 1);
             history.pushStep(layotterData.i18n.history.delete_row);
             return;
         }
-        
+
         modals.confirm({
             message: layotterData.i18n.delete_row_confirmation,
             okText: layotterData.i18n.delete_row,
@@ -230,7 +233,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
     
     
     /**
-     * Get column layout string (half, third, etc.) for column at $index in $row
+     * Get column layout string ('1/2', '2/3', etc.) for column at $index in $row
      */
     this.getColLayout = function(row, index) {
         return row.layout.split(' ')[index];
@@ -286,9 +289,14 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
     };
 
 
+    /**
+     * Close current overlay when clicking the dark background
+     */
+    // forms
     angular.element(document).on('click', '#dennisbox .dennisbox-overlay', function(){
         _this.cancelEditing();
     });
+    // modals
     angular.element(document).on('click', '#dennisbox-modal .dennisbox-overlay', function(){
         if (typeof $rootScope.confirm !== 'undefined') {
             $rootScope.confirm.cancelAction();
@@ -297,8 +305,8 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
             $rootScope.prompt.cancelAction();
         }
     });
+    // when ESC is pressed and an edit form is open (but no confirmation or prompt modal), cancel editing
     angular.element(document).on('keyup', function(e){
-        // when ESC is pressed and an edit form is open (but no confirmation or prompt modal), cancel editing
         if (e.keyCode == 27 && angular.element('#dennisbox').length && !angular.element('.layotter-modal-confirm').length && !angular.element('.layotter-modal-prompt').length) {
             angular.element('#layotter-edit :focus').blur();
             _this.cancelEditing();

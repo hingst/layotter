@@ -1,8 +1,11 @@
+/**
+ * Provides methods for form overlay creation
+ */
 app.service('forms', function($http, $compile, $rootScope, $timeout){
 
 
     var _this = this;
-    this.data = {};
+    this.data = {}; // contains field data for the form that's currently being displayed
 
 
     angular.element(document).on('submit', '#layotter-edit', function(){
@@ -39,21 +42,8 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
      *
      * @param html HTML string
      */
-    this.show = function(html) {
+    this.showHTML = function(html) {
         create(html);
-    };
-
-
-    /**
-     * Fetch HTML via GET and display the result
-     *
-     * @param url URL to get content from
-     */
-    this.get = function(url) {
-        create(); // loading
-        $http.get(url).success(function(reply){
-            create(reply);
-        });
     };
 
 
@@ -63,20 +53,19 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
      * @param url URL to get content from
      * @param data POST data
      */
-    this.post = function(url, data) {
+    this.fetchDataAndShowForm = function(url, data) {
         create(); // loading
         $http.post(url, data).success(function(reply){
-            create(reply);
+            _this.data = reply;
+            create(jQuery('#layotter-form').html());
         });
     };
 
 
     /**
-     * Open up the lightbox - internal use only
-     *
-     * @param data An HTML string to be displayed directly or an object with form data to be applied to a template
+     * Open up the lightbox and show passed HTML content
      */
-    var create = function(data) {
+    var create = function(html) {
         // animate if opening a new lightbox, don't animate if replacing another lightbox
         var animate = true;
         if (angular.element('#dennisbox').length) {
@@ -106,14 +95,11 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
         }
 
         // undefined content means "just show a loading spinner for now"
-        if (typeof data === 'undefined') {
+        if (typeof html === 'undefined') {
             contentBox.addClass('dennisbox-loading');
             return;
-        } else if (typeof data === 'string') {
-            contentBox.html(data);
-        } else {
-            contentBox.html(jQuery('#layotter-form').html());
-            _this.data = data;
+        } else if (typeof html === 'string') {
+            contentBox.html(html);
         }
 
         // compile lightbox contents

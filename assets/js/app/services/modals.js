@@ -1,3 +1,6 @@
+/**
+ * Provides methos to create confirm() and alert() style modals
+ */
 app.service('modals', function($compile, $rootScope, $timeout){
 
 
@@ -101,7 +104,7 @@ app.service('modals', function($compile, $rootScope, $timeout){
 
 
     /**
-     * Open up the lightbox - internal use only
+     * Open up the lightbox
      *
      * @param content HTML string to be displayed
      */
