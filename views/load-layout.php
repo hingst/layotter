@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="layotter-modal-body">
-        <div class="layotter-modal-load-layout-wrapper" ng-repeat="layout in savedLayouts" ng-class="{ 'layotter-loading' : layout.isLoading }" ng-hide="layout.isDeleted">
+        <div class="layotter-modal-load-layout-wrapper" ng-repeat="layout in savedLayouts" ng-class="{ 'layotter-loading' : layout.isLoading }">
             <div class="layotter-modal-load-layout" ng-click="selectSavedLayout(layout)">
                 <div class="layotter-modal-load-layout-header">
                     <h3>{{ layout.name }}</h3>
