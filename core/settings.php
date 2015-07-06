@@ -18,6 +18,7 @@ class Layotter_Settings {
     public static function init() {
         // do stuff on plugin activation
         register_activation_hook(dirname(__DIR__) . '/index.php', array(__CLASS__, 'set_defaults_on_activation'));
+        add_action('wpmu_new_blog', array(__CLASS__, 'set_defaults_on_new_site'));
 
 
         // use the following line FOR DEBUGGING ONLY
@@ -158,14 +159,26 @@ class Layotter_Settings {
         $settings = self::get_settings('cols');
         return $settings['classes'][$layout];
     }
-    
-    
+
+
     /**
      * Set default settings on plugin activation
      */
     public static function set_defaults_on_activation() {
         // add_option makes sure existing settings will not be overwritten (as opposed to update_option)
         add_option('layotter_settings', self::$default_settings);
+    }
+
+
+    /**
+     * Set default settings when creating a new site in a multi-site environment
+     *
+     * @param int $new_site_id ID of the newly created site
+     */
+    public static function set_defaults_on_new_site($new_site_id) {
+        switch_to_blog($new_site_id);
+        self::set_defaults_on_activation();
+        restore_current_blog();
     }
 
 
