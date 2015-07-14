@@ -1205,8 +1205,19 @@ input:checked ~ .layotter-row-layout-option {
     margin-left: 4px;
 }
 
-#layotter-row-layouts checkbox {
-    float: none;
+span.description.layotter-description,
+.layotter-default-value {
+    font-weight: 400;
+}
+
+.layotter-shaded {
+    position: relative;
+
+    &:after {
+        @include pseudo(true);
+        background: #F1F1F1;
+        opacity: 0.6;
+    }
 }
 
 
