@@ -109,9 +109,9 @@ class Layotter_Col {
         if (has_filter('layotter/view/column')) {
             return apply_filters('layotter/view/column', $elements_html, $class, $this->options->get_formatted_values());
         } else {
-            $settings = Layotter_Settings::get_settings('cols');
-            $html_before = str_replace('%%CLASS%%', $class, $settings['html_before']);
-            return $html_before . $elements_html . $settings['html_after'];
+            $html_wrapper = Layotter_Settings::get_html_wrapper('cols');
+            $html_before = str_replace('%%CLASS%%', $class, $html_wrapper['before']);
+            return $html_before . $elements_html . $html_wrapper['after'];
         }
     }
 

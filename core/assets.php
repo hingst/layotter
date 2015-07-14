@@ -97,9 +97,8 @@ function layotter_assets_admin_enqueue_scripts() {
 
 
     // fetch general settings
-    $general_settings = Layotter_Settings::get_settings('general');
-    $enable_post_layouts = (isset($general_settings['enable_post_layouts']) AND $general_settings['enable_post_layouts'] === '1');
-    $enable_element_templates = (isset($general_settings['enable_element_templates']) AND $general_settings['enable_element_templates'] === '1');
+    $enable_post_layouts = Layotter_Settings::post_layouts_enabled();
+    $enable_element_templates = Layotter_Settings::element_templates_enabled();
 
     
     // inject data for use with Javascript

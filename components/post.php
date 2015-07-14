@@ -110,8 +110,8 @@ class Layotter_Post {
             return apply_filters('layotter/view/post', $rows_html, $this->options->get_formatted_values());
         } else {
             // otherwise, get HTML wrapper from settings, apply and return HTML
-            $settings = Layotter_Settings::get_settings('wrapper');
-            return $settings['html_before'] . $rows_html . $settings['html_after'];
+            $html_wrapper = Layotter_Settings::get_html_wrapper('wrapper');
+            return $html_wrapper['before'] . $rows_html . $html_wrapper['after'];
         }
     }
 

@@ -46,11 +46,11 @@ function layotter_output_interface($post) {
 
     $current_user = wp_get_current_user();
     $user_roles = $current_user->roles;
-    $settings = Layotter_Settings::get_settings('general');
+    $debug_mode_enabled_for = Layotter_Settings::get_debug_mode_enabled_for();
     $debug_mode_enabled = false;
 
     foreach ($user_roles as $role) {
-        if (isset($settings['debug_mode'][$role]) AND $settings['debug_mode'][$role] == '1') {
+        if (in_array($role, $debug_mode_enabled_for)) {
             $debug_mode_enabled = true;
             break;
         }

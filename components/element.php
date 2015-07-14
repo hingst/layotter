@@ -287,8 +287,8 @@ abstract class Layotter_Element extends Layotter_Editable {
         if (has_filter('layotter/view/element')) {
             return apply_filters('layotter/view/element', $element_html, $this->options->get_formatted_values());
         } else {
-            $settings = Layotter_Settings::get_settings('elements');
-            return $settings['html_before'] . $element_html . $settings['html_after'];
+            $html_wrapper = Layotter_Settings::get_html_wrapper('elements');
+            return $html_wrapper['before'] . $element_html . $html_wrapper['after'];
         }
     }
     

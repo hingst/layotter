@@ -60,7 +60,7 @@ class Layotter_Row {
 
 
     /**
-     * Take a row structure and apply the row layout (e.g. 'third third third') to the contained columns
+     * Take a row structure and apply the row layout (e.g. '1/3 1/3 1/3') to the contained columns
      *
      * @param array $structure Row structure with layout and columns
      * @return array Row structure with layout applied to columns
@@ -115,8 +115,8 @@ class Layotter_Row {
         if (has_filter('layotter/view/row')) {
             return apply_filters('layotter/view/row', $cols_html, $this->options->get_formatted_values());
         } else {
-            $settings = Layotter_Settings::get_settings('rows');
-            return $settings['html_before'] . $cols_html . $settings['html_after'];
+            $html_wrapper = Layotter_Settings::get_html_wrapper('rows');
+            return $html_wrapper['before'] . $cols_html . $html_wrapper['after'];
         }
     }
 
