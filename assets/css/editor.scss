@@ -1226,12 +1226,12 @@ span.description.layotter-description,
 
 #dennisbox,
 #dennisbox-modal {
-    z-index: 111110;
+    z-index: 100000;
 
     .dennisbox-overlay {
         cursor: pointer;
         position: fixed;
-        z-index: 111111;
+        z-index: 100001;
         top: 0;
         right: 0;
         left: 0;
@@ -1241,7 +1241,7 @@ span.description.layotter-description,
 
     .dennisbox-content {
         position: absolute;
-        z-index: 111112;
+        z-index: 100002;
         top: 0;
         left: 0;
         right: 0;
@@ -1258,11 +1258,11 @@ span.description.layotter-description,
 
 #dennisbox-modal {
     .dennisbox-overlay {
-        z-index: 111113;
+        z-index: 100003;
     }
 
     .dennisbox-content {
-        z-index: 111114;
+        z-index: 100004;
     }
 }
 
