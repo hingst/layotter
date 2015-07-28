@@ -22,9 +22,11 @@
             <span ng-show="data.rows.length"><i class="fa fa-plus"></i><?php _e('Add row', 'layotter'); ?></span>
             <span ng-hide="data.rows.length"><i class="fa fa-plus"></i><?php _e('Add your first row to get started', 'layotter'); ?></span>
         </span>
-        <span class="layotter-load-layout-button" ng-click="loadLayout()" ng-if="enablePostLayouts" ng-show="savedLayouts.length && !data.rows.length" ng-class="{ 'layotter-hidden': data.rows.length !== 0 }">
-            <i class="fa fa-upload"></i><?php _e('Or start with a layout that you created earlier', 'layotter'); ?>
-        </span>
+        <div class="layotter-breaker">
+            <span class="layotter-load-layout-button" ng-click="loadLayout()" ng-if="enablePostLayouts" ng-show="savedLayouts.length && !data.rows.length" ng-class="{ 'layotter-hidden': data.rows.length !== 0 }">
+                <i class="fa fa-upload"></i><?php _e('Or start with a layout that you created earlier', 'layotter'); ?>
+            </span>
+        </div>
     </div>
 
     <div class="layotter-rows" ui-sortable="rowSortableOptions" ng-model="data.rows">
@@ -47,9 +49,12 @@
                     </div>
                 </div>
                 <div class="layotter-cols">
-                    <div class="layotter-col" ng-repeat="col in row.cols" data-width="{{ getColLayout(row, $index) }}">
-                        <div class="layotter-add-element-button-wrapper" ng-class="{ 'layotter-always-visible': col.elements.length === 0 }">
-                            <span class="layotter-add-element-button" ng-click="showNewElementTypes(col.elements, -1)" title="<?php _e('Add element', 'layotter'); ?>"><i class="fa fa-plus"></i><span><?php _e('Add element', 'layotter'); ?></span></span>
+                    <div class="layotter-col" ng-class="{ 'layotter-loading' : col.isLoading }" ng-repeat="col in row.cols" data-width="{{ getColLayout(row, $index) }}">
+                        <div class="layotter-col-buttons-wrapper" ng-class="{ 'layotter-always-visible': col.elements.length === 0 }">
+                            <span class="layotter-col-button" ng-click="showNewElementTypes(col.elements, -1)" title="<?php _e('Add element', 'layotter'); ?>"><i class="fa fa-plus"></i><span><?php _e('Add element', 'layotter'); ?></span></span>
+                            <div class="layotter-breaker">
+                                <span class="layotter-col-button" ng-click="editOptions('col', col)" ng-show="optionsEnabled.col" title="<?php _e('Column options', 'layotter'); ?>"><i class="fa fa-cog"></i><span><?php _e('Column options', 'layotter'); ?></span></span>
+                            </div>
                         </div>
                         <div class="layotter-elements" ui-sortable="elementSortableOptions" ng-model="col.elements">
                             <div class="layotter-element layotter-animate" ng-repeat="element in col.elements" ng-class="{ 'layotter-loading' : element.isLoading, 'layotter-highlight' : element.isHighlighted }">
@@ -71,8 +76,8 @@
                                     </div>
                                     <div class="layotter-element-content" ng-bind-html="element.view"></div>
                                 </div>
-                                <div class="layotter-add-element-button-wrapper">
-                                    <span class="layotter-add-element-button" ng-click="showNewElementTypes(col.elements, $index)" title="<?php _e('Add element', 'layotter'); ?>"><i class="fa fa-plus"></i></span>
+                                <div class="layotter-col-buttons-wrapper">
+                                    <span class="layotter-col-button" ng-click="showNewElementTypes(col.elements, $index)" title="<?php _e('Add element', 'layotter'); ?>"><i class="fa fa-plus"></i></span>
                                 </div>
                             </div>
                         </div>

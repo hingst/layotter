@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Layotter\n"
-"POT-Creation-Date: 2015-07-14 20:02+0100\n"
-"PO-Revision-Date: 2015-07-14 20:05+0100\n"
+"POT-Creation-Date: 2015-07-28 14:21+0100\n"
+"PO-Revision-Date: 2015-07-28 14:22+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -21,15 +21,15 @@ msgstr ""
 msgid "Post options"
 msgstr "Seitenoptionen"
 
-#: ../components/options.php:37 ../views/editor.php:39
+#: ../components/options.php:37 ../views/editor.php:41
 msgid "Row options"
 msgstr "Zeilenoptionen"
 
-#: ../components/options.php:38
+#: ../components/options.php:38 ../views/editor.php:56
 msgid "Column options"
 msgstr "Spaltenoptionen"
 
-#: ../components/options.php:39 ../views/editor.php:63
+#: ../components/options.php:39 ../views/editor.php:68
 msgid "Element options"
 msgstr "Elementoptionen"
 
@@ -49,15 +49,19 @@ msgstr "Für Seitenoptionen nutzen"
 msgid "Use for row options"
 msgstr "Für Zeilenoptionen nutzen"
 
+#: ../core/acf-locations.php:33
+msgid "Use for column options"
+msgstr "Für Spaltenoptionen nutzen"
+
 #: ../core/acf-locations.php:34
 msgid "Use for element options"
 msgstr "Für Elementoptionen nutzen"
 
-#: ../core/assets.php:137 ../core/assets.php:169 ../views/editor.php:37
+#: ../core/assets.php:137 ../core/assets.php:169 ../views/editor.php:39
 msgid "Delete row"
 msgstr "Zeile löschen"
 
-#: ../core/assets.php:138 ../core/assets.php:162 ../views/editor.php:58
+#: ../core/assets.php:138 ../core/assets.php:162 ../views/editor.php:63
 msgid "Delete element"
 msgstr "Element löschen"
 
@@ -148,16 +152,16 @@ msgstr "Rückgängig:"
 msgid "Redo:"
 msgstr "Wiederholen:"
 
-#: ../core/assets.php:159 ../views/add-element.php:7 ../views/editor.php:52
-#: ../views/editor.php:75
+#: ../core/assets.php:159 ../views/add-element.php:7 ../views/editor.php:54
+#: ../views/editor.php:80
 msgid "Add element"
 msgstr "Neues Element"
 
-#: ../core/assets.php:160 ../views/editor.php:59
+#: ../core/assets.php:160 ../views/editor.php:64
 msgid "Edit element"
 msgstr "Element bearbeiten"
 
-#: ../core/assets.php:161 ../views/editor.php:64
+#: ../core/assets.php:161 ../views/editor.php:69
 msgid "Duplicate element"
 msgstr "Element duplizieren"
 
@@ -173,7 +177,7 @@ msgstr "Element als Template speichern"
 msgid "Create element from template"
 msgstr "Element aus einem Template erstellen"
 
-#: ../core/assets.php:166 ../views/editor.php:22 ../views/editor.php:83
+#: ../core/assets.php:166 ../views/editor.php:22 ../views/editor.php:88
 msgid "Add row"
 msgstr "Neue Zeile"
 
@@ -181,11 +185,11 @@ msgstr "Neue Zeile"
 msgid "Change row layout"
 msgstr "Zeilenlayout ändern"
 
-#: ../core/assets.php:168 ../views/editor.php:38
+#: ../core/assets.php:168 ../views/editor.php:40
 msgid "Duplicate row"
 msgstr "Zeile duplizieren"
 
-#: ../core/assets.php:170 ../views/editor.php:34
+#: ../core/assets.php:170 ../views/editor.php:36
 msgid "Move row"
 msgstr "Zeile verschieben"
 
@@ -339,8 +343,8 @@ msgid "Select the post types for which Layotter should be enabled."
 msgstr "Wähle die Post-Typen aus, für die du Layotter aktivieren möchtest."
 
 #: ../core/settings.php:436 ../core/settings.php:493 ../core/settings.php:517
-#: ../core/settings.php:725 ../core/settings.php:772 ../core/settings.php:883
-#: ../core/settings.php:1029
+#: ../core/settings.php:707 ../core/settings.php:754 ../core/settings.php:865
+#: ../core/settings.php:1011
 #, php-format
 msgid ""
 "There's a %s filter in your code that might be modifying these settings."
@@ -390,49 +394,23 @@ msgstr ""
 msgid "Enable element templates"
 msgstr "Element-Templates verwenden"
 
-#: ../core/settings.php:531
-msgid "Default element type"
-msgstr "Standard-Elementtyp"
-
-#: ../core/settings.php:534
-msgid ""
-"Layotter comes with an example element type to get started and try out the "
-"editor. If you don't want to use the default element type, you can disable "
-"it here."
-msgstr ""
-"Layotter enthält einen Beispiel-Elementtyp zum Testen und Kennenlernen des "
-"Editors. Wenn du den Standard-Elementtyp nicht benutzen willst, kannst du "
-"ihn hier deaktivieren."
-
-#: ../core/settings.php:538
-msgid ""
-"When disabling, any elements you may have created with the default element "
-"type will disappear."
-msgstr ""
-"Beim Deaktivieren verschwinden alle Elemente, die du bisher mit dem Standard-"
-"Elementtyp erstellt hast."
-
-#: ../core/settings.php:543
-msgid "Enable default element type"
-msgstr "Standard-Elementtyp aktivieren"
-
-#: ../core/settings.php:548 ../core/settings.php:630 ../core/settings.php:790
-#: ../core/settings.php:911 ../core/settings.php:995 ../core/settings.php:1052
+#: ../core/settings.php:530 ../core/settings.php:612 ../core/settings.php:772
+#: ../core/settings.php:893 ../core/settings.php:977 ../core/settings.php:1034
 msgid "Save settings"
 msgstr "Einstellungen speichern"
 
-#: ../core/settings.php:569 ../core/settings.php:651 ../core/settings.php:811
-#: ../core/settings.php:932
+#: ../core/settings.php:551 ../core/settings.php:633 ../core/settings.php:793
+#: ../core/settings.php:914
 msgid "HTML wrapper"
 msgstr "HTML-Wrapper"
 
-#: ../core/settings.php:572
+#: ../core/settings.php:554
 msgid "Enter HTML code to wrap around the whole content."
 msgstr ""
 "Gib hier HTML-Code ein, der vor bzw. nach dem Content angezeigt werden soll."
 
-#: ../core/settings.php:582 ../core/settings.php:664 ../core/settings.php:824
-#: ../core/settings.php:945
+#: ../core/settings.php:564 ../core/settings.php:646 ../core/settings.php:806
+#: ../core/settings.php:927
 #, php-format
 msgid ""
 "These settings currently have no effect because they're overwritten by a %s "
@@ -443,8 +421,8 @@ msgstr ""
 "Filter in deinem Code überschrieben werden. Mehr Informationen erhältst du "
 "in der <a href=\"%s\" target=\"_blank\">Dokumentation</a>."
 
-#: ../core/settings.php:587 ../core/settings.php:669 ../core/settings.php:829
-#: ../core/settings.php:950
+#: ../core/settings.php:569 ../core/settings.php:651 ../core/settings.php:811
+#: ../core/settings.php:932
 #, php-format
 msgid ""
 "Use <a href=\"%s\" target=\"_blank\">filters</a> for way more flexibility! "
@@ -455,44 +433,44 @@ msgstr ""
 "Flexibilität! Wie das funktioniert, kannst du in der <a href=\"%s\" target="
 "\"_blank\">Dokumentation</a> nachlesen."
 
-#: ../core/settings.php:602
+#: ../core/settings.php:584
 msgid "HTML before content:"
 msgstr "HTML vor dem Content:"
 
-#: ../core/settings.php:604 ../core/settings.php:615 ../core/settings.php:686
-#: ../core/settings.php:697 ../core/settings.php:846 ../core/settings.php:857
-#: ../core/settings.php:901 ../core/settings.php:967 ../core/settings.php:978
+#: ../core/settings.php:586 ../core/settings.php:597 ../core/settings.php:668
+#: ../core/settings.php:679 ../core/settings.php:828 ../core/settings.php:839
+#: ../core/settings.php:883 ../core/settings.php:949 ../core/settings.php:960
 msgid "Default:"
 msgstr "Standard:"
 
-#: ../core/settings.php:604 ../core/settings.php:615 ../core/settings.php:686
-#: ../core/settings.php:697 ../core/settings.php:846 ../core/settings.php:857
-#: ../core/settings.php:901 ../core/settings.php:967 ../core/settings.php:978
+#: ../core/settings.php:586 ../core/settings.php:597 ../core/settings.php:668
+#: ../core/settings.php:679 ../core/settings.php:828 ../core/settings.php:839
+#: ../core/settings.php:883 ../core/settings.php:949 ../core/settings.php:960
 msgid "Click to reset"
 msgstr "Klick zum Zurücksetzen"
 
-#: ../core/settings.php:613
+#: ../core/settings.php:595
 msgid "HTML after content:"
 msgstr "HTML nach dem Content:"
 
-#: ../core/settings.php:654
+#: ../core/settings.php:636
 msgid "Enter HTML code to wrap around each row."
 msgstr ""
 "Gib hier HTML-Code ein, der vor bzw. nach jeder Zeile angezeigt werden soll."
 
-#: ../core/settings.php:684
+#: ../core/settings.php:666
 msgid "HTML before each row:"
 msgstr "HTML vor jeder Zeile:"
 
-#: ../core/settings.php:695
+#: ../core/settings.php:677
 msgid "HTML after each row:"
 msgstr "HTML nach jeder Zeile:"
 
-#: ../core/settings.php:714
+#: ../core/settings.php:696
 msgid "Allowed layouts"
 msgstr "Erlaubte Layouts"
 
-#: ../core/settings.php:717
+#: ../core/settings.php:699
 msgid ""
 "Choose the row layouts you want to use. Disabling a layout means it will not "
 "be available for newly created rows from now on &ndash; existing rows with "
@@ -503,7 +481,7 @@ msgstr ""
 "werden &ndash; bestehende Zeilen bleiben aber wie sie sind, bis du sie per "
 "Hand änderst."
 
-#: ../core/settings.php:730
+#: ../core/settings.php:712
 #, php-format
 msgid ""
 "Create more complex layouts using <a href=\"%s\" target=\"_blank\">filters</"
@@ -514,19 +492,19 @@ msgstr ""
 "anzulegen! Wie das funktioniert, kannst du in der <a href=\"%s\" target="
 "\"_blank\">Dokumentation</a> nachlesen."
 
-#: ../core/settings.php:752
+#: ../core/settings.php:734
 msgid "default for new rows"
 msgstr "Standard für neue Zeilen"
 
-#: ../core/settings.php:761
+#: ../core/settings.php:743
 msgid "Default layout"
 msgstr "Standard-Layout"
 
-#: ../core/settings.php:764
+#: ../core/settings.php:746
 msgid "Select a default layout that will be used in all newly created rows."
 msgstr "Wähle das Standard-Layout für neue Zeilen aus."
 
-#: ../core/settings.php:814
+#: ../core/settings.php:796
 #, php-format
 msgid ""
 "Enter HTML code to wrap around each column. You can use the variable %s "
@@ -536,19 +514,19 @@ msgstr ""
 "soll. Du kannst die Variable %s verwenden &ndash; sie wird automatisch durch "
 "den richtigen Klassennamen ersetzt, den du unten eingegeben hast."
 
-#: ../core/settings.php:844
+#: ../core/settings.php:826
 msgid "HTML before each column:"
 msgstr "HTML vor jeder Spalte:"
 
-#: ../core/settings.php:855
+#: ../core/settings.php:837
 msgid "HTML after each column:"
 msgstr "HTML nach jeder Spalte:"
 
-#: ../core/settings.php:873
+#: ../core/settings.php:855
 msgid "Class attributes for columns"
 msgstr "CSS-Klassen für Spalten"
 
-#: ../core/settings.php:875
+#: ../core/settings.php:857
 msgid ""
 "Enter a class attribute for each type of column so you'll be able to target "
 "them via CSS."
@@ -556,25 +534,25 @@ msgstr ""
 "Trage hier Klassen für die verschiedenen Spaltengrößen ein, um sie per CSS "
 "ansteuern zu können."
 
-#: ../core/settings.php:935
+#: ../core/settings.php:917
 msgid "Enter HTML code to wrap around each element."
 msgstr ""
 "Gib hier HTML-Code ein, der vor bzw. nach jedem Element angezeigt werden "
 "soll."
 
-#: ../core/settings.php:965
+#: ../core/settings.php:947
 msgid "HTML before each element:"
 msgstr "HTML vor jedem Element:"
 
-#: ../core/settings.php:976
+#: ../core/settings.php:958
 msgid "HTML after each element:"
 msgstr "HTML nach jedem Element:"
 
-#: ../core/settings.php:1018
+#: ../core/settings.php:1000
 msgid "Debug mode"
 msgstr "Debug-Modus"
 
-#: ../core/settings.php:1021
+#: ../core/settings.php:1003
 msgid ""
 "With debug mode enabled you can inspect and manually edit the JSON structure "
 "generated by Layotter. Enable debug mode for these user roles:"
@@ -595,15 +573,15 @@ msgstr "Optionen"
 msgid "Add your first row to get started"
 msgstr "Erstelle als erstes eine neue Zeile"
 
-#: ../views/editor.php:26
+#: ../views/editor.php:27
 msgid "Or start with a layout that you created earlier"
 msgstr "Oder starte mit einer Layout-Vorlage"
 
-#: ../views/editor.php:65
+#: ../views/editor.php:70
 msgid "Save as template"
 msgstr "Als Template speichern"
 
-#: ../views/editor.php:70
+#: ../views/editor.php:75
 msgid "This is a template."
 msgstr "Dies ist ein Template."
 
@@ -631,6 +609,28 @@ msgstr "Erstellt am %s"
 #: ../views/templates.php:2
 msgid "Hide templates"
 msgstr "Templates verstecken"
+
+#~ msgid "Default element type"
+#~ msgstr "Standard-Elementtyp"
+
+#~ msgid ""
+#~ "Layotter comes with an example element type to get started and try out "
+#~ "the editor. If you don't want to use the default element type, you can "
+#~ "disable it here."
+#~ msgstr ""
+#~ "Layotter enthält einen Beispiel-Elementtyp zum Testen und Kennenlernen "
+#~ "des Editors. Wenn du den Standard-Elementtyp nicht benutzen willst, "
+#~ "kannst du ihn hier deaktivieren."
+
+#~ msgid ""
+#~ "When disabling, any elements you may have created with the default "
+#~ "element type will disappear."
+#~ msgstr ""
+#~ "Beim Deaktivieren verschwinden alle Elemente, die du bisher mit dem "
+#~ "Standard-Elementtyp erstellt hast."
+
+#~ msgid "Enable default element type"
+#~ msgstr "Standard-Elementtyp aktivieren"
 
 #~ msgid "Basic"
 #~ msgstr "Grundlagen"

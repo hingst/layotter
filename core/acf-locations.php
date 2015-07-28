@@ -30,7 +30,7 @@ function layotter_acf_location_options($choices) {
     $choices['element'] = __('Use as element', 'layotter');
     $choices['post_options'] = __('Use for post options', 'layotter');
     $choices['row_options'] = __('Use for row options', 'layotter');
-    //$choices['col_options'] = __('Use for column options', 'layotter');
+    $choices['col_options'] = __('Use for column options', 'layotter');
     $choices['element_options'] = __('Use for element options', 'layotter');
     return $choices;
 }

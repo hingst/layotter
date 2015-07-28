@@ -117,7 +117,7 @@ $darkgray: #CCCCCC;
     }
 
     > .layotter-add-row-button-wrapper,
-    > .layotter-add-element-button-wrapper {
+    > .layotter-col-buttons-wrapper {
         display: none !important;
     }
 }
@@ -137,7 +137,11 @@ $darkgray: #CCCCCC;
 
 .layotter-col {
     .layotter-placeholder {
-        margin: 10px 0;
+        margin-bottom: 10px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
     }
 }
 
@@ -305,7 +309,7 @@ $darkgray: #CCCCCC;
         font-size: $text-m;
         padding: 12px 30px;
         opacity: 0.4;
-        display: block;
+        display: inline-block;
         cursor: pointer;
         transition: padding 0.5s, font-size 0.5s, height 0.5s;
 
@@ -347,9 +351,9 @@ $darkgray: #CCCCCC;
 
 
 /****************************************************/
-/* add element buttons */
+/* column buttons (add element, edit column options) */
 
-.layotter-add-element-button-wrapper {
+.layotter-col-buttons-wrapper {
     text-align: center;
     position: absolute;
     top: 100%;
@@ -358,7 +362,7 @@ $darkgray: #CCCCCC;
     margin-top: -5px;
     z-index: 5; // on top of elements and row buttons
 
-    .layotter-add-element-button {
+    .layotter-col-button {
         font-size: $text-m;
         cursor: pointer;
         display: inline-block;
@@ -370,11 +374,15 @@ $darkgray: #CCCCCC;
     }
 
     &:not(.layotter-always-visible) {
-        width: 32px;
+        width: 60px;
         margin-left: auto;
         margin-right: auto;
 
-        .layotter-add-element-button {
+        .layotter-breaker {
+            display: inline-block;
+        }
+
+        .layotter-col-button {
             height: 26px;
             width: 26px;
             margin-top: -13px;
@@ -382,13 +390,16 @@ $darkgray: #CCCCCC;
             border: 1px solid $darkgray;
             background: #fff;
             box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
-            color: #aaa;
-            opacity: 0;
-            transition: opacity 0.5s;
             display: none;
 
+            i.fa {
+                opacity: 0.4;
+            }
+
             &:hover {
-                color: #222;
+                i.fa {
+                    opacity: 0.7;
+                }
             }
 
             span {
@@ -401,12 +412,12 @@ $darkgray: #CCCCCC;
         margin-top: 17px;
         z-index: 1; // below placeholder
 
-        .layotter-add-element-button {
-            opacity: 0.4 !important;
+        .layotter-col-button {
+            opacity: 0.4;
             padding: 0 6px;
 
             &:hover {
-                opacity: 0.7 !important;
+                opacity: 0.7;
             }
 
             span {
@@ -446,15 +457,12 @@ $darkgray: #CCCCCC;
             color: #888;
             height: 30px;
             line-height: 30px;
-            opacity: 0;
-            transition: opacity 0.5s;
             display: none;
         }
 
         &:hover {
             .layotter-row-move,
             .layotter-row-buttons {
-                opacity: 1;
                 display: block;
             }
         }
@@ -607,19 +615,26 @@ $darkgray: #CCCCCC;
         border-right: 1px solid $darkgray;
         display: table-cell;
         vertical-align: top;
-        padding: 0 10px;
+        padding: 10px;
         position: relative;
+
+        &.layotter-loading {
+            position: relative;
+
+            &:after {
+                @include loading(0.8);
+            }
+        }
 
         &:last-child {
             border-right: none;
         }
 
-        > .layotter-add-element-button-wrapper {
+        > .layotter-col-buttons-wrapper {
             top: 0;
         }
 
-        &:hover .layotter-add-element-button {
-            opacity: 1;
+        &:hover .layotter-col-button {
             display: inline-block;
         }
 
@@ -674,15 +689,19 @@ $darkgray: #CCCCCC;
 /* elements */
 
 .layotter-elements {
-    min-height: 60px;
+    min-height: 66px;
 
     .layotter-element {
         position: relative; // for "add element" buttons
-        margin: 10px 0;
+        margin-bottom: 10px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
 
         &.layotter-loading .layotter-element-canvas {
             position: relative;
-            min-height: 80px;
+            min-height: 64px; // 2px border
 
             &:after {
                 @include loading();
@@ -710,7 +729,6 @@ $darkgray: #CCCCCC;
             }
 
             &:hover .layotter-element-buttons {
-                opacity: 1;
                 display: block;
             }
 
@@ -721,8 +739,6 @@ $darkgray: #CCCCCC;
                 z-index: 2; // on top of invisible drag area
                 border-bottom: 1px solid #ddd;
                 background: #fff;
-                opacity: 0;
-                transition: opacity 0.5s;
                 display: none;
 
                 .layotter-element-button,
