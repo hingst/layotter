@@ -96,18 +96,20 @@ class Layotter_Col {
     /**
      * Return frontend HTML for this column
      *
+     * @param array $row_options Formatted options for the parent row
+     * @param array $post_options Formatted options for the parent post
      * @return string Frontend HTML
      */
-    public function get_frontend_view() {
+    public function get_frontend_view($row_options, $post_options) {
         $elements_html = '';
         foreach ($this->elements as $element) {
-            $elements_html .= $element->get_frontend_view();
+            $elements_html .= $element->get_frontend_view($this->options->get_formatted_values(), $row_options, $post_options);
         }
 
         $class = Layotter_Settings::get_col_layout_class($this->width);
 
         if (has_filter('layotter/view/column')) {
-            return apply_filters('layotter/view/column', $elements_html, $class, $this->options->get_formatted_values());
+            return apply_filters('layotter/view/column', $elements_html, $class, $this->options->get_formatted_values(), $row_options, $post_options);
         } else {
             $html_wrapper = Layotter_Settings::get_html_wrapper('cols');
             $html_before = str_replace('%%CLASS%%', $class, $html_wrapper['before']);

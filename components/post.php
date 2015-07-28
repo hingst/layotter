@@ -102,7 +102,7 @@ class Layotter_Post {
     public function get_frontend_view() {
         $rows_html = '';
         foreach ($this->rows as $row) {
-            $rows_html .= $row->get_frontend_view();
+            $rows_html .= $row->get_frontend_view($this->options->get_formatted_values());
         }
 
         // if a custom filter for frontend was hooked, run through that filter and return HTML

@@ -104,16 +104,17 @@ class Layotter_Row {
     /**
      * Return frontend HTML for this row
      *
+     * @param array $post_options Formatted options for the parent post
      * @return string Frontend HTML
      */
-    public function get_frontend_view() {
+    public function get_frontend_view($post_options) {
         $cols_html = '';
         foreach ($this->cols as $col) {
-            $cols_html .= $col->get_frontend_view();
+            $cols_html .= $col->get_frontend_view($this->options->get_formatted_values(), $post_options);
         }
 
         if (has_filter('layotter/view/row')) {
-            return apply_filters('layotter/view/row', $cols_html, $this->options->get_formatted_values());
+            return apply_filters('layotter/view/row', $cols_html, $this->options->get_formatted_values(), $post_options);
         } else {
             $html_wrapper = Layotter_Settings::get_html_wrapper('rows');
             return $html_wrapper['before'] . $cols_html . $html_wrapper['after'];
