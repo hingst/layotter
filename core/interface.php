@@ -42,10 +42,34 @@ function layotter_admin_head() {
  */
 function layotter_output_interface($post) {
     // prepare JSON data for representation in textarea
-    $content = get_field('layotter_post_content', $post->ID);
+    $content = get_post_field('post_content', $post->ID);
     $clean_content_for_textarea = htmlspecialchars($content);
 
-    echo '<textarea id="content" name="content" style="width: 1px; height: 1px; position: fixed; top: -999px; left: -999px;">' . $clean_content_for_textarea . '</textarea>';
+    if (Layotter_Settings::is_debug_mode_enabled()) {
+        $style = 'width: 100%; height: 200px';
+    } else {
+        $style = 'width: 1px; height: 1px; position: fixed; top: -999px; left: -999px';
+    }
+    echo '<textarea id="content" name="content" style="' . $style . '">' . $clean_content_for_textarea . '</textarea>';
     
     require_once __DIR__ . '/../views/editor.php';
+}
+
+
+add_action('save_post', 'layotter_make_search_dump');
+function layotter_make_search_dump($post_id) {
+    if (!Layotter::is_enabled_for_post($post_id)) {
+        return;
+    }
+
+    $post = new Layotter_Post($post_id);
+    $content = $post->get_frontend_view();
+    $clean_content = strip_tags($content, '<img><br><br/><p>');
+
+    remove_action('save_post', 'layotter_make_search_dump');
+    wp_update_post(array(
+        'ID' => $post_id,
+        'post_content' => $clean_content
+    ));
+    add_action('save_post', 'layotter_make_search_dump');
 }

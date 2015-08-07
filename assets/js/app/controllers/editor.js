@@ -30,20 +30,18 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
     $scope.$watch('data', function(value) {
         // remove views from JSON data, no need to store them as they're always regenerated before output
         var valueClone = angular.copy(value);
-        var searchDump = '';
         angular.forEach(valueClone.rows, function(row){
             angular.forEach(row.cols, function(col){
                 angular.forEach(col.elements, function(element){
-                    searchDump += element.searchdump;
                     delete element.view;
-                    delete element.searchdump;
                 });
             });
         });
 
         // enter JSON data as string wrapped in layotter shortcode into textarea
         var jsonAsString = angular.toJson(valueClone, false); // change to true for pretty JSON
-        jQuery('#content').val('[layotter]' + searchDump + '[/layotter]');
+        var currentTime = new Date().getTime();
+        //jQuery('#content').val('[layotter updated="' + currentTime + '"]');
         jQuery('#acf-field_layotter_post_content').val(jsonAsString);
     }, true);
 

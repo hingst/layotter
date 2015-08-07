@@ -102,7 +102,6 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         }).success(function(reply) {
             editingElement.values = reply.values;
             editingElement.view = reply.view;
-            editingElement.searchdump = reply.searchdump;
             editingElement.isLoading = undefined;
             if (isNewElement) {
                 history.pushStep(layotterData.i18n.history.add_element);

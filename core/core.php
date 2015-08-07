@@ -110,11 +110,11 @@ class Layotter {
 
         return $elements;
     }
-    
-    
+
+
     /**
      * Check if Layotter is enabled for the current screen
-     * 
+     *
      * @return bool Whether Layotter is enabled
      */
     public static function is_enabled() {
@@ -136,6 +136,24 @@ class Layotter {
         }
 
         // no errors
+        return true;
+    }
+
+
+    /**
+     * Check if Layotter is enabled for a specific post
+     *
+     * @param int $post_id Post ID
+     * @return bool Whether Layotter is enabled
+     */
+    public static function is_enabled_for_post($post_id) {
+        $post_type = get_post_type($post_id);
+
+        $enabled_post_types = Layotter_Settings::get_enabled_post_types();
+        if (!in_array($post_type, $enabled_post_types)) {
+            return false;
+        }
+
         return true;
     }
     

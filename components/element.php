@@ -245,22 +245,18 @@ abstract class Layotter_Element extends Layotter_Editable {
      * @return array Array representation of this element
      */
     public function to_array() {
-        // TODO: pass actual options data to frontend_view()
-        $search_dump = trim(preg_replace('/\s+/', ' ', strip_tags($this->get_frontend_view(array(), array(), array()), '<img>')));
         if ($this->template_id > -1) {
             return array(
                 'template_id' => $this->template_id,
                 'options' => $this->options->to_array(),
-                'view' => $this->get_backend_view(),
-                'searchdump' => $search_dump
+                'view' => $this->get_backend_view()
             );
         } else {
             return array(
                 'type' => $this->type,
                 'values' => $this->clean_values,
                 'options' => $this->options->to_array(),
-                'view' => $this->get_backend_view(),
-                'searchdump' => $search_dump
+                'view' => $this->get_backend_view()
             );
         }
     }
