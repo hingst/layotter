@@ -58,18 +58,17 @@ class Layotter_Templates {
 
 
     /**
-     * Get array representations of blank element instances for all saved templates
+     * Get array representations of blank element instances for all saved templates that are available for a specific post
      *
-     * @return array Array representations of lement instances for all templates
+     * @param int $post_id Post ID
+     * @return array Array representations of element instances for all templates
      */
-    public static function get_all() {
+    public static function get_all_for_post($post_id) {
         $templates = array();
         $saved_templates = get_option('layotter_element_templates');
         if (!is_array($saved_templates)) {
             $saved_templates = array();
         }
-
-        $post_id = get_the_ID();
 
         foreach ($saved_templates as $template) {
             $template_object = self::create_element($template);

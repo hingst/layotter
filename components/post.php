@@ -14,11 +14,10 @@ class Layotter_Post {
     /**
      * Create an object for a post
      *
-     * @param int|string $id_or_json_or_post_content Post ID, JSON object holding post structure, or post content
-     *      containing [layotter]JSON structure[/layotter]
+     * @param int|string $id_or_json Post ID or JSON object holding post structure
      */
-    public function __construct($id_or_json_or_post_content) {
-        $structure = $this->get_structure($id_or_json_or_post_content);
+    public function __construct($id_or_json) {
+        $structure = $this->get_structure($id_or_json);
         $structure = $this->validate_structure($structure);
 
         $this->options = new Layotter_Options('post', $structure['options']);
@@ -157,7 +156,7 @@ class Layotter_Post {
      */
     private function get_json_by_post_id($post_id) {
         if ($this->has_new_data_structure($post_id)) {
-            // if post 1.5.0 data structure is present for this post, return JSON and bail
+            // if post 1.5.0 data structure is present, get JSON from custom field
             return get_field('layotter_post_content', $post_id);
         } else {
             // otherwise, try to extract data from the post content
@@ -169,7 +168,7 @@ class Layotter_Post {
     /**
      * Extract post JSON from post content for a post ID
      *
-     * JSON used to be stored in the main content wrapped like this: [layotter]json_data[/layotter]
+     * JSON used to be stored in the main content wrapped like this: [layotter]json[/layotter]
      * This method extracts JSON from posts that haven't been updated to the new style yet.
      *
      * @param int $post_id Post ID with pre 1.5.0 style post content

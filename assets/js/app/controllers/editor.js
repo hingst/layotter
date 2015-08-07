@@ -38,10 +38,13 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
             });
         });
 
-        // enter JSON data as string wrapped in layotter shortcode into textarea
         var jsonAsString = angular.toJson(valueClone, false); // change to true for pretty JSON
         var currentTime = new Date().getTime();
-        //jQuery('#content').val('[layotter updated="' + currentTime + '"]');
+
+        // put current timestamp into #content so Wordpress knows something has changed
+        //jQuery('#content').val(currentTime);
+
+        // enter JSON string into textarea
         jQuery('#acf-field_layotter_post_content').val(jsonAsString);
     }, true);
 
