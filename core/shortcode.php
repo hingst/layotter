@@ -18,7 +18,7 @@ add_shortcode('layotter', 'layotter_frontend_shortcode');
  * @return string HTML for frontend view of the current post
  */
 function layotter_frontend_shortcode($atts, $input = '') {
-    // ignore $input and extract JSON data ourself, because 'the_content' filters might have invalidated JSON
+    // ignore $input and extract JSON data because the JSON is stored in a custom field, $input is just a search dump
     $layotter = new Layotter_Post(get_the_ID());
 
     // turn content structure into HTML and return

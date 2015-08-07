@@ -84,6 +84,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
             element.template_id = reply.template_id;
             element.type = undefined;
             element.values = undefined;
+            element.searchdump = undefined;
             _this.watchTemplate(element);
             history.pushStep(layotterData.i18n.history.save_element_as_template);
         });
@@ -110,6 +111,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
             }
         }).success(function(reply) {
             editingElement.view = reply.view;
+            editingElement.searchdump = reply.searchdump;
             editingElement.isLoading = undefined;
         });
     };

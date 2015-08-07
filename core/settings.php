@@ -181,13 +181,13 @@ class Layotter_Settings {
 
 
     /**
-     * Get a list of all roles that debug mode is enabled for
+     * Check if debug mode is enabled for the current user
      *
-     * @return array Role slugs
+     * @return bool
      */
-    public static function get_debug_mode_enabled_for() {
+    public static function is_debug_mode_enabled() {
+        // fetch roles that debug mode is enabled for
         $enabled_for_roles = array();
-
         $settings = self::get_settings('general');
         if (isset($settings['debug_mode']) AND is_array($settings['debug_mode'])) {
             foreach ($settings['debug_mode'] as $role => $enabled) {
@@ -197,7 +197,19 @@ class Layotter_Settings {
             }
         }
 
-        return apply_filters('layotter/debug_mode_roles', $enabled_for_roles);
+        // allow filter customization
+        $enabled_for_roles = apply_filters('layotter/debug_mode_roles', $enabled_for_roles);
+
+        // check if current user's roles contain a role that debug mode is enabled for
+        $current_user = wp_get_current_user();
+        $current_user_roles = $current_user->roles;
+        foreach ($current_user_roles as $role) {
+            if (in_array($role, $enabled_for_roles)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 

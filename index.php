@@ -31,6 +31,7 @@ function layotter() {
         require_once __DIR__ . '/core/acf-locations.php';
         require_once __DIR__ . '/core/shortcode.php';
         require_once __DIR__ . '/core/views.php';
+        require_once __DIR__ . '/core/acf-field-group.php';
 
         require_once __DIR__ . '/components/form.php';
         require_once __DIR__ . '/components/editable.php';
@@ -40,4 +41,12 @@ function layotter() {
         require_once __DIR__ . '/components/col.php';
         require_once __DIR__ . '/components/element.php';
     }
+}
+
+add_action('init', 'shizzle');
+function shizzle()
+{
+    global $wp_roles;
+    $wp_roles->remove_cap('editor', 'unfiltered_html');
+    $wp_roles->add_cap('editor', 'pommes_essen');
 }
