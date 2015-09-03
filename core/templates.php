@@ -10,6 +10,12 @@
 class Layotter_Templates {
 
 
+    /**
+     * Makes sure all necessary fields are present and in the correct format
+     *
+     * @param array|null $structure Structure as fetched from the database
+     * @return array Clean structure or empty array
+     */
     private static function validate_structure($structure) {
         if (!is_array($structure)) {
             $structure = array();

@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Layotter\n"
-"POT-Creation-Date: 2015-07-28 14:21+0100\n"
-"PO-Revision-Date: 2015-07-28 14:22+0100\n"
+"POT-Creation-Date: 2015-09-03 15:20+0200\n"
+"PO-Revision-Date: 2015-09-03 15:22+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.8.4\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
@@ -32,6 +32,20 @@ msgstr "Spaltenoptionen"
 #: ../components/options.php:39 ../views/editor.php:68
 msgid "Element options"
 msgstr "Elementoptionen"
+
+#: ../core/acf-field-group.php:28
+#, php-format
+msgid ""
+"Debug mode enabled: Inspect and manually edit the JSON structure generated "
+"by Layotter. Use with caution. A faulty structure will break your page "
+"layout and content (but you can always go back using post revisions). Go to "
+"the <a href=\"%s\">Layotter's settings page</a> to disable debug mode."
+msgstr ""
+"Debug-Modus aktiv: Hier kannst du die interne JSON-Struktur von Layotter "
+"ansehen und bearbeiten. Sei dabei vorsichtig, eine fehlerhafte Struktur "
+"löscht das Layout und den Inhalt dieses Posts (was du aber mit Post-"
+"Revisionen immer rückgängig machen kannst). Du kannst den Debug-Modus in den "
+"<a href=\"%s\">Layotter-Einstellungen</a> deaktivieren."
 
 #: ../core/acf-locations.php:20
 msgid "Use with Layotter"
@@ -219,15 +233,6 @@ msgstr ""
 "\">Advanced Custom Fields Pro</a>. Bitte installiere das Plugin, bevor du "
 "Layotter einsetzt."
 
-#: ../core/check-acf.php:13
-msgid ""
-"Layotter currently only works with the Pro version of Advanced Custom "
-"Fields. Please install it before using Layotter. We apologize for the "
-"inconvenience."
-msgstr ""
-"Layotter funktioniert derzeit leider nur mit der Pro-Version von Advanced "
-"Custom Fields. Bitte installiere die pro-Version, um Layotter einzusetzen."
-
 #: ../core/check-acf.php:16
 #, php-format
 msgid ""
@@ -237,20 +242,7 @@ msgstr ""
 "Deine Version von Advanced Custom Fields ist veraltet. Bitte installiere "
 "mindestens Version %s, um Layotter zu benutzen."
 
-#: ../core/interface.php:69
-#, php-format
-msgid ""
-"Debug mode enabled: Inspect and manually edit the JSON structure generated "
-"by Layotter. Use with caution. A faulty structure will break your page "
-"layout and content. Go to the <a href=\"%s\">Layotter's settings page</a> to "
-"disable debug mode."
-msgstr ""
-"Debug-Modus aktiv: Hier kannst du die interne JSON-Struktur von Layotter "
-"ansehen und bearbeiten. Sei dabei sehr vorsichtig, eine fehlerhafte Struktur "
-"wird das Layout und alle Inhalte dieses Posts löschen. Du kannst den Debug-"
-"Modus in den <a href=\"%s\">Layotter-Einstellungen</a> deaktivieren."
-
-#: ../core/layouts.php:20
+#: ../core/layouts.php:27
 msgid "Unnamed layout"
 msgstr "Unbenanntes Layout"
 
@@ -302,68 +294,68 @@ msgstr "Sieben Zwölftel"
 msgid "Eleven twelfths"
 msgstr "Elf Zwölftel"
 
-#: ../core/settings.php:342
+#: ../core/settings.php:354
 msgid "Your settings have been saved."
 msgstr "Deine Änderungen wurden gespeichert."
 
-#: ../core/settings.php:353 ../core/settings.php:378
+#: ../core/settings.php:365 ../core/settings.php:390
 msgid "Layotter Settings"
 msgstr "Layotter-Einstellungen"
 
-#: ../core/settings.php:380
+#: ../core/settings.php:392
 msgid "General"
 msgstr "Allgemein"
 
-#: ../core/settings.php:381
+#: ../core/settings.php:393
 msgid "Wrapper"
 msgstr "Wrapper"
 
-#: ../core/settings.php:382
+#: ../core/settings.php:394
 msgid "Rows"
 msgstr "Zeilen"
 
-#: ../core/settings.php:383
+#: ../core/settings.php:395
 msgid "Columns"
 msgstr "Spalten"
 
-#: ../core/settings.php:384
+#: ../core/settings.php:396
 msgid "Elements"
 msgstr "Elemente"
 
-#: ../core/settings.php:385
+#: ../core/settings.php:397
 msgid "Debug"
 msgstr "Debug"
 
-#: ../core/settings.php:425
+#: ../core/settings.php:437
 msgid "Post types"
 msgstr "Post-Typen"
 
-#: ../core/settings.php:428
+#: ../core/settings.php:440
 msgid "Select the post types for which Layotter should be enabled."
 msgstr "Wähle die Post-Typen aus, für die du Layotter aktivieren möchtest."
 
-#: ../core/settings.php:436 ../core/settings.php:493 ../core/settings.php:517
-#: ../core/settings.php:707 ../core/settings.php:754 ../core/settings.php:865
-#: ../core/settings.php:1011
+#: ../core/settings.php:448 ../core/settings.php:505 ../core/settings.php:529
+#: ../core/settings.php:719 ../core/settings.php:766 ../core/settings.php:877
+#: ../core/settings.php:1023
 #, php-format
 msgid ""
 "There's a %s filter in your code that might be modifying these settings."
 msgstr ""
 "In deinem Code ist ein %s-Filter, der diese Einstellungen verändern könnte."
 
-#: ../core/settings.php:446
+#: ../core/settings.php:458
 msgid "Posts"
 msgstr "Artikel"
 
-#: ../core/settings.php:452
+#: ../core/settings.php:464
 msgid "Pages"
 msgstr "Seiten"
 
-#: ../core/settings.php:482
+#: ../core/settings.php:494
 msgid "Post layouts"
 msgstr "Seitenlayouts"
 
-#: ../core/settings.php:485
+#: ../core/settings.php:497
 msgid ""
 "This feature lets you save entire post layouts as templates to be used as a "
 "starting point for new posts."
@@ -371,15 +363,15 @@ msgstr ""
 "Hiermit kannst du komplette Seitenlayouts speichern und als Vorlage "
 "verwenden, wenn du eine neue Seite anlegst"
 
-#: ../core/settings.php:502
+#: ../core/settings.php:514
 msgid "Enable post layouts"
 msgstr "Seitenlayouts verwenden"
 
-#: ../core/settings.php:506 ../views/editor.php:16 ../views/templates.php:4
+#: ../core/settings.php:518 ../views/editor.php:16 ../views/templates.php:4
 msgid "Element templates"
 msgstr "Element-Templates"
 
-#: ../core/settings.php:509
+#: ../core/settings.php:521
 msgid ""
 "This feature lets you save elements as templates. Element templates look "
 "just like regular elements, but if you edit them on one page, they'll be "
@@ -390,27 +382,27 @@ msgstr ""
 "bearbeitest, wirken sich die Änderungen auch auf alle anderen Seiten aus, "
 "auf denen du das Template verwendest."
 
-#: ../core/settings.php:526
+#: ../core/settings.php:538
 msgid "Enable element templates"
 msgstr "Element-Templates verwenden"
 
-#: ../core/settings.php:530 ../core/settings.php:612 ../core/settings.php:772
-#: ../core/settings.php:893 ../core/settings.php:977 ../core/settings.php:1034
+#: ../core/settings.php:542 ../core/settings.php:624 ../core/settings.php:784
+#: ../core/settings.php:905 ../core/settings.php:989 ../core/settings.php:1046
 msgid "Save settings"
 msgstr "Einstellungen speichern"
 
-#: ../core/settings.php:551 ../core/settings.php:633 ../core/settings.php:793
-#: ../core/settings.php:914
+#: ../core/settings.php:563 ../core/settings.php:645 ../core/settings.php:805
+#: ../core/settings.php:926
 msgid "HTML wrapper"
 msgstr "HTML-Wrapper"
 
-#: ../core/settings.php:554
+#: ../core/settings.php:566
 msgid "Enter HTML code to wrap around the whole content."
 msgstr ""
 "Gib hier HTML-Code ein, der vor bzw. nach dem Content angezeigt werden soll."
 
-#: ../core/settings.php:564 ../core/settings.php:646 ../core/settings.php:806
-#: ../core/settings.php:927
+#: ../core/settings.php:576 ../core/settings.php:658 ../core/settings.php:818
+#: ../core/settings.php:939
 #, php-format
 msgid ""
 "These settings currently have no effect because they're overwritten by a %s "
@@ -421,8 +413,8 @@ msgstr ""
 "Filter in deinem Code überschrieben werden. Mehr Informationen erhältst du "
 "in der <a href=\"%s\" target=\"_blank\">Dokumentation</a>."
 
-#: ../core/settings.php:569 ../core/settings.php:651 ../core/settings.php:811
-#: ../core/settings.php:932
+#: ../core/settings.php:581 ../core/settings.php:663 ../core/settings.php:823
+#: ../core/settings.php:944
 #, php-format
 msgid ""
 "Use <a href=\"%s\" target=\"_blank\">filters</a> for way more flexibility! "
@@ -433,44 +425,44 @@ msgstr ""
 "Flexibilität! Wie das funktioniert, kannst du in der <a href=\"%s\" target="
 "\"_blank\">Dokumentation</a> nachlesen."
 
-#: ../core/settings.php:584
+#: ../core/settings.php:596
 msgid "HTML before content:"
 msgstr "HTML vor dem Content:"
 
-#: ../core/settings.php:586 ../core/settings.php:597 ../core/settings.php:668
-#: ../core/settings.php:679 ../core/settings.php:828 ../core/settings.php:839
-#: ../core/settings.php:883 ../core/settings.php:949 ../core/settings.php:960
+#: ../core/settings.php:598 ../core/settings.php:609 ../core/settings.php:680
+#: ../core/settings.php:691 ../core/settings.php:840 ../core/settings.php:851
+#: ../core/settings.php:895 ../core/settings.php:961 ../core/settings.php:972
 msgid "Default:"
 msgstr "Standard:"
 
-#: ../core/settings.php:586 ../core/settings.php:597 ../core/settings.php:668
-#: ../core/settings.php:679 ../core/settings.php:828 ../core/settings.php:839
-#: ../core/settings.php:883 ../core/settings.php:949 ../core/settings.php:960
+#: ../core/settings.php:598 ../core/settings.php:609 ../core/settings.php:680
+#: ../core/settings.php:691 ../core/settings.php:840 ../core/settings.php:851
+#: ../core/settings.php:895 ../core/settings.php:961 ../core/settings.php:972
 msgid "Click to reset"
 msgstr "Klick zum Zurücksetzen"
 
-#: ../core/settings.php:595
+#: ../core/settings.php:607
 msgid "HTML after content:"
 msgstr "HTML nach dem Content:"
 
-#: ../core/settings.php:636
+#: ../core/settings.php:648
 msgid "Enter HTML code to wrap around each row."
 msgstr ""
 "Gib hier HTML-Code ein, der vor bzw. nach jeder Zeile angezeigt werden soll."
 
-#: ../core/settings.php:666
+#: ../core/settings.php:678
 msgid "HTML before each row:"
 msgstr "HTML vor jeder Zeile:"
 
-#: ../core/settings.php:677
+#: ../core/settings.php:689
 msgid "HTML after each row:"
 msgstr "HTML nach jeder Zeile:"
 
-#: ../core/settings.php:696
+#: ../core/settings.php:708
 msgid "Allowed layouts"
 msgstr "Erlaubte Layouts"
 
-#: ../core/settings.php:699
+#: ../core/settings.php:711
 msgid ""
 "Choose the row layouts you want to use. Disabling a layout means it will not "
 "be available for newly created rows from now on &ndash; existing rows with "
@@ -481,7 +473,7 @@ msgstr ""
 "werden &ndash; bestehende Zeilen bleiben aber wie sie sind, bis du sie per "
 "Hand änderst."
 
-#: ../core/settings.php:712
+#: ../core/settings.php:724
 #, php-format
 msgid ""
 "Create more complex layouts using <a href=\"%s\" target=\"_blank\">filters</"
@@ -492,19 +484,19 @@ msgstr ""
 "anzulegen! Wie das funktioniert, kannst du in der <a href=\"%s\" target="
 "\"_blank\">Dokumentation</a> nachlesen."
 
-#: ../core/settings.php:734
+#: ../core/settings.php:746
 msgid "default for new rows"
 msgstr "Standard für neue Zeilen"
 
-#: ../core/settings.php:743
+#: ../core/settings.php:755
 msgid "Default layout"
 msgstr "Standard-Layout"
 
-#: ../core/settings.php:746
+#: ../core/settings.php:758
 msgid "Select a default layout that will be used in all newly created rows."
 msgstr "Wähle das Standard-Layout für neue Zeilen aus."
 
-#: ../core/settings.php:796
+#: ../core/settings.php:808
 #, php-format
 msgid ""
 "Enter HTML code to wrap around each column. You can use the variable %s "
@@ -514,19 +506,19 @@ msgstr ""
 "soll. Du kannst die Variable %s verwenden &ndash; sie wird automatisch durch "
 "den richtigen Klassennamen ersetzt, den du unten eingegeben hast."
 
-#: ../core/settings.php:826
+#: ../core/settings.php:838
 msgid "HTML before each column:"
 msgstr "HTML vor jeder Spalte:"
 
-#: ../core/settings.php:837
+#: ../core/settings.php:849
 msgid "HTML after each column:"
 msgstr "HTML nach jeder Spalte:"
 
-#: ../core/settings.php:855
+#: ../core/settings.php:867
 msgid "Class attributes for columns"
 msgstr "CSS-Klassen für Spalten"
 
-#: ../core/settings.php:857
+#: ../core/settings.php:869
 msgid ""
 "Enter a class attribute for each type of column so you'll be able to target "
 "them via CSS."
@@ -534,25 +526,25 @@ msgstr ""
 "Trage hier Klassen für die verschiedenen Spaltengrößen ein, um sie per CSS "
 "ansteuern zu können."
 
-#: ../core/settings.php:917
+#: ../core/settings.php:929
 msgid "Enter HTML code to wrap around each element."
 msgstr ""
 "Gib hier HTML-Code ein, der vor bzw. nach jedem Element angezeigt werden "
 "soll."
 
-#: ../core/settings.php:947
+#: ../core/settings.php:959
 msgid "HTML before each element:"
 msgstr "HTML vor jedem Element:"
 
-#: ../core/settings.php:958
+#: ../core/settings.php:970
 msgid "HTML after each element:"
 msgstr "HTML nach jedem Element:"
 
-#: ../core/settings.php:1000
+#: ../core/settings.php:1012
 msgid "Debug mode"
 msgstr "Debug-Modus"
 
-#: ../core/settings.php:1003
+#: ../core/settings.php:1015
 msgid ""
 "With debug mode enabled you can inspect and manually edit the JSON structure "
 "generated by Layotter. Enable debug mode for these user roles:"
@@ -609,6 +601,26 @@ msgstr "Erstellt am %s"
 #: ../views/templates.php:2
 msgid "Hide templates"
 msgstr "Templates verstecken"
+
+#~ msgid ""
+#~ "Layotter currently only works with the Pro version of Advanced Custom "
+#~ "Fields. Please install it before using Layotter. We apologize for the "
+#~ "inconvenience."
+#~ msgstr ""
+#~ "Layotter funktioniert derzeit leider nur mit der Pro-Version von Advanced "
+#~ "Custom Fields. Bitte installiere die pro-Version, um Layotter einzusetzen."
+
+#~ msgid ""
+#~ "Debug mode enabled: Inspect and manually edit the JSON structure "
+#~ "generated by Layotter. Use with caution. A faulty structure will break "
+#~ "your page layout and content. Go to the <a href=\"%s\">Layotter's "
+#~ "settings page</a> to disable debug mode."
+#~ msgstr ""
+#~ "Debug-Modus aktiv: Hier kannst du die interne JSON-Struktur von Layotter "
+#~ "ansehen und bearbeiten. Sei dabei sehr vorsichtig, eine fehlerhafte "
+#~ "Struktur wird das Layout und alle Inhalte dieses Posts löschen. Du kannst "
+#~ "den Debug-Modus in den <a href=\"%s\">Layotter-Einstellungen</a> "
+#~ "deaktivieren."
 
 #~ msgid "Default element type"
 #~ msgstr "Standard-Elementtyp"

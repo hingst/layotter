@@ -37,11 +37,7 @@ function layotter_output_interface($post) {
     $content = get_post_field('post_content', $post->ID);
     $clean_content_for_textarea = htmlspecialchars($content);
 
-    if (Layotter_Settings::is_debug_mode_enabled()) {
-        $style = 'width: 100%; height: 200px';
-    } else {
-        $style = 'width: 1px; height: 1px; position: fixed; top: -999px; left: -999px';
-    }
+    $style = 'width: 1px; height: 1px; position: fixed; top: -999px; left: -999px';
     echo '<textarea id="content" name="content" style="' . $style . '">' . $clean_content_for_textarea . '</textarea>';
     
     require_once __DIR__ . '/../views/editor.php';
