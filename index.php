@@ -17,6 +17,9 @@ require_once __DIR__ . '/core/settings.php';
 // include other files after plugins are loaded so ACF checks can be run
 add_action('plugins_loaded', 'layotter');
 function layotter() {
+    // load translations
+    load_plugin_textdomain('layotter', false, basename(__DIR__) . '/languages/');
+
     // check if ACF is installed and the version is compatible
     require_once __DIR__ . '/core/check-acf.php';
 
@@ -32,6 +35,7 @@ function layotter() {
         require_once __DIR__ . '/core/shortcode.php';
         require_once __DIR__ . '/core/views.php';
         require_once __DIR__ . '/core/acf-field-group.php';
+        require_once __DIR__ . '/core/revisions.php';
 
         require_once __DIR__ . '/components/form.php';
         require_once __DIR__ . '/components/editable.php';

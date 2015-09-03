@@ -13,14 +13,19 @@ add_shortcode('layotter', 'layotter_frontend_shortcode');
 /**
  * Process post content
  *
- * @param array $atts Required by Wordpress, but unused
+ * @param array $atts Shortcode attributes
  * @param string $input Data wrapped by the [layotter] shortcode
  * @return string HTML for frontend view of the current post
  */
 function layotter_frontend_shortcode($atts, $input = '') {
-    // ignore $input and extract JSON data because the JSON is stored in a custom field, $input is just a search dump
-    $layotter = new Layotter_Post(get_the_ID());
+    // since 1.5.0, shortcode attributes carry a post ID, and JSON is stored in a custom field
+    // before 1.5.0, JSON was stored directly in the post content
+    if (isset($atts['post']) AND Layotter::is_enabled_for_post($atts['post'])) {
+        $post_id = intval($atts['post']);
+        $layotter = new Layotter_Post($post_id);
+    } else {
+        $layotter = new Layotter_Post($input);
+    }
 
-    // turn content structure into HTML and return
     return $layotter->get_frontend_view();
 }

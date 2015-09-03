@@ -42,7 +42,8 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
         var currentTime = new Date().getTime();
 
         // put current timestamp into #content so Wordpress knows something has changed
-        //jQuery('#content').val(currentTime);
+        // the real content will be inserted on save_post
+        jQuery('#content').val(currentTime);
 
         // enter JSON string into textarea
         jQuery('#acf-field_layotter_post_content').val(jsonAsString);
