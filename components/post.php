@@ -138,7 +138,7 @@ class Layotter_Post {
      * @return bool
      */
     private function has_new_data_structure($post_id) {
-        $json = get_field('layotter_post_content', $post_id);
+        $json = get_post_meta($post_id, 'layotter_json', true);
 
         if (!empty($json)) {
             return true;
@@ -155,9 +155,9 @@ class Layotter_Post {
      * @return string|null JSON string containing post structure or null for new posts
      */
     private function get_json_by_post_id($post_id) {
-        if ($this->has_new_data_structure($post_id)) {
+        if ($this->has_new_data_structure($post_id) !== false) {
             // if post 1.5.0 data structure is present, get JSON from custom field
-            return get_field('layotter_post_content', $post_id);
+            return get_post_meta($post_id, 'layotter_json', true);
         } else {
             // otherwise, try to extract data from the post content
             return $this->get_json_from_legacy_post_content($post_id);

@@ -34,7 +34,6 @@ function layotter() {
         require_once __DIR__ . '/core/acf-locations.php';
         require_once __DIR__ . '/core/shortcode.php';
         require_once __DIR__ . '/core/views.php';
-        require_once __DIR__ . '/core/acf-field-group.php';
         require_once __DIR__ . '/core/revisions.php';
 
         require_once __DIR__ . '/components/form.php';
@@ -44,5 +43,11 @@ function layotter() {
         require_once __DIR__ . '/components/row.php';
         require_once __DIR__ . '/components/col.php';
         require_once __DIR__ . '/components/element.php';
+
+        // this library takes care of saving custom fields for each post revision
+        // see https://wordpress.org/plugins/wp-post-meta-revisions/
+        if (!class_exists('WP_Post_Meta_Revisioning')) {
+            require_once __DIR__ . '/lib/wp-post-meta-revisions.php';
+        }
     }
 }

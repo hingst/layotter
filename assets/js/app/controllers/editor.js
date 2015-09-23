@@ -46,7 +46,7 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
         jQuery('#content').val(currentTime);
 
         // enter JSON string into textarea
-        jQuery('#acf-field_layotter_post_content').val(jsonAsString);
+        jQuery('#layotter-json').val(jsonAsString);
     }, true);
 
 
