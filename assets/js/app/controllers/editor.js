@@ -38,15 +38,14 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
             });
         });
 
-        var jsonAsString = angular.toJson(valueClone, false); // change to true for pretty JSON
-        var currentTime = new Date().getTime();
+        var json = angular.toJson(valueClone, false); // change to true for pretty JSON
 
-        // put current timestamp into #content so Wordpress knows something has changed
-        // the real content will be inserted on save_post
-        jQuery('#content').val(currentTime);
+        // put shortcoded JSON into #content to make post previews work
+        // this will be replaced with a search dump when the post is saved
+        jQuery('#content').val('[layotter]' + json + '[/layotter]');
 
         // enter JSON string into textarea
-        jQuery('#layotter-json').val(jsonAsString);
+        jQuery('#layotter-json').val(json);
     }, true);
 
 

@@ -26,5 +26,22 @@ function layotter_frontend_shortcode($atts, $input = '') {
         $layotter = new Layotter_Post($input);
     }
 
-    return $layotter->get_frontend_view();
+    $html = $layotter->get_frontend_view();
+
+    // apply wptexturize manually after post HTML has been parsed because automatic wptexturizing is disabled for
+    // Layotter content (see layotter_disable_wptexturize() below)
+    return wptexturize($html);
+}
+
+
+/**
+ * Disable wptexturize for [layotter] shortcode
+ *
+ * Wordpress replaces some characters with html entities, e.g. < becomes &lt; - this breaks post previews, so we'll
+ * disable it for Layotter contents.
+ */
+add_filter('no_texturize_shortcodes', 'layotter_disable_wptexturize');
+function layotter_disable_wptexturize($shortcodes) {
+    $shortcodes[] = 'layotter';
+    return $shortcodes;
 }

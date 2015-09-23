@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Build a search dump when saving a post, and save JSON to a custom field
  *
@@ -22,13 +21,13 @@ function layotter_make_search_dump($data, $raw_post){
 
     // copy JSON from POST and strip slashes that were added by Wordpress
     $json = $raw_post['layotter_json'];
-    $json = stripslashes_deep($json);
+    $unslashed_json = stripslashes_deep($json);
 
     // turn JSON into post content HTML
-    $layotter_post = new Layotter_Post($json);
+    $layotter_post = new Layotter_Post($unslashed_json);
     $content = $layotter_post->get_frontend_view();
 
-    // save JSON to a custom field
+    // save JSON to a custom field (oddly enough, Wordpress breaks JSON if it's stripslashed)
     update_post_meta($post_id, 'layotter_json', $json);
 
     // insert spaces to prevent <p>foo</p><p>bar</p> becoming "foobar" instead of "foo bar"

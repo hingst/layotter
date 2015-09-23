@@ -44,7 +44,7 @@ class Layotter_Post {
         if ($this->is_json($json)) {
             return json_decode($json, true);
         } else {
-            return json_decode(null, true);
+            return json_decode(null, true); // TODO: what am I doing here?
         }
     }
 
