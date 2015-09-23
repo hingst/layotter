@@ -34,7 +34,9 @@ function layotter_make_search_dump($data, $raw_post){
     $normalized_content = trim(preg_replace('/\s+/', ' ', $clean_content));
 
     // wrap search dump with a [layotter] shortcode and save to database
-    $shortcoded_content = '[layotter]' . $normalized_content . '[/layotter]';
+    // add the post ID because otherwise the shortcode handler would have no reliable way to get the post ID through
+    // which the JSON data will be fetched
+    $shortcoded_content = '[layotter post="' . $post_id . '"]' . $normalized_content . '[/layotter]';
     $data['post_content'] = $shortcoded_content;
     return $data;
 }
