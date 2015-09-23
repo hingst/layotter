@@ -117,8 +117,19 @@ abstract class Layotter_Element extends Layotter_Editable {
      * correctly in the backend.
      */
     final public static function register_backend_hooks() {
-        if (is_admin()) {
-            add_action('admin_footer', array(get_called_class(), 'backend_assets'));
+        add_action('admin_footer', array(get_called_class(), 'register_backend_hooks_helper'));
+    }
+
+
+    /**
+     * Helper function for register_backend_hooks
+     *
+     * To make sure that Layotter::is_enabled() returns the correct value, the check is delayed until admin_footer.
+     * Without the check, assets would be included on every single page in the backend.
+     */
+    final public function register_backend_hooks_helper() {
+        if (is_admin() AND Layotter::is_enabled()) {
+            call_user_func(array(get_called_class(), 'backend_assets'));
         }
     }
 
