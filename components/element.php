@@ -127,7 +127,7 @@ abstract class Layotter_Element extends Layotter_Editable {
      * To make sure that Layotter::is_enabled() returns the correct value, the check is delayed until admin_footer.
      * Without the check, assets would be included on every single page in the backend.
      */
-    final public function register_backend_hooks_helper() {
+    final public static function register_backend_hooks_helper() {
         if (is_admin() AND Layotter::is_enabled()) {
             call_user_func(array(get_called_class(), 'backend_assets'));
         }
