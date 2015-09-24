@@ -43,12 +43,15 @@ abstract class Layotter_Element extends Layotter_Editable {
 
 
     /**
-     * admin_assets() is optional and should be used to enqueue scripts and styles
-     *
-     * Must be static because it is called immediately after the element was registered, long before an instance is
-     * created anywhere.
+     * backend_assets() is optional and should be used to enqueue scripts and styles for the backend
      */
-    public static function admin_assets() {}
+    public static function backend_assets() {}
+
+
+    /**
+     * frontend_assets() is optional and should be used to enqueue scripts and styles for the backend
+     */
+    public static function frontend_assets() {}
 
 
     /**
@@ -70,6 +73,8 @@ abstract class Layotter_Element extends Layotter_Editable {
 
         $this->form->set_title($this->title);
         $this->form->set_icon($this->icon);
+
+        $this->register_frontend_hooks();
 
         $this->options = new Layotter_Options('element', $option_values);
     }
@@ -106,11 +111,38 @@ abstract class Layotter_Element extends Layotter_Editable {
 
 
     /**
-     * Register all necessary actions and filters
+     * Register hooks for backend assets
+     *
+     * This allows element type developers to enqueue scripts and styles required to display this element
+     * correctly in the backend.
      */
-    final public static function hooks() {
-        if (is_callable(array(get_called_class(), 'admin_assets'))) {
-            add_action('admin_footer', array(get_called_class(), 'admin_assets'));
+    final public static function register_backend_hooks() {
+        add_action('admin_footer', array(get_called_class(), 'register_backend_hooks_helper'));
+    }
+
+
+    /**
+     * Helper function for register_backend_hooks
+     *
+     * To make sure that Layotter::is_enabled() returns the correct value, the check is delayed until admin_footer.
+     * Without the check, assets would be included on every single page in the backend.
+     */
+    final public function register_backend_hooks_helper() {
+        if (is_admin() AND Layotter::is_enabled()) {
+            call_user_func(array(get_called_class(), 'backend_assets'));
+        }
+    }
+
+
+    /**
+     * Register hooks for frontend assets
+     *
+     * This allows element type developers to enqueue scripts and styles required to display this element
+     * correctly in the frontend.
+     */
+    final private function register_frontend_hooks() {
+        if (!is_admin()) {
+            call_user_func(array(get_called_class(), 'frontend_assets'));
         }
     }
 

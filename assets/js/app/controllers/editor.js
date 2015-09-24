@@ -38,20 +38,14 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
             });
         });
 
-        // prepare JSON data for representation in textarea
-        // replace
-        //      & with &amp;
-        //      < with &lt;
-        //      > with &gt;
-        // as they can break the textarea and/or JSON validity
-        // flag: [g]lobal = replace all matches instead of just the first one
-        var cleanValue = angular.toJson(valueClone, false) // change to true for pretty JSON
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;');
+        var json = angular.toJson(valueClone, false); // change to true for pretty JSON
 
-        // enter JSON data wrapped in layotter shortcode into textarea
-        jQuery('#content').html('[layotter]' + cleanValue + '[/layotter]');
+        // put shortcoded JSON into #content to make post previews work
+        // this will be replaced with a search dump when the post is saved
+        jQuery('#content').val('[layotter]' + json + '[/layotter]');
+
+        // enter JSON string into textarea
+        jQuery('#layotter-json').val(json);
     }, true);
 
 

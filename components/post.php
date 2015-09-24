@@ -14,11 +14,10 @@ class Layotter_Post {
     /**
      * Create an object for a post
      *
-     * @param int|string $id_or_json_or_post_content Post ID, JSON object holding post structure, or post content
-     *      containing [layotter]JSON structure[/layotter]
+     * @param int|string $id_or_json Post ID or JSON object holding post structure
      */
-    public function __construct($id_or_json_or_post_content) {
-        $structure = $this->get_structure($id_or_json_or_post_content);
+    public function __construct($id_or_json) {
+        $structure = $this->get_structure($id_or_json);
         $structure = $this->validate_structure($structure);
 
         $this->options = new Layotter_Options('post', $structure['options']);
@@ -30,21 +29,23 @@ class Layotter_Post {
 
 
     /**
-     * Get post structure by post ID, JSON data or post content containing [layotter]JSON structure[/layotter]
+     * Create a post structure array using a post ID or JSON data
      *
-     * @param int|string $id_or_json_or_post_content Post ID, JSON or post content
-     * @return array|null Array containing post structure or null for new posts
+     * @param int|string $id_or_json Post ID, JSON or post content
+     * @return string JSON string containing post structure or null for new posts
      */
-    private function get_structure($id_or_json_or_post_content) {
-        if (is_int($id_or_json_or_post_content)) {
-            $json = $this->get_json_by_post_id($id_or_json_or_post_content);
-        } else if ($this->is_json($id_or_json_or_post_content)) {
-            $json = $id_or_json_or_post_content;
+    private function get_structure($id_or_json) {
+        if (is_int($id_or_json)) {
+            $json = $this->get_json_by_post_id($id_or_json);
         } else {
-            $json = $this->get_json_by_post_content($id_or_json_or_post_content);
+            $json = $id_or_json;
         }
 
-        return json_decode($json, true);
+        if ($this->is_json($json)) {
+            return json_decode($json, true);
+        } else {
+            return json_decode(null, true); // TODO: what am I doing here?
+        }
     }
 
 
@@ -129,28 +130,52 @@ class Layotter_Post {
 
 
     /**
-     * Get post JSON by post ID
+     * Check if post 1.5.0 data structure is present for this post
+     *
+     * i.e. if JSON is in a custom field instead of the post content
      *
      * @param int $post_id Post ID
-     * @return array|null Array containing post structure or null for new posts
+     * @return bool
      */
-    private function get_json_by_post_id($post_id) {
-        // get raw post content (should look like [layotter]json_data[/layotter] for existing posts)
-        $content_raw = get_post_field('post_content', $post_id);
-        return $this->get_json_by_post_content($content_raw);
+    private function has_new_data_structure($post_id) {
+        $json = get_post_meta($post_id, 'layotter_json', true);
+
+        if (!empty($json)) {
+            return true;
+        }
+
+        return false;
     }
 
 
     /**
-     * Extract post JSON from post content
+     * Get post JSON by post ID
      *
-     * @param string $content_raw Post content containing [layotter]JSON structure[/layotter]
-     * @return array|null Array containing post structure or null for new posts
+     * @param int $post_id Post ID
+     * @return string|null JSON string containing post structure or null for new posts
      */
-    private function get_json_by_post_content($content_raw) {
-        if (!is_string($content_raw)) {
-            return null;
+    private function get_json_by_post_id($post_id) {
+        if ($this->has_new_data_structure($post_id) !== false) {
+            // if post 1.5.0 data structure is present, get JSON from custom field
+            return get_post_meta($post_id, 'layotter_json', true);
+        } else {
+            // otherwise, try to extract data from the post content
+            return $this->get_json_from_legacy_post_content($post_id);
         }
+    }
+
+
+    /**
+     * Extract post JSON from post content for a post ID
+     *
+     * JSON used to be stored in the main content wrapped like this: [layotter]json[/layotter]
+     * This method extracts JSON from posts that haven't been updated to the new style yet.
+     *
+     * @param int $post_id Post ID with pre 1.5.0 style post content
+     * @return string|null JSON string containing post structure or null for new posts
+     */
+    private function get_json_from_legacy_post_content($post_id) {
+        $content_raw = get_post_field('post_content', $post_id);
 
         // verify that the content is correctly formatted, unwrap from shortcode
         $matches = array();

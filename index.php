@@ -3,9 +3,10 @@
 Plugin Name: Layotter
 Description: Add and arrange your content freely with an intuitive drag and drop interface!
 Author: Dennis Hingst
-Version: 1.4.4
+Version: 1.5.0
 Author URI: http://www.layotter.com/
 Text Domain: layotter
+GitHub Plugin URI: hingst/layotter
 */
 
 
@@ -17,6 +18,9 @@ require_once __DIR__ . '/core/settings.php';
 // include other files after plugins are loaded so ACF checks can be run
 add_action('plugins_loaded', 'layotter');
 function layotter() {
+    // load translations
+    load_plugin_textdomain('layotter', false, basename(__DIR__) . '/languages/');
+
     // check if ACF is installed and the version is compatible
     require_once __DIR__ . '/core/check-acf.php';
 
@@ -31,6 +35,7 @@ function layotter() {
         require_once __DIR__ . '/core/acf-locations.php';
         require_once __DIR__ . '/core/shortcode.php';
         require_once __DIR__ . '/core/views.php';
+        require_once __DIR__ . '/core/revisions.php';
 
         require_once __DIR__ . '/components/form.php';
         require_once __DIR__ . '/components/editable.php';
@@ -39,5 +44,11 @@ function layotter() {
         require_once __DIR__ . '/components/row.php';
         require_once __DIR__ . '/components/col.php';
         require_once __DIR__ . '/components/element.php';
+
+        // this library takes care of saving custom fields for each post revision
+        // see https://wordpress.org/plugins/wp-post-meta-revisions/
+        if (!class_exists('WP_Post_Meta_Revisioning')) {
+            require_once __DIR__ . '/lib/wp-post-meta-revisions.php';
+        }
     }
 }

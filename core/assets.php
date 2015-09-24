@@ -79,7 +79,7 @@ function layotter_assets_admin_enqueue_scripts() {
 
     // fetch post layouts and element templates
     $saved_layouts = Layotter_Layouts::get_all();
-    $saved_templates = Layotter_Templates::get_all();
+    $saved_templates = Layotter_Templates::get_all_for_post($post_id);
 
 
     // fetch available element types
