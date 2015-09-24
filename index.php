@@ -3,11 +3,14 @@
 Plugin Name: Layotter
 Description: Add and arrange your content freely with an intuitive drag and drop interface!
 Author: Dennis Hingst
-Version: 1.5.0
+Version: 1.5.1
 Author URI: http://www.layotter.com/
 Text Domain: layotter
 GitHub Plugin URI: hingst/layotter
 */
+
+
+define('LAYOTTER_ACF_VERSION_REQUIRED', '5.3.0');
 
 
 // settings are self-contained and should be included even if ACF is not available
