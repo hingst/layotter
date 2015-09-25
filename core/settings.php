@@ -52,6 +52,7 @@ class Layotter_Settings {
                 'enable_post_layouts' => '1',
                 'enable_element_templates' => '1',
                 'enable_default_css' => '1',
+                'enable_example_element' => '1',
                 'debug_mode' => array(
                     'administrator' => '0'
                 )
@@ -192,6 +193,18 @@ class Layotter_Settings {
         $settings = self::get_settings('general');
         $is_enabled = (isset($settings['enable_default_css']) AND $settings['enable_default_css'] == '1');
         return apply_filters('layotter/enable_default_css', $is_enabled);
+    }
+
+
+    /**
+     * Check if the example element is enabled
+     *
+     * @return bool
+     */
+    public static function example_element_enabled() {
+        $settings = self::get_settings('general');
+        $is_enabled = (isset($settings['enable_example_element']) AND $settings['enable_example_element'] == '1');
+        return apply_filters('layotter/enable_example_element', $is_enabled);
     }
 
 
@@ -460,7 +473,7 @@ class Layotter_Settings {
                     <p class="layotter-settings-paragraph layotter-with-icon">
                         <i class="fa fa-warning"></i>
                         <?php
-                        printf(__('There\'s a %s filter in your code that might be modifying these settings.', 'layotter'), '<code>layotter/enabled_post_types</code>');
+                        printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/enabled_post_types</code>');
                         ?>
                     </p>
                     <?php
@@ -517,7 +530,7 @@ class Layotter_Settings {
                     <p class="layotter-settings-paragraph layotter-with-icon">
                         <i class="fa fa-warning"></i>
                         <?php
-                        printf(__('There\'s a %s filter in your code that might be modifying these settings.', 'layotter'), '<code>layotter/enable_post_layouts</code>');
+                        printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/enable_post_layouts</code>');
                         ?>
                     </p>
                 <?php
@@ -541,7 +554,7 @@ class Layotter_Settings {
                 <p class="layotter-settings-paragraph layotter-with-icon">
                     <i class="fa fa-warning"></i>
                     <?php
-                    printf(__('There\'s a %s filter in your code that might be modifying these settings.', 'layotter'), '<code>layotter/enable_element_templates</code>');
+                    printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/enable_element_templates</code>');
                     ?>
                 </p>
                 <?php
@@ -554,7 +567,7 @@ class Layotter_Settings {
                 </label>
             </p>
             <h3>
-                <?php _e('Basic frontend CSS', 'layotter'); ?>
+                <?php _e('Default frontend CSS', 'layotter'); ?>
             </h3>
             <p class="layotter-settings-paragraph">
                 <?php _e("Layotter comes with a set of very basic styles to make rows and columns work in the frontend (as long as you don't change the default class names). Disable this option if you want to write your own styles.", 'layotter'); ?>
@@ -565,7 +578,7 @@ class Layotter_Settings {
                 <p class="layotter-settings-paragraph layotter-with-icon">
                     <i class="fa fa-warning"></i>
                     <?php
-                    printf(__('There\'s a %s filter in your code that might be modifying these settings.', 'layotter'), '<code>layotter/enable_default_css</code>');
+                    printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/enable_default_css</code>');
                     ?>
                 </p>
                 <?php
@@ -574,7 +587,37 @@ class Layotter_Settings {
             <p class="layotter-settings-checkboxes">
                 <label>
                     <input type="checkbox" name="layotter_settings[general][enable_default_css]" value="1" <?php if(isset($settings['enable_default_css'])) { checked($settings['enable_default_css']); } ?>>
-                    <?php _e('Enable basic frontend CSS', 'layotter'); ?>
+                    <?php _e('Use default frontend CSS', 'layotter'); ?>
+                </label>
+            </p>
+            <h3>
+                <?php _e('Example element type', 'layotter'); ?>
+            </h3>
+            <p class="layotter-settings-paragraph">
+                <?php _e("Layotter comes with an example element type to play around and get started quickly. You'll probably want to disable it once you start creating your own element types.", 'layotter'); ?>
+            </p>
+            <?php
+            if (has_filter('layotter/enable_example_element')) {
+                ?>
+                <p class="layotter-settings-paragraph layotter-with-icon">
+                    <i class="fa fa-warning"></i>
+                    <?php
+                    printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/enable_example_element</code>');
+                    ?>
+                </p>
+                <?php
+            }
+            ?>
+            <p class="layotter-settings-paragraph layotter-with-icon">
+                <i class="fa fa-warning"></i>
+                <?php
+                _e("Once you disable the example element type, all elements you've created with it will disappear.", 'layotter');
+                ?>
+            </p>
+            <p class="layotter-settings-checkboxes">
+                <label>
+                    <input type="checkbox" name="layotter_settings[general][enable_example_element]" value="1" <?php if(isset($settings['enable_example_element'])) { checked($settings['enable_example_element']); } ?>>
+                    <?php _e('Use example element type', 'layotter'); ?>
                 </label>
             </p>
             <?php
@@ -612,7 +655,7 @@ class Layotter_Settings {
                         ?>
                         <i class="fa fa-warning"></i>
                         <?php
-                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code.', 'layotter'), '<code>layotter/view/post</code>');
+                        printf(__("These settings currently have no effect because they're overwritten by a %s filter used in your code.", 'layotter'), '<code>layotter/view/post</code>');
                     } else {
                         ?>
                         <i class="fa fa-info"></i>
@@ -694,7 +737,7 @@ class Layotter_Settings {
                         ?>
                         <i class="fa fa-warning"></i>
                         <?php
-                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code.', 'layotter'), '<code>layotter/view/row</code>');
+                        printf(__("These settings currently have no effect because they're overwritten by a %s filter used in your code.", 'layotter'), '<code>layotter/view/row</code>');
                     } else {
                         ?>
                         <i class="fa fa-info"></i>
@@ -755,7 +798,7 @@ class Layotter_Settings {
                         ?>
                         <i class="fa fa-warning"></i>
                         <?php
-                        printf(__('There\'s a %s filter in your code that might be modifying these settings.', 'layotter'), '<code>layotter/allowed_layouts</code>');
+                        printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/allowed_layouts</code>');
                     } else {
                         ?>
                         <i class="fa fa-info"></i>
@@ -802,7 +845,7 @@ class Layotter_Settings {
                     <p class="layotter-settings-paragraph layotter-with-icon">
                         <i class="fa fa-warning"></i>
                         <?php
-                        printf(__('There\'s a %s filter in your code that might be modifying these settings.', 'layotter'), '<code>layotter/default_layout</code>');
+                        printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/default_layout</code>');
                         ?>
                     </p>
                     <?php
@@ -854,7 +897,7 @@ class Layotter_Settings {
                         ?>
                         <i class="fa fa-warning"></i>
                         <?php
-                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code.', 'layotter'), '<code>layotter/view/column</code>');
+                        printf(__("These settings currently have no effect because they're overwritten by a %s filter used in your code.", 'layotter'), '<code>layotter/view/column</code>');
                     } else {
                         ?>
                         <i class="fa fa-info"></i>
@@ -905,7 +948,7 @@ class Layotter_Settings {
                 ?>
                 <h3><?php _e('CSS classes for columns', 'layotter'); ?></h3>
                 <p class="layotter-settings-paragraph">
-                    <?php  _e('Enter a class name for each type of column so you\'ll be able to target them via CSS.', 'layotter'); ?>
+                    <?php  _e("Enter a class name for each type of column so you'll be able to target them via CSS.", 'layotter'); ?>
                 </p>
                 <?php
                 if (has_filter('layotter/columns/classes')) {
@@ -913,7 +956,7 @@ class Layotter_Settings {
                     <p class="layotter-settings-paragraph layotter-with-icon">
                         <i class="fa fa-warning"></i>
                         <?php
-                        printf(__('There\'s a %s filter in your code that might be modifying these settings.', 'layotter'), '<code>layotter/columns/classes</code>');
+                        printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/columns/classes</code>');
                         ?>
                     </p>
                     <?php
@@ -975,7 +1018,7 @@ class Layotter_Settings {
                         ?>
                         <i class="fa fa-warning"></i>
                         <?php
-                        printf(__('These settings currently have no effect because they\'re overwritten by a %s filter used in your code.', 'layotter'), '<code>layotter/view/element</code>');
+                        printf(__("These settings currently have no effect because they're overwritten by a %s filter used in your code.", 'layotter'), '<code>layotter/view/element</code>');
                     } else {
                         ?>
                         <i class="fa fa-info"></i>
@@ -1059,7 +1102,7 @@ class Layotter_Settings {
                 <p class="layotter-settings-paragraph layotter-with-icon">
                     <i class="fa fa-warning"></i>
                     <?php
-                    printf(__('There\'s a %s filter in your code that might be modifying these settings.', 'layotter'), '<code>layotter/debug_mode_roles</code>');
+                    printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/debug_mode_roles</code>');
                     ?>
                 </p>
                 <?php
