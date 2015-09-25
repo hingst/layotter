@@ -179,3 +179,14 @@ function layotter_assets_admin_enqueue_scripts() {
     );
 
 }
+
+
+/**
+ * Include basic CSS in the frontend if enabled in settings
+ */
+add_action('wp_enqueue_scripts', 'layotter_frontend_assets');
+function layotter_frontend_assets() {
+    if (!is_admin() AND Layotter_Settings::default_css_enabled()) {
+        wp_enqueue_style('layotter-frontend', plugins_url('assets/css/frontend.css', __DIR__));
+    }
+}
