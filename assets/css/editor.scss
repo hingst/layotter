@@ -803,6 +803,7 @@ $darkgray: #CCCCCC;
             .layotter-element-content {
                 padding: 10px;
                 overflow: hidden;
+                min-height: 46px;
 
                 p {
                     margin: 0 0 0.4em;
@@ -1204,6 +1205,7 @@ $darkgray: #CCCCCC;
 
 .layotter-default-value {
     cursor: pointer;
+    font-size: 12px;
 }
 
 .layotter-row-layout-option {
