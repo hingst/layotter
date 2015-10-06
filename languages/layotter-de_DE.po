@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Layotter\n"
-"POT-Creation-Date: 2015-09-25 23:09+0100\n"
-"PO-Revision-Date: 2015-09-25 23:13+0100\n"
+"POT-Creation-Date: 2015-10-06 20:27+0100\n"
+"PO-Revision-Date: 2015-10-06 20:31+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
@@ -216,8 +216,19 @@ msgid ""
 "Fields Pro</a> plugin, please install it before using Layotter."
 msgstr ""
 "Layotter funktioniert nur in Verbindung mit <a href=\"%s\" target=\"_blank"
-"\">Advanced Custom Fields Pro</a>. Bitte installiere das Plugin, bevor du "
-"Layotter einsetzt."
+"\">Advanced Custom Fields Pro</a>. Bitte installiere das Plugin, um Layotter "
+"zu benutzen."
+
+#: ../core/check-acf.php:10
+#, php-format
+msgid ""
+"Layotter currently only works with the Pro version of <a href=\"%s\" target="
+"\"_blank\">Advanced Custom Fields</a>. Please install it before using "
+"Layotter. <a href=\"%s\" target=\"_blank\">Why?</a>"
+msgstr ""
+"Layotter funktioniert bisher nur mit der Pro-Version von <a href=\"%s\" "
+"target=\"_blank\">Advanced Custom Fields</a>. Bitte installiere sie, um "
+"Layotter zu benutzen. <a href=\"%s\" target=\"_blank\">Warum?</a>"
 
 #: ../core/check-acf.php:13
 #, php-format
