@@ -111,7 +111,7 @@ abstract class Layotter_Editable {
             // this filter can break fields in Layotter's context and is therefore not applied
 
             // format values using ACF's formatting filters
-            $values[$field_name] = acf_format_value($clean_values[$field_name], 0, $field_data); // 0 = post_id
+            $values[$field_name] = Layotter_ACF::format_value($clean_values[$field_name], $field_data);
         }
 
         return $values;

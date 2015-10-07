@@ -25,6 +25,7 @@ function layotter() {
     load_plugin_textdomain('layotter', false, basename(__DIR__) . '/languages/');
 
     // check if ACF is installed and the version is compatible
+    require_once __DIR__ . '/core/acf-abstraction.php';
     require_once __DIR__ . '/core/check-acf.php';
 
     // include files only if ACF is available

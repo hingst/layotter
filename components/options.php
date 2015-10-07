@@ -55,7 +55,7 @@ class Layotter_Options extends Layotter_Editable {
         $post_type = get_post_type($post_id);
 
         // check if a field group exists for this option type
-        $field_groups = acf_get_field_groups(array(
+        $field_groups = Layotter_ACF::get_field_groups(array(
             'post_type' => $post_type,
             'layotter' => $this->type . '_options'
         ));
@@ -79,7 +79,7 @@ class Layotter_Options extends Layotter_Editable {
                             // force rule match for 'layotter' rules
                             $match = apply_filters('acf/location/rule_match/layotter', false, $rule, $filters);
                             if ($match) {
-                                $fields = array_merge($fields, acf_get_fields($field_group));
+                                $fields = array_merge($fields, Layotter_ACF::get_fields($field_group));
                             }
                         }
                     }

@@ -93,10 +93,10 @@ abstract class Layotter_Element extends Layotter_Editable {
         }
 
         if (is_int($this->field_group)) {
-            $field_group = _acf_get_field_group_by_id($this->field_group);
+            $field_group = Layotter_ACF::get_field_group_by_id($this->field_group);
             $identifier = 'post_id';
         } else {
-            $field_group = _acf_get_field_group_by_key($this->field_group);
+            $field_group = Layotter_ACF::get_field_group_by_key($this->field_group);
             $identifier = 'acf-field-group';
         }
 
@@ -106,7 +106,7 @@ abstract class Layotter_Element extends Layotter_Editable {
         }
 
         // return fields for the provided ACF field group
-        return acf_get_fields($field_group);
+        return Layotter_ACF::get_fields($field_group);
     }
 
 
@@ -158,7 +158,7 @@ abstract class Layotter_Element extends Layotter_Editable {
         $post_type = get_post_type($post_id);
 
         // get ACF field group for this post's type
-        $field_groups = acf_get_field_groups(array(
+        $field_groups = Layotter_ACF::get_field_groups(array(
             'post_type' => $post_type,
             'layotter' => 'element'
         ));
