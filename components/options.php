@@ -53,38 +53,16 @@ class Layotter_Options extends Layotter_Editable {
     private function get_fields($post_id) {
         $post_id = intval($post_id);
         $post_type = get_post_type($post_id);
+        $fields = array();
 
-        // check if a field group exists for this option type
-        $field_groups = Layotter_ACF::get_field_groups(array(
+        // get ACF field groups for this option and post type
+        $field_groups = Layotter_ACF::get_filtered_field_groups(array(
             'post_type' => $post_type,
             'layotter' => $this->type . '_options'
         ));
 
-        // ACF's location rule matching is kind of buggy - the above query includes field groups that are enabled for
-        // the current post type, but aren't set as options (the 'layotter' parameter is simply ignored if no layotter
-        // location was selected for a field group). Therefore we have to check again for each returned field group,
-        // manually, if it's actually enabled for this options type
-        // note: the 'layotter' parameter should not be necessary, but might improve performance slightly (not tested)
-        $fields = array();
-        $filters = array(
-            'layotter' => $this->type . '_options'
-        );
-
-        // the following loop was mostly copied from acf_get_field_group_visibility()
         foreach ($field_groups as $field_group) {
-            foreach($field_group['location'] as $location_group) {
-                if(!empty($location_group)) {
-                    foreach($location_group as $rule) {
-                        if ($rule['param'] == 'layotter') {
-                            // force rule match for 'layotter' rules
-                            $match = apply_filters('acf/location/rule_match/layotter', false, $rule, $filters);
-                            if ($match) {
-                                $fields = array_merge($fields, Layotter_ACF::get_fields($field_group));
-                            }
-                        }
-                    }
-                }
-            }
+            $fields = array_merge($fields, Layotter_ACF::get_fields($field_group));
         }
 
         return $fields;

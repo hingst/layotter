@@ -156,26 +156,12 @@ abstract class Layotter_Element extends Layotter_Editable {
     final public function is_enabled_for($post_id) {
         $post_id = intval($post_id);
         $post_type = get_post_type($post_id);
+        $field_group = Layotter_ACF::get_field_group_by_key($this->field_group);
 
-        // get ACF field group for this post's type
-        $field_groups = Layotter_ACF::get_field_groups(array(
+        return Layotter_ACF::is_field_group_visible($field_group, array(
             'post_type' => $post_type,
             'layotter' => 'element'
         ));
-
-        $identifier
-            = is_int($this->field_group)
-            ? 'ID' // filter ACF groups by post ID
-            : 'key'; // filter ACF groups by post slug
-
-        // if $this->field_group is enabled for the current post's type, return true
-        foreach ($field_groups as $field_group) {
-            if ($field_group[$identifier] == $this->field_group) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
 
