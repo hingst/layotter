@@ -39,9 +39,9 @@ class Layotter_ACF
      */
     public static function is_version_compatible() {
         if (self::is_pro_installed()) {
-            return version_compare(acf_get_setting('version'), self::REQUIRED_PRO_VERSION) >= 0;
+            return (version_compare(acf_get_setting('version'), self::REQUIRED_PRO_VERSION) >= 0);
         } else {
-            return version_compare(acf()->get_info('version'), self::REQUIRED_VERSION) >= 0;
+            return (version_compare(acf()->get_info('version'), self::REQUIRED_VERSION) >= 0);
         }
     }
 
@@ -257,7 +257,7 @@ class Layotter_ACF
         } else {
             ?>
             <div class="acf_postbox">
-                <div class="inside" ng-bind-html="form.fields | rawHtml"></div>
+                <div ng-bind-html="form.fields | rawHtml"></div>
             </div>
             <?php
         }
