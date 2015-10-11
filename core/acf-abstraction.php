@@ -12,16 +12,45 @@ class Layotter_ACF
     private static $error_message = '';
 
 
+    /**
+     * Check if ACF is installed
+     *
+     * @return bool
+     */
     public static function is_installed() {
         return class_exists('acf');
     }
 
 
+    /**
+     * Check if ACF Pro is installed
+     *
+     * @return bool
+     */
     public static function is_pro_installed() {
         return class_exists('acf_pro');
     }
 
 
+    /**
+     * Check if the installed version of ACF is compatible with this version of Layotter
+     *
+     * @return bool
+     */
+    public static function is_version_compatible() {
+        if (self::is_pro_installed()) {
+            return version_compare(acf_get_setting('version'), self::REQUIRED_PRO_VERSION) >= 0;
+        } else {
+            return version_compare(acf()->get_info('version'), self::REQUIRED_VERSION) >= 0;
+        }
+    }
+
+
+    /**
+     * Check if a compatible version of ACF is installed and output an error message if not
+     *
+     * @return bool
+     */
     public static function is_available() {
         if (!Layotter_ACF::is_installed()) {
             self::$error_message = sprintf(__('Layotter requires the <a href="%s" target="_blank">Advanced Custom Fields</a> plugin, please install it before using Layotter.', 'layotter'), 'http://www.advancedcustomfields.com');
@@ -38,6 +67,9 @@ class Layotter_ACF
     }
 
 
+    /**
+     * Output an error message if ACF isn't installed (hooked to admin_notices by self::is_available())
+     */
     public static function print_error() {
         ?>
         <div class="error">
@@ -49,15 +81,11 @@ class Layotter_ACF
     }
 
 
-    public static function is_version_compatible() {
-        if (self::is_pro_installed()) {
-            return version_compare(acf_get_setting('version'), self::REQUIRED_PRO_VERSION) >= 0;
-        } else {
-            return version_compare(acf()->get_info('version'), self::REQUIRED_VERSION) >= 0;
-        }
-    }
-
-
+    /**
+     * Get all ACF field groups
+     *
+     * @return array All ACF field groups (array format varies between the free and Pro versions of ACF)
+     */
     public static function get_all_field_groups() {
         if (self::is_pro_installed()) {
             return acf_get_field_groups();
@@ -67,6 +95,12 @@ class Layotter_ACF
     }
 
 
+    /**
+     * Get ACF field groups that match a given set of location rules
+     *
+     * @param array $filters ACF location rules
+     * @return array Filtered ACF field groups (array format varies between the free and Pro versions of ACF)
+     */
     public static function get_filtered_field_groups($filters) {
         if (self::is_pro_installed()) {
             $field_groups = self::get_all_field_groups();
@@ -86,6 +120,13 @@ class Layotter_ACF
     }
 
 
+    /**
+     * Check if a given field group matches a given set of location rules
+     *
+     * @param array $field_group ACF field group (array format varies between the free and Pro versions of ACF)
+     * @param array $filters ACF location rules
+     * @return bool
+     */
     public static function is_field_group_visible($field_group, $filters) {
         if (self::is_pro_installed()) {
             return acf_get_field_group_visibility($field_group, $filters);
@@ -96,6 +137,12 @@ class Layotter_ACF
     }
 
 
+    /**
+     * Get fields for a given field group
+     *
+     * @param array $field_group ACF field group (array format varies between the free and Pro versions of ACF)
+     * @return array|bool ACF fields, or false or empty array (depending on the ACF version) if the group doesn't exist
+     */
     public static function get_fields($field_group) {
         if (self::is_pro_installed()) {
             return acf_get_fields($field_group);
@@ -105,6 +152,12 @@ class Layotter_ACF
     }
 
 
+    /**
+     * Get form HTML for a set of fields
+     *
+     * @param array $fields ACF fields
+     * @return string Form HTML
+     */
     public static function get_form_html($fields) {
         ob_start();
 
@@ -118,6 +171,12 @@ class Layotter_ACF
     }
 
 
+    /**
+     * Get a field group by its ID
+     *
+     * @param int $id ACF field group ID (post ID)
+     * @return array|bool ACF field group, or false or empty array (depending on the ACF version) if the ID doesn't exist
+     */
     public static function get_field_group_by_id($id) {
         if (self::is_pro_installed()) {
             return _acf_get_field_group_by_id($id);
@@ -133,6 +192,12 @@ class Layotter_ACF
     }
 
 
+    /**
+     * Get a field group by its key
+     *
+     * @param string $key ACF field group key (slug)
+     * @return array|bool ACF field group, or false or empty array (depending on the ACF version) if the key doesn't exist
+     */
     public static function get_field_group_by_key($key) {
         if (self::is_pro_installed()) {
             return _acf_get_field_group_by_key($key);
@@ -143,6 +208,15 @@ class Layotter_ACF
     }
 
 
+    /**
+     * Run a field value through ACF's formatting filters to prepare them for output
+     *
+     * For example, paragraphs and line breaks are added to WYSIWYG fields.
+     *
+     * @param mixed $value ACF field value
+     * @param array $field_data Info about the field type as provided by ACF
+     * @return mixed Formatted field value
+     */
     public static function format_value($value, $field_data) {
         if (self::is_pro_installed()) {
             return acf_format_value($value, 0, $field_data); // 0 = post_id
