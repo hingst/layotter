@@ -82,6 +82,20 @@ class Layotter_ACF
 
 
     /**
+     * Get the post type for ACF field groups depending on the installed version of ACF
+     *
+     * @return string Post type for ACF field groups
+     */
+    public static function get_field_group_post_type() {
+        if (self::is_pro_installed()) {
+            return 'acf-field-group';
+        } else {
+            return 'acf';
+        }
+    }
+
+
+    /**
      * Get all ACF field groups
      *
      * @return array All ACF field groups (array format varies between the free and Pro versions of ACF)
@@ -222,6 +236,30 @@ class Layotter_ACF
             return acf_format_value($value, 0, $field_data); // 0 = post_id
         } else {
             return apply_filters('acf/format_value', $value, 0, $field_data); // 0 = post_id
+        }
+    }
+
+
+    /**
+     * Output form wrapper HTML depending on the installed version of ACF
+     */
+    public static function output_form_wrapper() {
+        if (Layotter_ACF::is_pro_installed()) {
+            ?>
+            <div class="acf-postbox">
+                <div id="acf-form-data" class="acf-hidden">
+                    <input type="hidden" name="_acfnonce" value="{{ form.nonce }}">
+                    <input id="layotter-changed" type="hidden" name="_acfchanged" value="0">
+                </div>
+                <div class="acf-fields" ng-bind-html="form.fields | rawHtml"></div>
+            </div>
+            <?php
+        } else {
+            ?>
+            <div class="acf_postbox">
+                <div class="inside" ng-bind-html="form.fields | rawHtml"></div>
+            </div>
+            <?php
         }
     }
 

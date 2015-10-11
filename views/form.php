@@ -13,15 +13,7 @@
             </div>
         </div>
         <div class="layotter-modal-body">
-            <div id="acf-form-data" class="acf-postbox">
-                <div class="inside acf-fields">
-                    <div id="acf-form-data" class="acf-hidden">
-                        <input type="hidden" name="_acfnonce" value="{{ form.nonce }}">
-                        <input id="layotter-changed" type="hidden" name="_acfchanged" value="0">
-                    </div>
-                    <div class="acf-fields" ng-bind-html="form.fields | rawHtml"></div>
-                </div>
-            </div>
+            <?php Layotter_ACF::output_form_wrapper(); ?>
         </div>
         <div class="layotter-modal-loading-container">
         </div>
