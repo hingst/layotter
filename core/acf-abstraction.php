@@ -9,6 +9,8 @@ class Layotter_ACF
     const REQUIRED_VERSION = '4.4.3';
     const REQUIRED_PRO_VERSION = '5.3.0';
 
+    private static $error_message = '';
+
 
     public static function is_installed() {
         return class_exists('acf');
@@ -17,6 +19,33 @@ class Layotter_ACF
 
     public static function is_pro_installed() {
         return class_exists('acf_pro');
+    }
+
+
+    public static function is_available() {
+        if (!Layotter_ACF::is_installed()) {
+            self::$error_message = sprintf(__('Layotter requires the <a href="%s" target="_blank">Advanced Custom Fields</a> plugin, please install it before using Layotter.', 'layotter'), 'http://www.advancedcustomfields.com');
+        } else if (!Layotter_ACF::is_version_compatible()) {
+            self::$error_message = sprintf(__('Your version of Advanced Custom Fields is outdated. Please install version %s or higher to be able to use Layotter.', 'layotter'), Layotter_ACF::REQUIRED_VERSION);
+        }
+
+        if (!empty(self::$error_message)) {
+            add_action('admin_notices', array(__CLASS__, 'print_error'));
+            return false;
+        }
+
+        return true;
+    }
+
+
+    public static function print_error() {
+        ?>
+        <div class="error">
+            <p>
+                <?php echo self::$error_message; ?>
+            </p>
+        </div>
+        <?php
     }
 
 
@@ -61,13 +90,8 @@ class Layotter_ACF
         if (self::is_pro_installed()) {
             return acf_get_field_group_visibility($field_group, $filters);
         } else {
-            $filtered_field_groups = apply_filters('acf/location/match_field_groups', array(), $filters);
-            foreach ($filtered_field_groups as $group) {
-                if ($field_group['id'] == $group['id']) {
-                    return true;
-                }
-            }
-            return false;
+            $filtered_field_group_ids = apply_filters('acf/location/match_field_groups', array(), $filters);
+            return in_array($field_group['id'], $filtered_field_group_ids);
         }
     }
 
@@ -83,7 +107,13 @@ class Layotter_ACF
 
     public static function get_form_html($fields) {
         ob_start();
-        acf_render_fields(0, $fields); // 0 = post_id
+
+        if (self::is_pro_installed()) {
+            acf_render_fields(0, $fields); // 0 = post_id
+        } else {
+            do_action('acf/create_fields', $fields, 0); // 0 = post_id
+        }
+
         return ob_get_clean();
     }
 
