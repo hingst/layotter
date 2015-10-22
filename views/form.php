@@ -1,5 +1,12 @@
 <div class="layotter-modal" ng-controller="ModalCtrl">
-    <form action="" id="layotter-edit">
+    <?php
+    if (Layotter_ACF::is_pro_installed()) {
+        $id = 'layotter-edit';
+    } else {
+        $id = 'post';
+    }
+    ?>
+    <form action="" id="<?php echo $id; ?>">
         <div class="layotter-modal-head">
             <div class="layotter-modal-head-icon">
                 <i class="fa fa-{{ form.icon }}"></i>

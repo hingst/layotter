@@ -233,9 +233,9 @@ class Layotter_ACF
      */
     public static function format_value($value, $field_data) {
         if (self::is_pro_installed()) {
-            return acf_format_value($value, 0, $field_data); // 0 = post_id
+            return acf_format_value($value, 0, $field_data);
         } else {
-            return apply_filters('acf/format_value', $value, 0, $field_data); // 0 = post_id
+            return apply_filters('acf/format_value_for_api', $value, 0, $field_data); // for all field types
         }
     }
 
@@ -257,9 +257,56 @@ class Layotter_ACF
         } else {
             ?>
             <div class="acf_postbox">
-                <div ng-bind-html="form.fields | rawHtml"></div>
+                <div class="inside" ng-bind-html="form.fields | rawHtml"></div>
             </div>
             <?php
+        }
+    }
+
+
+    /**
+     * Unwrap POST values from ACF wrapper
+     *
+     * @return array Raw field values
+     */
+    public static function unwrap_post_values() {
+        $post_data = layotter_get_angular_post_data();
+
+        if (self::is_pro_installed()) {
+            if (isset($post_data['values']['acf']) AND is_array($post_data['values']['acf'])) {
+                return $post_data['values']['acf'];
+            }
+        } else {
+            if (isset($post_data['values']['fields']) AND is_array($post_data['values']['fields'])) {
+                return $post_data['values']['fields'];
+            }
+        }
+
+        return array();
+    }
+
+
+    /**
+     * Prepare clean values for form creation
+     *
+     * @param array $existing_fields Meta data for existing fields
+     * @param array $values Clean values (went through Layotter_Editable::clean_values() first)
+     * @return array Processed field values
+     */
+    public static function prepare_values_for_form($existing_fields, $values) {
+        if (self::is_pro_installed()) {
+            // ACF 5 Pro doesn't require any processing
+            return $values;
+        } else {
+            // ACF 4 need to run field values through acf/format_value
+            foreach ($existing_fields as $field_data) {
+                $field_name = $field_data['name'];
+                if (isset($values[$field_name])) {
+                    $values[$field_name] = apply_filters('acf/format_value', $values[$field_name], 0, $field_data);
+                }
+            }
+
+            return $values;
         }
     }
 

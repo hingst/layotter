@@ -1154,6 +1154,7 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* modals: ACF customization */
 
+// ACF 5
 #layotter-edit {
     > .acf-error-message:first-child { // form validation error
         position: absolute;
@@ -1164,6 +1165,25 @@ $darkgray: #CCCCCC;
 
     .acf-tab-group {
         padding-left: 12px;
+    }
+}
+
+// ACF 4
+.layotter-modal {
+    > .error { // form validation error
+        position: absolute;
+        top: 18px;
+        right: 18px;
+        z-index: 1;
+    }
+
+    .field.error {
+        margin: 0;
+        padding: 14px 9px;
+    }
+
+    .acf-tab-wrap {
+        padding-left: 10px;
     }
 }
 
