@@ -10,18 +10,22 @@ abstract class Layotter_Element extends Layotter_Editable {
     protected
         // internal use only
         $type = '',
-        // user-defined
+        // user-defined (mandatory)
         $title,
         $description,
         $icon,
         $field_group,
+        // user-defined (optional)
+        $order = 0,
         // automatically generated
         $template_id = -1,
         $options = array();
 
 
     /**
-     * Should assign $this->title, $this->description, $this->icon and $this->field_group
+     * Must assign $this->title, $this->description, $this->icon and $this->field_group
+     *
+     * May assign $this->order to override alphabetical odering in the "Add Element" screen.
      */
     abstract protected function attributes();
 
@@ -198,6 +202,9 @@ abstract class Layotter_Element extends Layotter_Editable {
 
             case 'icon':
                 return $this->icon;
+
+            case 'order':
+                return $this->order;
 
             default:
                 return null;
