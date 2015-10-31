@@ -3,7 +3,7 @@
 Plugin Name: Layotter
 Description: Add and arrange your content freely with an intuitive drag and drop interface!
 Author: Dennis Hingst
-Version: 1.5.7
+Version: 1.5.8
 Author URI: http://www.layotter.com/
 Text Domain: layotter
 GitHub Plugin URI: hingst/layotter
@@ -47,15 +47,21 @@ function layotter() {
         require_once __DIR__ . '/components/col.php';
         require_once __DIR__ . '/components/element.php';
 
-        if (Layotter_Settings::example_element_enabled()) {
-            require_once __DIR__ . '/example/field-group.php';
-            require_once __DIR__ . '/example/element.php';
-        }
-
         // this library takes care of saving custom fields for each post revision
         // see https://wordpress.org/plugins/wp-post-meta-revisions/
         if (!class_exists('WP_Post_Meta_Revisioning')) {
             require_once __DIR__ . '/lib/wp-post-meta-revisions.php';
         }
+
+        // include example element after theme is loaded (allows disabling the
+        // example element with a settings filter in the theme)
+        add_action('after_setup_theme', 'layotter_include_example_element');
+    }
+}
+
+function layotter_include_example_element() {
+    if (Layotter_Settings::example_element_enabled()) {
+        require_once __DIR__ . '/example/field-group.php';
+        require_once __DIR__ . '/example/element.php';
     }
 }
