@@ -108,7 +108,35 @@ class Layotter {
             }
         }
 
+        usort($elements, array(__CLASS__, 'sort_element_types_helper'));
+
         return $elements;
+    }
+
+
+    /**
+     * Helper used to sort a set of element types (to be used with usort())
+     *
+     * Sorts using the order attribute. Elements with the same order attribute are sorted alphabetically
+     * by name. Elements without an order attribute are treated as order = 0.
+     *
+     * @param Layotter_Element $element_type_a First element type for comparison
+     * @param Layotter_Element $element_type_b Second element type for comparison
+     * @return int -1 if A comes first, 1 if B comes first, 0 if equal
+     */
+    public static function sort_element_types_helper($element_type_a, $element_type_b) {
+        $a_order = $element_type_a->get('order');
+        $b_order = $element_type_b->get('order');
+        $a_name = $element_type_a->get('title');
+        $b_name = $element_type_b->get('title');
+
+        if ($a_order < $b_order) {
+            return -1;
+        } else if ($a_order > $b_order) {
+            return 1;
+        } else {
+            return strcasecmp($a_name, $b_name);
+        }
     }
 
 
@@ -118,24 +146,22 @@ class Layotter {
      * @return bool Whether Layotter is enabled
      */
     public static function is_enabled() {
-        // bail if not in the backend
+        // fail if not in the backend
         if (!is_admin()) {
             return false;
         }
 
-        // false if layotter isn't enabled for the current post type
-        $enabled_post_types = Layotter_Settings::get_enabled_post_types();
-        if (!in_array(get_post_type(), $enabled_post_types)) {
-            return false;
-        }
-
-        // false if we're not on a relevant edit screen
+        // fail if not on a relevant edit screen
         global $pagenow;
         if ($pagenow != 'post.php' AND $pagenow != 'post-new.php') {
             return false;
         }
 
-        // no errors
+        // fail if layotter isn't enabled for the current post
+        if (!self::is_enabled_for_post(get_the_ID())) {
+            return false;
+        }
+
         return true;
     }
 
@@ -147,14 +173,20 @@ class Layotter {
      * @return bool Whether Layotter is enabled
      */
     public static function is_enabled_for_post($post_id) {
-        $post_type = get_post_type($post_id);
+        $override_enabled = apply_filters('layotter/enable_for_posts', array());
+        $override_disabled = apply_filters('layotter/disable_for_posts', array());
 
-        $enabled_post_types = Layotter_Settings::get_enabled_post_types();
-        if (!in_array($post_type, $enabled_post_types)) {
+        if (in_array($post_id, $override_enabled)) {
+            return true;
+        }
+
+        if (in_array($post_id, $override_disabled)) {
             return false;
         }
 
-        return true;
+        $post_type = get_post_type($post_id);
+        $enabled_post_types = Layotter_Settings::get_enabled_post_types();
+        return in_array($post_type, $enabled_post_types);
     }
     
     

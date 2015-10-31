@@ -10,18 +10,22 @@ abstract class Layotter_Element extends Layotter_Editable {
     protected
         // internal use only
         $type = '',
-        // user-defined
+        // user-defined (mandatory)
         $title,
         $description,
         $icon,
         $field_group,
+        // user-defined (optional)
+        $order = 0,
         // automatically generated
         $template_id = -1,
         $options = array();
 
 
     /**
-     * Should assign $this->title, $this->description, $this->icon and $this->field_group
+     * Must assign $this->title, $this->description, $this->icon and $this->field_group
+     *
+     * May assign $this->order to override alphabetical odering in the "Add Element" screen.
      */
     abstract protected function attributes();
 
@@ -128,7 +132,7 @@ abstract class Layotter_Element extends Layotter_Editable {
      * Without the check, assets would be included on every single page in the backend.
      */
     final public static function register_backend_hooks_helper() {
-        if (is_admin() AND Layotter::is_enabled()) {
+        if (Layotter::is_enabled()) {
             call_user_func(array(get_called_class(), 'backend_assets'));
         }
     }
@@ -184,6 +188,9 @@ abstract class Layotter_Element extends Layotter_Editable {
 
             case 'icon':
                 return $this->icon;
+
+            case 'order':
+                return $this->order;
 
             default:
                 return null;

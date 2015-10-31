@@ -1,6 +1,6 @@
 <?php
 /*
- * Plugin Name: wp-post-meta-revisions
+ * Plugin Name: Post Meta Revisions
  * Plugin URI: https://github.com/adamsilverstein/wp-post-meta-revisions
  * Description: Post Meta Revisions
  * Version: 0.1.8
@@ -19,7 +19,7 @@ class WP_Post_Meta_Revisioning {
 		// Actions
 		//
 		// When restoring a revision, also restore that revisions's revisioned meta.
-		add_action( 'wp_restore_post_revision', array( $this, '_wp_restore_post_revision_meta'), 10, 2 );
+		add_action( 'wp_restore_post_revision', array( $this, '_wp_restore_post_revision_meta' ), 10, 2 );
 
 		// When creating or updating an autosave, save any revisioned meta fields.
 		add_action( 'wp_creating_autosave', array( $this, '_wp_autosave_post_revisioned_meta_fields' ) );
@@ -120,7 +120,7 @@ class WP_Post_Meta_Revisioning {
 	 *
 	 * @return array An array of meta keys to be revisioned.
 	 */
-	public function _wp_post_revision_meta_keys() {
+	public static function _wp_post_revision_meta_keys() {
 		/**
 		 * Filter the list of post meta keys to be revisioned.
 		 *
@@ -155,7 +155,7 @@ class WP_Post_Meta_Revisioning {
 			$meta_value = get_post_meta( $post_id, $meta_key );
 
 			// Don't save blank meta values
-			if( '' !== $meta_value[0] ) {
+			if ( ( ! empty( $meta_value ) ) && ( '' !== $meta_value[0] ) ) {
 
 				/*
 				 * Use the underlying add_metadata() function vs add_post_meta()
@@ -188,7 +188,8 @@ class WP_Post_Meta_Revisioning {
 			}
 		}
 	}
-	 /**
+
+	/**
 	 * Filters post meta retrieval to get values from the actual autosave post,
 	 * and not its parent.
 	 *
@@ -210,7 +211,7 @@ class WP_Post_Meta_Revisioning {
 		$post = get_post();
 		if ( empty( $post )
 			|| $post->ID != $object_id
-			|| ! in_array( $meta_key, self::_wp_post_revision_meta_keys() )
+			|| ! in_array( $meta_key, $this->_wp_post_revision_meta_keys() )
 			|| 'revision' == $post->post_type )
 		{
 			return $value;
