@@ -233,9 +233,9 @@ class Layotter_ACF
      */
     public static function format_value($value, $field_data) {
         if (self::is_pro_installed()) {
-            return acf_format_value($value, 0, $field_data);
+            return acf_format_value($value, uniqid('layotter_acf_'), $field_data);
         } else {
-            return apply_filters('acf/format_value_for_api', $value, 0, $field_data); // for all field types
+            return apply_filters('acf/format_value_for_api', $value, uniqid('layotter_acf_'), $field_data); // for all field types
         }
     }
 
@@ -302,7 +302,7 @@ class Layotter_ACF
             foreach ($existing_fields as $field_data) {
                 $field_name = $field_data['name'];
                 if (isset($values[$field_name])) {
-                    $values[$field_name] = apply_filters('acf/format_value', $values[$field_name], 0, $field_data);
+                    $values[$field_name] = apply_filters('acf/format_value', $values[$field_name], uniqid('layotter_acf_'), $field_data);
                 }
             }
 
