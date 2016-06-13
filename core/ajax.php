@@ -49,13 +49,9 @@ function layotter_ajax_edit_element() {
 add_action('wp_ajax_layotter_parse_element', 'layotter_ajax_parse_element');
 function layotter_ajax_parse_element() {
     $post_data = layotter_get_angular_post_data();
-    
-    // type and field values are required
-    if (isset($post_data['type']) AND is_string($post_data['type']) AND isset($post_data['values']['acf']) AND is_array($post_data['values']['acf'])) {
-        // ACF compatibility: unwrap field names from acf[...]
-        // the acf[...] wrapper is required by acf's validation mechanism
-        $values = $post_data['values']['acf'];
 
+    if (isset($post_data['type']) AND is_string($post_data['type'])) {
+        $values = Layotter_ACF::unwrap_post_values();
         $element = Layotter::create_element($post_data['type'], $values);
         if ($element) {
             echo json_encode($element->to_array());
@@ -107,19 +103,15 @@ function layotter_ajax_edit_options() {
 add_action('wp_ajax_layotter_parse_options', 'layotter_ajax_parse_options');
 function layotter_ajax_parse_options() {
     $post_data = layotter_get_angular_post_data();
-    
-    // type and option values are required
-    if (isset($post_data['type']) AND is_string($post_data['type']) AND isset($post_data['values']['acf']) AND is_array($post_data['values']['acf'])) {
-        // ACF compatibility: unwrap field names from acf[...]
-        // the acf[...] wrapper is required by acf's validation mechanism
-        $values = $post_data['values']['acf'];
 
+    if (isset($post_data['type']) AND is_string($post_data['type'])) {
         if (isset($post_data['post_id'])) {
             $post_id = $post_data['post_id'];
         } else {
             $post_id = '';
         }
 
+        $values = Layotter_ACF::unwrap_post_values();
         $options = new Layotter_Options($post_data['type'], $values, $post_id);
         if($options->is_enabled()) {
             echo json_encode($options->to_array());
@@ -187,14 +179,12 @@ function layotter_ajax_update_template() {
     $post_data = layotter_get_angular_post_data();
     
     // type and field values are required
-    if (isset($post_data['template_id']) AND is_int($post_data['template_id']) AND isset($post_data['values']['acf']) AND is_array($post_data['values']['acf'])) {
+    if (isset($post_data['template_id']) AND is_int($post_data['template_id'])) {
         $id = $post_data['template_id'];
         $template = Layotter_Templates::get($id);
 
         if ($template) {
-            // acf compatibility: unwrap field names from acf[...]
-            // the acf[...] wrapper is required by acf's validation mechanism
-            $values = $post_data['values']['acf'];
+            $values = Layotter_ACF::unwrap_post_values();
 
             $element = Layotter::create_element($template['type'], $values);
             if ($element) {

@@ -75,7 +75,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
      */
     this.saveElement = function() {
         // ACF wraps all form fields in a required object called 'acf'
-        var values = jQuery('#layotter-edit').serializeObject();
+        var values = jQuery('#layotter-edit, .layotter-modal #post').serializeObject();
         if (typeof values.acf == 'undefined') {
             values.acf = {};
         }
@@ -131,7 +131,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
      */
     this.saveOptions = function() {
         // ACF wraps all form fields in a required object called 'acf'
-        var values = jQuery('#layotter-edit').serializeObject();
+        var values = jQuery('#layotter-edit, .layotter-modal #post').serializeObject();
         if (typeof values.acf == 'undefined') {
             values.acf = {};
         }
@@ -308,7 +308,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
     // when ESC is pressed and an edit form is open (but no confirmation or prompt modal), cancel editing
     angular.element(document).on('keyup', function(e){
         if (e.keyCode == 27 && angular.element('#dennisbox').length && !angular.element('.layotter-modal-confirm').length && !angular.element('.layotter-modal-prompt').length) {
-            angular.element('#layotter-edit :focus').blur();
+            angular.element('#layotter-edit :focus, .layotter-modal #post :focus').blur();
             _this.cancelEditing();
         }
     });

@@ -32,7 +32,8 @@ abstract class Layotter_Editable {
         $this->formatted_values = $this->format_values($fields, $this->clean_values);
 
         // create edit form
-        $this->form = new Layotter_Form($fields, $this->clean_values);
+        $values_for_form = Layotter_ACF::prepare_values_for_form($fields, $this->clean_values);
+        $this->form = new Layotter_Form($fields, $values_for_form);
     }
 
 
@@ -111,7 +112,7 @@ abstract class Layotter_Editable {
             // this filter can break fields in Layotter's context and is therefore not applied
 
             // format values using ACF's formatting filters
-            $values[$field_name] = acf_format_value($clean_values[$field_name], 0, $field_data); // 0 = post_id
+            $values[$field_name] = Layotter_ACF::format_value($clean_values[$field_name], $field_data);
         }
 
         return $values;
@@ -144,5 +145,5 @@ abstract class Layotter_Editable {
     final public function get_form_data() {
         return $this->form->get_data();
     }
-    
+
 }

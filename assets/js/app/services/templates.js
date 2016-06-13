@@ -94,7 +94,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
      * Save template data from the form that's currently being displayed
      */
     this.saveTemplate = function() {
-        var values = jQuery('#layotter-edit').serializeObject();
+        var values = jQuery('#layotter-edit, .layotter-modal #post').serializeObject();
         
         // copy editing.element so state can be reset while ajax is still loading
         var editingElement = state.getElement();

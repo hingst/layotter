@@ -26,15 +26,25 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
     });
 
 
-    // when validation is complete:
-    // if there was an error, remove loading spinner and show form
-    acf.add_filter('validation_complete', function(json, $form){
-        if ($form.prop('id') == 'layotter-edit' && typeof json !== 'undefined' && !json.result) {
-            jQuery('.layotter-modal-loading-container').removeClass('layotter-loading');
-            jQuery('.layotter-modal-foot button').prop('disabled', false);
+    angular.element(document).on('submit', '.layotter-modal #post', function(){
+        if (acf.validation.status) {
+            angular.element('#layotter-edit-submit').trigger('click');
+            return false;
         }
-        return json;
     });
+
+
+    // when validation is complete: if there was an error, remove loading spinner and show form.
+    // ACF 4 uses a simpler validation mechanism without AJAX, so this applies only to ACF 5 Pro
+    if (layotterData.isACFPro) {
+        acf.add_filter('validation_complete', function(json, $form) {
+            if ($form.prop('id') == 'layotter-edit' && typeof json !== 'undefined' && !json.result) {
+                jQuery('.layotter-modal-loading-container').removeClass('layotter-loading');
+                jQuery('.layotter-modal-foot button').prop('disabled', false);
+            }
+            return json;
+        });
+    }
 
 
     /**
@@ -107,11 +117,15 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
             $rootScope.$apply($compile(angular.element('#dennisbox'))($rootScope));
 
             // setup javascript for fields
-            acf.get_fields({}, jQuery('#layotter-form')).each(function(){
-                acf.do_action('ready_field', jQuery(this));
-                acf.do_action('ready_field/type=' + acf.get_field_type(jQuery(this)), jQuery(this));
-            });
-            acf.do_action('append', jQuery('#layotter-edit'));
+            if (layotterData.isACFPro) {
+                acf.get_fields({}, jQuery('#layotter-form')).each(function() {
+                    acf.do_action('ready_field', jQuery(this));
+                    acf.do_action('ready_field/type=' + acf.get_field_type(jQuery(this)), jQuery(this));
+                });
+                acf.do_action('append', jQuery('#layotter-edit'));
+            } else {
+                jQuery(document).trigger('acf/setup_fields', [ jQuery('.layotter-modal #post') ]);
+            }
         }, 1);
     };
 
@@ -163,7 +177,10 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
 
                 // ACF compatibility
                 // unlock Wordpress save post form (remove loading spinner and enable form submit)
-                acf.validation.toggle(jQuery('#layotter-form'), 'unlock');
+                // ACF 4 uses a simpler validation mechanism without AJAX, so this applies only to ACF 5 Pro
+                if (layotterData.isACFPro) {
+                    acf.validation.toggle(jQuery('#layotter-form'), 'unlock');
+                }
             });
 
             // ACF compatibility

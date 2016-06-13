@@ -69,15 +69,11 @@ class Layotter_Form {
             $fields[] = $field;
         }
 
-        ob_start();
-        acf_render_fields(0, $fields);
-        $fields_html = ob_get_clean();
-
         return array(
             'title' => $title,
             'icon' => $icon,
             'nonce' => wp_create_nonce('post'),
-            'fields' => $fields_html
+            'fields' => Layotter_ACF::get_form_html($fields)
         );
     }
 

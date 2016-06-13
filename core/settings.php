@@ -494,6 +494,8 @@ class Layotter_Settings {
                 </p>
                 <?php
 
+                $field_group_post_type = Layotter_ACF::get_field_group_post_type();
+
                 $post_types = get_post_types(array(
                     '_builtin' => false,
                     'show_ui' => true
@@ -502,7 +504,7 @@ class Layotter_Settings {
                 foreach ($post_types as $post_type) {
 
                     // exclude ACF field groups
-                    if ($post_type->name == 'acf-field-group') {
+                    if ($post_type->name == $field_group_post_type) {
                         continue;
                     }
 

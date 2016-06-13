@@ -97,10 +97,10 @@ abstract class Layotter_Element extends Layotter_Editable {
         }
 
         if (is_int($this->field_group)) {
-            $field_group = _acf_get_field_group_by_id($this->field_group);
+            $field_group = Layotter_ACF::get_field_group_by_id($this->field_group);
             $identifier = 'post_id';
         } else {
-            $field_group = _acf_get_field_group_by_key($this->field_group);
+            $field_group = Layotter_ACF::get_field_group_by_key($this->field_group);
             $identifier = 'acf-field-group';
         }
 
@@ -110,7 +110,7 @@ abstract class Layotter_Element extends Layotter_Editable {
         }
 
         // return fields for the provided ACF field group
-        return acf_get_fields($field_group);
+        return Layotter_ACF::get_fields($field_group);
     }
 
 
@@ -160,26 +160,12 @@ abstract class Layotter_Element extends Layotter_Editable {
     final public function is_enabled_for($post_id) {
         $post_id = intval($post_id);
         $post_type = get_post_type($post_id);
+        $field_group = Layotter_ACF::get_field_group_by_key($this->field_group);
 
-        // get ACF field group for this post's type
-        $field_groups = acf_get_field_groups(array(
+        return Layotter_ACF::is_field_group_visible($field_group, array(
             'post_type' => $post_type,
             'layotter' => 'element'
         ));
-
-        $identifier
-            = is_int($this->field_group)
-            ? 'ID' // filter ACF groups by post ID
-            : 'key'; // filter ACF groups by post slug
-
-        // if $this->field_group is enabled for the current post's type, return true
-        foreach ($field_groups as $field_group) {
-            if ($field_group[$identifier] == $this->field_group) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
 

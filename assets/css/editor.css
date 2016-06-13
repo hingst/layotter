@@ -856,6 +856,17 @@
 #layotter-edit .acf-tab-group {
   padding-left: 12px; }
 
+.layotter-modal > .error {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 1; }
+.layotter-modal .field.error {
+  margin: 0;
+  padding: 14px 9px; }
+.layotter-modal .acf-tab-wrap {
+  padding-left: 10px; }
+
 /****************************************************/
 /* settings */
 .layotter-settings-paragraph {
