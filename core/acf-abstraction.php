@@ -120,10 +120,27 @@ class Layotter_ACF
             $field_groups = self::get_all_field_groups();
             $filtered_field_groups = array();
 
+
+            /*
+             * FIX FOR #14
+             *
+             * before the field_group was added when $visible = acf_get_field_group_visibility($field_group, $filters);
+             * this didn't work as expected, so here is a fast fix by restoring older logic for this
+             *
+             */
             foreach ($field_groups as $field_group) {
-                $visible = acf_get_field_group_visibility($field_group, $filters);
-                if ($visible) {
-                    $filtered_field_groups[] = $field_group;
+                foreach ($field_group['location'] as $location_group) {
+                    if (!empty($location_group)) {
+                        foreach ($location_group as $rule) {
+                            if ($rule['param'] == 'layotter') {
+                                // force rule match for 'layotter' rules
+                                $match = apply_filters('acf/location/rule_match/layotter', false, $rule, $filters);
+                                if ($match) {
+                                    $filtered_field_groups[] = $field_group;
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
