@@ -110,6 +110,16 @@ class Layotter_ACF
 
 
     /**
+     * Returns field group name for the example element that comes with Layotter
+     *
+     * @return string Field group name
+     */
+    public static function get_example_field_group_name() {
+        return Layotter_ACF::is_pro_installed() ? 'group_5605a65191086' : 'acf_title';
+    }
+
+
+    /**
      * Get ACF field groups that match a given set of location rules
      *
      * @param array $filters ACF location rules
