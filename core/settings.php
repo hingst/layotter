@@ -258,7 +258,7 @@ class Layotter_Settings {
             }
         }
 
-        return apply_filters('layotter/rows/allowed_layouts', $allowed_layouts);
+        return array_values(apply_filters('layotter/rows/allowed_layouts', $allowed_layouts));
     }
 
 
