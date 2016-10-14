@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Layotter\n"
-"POT-Creation-Date: 2015-10-06 20:27+0100\n"
-"PO-Revision-Date: 2015-10-06 20:31+0100\n"
+"POT-Creation-Date: 2016-10-14 21:16+0200\n"
+"PO-Revision-Date: 2016-10-14 21:18+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;_e\n"
@@ -32,6 +32,24 @@ msgstr "Spaltenoptionen"
 #: ../components/options.php:39 ../views/editor.php:68
 msgid "Element options"
 msgstr "Elementoptionen"
+
+#: ../core/acf-abstraction.php:56
+#, php-format
+msgid ""
+"Layotter requires the <a href=\"%s\" target=\"_blank\">Advanced Custom "
+"Fields</a> plugin, please install it before using Layotter."
+msgstr ""
+"Layotter benötigt das Plugin <a href=\"%s\" target=\"_blank\">Advanced "
+"Custom Fields</a>. Bitte installiere es, bevor du Layotter nutzt."
+
+#: ../core/acf-abstraction.php:58
+#, php-format
+msgid ""
+"Your version of Advanced Custom Fields is outdated. Please install version "
+"%s or higher to be able to use Layotter."
+msgstr ""
+"Deine Version von Advanced Custom Fields ist veraltet. Bitte installiere "
+"mindestens Version %s, um Layotter zu benutzen."
 
 #: ../core/acf-locations.php:20
 msgid "Use with Layotter"
@@ -57,50 +75,50 @@ msgstr "Für Spaltenoptionen nutzen"
 msgid "Use for element options"
 msgstr "Für Elementoptionen nutzen"
 
-#: ../core/assets.php:137 ../core/assets.php:169 ../views/editor.php:39
+#: ../core/assets.php:138 ../core/assets.php:170 ../views/editor.php:39
 msgid "Delete row"
 msgstr "Zeile löschen"
 
-#: ../core/assets.php:138 ../core/assets.php:162 ../views/editor.php:63
+#: ../core/assets.php:139 ../core/assets.php:163 ../views/editor.php:63
 msgid "Delete element"
 msgstr "Element löschen"
 
-#: ../core/assets.php:139 ../views/templates.php:10
+#: ../core/assets.php:140 ../views/templates.php:10
 msgid "Delete template"
 msgstr "Template löschen"
 
-#: ../core/assets.php:140 ../views/templates.php:11
+#: ../core/assets.php:141 ../views/templates.php:11
 msgid "Edit template"
 msgstr "Template bearbeiten"
 
-#: ../core/assets.php:141 ../views/add-element.php:22 ../views/form.php:30
+#: ../core/assets.php:142 ../views/add-element.php:22 ../views/form.php:29
 #: ../views/load-layout.php:25
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../core/assets.php:142
+#: ../core/assets.php:143
 msgid "Discard changes"
 msgstr "Änderungen verwerfen"
 
-#: ../core/assets.php:143
+#: ../core/assets.php:144
 msgid "Do you want to cancel and discard all changes?"
 msgstr "Wirklich abbrechen und alle Änderungen verwerfen?"
 
-#: ../core/assets.php:144
+#: ../core/assets.php:145
 msgid "Do you want to delete this row and all its elements?"
 msgstr "Möchtest du diese Zeile und alle enthaltenen Elemente löschen?"
 
-#: ../core/assets.php:145
+#: ../core/assets.php:146
 msgid "Do you want to delete this element?"
 msgstr "Möchtest du dieses Element löschen?"
 
-#: ../core/assets.php:146
+#: ../core/assets.php:147
 msgid "Do you want to delete this template? You can not undo this action."
 msgstr ""
 "Möchtest du dieses Template löschen? Du kannst diese Aktion nicht rückgängig "
 "machen."
 
-#: ../core/assets.php:147
+#: ../core/assets.php:148
 msgid ""
 "When editing a template, your changes will be reflected on all pages that "
 "are using it. Do you want to edit this template?"
@@ -108,136 +126,106 @@ msgstr ""
 "Wenn du ein Template bearbeitest, erscheinen deine Änderungen auf allen "
 "Seiten die es verwenden. Möchtest du dieses Template bearbeiten?"
 
-#: ../core/assets.php:148
+#: ../core/assets.php:149
 msgid "Please enter a name for your layout:"
 msgstr "Bitte gib einen Namen für dein Layout ein:"
 
-#: ../core/assets.php:149 ../views/editor.php:11
+#: ../core/assets.php:150 ../views/editor.php:11
 msgid "Save layout"
 msgstr "Layout speichern"
 
-#: ../core/assets.php:150
+#: ../core/assets.php:151
 msgid "Please enter the new name for this layout:"
 msgstr "Bitte gib den neuen Namen für dieses Layout ein:"
 
-#: ../core/assets.php:151 ../views/load-layout.php:15
+#: ../core/assets.php:152 ../views/load-layout.php:15
 msgid "Rename layout"
 msgstr "Layout umbenennen"
 
-#: ../core/assets.php:152
+#: ../core/assets.php:153
 msgid "Do want to delete this layout? You can not undo this action."
 msgstr ""
 "Möchtest du dieses Layout löschen? Du kannst diese Aktion nicht rückgängig "
 "machen."
 
-#: ../core/assets.php:153 ../views/load-layout.php:16
+#: ../core/assets.php:154 ../views/load-layout.php:16
 msgid "Delete layout"
 msgstr "Layout löschen"
 
-#: ../core/assets.php:154
+#: ../core/assets.php:155
 msgid "Do want to load this layout and overwrite the existing content?"
 msgstr ""
 "Möchtest du dieses Layout laden und den bestehenden Inhalt überschreiben?"
 
-#: ../core/assets.php:155 ../core/assets.php:175 ../views/editor.php:13
+#: ../core/assets.php:156 ../core/assets.php:176 ../views/editor.php:13
 #: ../views/load-layout.php:7
 msgid "Load layout"
 msgstr "Layout laden"
 
-#: ../core/assets.php:157
+#: ../core/assets.php:158
 msgid "Undo:"
 msgstr "Rückgängig:"
 
-#: ../core/assets.php:158
+#: ../core/assets.php:159
 msgid "Redo:"
 msgstr "Wiederholen:"
 
-#: ../core/assets.php:159 ../views/add-element.php:7 ../views/editor.php:54
+#: ../core/assets.php:160 ../views/add-element.php:7 ../views/editor.php:54
 #: ../views/editor.php:80
 msgid "Add element"
 msgstr "Neues Element"
 
-#: ../core/assets.php:160 ../views/editor.php:64
+#: ../core/assets.php:161 ../views/editor.php:64
 msgid "Edit element"
 msgstr "Element bearbeiten"
 
-#: ../core/assets.php:161 ../views/editor.php:69
+#: ../core/assets.php:162 ../views/editor.php:69
 msgid "Duplicate element"
 msgstr "Element duplizieren"
 
-#: ../core/assets.php:163
+#: ../core/assets.php:164
 msgid "Move element"
 msgstr "Element verschieben"
 
-#: ../core/assets.php:164
+#: ../core/assets.php:165
 msgid "Save element as template"
 msgstr "Element als Template speichern"
 
-#: ../core/assets.php:165
+#: ../core/assets.php:166
 msgid "Create element from template"
 msgstr "Element aus einem Template erstellen"
 
-#: ../core/assets.php:166 ../views/editor.php:22 ../views/editor.php:88
+#: ../core/assets.php:167 ../views/editor.php:22 ../views/editor.php:88
 msgid "Add row"
 msgstr "Neue Zeile"
 
-#: ../core/assets.php:167
+#: ../core/assets.php:168
 msgid "Change row layout"
 msgstr "Zeilenlayout ändern"
 
-#: ../core/assets.php:168 ../views/editor.php:40
+#: ../core/assets.php:169 ../views/editor.php:40
 msgid "Duplicate row"
 msgstr "Zeile duplizieren"
 
-#: ../core/assets.php:170 ../views/editor.php:36
+#: ../core/assets.php:171 ../views/editor.php:36
 msgid "Move row"
 msgstr "Zeile verschieben"
 
-#: ../core/assets.php:171
+#: ../core/assets.php:172
 msgid "Edit post options"
 msgstr "Seitenoptionen bearbeiten"
 
-#: ../core/assets.php:172
+#: ../core/assets.php:173
 msgid "Edit row options"
 msgstr "Zeilenoptionen bearbeiten"
 
-#: ../core/assets.php:173
+#: ../core/assets.php:174
 msgid "Edit column options"
 msgstr "Spaltenoptionen bearbeiten"
 
-#: ../core/assets.php:174
+#: ../core/assets.php:175
 msgid "Edit element options"
 msgstr "Elementoptionen bearbeiten"
-
-#: ../core/check-acf.php:7
-#, php-format
-msgid ""
-"Layotter requires the <a href=\"%s\" target=\"_blank\">Advanced Custom "
-"Fields Pro</a> plugin, please install it before using Layotter."
-msgstr ""
-"Layotter funktioniert nur in Verbindung mit <a href=\"%s\" target=\"_blank"
-"\">Advanced Custom Fields Pro</a>. Bitte installiere das Plugin, um Layotter "
-"zu benutzen."
-
-#: ../core/check-acf.php:10
-#, php-format
-msgid ""
-"Layotter currently only works with the Pro version of <a href=\"%s\" target="
-"\"_blank\">Advanced Custom Fields</a>. Please install it before using "
-"Layotter. <a href=\"%s\" target=\"_blank\">Why?</a>"
-msgstr ""
-"Layotter funktioniert bisher nur mit der Pro-Version von <a href=\"%s\" "
-"target=\"_blank\">Advanced Custom Fields</a>. Bitte installiere sie, um "
-"Layotter zu benutzen. <a href=\"%s\" target=\"_blank\">Warum?</a>"
-
-#: ../core/check-acf.php:13
-#, php-format
-msgid ""
-"Your version of Advanced Custom Fields is outdated. Please install version "
-"%s or higher to be able to use Layotter."
-msgstr ""
-"Deine Version von Advanced Custom Fields ist veraltet. Bitte installiere "
-"mindestens Version %s, um Layotter zu benutzen."
 
 #: ../core/interface.php:42
 #, php-format
@@ -344,9 +332,9 @@ msgstr "Post-Typen"
 msgid "Select the post types for which Layotter should be enabled."
 msgstr "Wähle die Post-Typen aus, für die du Layotter aktivieren möchtest."
 
-#: ../core/settings.php:476 ../core/settings.php:533 ../core/settings.php:557
-#: ../core/settings.php:581 ../core/settings.php:605 ../core/settings.php:801
-#: ../core/settings.php:848 ../core/settings.php:959 ../core/settings.php:1105
+#: ../core/settings.php:476 ../core/settings.php:535 ../core/settings.php:559
+#: ../core/settings.php:583 ../core/settings.php:607 ../core/settings.php:803
+#: ../core/settings.php:850 ../core/settings.php:961 ../core/settings.php:1107
 #, php-format
 msgid ""
 "There's a %s filter in your code that might be modifying these settings."
@@ -361,11 +349,11 @@ msgstr "Artikel"
 msgid "Pages"
 msgstr "Seiten"
 
-#: ../core/settings.php:522
+#: ../core/settings.php:524
 msgid "Post layouts"
 msgstr "Seitenlayouts"
 
-#: ../core/settings.php:525
+#: ../core/settings.php:527
 msgid ""
 "This feature lets you save entire post layouts as templates to be used as a "
 "starting point for new posts."
@@ -373,15 +361,15 @@ msgstr ""
 "Hiermit kannst du komplette Seitenlayouts speichern und als Vorlage "
 "verwenden, wenn du eine neue Seite anlegst"
 
-#: ../core/settings.php:542
+#: ../core/settings.php:544
 msgid "Enable post layouts"
 msgstr "Seitenlayouts verwenden"
 
-#: ../core/settings.php:546 ../views/editor.php:16 ../views/templates.php:4
+#: ../core/settings.php:548 ../views/editor.php:16 ../views/templates.php:4
 msgid "Element templates"
 msgstr "Element-Templates"
 
-#: ../core/settings.php:549
+#: ../core/settings.php:551
 msgid ""
 "This feature lets you save elements as templates. Element templates look "
 "just like regular elements, but if you edit them on one page, they'll be "
@@ -392,15 +380,15 @@ msgstr ""
 "bearbeitest, wirken sich die Änderungen auch auf alle anderen Seiten aus, "
 "auf denen du das Template verwendest."
 
-#: ../core/settings.php:566
+#: ../core/settings.php:568
 msgid "Enable element templates"
 msgstr "Element-Templates verwenden"
 
-#: ../core/settings.php:570
+#: ../core/settings.php:572
 msgid "Default frontend CSS"
 msgstr "Standard-CSS"
 
-#: ../core/settings.php:573
+#: ../core/settings.php:575
 msgid ""
 "Layotter comes with a set of very basic styles to make rows and columns work "
 "in the frontend (as long as you don't change the default class names). "
@@ -411,15 +399,15 @@ msgstr ""
 "veränderst). Deaktiviere diese Option, wenn du deine eigenen Styles "
 "schreiben möchtest."
 
-#: ../core/settings.php:590
+#: ../core/settings.php:592
 msgid "Use default frontend CSS"
 msgstr "Standard-CSS verwenden"
 
-#: ../core/settings.php:594
+#: ../core/settings.php:596
 msgid "Example element type"
 msgstr "Beispiel-Elementtyp"
 
-#: ../core/settings.php:597
+#: ../core/settings.php:599
 msgid ""
 "Layotter comes with an example element type to play around and get started "
 "quickly. You'll probably want to disable it once you start creating your own "
@@ -429,7 +417,7 @@ msgstr ""
 "dich mit dem Editor vertraut machen kannst. Du kannst es deaktivieren, "
 "sobald du anfängst eigene Elementtypen zu schreiben."
 
-#: ../core/settings.php:614
+#: ../core/settings.php:616
 msgid ""
 "Once you disable the example element type, all elements you've created with "
 "it will disappear."
@@ -437,28 +425,27 @@ msgstr ""
 "Wenn du den Beispiel-Elementtyp deaktivierst, verschwinden alle Elemente, "
 "die du damit erstellt hast."
 
-#: ../core/settings.php:620
+#: ../core/settings.php:622
 msgid "Use example element type"
 msgstr "Beispiel-Elementtyp verwenden"
 
-#: ../core/settings.php:624 ../core/settings.php:706 ../core/settings.php:866
-#: ../core/settings.php:987 ../core/settings.php:1071
-#: ../core/settings.php:1128
+#: ../core/settings.php:626 ../core/settings.php:708 ../core/settings.php:868
+#: ../core/settings.php:989 ../core/settings.php:1073 ../core/settings.php:1130
 msgid "Save settings"
 msgstr "Einstellungen speichern"
 
-#: ../core/settings.php:645 ../core/settings.php:727 ../core/settings.php:887
-#: ../core/settings.php:1008
+#: ../core/settings.php:647 ../core/settings.php:729 ../core/settings.php:889
+#: ../core/settings.php:1010
 msgid "HTML wrapper"
 msgstr "HTML-Wrapper"
 
-#: ../core/settings.php:648
+#: ../core/settings.php:650
 msgid "Enter HTML code to wrap around the whole content."
 msgstr ""
 "Gib hier HTML-Code ein, der vor bzw. nach dem Content angezeigt werden soll."
 
-#: ../core/settings.php:658 ../core/settings.php:740 ../core/settings.php:900
-#: ../core/settings.php:1021
+#: ../core/settings.php:660 ../core/settings.php:742 ../core/settings.php:902
+#: ../core/settings.php:1023
 #, php-format
 msgid ""
 "These settings currently have no effect because they're overwritten by a %s "
@@ -467,8 +454,8 @@ msgstr ""
 "Diese Einstellungen haben im Moment keinen Effekt, weil sie durch einen %s-"
 "Filter in deinem Code überschrieben werden."
 
-#: ../core/settings.php:663 ../core/settings.php:745 ../core/settings.php:905
-#: ../core/settings.php:1026
+#: ../core/settings.php:665 ../core/settings.php:747 ../core/settings.php:907
+#: ../core/settings.php:1028
 #, php-format
 msgid ""
 "You can use <a href=\"%s\" target=\"_blank\">view filters</a> for way more "
@@ -477,46 +464,44 @@ msgstr ""
 "Für mehr Flexibilität kannst du <a href=\"%s\" target=\"_blank\">View-"
 "Filter</a> einsetzen."
 
-#: ../core/settings.php:678
+#: ../core/settings.php:680
 msgid "HTML before content:"
 msgstr "HTML vor dem Content:"
 
-#: ../core/settings.php:680 ../core/settings.php:691 ../core/settings.php:762
-#: ../core/settings.php:773 ../core/settings.php:922 ../core/settings.php:933
-#: ../core/settings.php:977 ../core/settings.php:1043
-#: ../core/settings.php:1054
+#: ../core/settings.php:682 ../core/settings.php:693 ../core/settings.php:764
+#: ../core/settings.php:775 ../core/settings.php:924 ../core/settings.php:935
+#: ../core/settings.php:979 ../core/settings.php:1045 ../core/settings.php:1056
 msgid "Default:"
 msgstr "Standard:"
 
-#: ../core/settings.php:680 ../core/settings.php:691 ../core/settings.php:762
-#: ../core/settings.php:773 ../core/settings.php:922 ../core/settings.php:933
-#: ../core/settings.php:977 ../core/settings.php:1043
-#: ../core/settings.php:1054
+#: ../core/settings.php:682 ../core/settings.php:693 ../core/settings.php:764
+#: ../core/settings.php:775 ../core/settings.php:924 ../core/settings.php:935
+#: ../core/settings.php:979 ../core/settings.php:1045 ../core/settings.php:1056
 msgid "Click to reset"
 msgstr "Klick zum Zurücksetzen"
 
-#: ../core/settings.php:689
+#: ../core/settings.php:691
 msgid "HTML after content:"
 msgstr "HTML nach dem Content:"
 
-#: ../core/settings.php:730
+#: ../core/settings.php:732
 msgid "Enter HTML code to wrap around each row."
 msgstr ""
 "Gib hier HTML-Code ein, der vor bzw. nach jeder Zeile angezeigt werden soll."
 
-#: ../core/settings.php:760
+#: ../core/settings.php:762
 msgid "HTML before each row:"
 msgstr "HTML vor jeder Zeile:"
 
-#: ../core/settings.php:771
+#: ../core/settings.php:773
 msgid "HTML after each row:"
 msgstr "HTML nach jeder Zeile:"
 
-#: ../core/settings.php:790
+#: ../core/settings.php:792
 msgid "Allowed layouts"
 msgstr "Erlaubte Layouts"
 
-#: ../core/settings.php:793
+#: ../core/settings.php:795
 msgid ""
 "Choose the row layouts you want to use. Disabling a layout means it will not "
 "be available for newly created rows from now on &ndash; existing rows with "
@@ -527,7 +512,7 @@ msgstr ""
 "werden &ndash; bestehende Zeilen bleiben aber wie sie sind, bis du sie per "
 "Hand änderst."
 
-#: ../core/settings.php:806
+#: ../core/settings.php:808
 #, php-format
 msgid ""
 "You can create more complex layouts using <a href=\"%s\" target=\"_blank"
@@ -536,19 +521,19 @@ msgstr ""
 "Nutze <a href=\"%s\" target=\"_blank\">Settings-Filter</a>, um komplexere "
 "Layouts zu erstellen."
 
-#: ../core/settings.php:828
+#: ../core/settings.php:830
 msgid "default for new rows"
 msgstr "Standard für neue Zeilen"
 
-#: ../core/settings.php:837
+#: ../core/settings.php:839
 msgid "Default layout"
 msgstr "Standard-Layout"
 
-#: ../core/settings.php:840
+#: ../core/settings.php:842
 msgid "Select a default layout that will be used in all newly created rows."
 msgstr "Wähle das Standard-Layout für neue Zeilen aus."
 
-#: ../core/settings.php:890
+#: ../core/settings.php:892
 #, php-format
 msgid ""
 "Enter HTML code to wrap around each column. You can use the variable %s "
@@ -558,19 +543,19 @@ msgstr ""
 "soll. Du kannst die Variable %s verwenden &ndash; sie wird automatisch durch "
 "den richtigen Klassennamen ersetzt, den du unten eingegeben hast."
 
-#: ../core/settings.php:920
+#: ../core/settings.php:922
 msgid "HTML before each column:"
 msgstr "HTML vor jeder Spalte:"
 
-#: ../core/settings.php:931
+#: ../core/settings.php:933
 msgid "HTML after each column:"
 msgstr "HTML nach jeder Spalte:"
 
-#: ../core/settings.php:949
+#: ../core/settings.php:951
 msgid "CSS classes for columns"
 msgstr "CSS-Klassen für Spalten"
 
-#: ../core/settings.php:951
+#: ../core/settings.php:953
 msgid ""
 "Enter a class name for each type of column so you'll be able to target them "
 "via CSS."
@@ -578,25 +563,25 @@ msgstr ""
 "Trage hier Klassen für die verschiedenen Spaltengrößen ein, um sie per CSS "
 "ansteuern zu können."
 
-#: ../core/settings.php:1011
+#: ../core/settings.php:1013
 msgid "Enter HTML code to wrap around each element."
 msgstr ""
 "Gib hier HTML-Code ein, der vor bzw. nach jedem Element angezeigt werden "
 "soll."
 
-#: ../core/settings.php:1041
+#: ../core/settings.php:1043
 msgid "HTML before each element:"
 msgstr "HTML vor jedem Element:"
 
-#: ../core/settings.php:1052
+#: ../core/settings.php:1054
 msgid "HTML after each element:"
 msgstr "HTML nach jedem Element:"
 
-#: ../core/settings.php:1094
+#: ../core/settings.php:1096
 msgid "Debug mode"
 msgstr "Debug-Modus"
 
-#: ../core/settings.php:1097
+#: ../core/settings.php:1099
 msgid ""
 "With debug mode enabled you can inspect and manually edit the JSON structure "
 "generated by Layotter. Enable debug mode for these user roles:"
@@ -623,11 +608,15 @@ msgstr ""
 "Dieses Element ist leer. Klicke auf den Bearbeiten-Button oben rechts, um "
 "Inhalte hinzuzufügen."
 
-#: ../example/field-group.php:14
+#: ../example/field-group.php:7
+msgid "Example element for Layotter"
+msgstr "Beispielelement für Layotter"
+
+#: ../example/field-group.php:8
 msgid "Thank you for trying out Layotter!"
 msgstr "Vielen Dank, dass du Layotter ausprobierst!"
 
-#: ../example/field-group.php:25
+#: ../example/field-group.php:9
 msgid ""
 "This is an example element you can use to get started with Layotter. When "
 "you're ready to create your own element types, go to the settings page to "
@@ -637,11 +626,7 @@ msgstr ""
 "kannst es in den Einstellungen deaktivieren, sobald du anfängst, eigene "
 "Elementtypen zu schreiben."
 
-#: ../example/field-group.php:30
-msgid "Content"
-msgstr "Inhalt"
-
-#: ../example/field-group.php:41
+#: ../example/field-group.php:10
 msgid ""
 "Welcome to the text editor! Write something, insert links or images, and "
 "click save when you're done."
@@ -649,7 +634,7 @@ msgstr ""
 "Willkommen im Texteditor! Schreib etwas, füge Links oder Bilder hinzu, und "
 "klicke den Speichern-Button, sobald du fertig bist."
 
-#: ../example/field-group.php:41
+#: ../example/field-group.php:10
 msgid ""
 "By the way, Layotter isn't limited to text fields. You can create all kinds "
 "of content, like embedded Google maps, image galleries, file uploads, and "
@@ -658,6 +643,10 @@ msgstr ""
 "Textfelder sind übrigens nur der Anfang! Mit Layotter kannst du alle "
 "möglichen Inhaltstypen erstellen, z.B. eingebettete Google Maps, "
 "Bildergalerien, Datei-Uploads und vieles mehr."
+
+#: ../example/field-group.php:11
+msgid "Content"
+msgstr "Inhalt"
 
 #: ../views/editor.php:2
 msgid "Layotter loading &hellip;"
@@ -683,19 +672,19 @@ msgstr "Als Template speichern"
 msgid "This is a template."
 msgstr "Dies ist ein Template."
 
-#: ../views/form.php:11
+#: ../views/form.php:18
 msgid "Switch to fullscreen editor"
 msgstr "Zum Fullscreen-Editor wechseln"
 
-#: ../views/form.php:12
+#: ../views/form.php:19
 msgid "Switch to small editor"
 msgstr "Zum kleinen Editor wechseln"
 
-#: ../views/form.php:29
+#: ../views/form.php:28
 msgid "Save"
 msgstr "Speichern"
 
-#: ../views/form.php:31
+#: ../views/form.php:30
 msgid "Back"
 msgstr "Zurück"
 
@@ -707,6 +696,23 @@ msgstr "Erstellt am %s"
 #: ../views/templates.php:2
 msgid "Hide templates"
 msgstr "Templates verstecken"
+
+#~ msgid ""
+#~ "Layotter requires the <a href=\"%s\" target=\"_blank\">Advanced Custom "
+#~ "Fields Pro</a> plugin, please install it before using Layotter."
+#~ msgstr ""
+#~ "Layotter funktioniert nur in Verbindung mit <a href=\"%s\" target=\"_blank"
+#~ "\">Advanced Custom Fields Pro</a>. Bitte installiere das Plugin, um "
+#~ "Layotter zu benutzen."
+
+#~ msgid ""
+#~ "Layotter currently only works with the Pro version of <a href=\"%s\" "
+#~ "target=\"_blank\">Advanced Custom Fields</a>. Please install it before "
+#~ "using Layotter. <a href=\"%s\" target=\"_blank\">Why?</a>"
+#~ msgstr ""
+#~ "Layotter funktioniert bisher nur mit der Pro-Version von <a href=\"%s\" "
+#~ "target=\"_blank\">Advanced Custom Fields</a>. Bitte installiere sie, um "
+#~ "Layotter zu benutzen. <a href=\"%s\" target=\"_blank\">Warum?</a>"
 
 #~ msgid ""
 #~ "This element is empty. click the edit button at the top right to add some "
