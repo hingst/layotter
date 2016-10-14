@@ -6,8 +6,8 @@
  */
 class Layotter_ACF
 {
-    const REQUIRED_VERSION = '4.4.3';
-    const REQUIRED_PRO_VERSION = '5.3.0';
+    const REQUIRED_VERSION = '4.4.10';
+    const REQUIRED_PRO_VERSION = '5.4.7';
 
     private static $error_message = '';
 
