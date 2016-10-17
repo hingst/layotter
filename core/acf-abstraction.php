@@ -55,7 +55,8 @@ class Layotter_ACF
         if (!Layotter_ACF::is_installed()) {
             self::$error_message = sprintf(__('Layotter requires the <a href="%s" target="_blank">Advanced Custom Fields</a> plugin, please install it before using Layotter.', 'layotter'), 'http://www.advancedcustomfields.com');
         } else if (!Layotter_ACF::is_version_compatible()) {
-            self::$error_message = sprintf(__('Your version of Advanced Custom Fields is outdated. Please install version %s or higher to be able to use Layotter.', 'layotter'), Layotter_ACF::REQUIRED_VERSION);
+            $required_version = self::is_pro_installed() ? self::REQUIRED_PRO_VERSION : self::REQUIRED_VERSION;
+            self::$error_message = sprintf(__('Your version of Advanced Custom Fields is outdated. Please install version %s or higher to be able to use Layotter.', 'layotter'), $required_version);
         }
 
         if (!empty(self::$error_message)) {
