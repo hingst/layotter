@@ -35,7 +35,7 @@ function layotter_make_search_dump($data, $raw_post){
     // then remove excess whitespace
     $spaced_content = str_replace('<', ' <', $content);
     $clean_content = strip_tags($spaced_content, '<img>');
-    $normalized_content = trim(preg_replace('/\s+/', ' ', $clean_content));
+    $normalized_content = trim(mb_ereg_replace('/\s+/', ' ', $clean_content));
 
     // wrap search dump with a [layotter] shortcode and return modified post data to be saved to the database
     // add the post ID because otherwise the shortcode handler would have no reliable way to get the post ID through
