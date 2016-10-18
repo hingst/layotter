@@ -160,9 +160,15 @@ abstract class Layotter_Element extends Layotter_Editable {
     final public function is_enabled_for($post_id) {
         $post_id = intval($post_id);
         $post_type = get_post_type($post_id);
-        $field_group = Layotter_ACF::get_field_group_by_key($this->field_group);
+
+        if (is_int($this->field_group)) {
+            $field_group = Layotter_ACF::get_field_group_by_id($this->field_group);
+        } else {
+            $field_group = Layotter_ACF::get_field_group_by_key($this->field_group);
+        }
 
         return Layotter_ACF::is_field_group_visible($field_group, array(
+            'post_id' => $post_id,
             'post_type' => $post_type,
             'layotter' => 'element'
         ));
