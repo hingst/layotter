@@ -53,6 +53,9 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
                     _this.savedTemplates[index].isHighlighted = undefined;
                     _this.savedTemplates[index].template_deleted = true;
                     _this.savedTemplates.splice(index, 1);
+                    if (_this.savedTemplates.length == 0) {
+                        jQuery('#layotter-templates').removeClass('layotter-visible');
+                    }
                 });
             },
             cancelText: layotterData.i18n.cancel

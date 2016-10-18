@@ -13,7 +13,7 @@
             <span class="layotter-button" ng-click="loadLayout()" ng-if="enablePostLayouts" ng-show="savedLayouts.length"><i class="fa fa-upload"></i><?php _e('Load layout', 'layotter'); ?></span>
         </div>
         <div class="layotter-top-buttons-right">
-            <span class="layotter-button" toggle-templates ng-if="enableElementTemplates"><i class="fa fa-star"></i><?php _e('Element templates', 'layotter'); ?></span>
+            <span class="layotter-button" toggle-templates ng-if="enableElementTemplates && savedTemplates.length"><i class="fa fa-star"></i><?php _e('Element templates', 'layotter'); ?></span>
         </div>
     </div>
 

@@ -24,6 +24,7 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
     $scope.enablePostLayouts = layotterData.enablePostLayouts;
     $scope.enableElementTemplates = layotterData.enableElementTemplates;
     $scope.savedLayouts = layouts.savedLayouts;
+    $scope.savedemplates = templates.savedTemplates;
 
 
     // on content change, update textarea
