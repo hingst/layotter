@@ -397,7 +397,7 @@ class Layotter_Settings {
             array(__CLASS__, 'settings_page'), // callback
             'dashicons-tagcloud', // icon
             null // position
-       );
+        );
     }
 
 
