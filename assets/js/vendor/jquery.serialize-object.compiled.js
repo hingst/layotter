@@ -1,9 +1,148 @@
-/*!
+/**
  * jQuery serializeObject
- * http://github.com/macek/jquery-serialize-object
+ * @copyright 2014, macek <paulmacek@gmail.com>
+ * @link https://github.com/macek/jquery-serialize-object
+ * @license BSD
+ * @version 2.5.0
  */
-(function e$$0(f,g,a){function c(b,k){if(!g[b]){if(!f[b]){var h="function"==typeof require&&require;if(!k&&h)return h(b,!0);if(d)return d(b,!0);throw Error("Cannot find module '"+b+"'");}h=g[b]={exports:{}};f[b][0].call(h.exports,function(a){var d=f[b][1][a];return c(d?d:a)},h,h.exports,e$$0,f,g,a)}return g[b].exports}for(var d="function"==typeof require&&require,b=0;b<a.length;b++)c(a[b]);return c})({1:[function(e,f,g){e=f.exports=function(a){this._helper=a;this._object={};this._pushes={};this._patterns=
-{validate:/^[a-z][a-z0-9_]*(?:\[(?:\d*|[a-z0-9_]+)\])*$/i,key:/[a-z0-9_]+|(?=\[\])/gi,push:/^$/,fixed:/^\d+$/,named:/^[a-z0-9_]+$/i}};e.prototype._build=function(a,c,d){a[c]=d;return a};e.prototype._makeObject=function(a,c){for(var d=a.match(this._patterns.key),b;void 0!==(b=d.pop());)this._patterns.push.test(b)?(b=this._incrementPush(a.replace(/\[\]$/,"")),c=this._build([],b,c)):this._patterns.fixed.test(b)?c=this._build([],b,c):this._patterns.named.test(b)&&(c=this._build({},b,c));return c};e.prototype._incrementPush=
-function(a){void 0===this._pushes[a]&&(this._pushes[a]=0);return this._pushes[a]++};e.prototype.addPair=function(a){if(!this._patterns.validate.test(a.name))return this;a=this._makeObject(a.name,a.value);this._object=this._helper.extend(!0,this._object,a);return this};e.prototype.addPairs=function(a){if(!this._helper.isArray(a))throw Error("formSerializer.addPairs expects an Array");for(var c=0,d=a.length;c<d;c++)this.addPair(a[c]);return this};e.prototype.serialize=function(){return this._object};
-e.prototype.serializeJSON=function(){return JSON.stringify(this.serialize())}},{}],2:[function(e,f,g){f.exports=function(a){if("function"===typeof a.extend)this.extend=a.extend;else throw Error("jQuery is required to use jquery-serialize-object");this.isArray="function"===typeof Array.isArray?Array.isArray:function(a){return"[object Array]"===Object.prototype.toString.call(a)}}},{}],3:[function(e,f,g){var a=e("./form-serializer"),c=e("./helper");(function(d){var b=new c(d||{});d.fn.serializeObject=
-function(){var c=d(this);return 1<c.length?Error("jquery-serialize-object can only serialize one form at a time"):(new a(b)).addPairs(c.serializeArray()).serialize()}})(jQuery)},{"./form-serializer":1,"./helper":2}]},{},[3]);
+(function(root, factory) {
+
+    // AMD
+    if (typeof define === "function" && define.amd) {
+        define(["exports", "jquery"], function(exports, $) {
+            return factory(exports, $);
+        });
+    }
+
+    // CommonJS
+    else if (typeof exports !== "undefined") {
+        var $ = require("jquery");
+        factory(exports, $);
+    }
+
+    // Browser
+    else {
+        factory(root, (root.jQuery || root.Zepto || root.ender || root.$));
+    }
+
+}(this, function(exports, $) {
+
+    var patterns = {
+        validate: /^[a-z_][a-z0-9_]*(?:\[(?:\d*|[a-z0-9_]+)\])*$/i,
+        key:      /[a-z0-9_]+|(?=\[\])/gi,
+        push:     /^$/,
+        fixed:    /^\d+$/,
+        named:    /^[a-z0-9_]+$/i
+    };
+
+    function FormSerializer(helper, $form) {
+
+        // private variables
+        var data     = {},
+            pushes   = {};
+
+        // private API
+        function build(base, key, value) {
+            base[key] = value;
+            return base;
+        }
+
+        function makeObject(root, value) {
+
+            var keys = root.match(patterns.key), k;
+
+            // nest, nest, ..., nest
+            while ((k = keys.pop()) !== undefined) {
+                // foo[]
+                if (patterns.push.test(k)) {
+                    var idx = incrementPush(root.replace(/\[\]$/, ''));
+                    value = build([], idx, value);
+                }
+
+                // foo[n]
+                /*
+                else if (patterns.fixed.test(k)) {
+                    value = build([], k, value);
+                }
+                */
+
+                // foo; foo[bar]
+                else if (patterns.named.test(k)) {
+                    value = build({}, k, value);
+                }
+            }
+
+            return value;
+        }
+
+        function incrementPush(key) {
+            if (pushes[key] === undefined) {
+                pushes[key] = 0;
+            }
+            return pushes[key]++;
+        }
+
+        function encode(pair) {
+            switch ($('[name="' + pair.name + '"]', $form).attr("type")) {
+                case "checkbox":
+                    return pair.value === "on" ? true : pair.value;
+                default:
+                    return pair.value;
+            }
+        }
+
+        function addPair(pair) {
+            if (!patterns.validate.test(pair.name)) return this;
+            var obj = makeObject(pair.name, encode(pair));
+            data = helper.extend(true, data, obj);
+            return this;
+        }
+
+        function addPairs(pairs) {
+            if (!helper.isArray(pairs)) {
+                throw new Error("formSerializer.addPairs expects an Array");
+            }
+            for (var i=0, len=pairs.length; i<len; i++) {
+                this.addPair(pairs[i]);
+            }
+            return this;
+        }
+
+        function serialize() {
+            return data;
+        }
+
+        function serializeJSON() {
+            return JSON.stringify(serialize());
+        }
+
+        // public API
+        this.addPair = addPair;
+        this.addPairs = addPairs;
+        this.serialize = serialize;
+        this.serializeJSON = serializeJSON;
+    }
+
+    FormSerializer.patterns = patterns;
+
+    FormSerializer.serializeObject = function serializeObject() {
+        return new FormSerializer($, this).
+        addPairs(this.serializeArray()).
+        serialize();
+    };
+
+    FormSerializer.serializeJSON = function serializeJSON() {
+        return new FormSerializer($, this).
+        addPairs(this.serializeArray()).
+        serializeJSON();
+    };
+
+    if (typeof $.fn !== "undefined") {
+        $.fn.serializeObject = FormSerializer.serializeObject;
+        $.fn.serializeJSON   = FormSerializer.serializeJSON;
+    }
+
+    exports.FormSerializer = FormSerializer;
+
+    return FormSerializer;
+}));

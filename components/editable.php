@@ -78,6 +78,11 @@ abstract class Layotter_Editable {
                 $values[$field_name] = null;
             }
 
+            // quick fix for broken Repeater fields
+            if ($field_data['type'] == 'repeater' && is_array($values[$field_name])) {
+                $values[$field_name] = array_values($values[$field_name]);
+            }
+
             // note:
             // in default ACF, field values are run through the acf/validate_value and acf/update_value filters
             // before saving them to the database
