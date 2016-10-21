@@ -9,7 +9,7 @@ abstract class Layotter_Element extends Layotter_Editable {
     
     protected
         // internal use only
-        $id = -1,
+        $id = 0,
         $type = '',
         $template_id = -1,
         $fields = array(),
@@ -64,6 +64,7 @@ abstract class Layotter_Element extends Layotter_Editable {
      * Create a new element
      *
      * @param array $structure Element structure
+     * @param int $id Element's post ID
      * @throws Exception If the ACF field group defined for this element doesn't exist
      */
     final public function __construct($structure, $id = 0) {
@@ -81,16 +82,16 @@ abstract class Layotter_Element extends Layotter_Editable {
             }
             $this->type = $structure['type'];
             $values = $structure['values'];
-            $option_values = $structure['options'];
 
             $fields = $this->get_fields();
             $this->apply_values($fields, $values);
 
             $this->form->set_title($this->title);
             $this->form->set_icon($this->icon);
-
-            $this->options = new Layotter_Options('element', $option_values);
         }
+
+        $option_values = $structure['options'];
+        $this->options = new Layotter_Options('element', $option_values);
 
         $this->register_frontend_hooks();
     }
@@ -295,6 +296,14 @@ abstract class Layotter_Element extends Layotter_Editable {
                 'options' => $this->options->to_array(),
                 'view' => $this->get_backend_view()
             );
+        } else if ($this->id) {
+            return array(
+                'id' => $this->id,
+                'type' => $this->type,
+                'values' => $this->values,
+                'options' => $this->options->to_array(),
+                'view' => $this->get_backend_view()
+            );
         } else {
             return array(
                 'id' => $this->id,
@@ -314,7 +323,11 @@ abstract class Layotter_Element extends Layotter_Editable {
      */
     final public function get_backend_view() {
         ob_start();
-        $this->backend_view($this->formatted_values);
+        if ($this->id) {
+            $this->backend_view($this->values);
+        } else {
+            $this->backend_view($this->formatted_values);
+        }
         return ob_get_clean();
     }
 
@@ -337,6 +350,20 @@ abstract class Layotter_Element extends Layotter_Editable {
         } else {
             $html_wrapper = Layotter_Settings::get_html_wrapper('elements');
             return $html_wrapper['before'] . $element_html . $html_wrapper['after'];
+        }
+    }
+
+
+    final public function get_form_data() {
+        if ($this->id) {
+            return array(
+                'title' => $this->title,
+                'icon' => $this->icon,
+                'nonce' => wp_create_nonce('post'),
+                'fields' => Layotter_ACF::get_form_html($this->fields, $this->id)
+            );
+        } else {
+            return parent::get_form_data();
         }
     }
 

@@ -64,6 +64,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
     this.editElement = function(element) {
         state.setElement(element);
         forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_element', {
+            id: element.id,
             type: element.type,
             values: element.values
         });
@@ -96,6 +97,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
             url: ajaxurl + '?action=layotter_parse_element',
             method: 'POST',
             data: {
+                id: editingElement.id,
                 type: editingElement.type,
                 values: values
             }

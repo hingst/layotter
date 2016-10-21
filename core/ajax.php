@@ -24,9 +24,13 @@ function layotter_get_angular_post_data() {
 add_action('wp_ajax_layotter_edit_element', 'layotter_ajax_edit_element');
 function layotter_ajax_edit_element() {
     $post_data = layotter_get_angular_post_data();
-    
-    // type is required
-    if (isset($post_data['type']) AND is_string($post_data['type'])) {
+
+    if (isset($post_data['id']) AND $post_data['id']) {
+        $element = Layotter::create_element_by_id($post_data['id']);
+        if ($element) {
+            echo json_encode($element->get_form_data());
+        }
+    } else if (isset($post_data['type']) AND is_string($post_data['type'])) {
         if (isset($post_data['values'])) {
             $values = $post_data['values'];
         } else {
@@ -50,7 +54,15 @@ add_action('wp_ajax_layotter_parse_element', 'layotter_ajax_parse_element');
 function layotter_ajax_parse_element() {
     $post_data = layotter_get_angular_post_data();
 
-    if (isset($post_data['type']) AND is_string($post_data['type'])) {
+    if (isset($post_data['id']) AND $post_data['id']) {
+        $_POST = $post_data['values'];
+        wp_update_post(array('ID' => $post_data['id']));
+
+        $element = Layotter::create_element_by_id($post_data['id']);
+        if ($element) {
+            echo json_encode($element->to_array());
+        }
+    } else if (isset($post_data['type']) AND is_string($post_data['type'])) {
         $values = Layotter_ACF::unwrap_post_values();
         $element = Layotter::create_element($post_data['type'], $values);
         if ($element) {

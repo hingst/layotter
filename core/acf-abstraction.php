@@ -190,15 +190,16 @@ class Layotter_ACF
      * Get form HTML for a set of fields
      *
      * @param array $fields ACF fields
+     * @param int $id Element's post ID
      * @return string Form HTML
      */
-    public static function get_form_html($fields) {
+    public static function get_form_html($fields, $id = 0) {
         ob_start();
 
         if (self::is_pro_installed()) {
-            acf_render_fields(0, $fields); // 0 = post_id
+            acf_render_fields($id, $fields);
         } else {
-            do_action('acf/create_fields', $fields, 0); // 0 = post_id
+            do_action('acf/create_fields', $fields, $id);
         }
 
         return ob_get_clean();

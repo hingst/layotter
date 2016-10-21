@@ -77,6 +77,21 @@ class Layotter {
     }
 
 
+    public static function create_element_by_id($id) {
+        $type = get_post_meta($id, 'layotter_element_type', true);
+
+        if ($type AND isset(self::$registered_elements[$type])) {
+            try {
+                return new self::$registered_elements[$type](array(), $id);
+            } catch(Exception $e) {
+                trigger_error($e->getMessage(), E_USER_WARNING);
+            }
+        }
+
+        return false;
+    }
+
+
     /**
      * Remove illegal characters from a type identifier
      *
