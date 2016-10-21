@@ -9,17 +9,19 @@ abstract class Layotter_Element extends Layotter_Editable {
     
     protected
         // internal use only
+        $id = -1,
         $type = '',
+        $template_id = -1,
+        $fields = array(),
+        $values = array(),
+        $options = array(),
         // user-defined (mandatory)
         $title,
         $description,
         $icon,
         $field_group,
         // user-defined (optional)
-        $order = 0,
-        // automatically generated
-        $template_id = -1,
-        $options = array();
+        $order = 0;
 
 
     /**
@@ -64,23 +66,33 @@ abstract class Layotter_Element extends Layotter_Editable {
      * @param array $structure Element structure
      * @throws Exception If the ACF field group defined for this element doesn't exist
      */
-    final public function __construct($structure) {
+    final public function __construct($structure, $id = 0) {
         $this->attributes();
 
-        $structure = $this->validate_structure($structure);
-        $this->type = $structure['type'];
-        $values = $structure['values'];
-        $option_values = $structure['options'];
+        if ($id) {
+            $this->id = $id;
+            $this->type = get_post_meta($id, 'layotter_element_type', true);
+            $this->fields = $this->get_fields();
+            $this->values = get_fields($id);
+        } else {
+            $structure = $this->validate_structure($structure);
+            if (isset($structure['id'])) {
+                $this->id = $structure['id'];
+            }
+            $this->type = $structure['type'];
+            $values = $structure['values'];
+            $option_values = $structure['options'];
 
-        $fields = $this->get_fields();
-        $this->apply_values($fields, $values);
+            $fields = $this->get_fields();
+            $this->apply_values($fields, $values);
 
-        $this->form->set_title($this->title);
-        $this->form->set_icon($this->icon);
+            $this->form->set_title($this->title);
+            $this->form->set_icon($this->icon);
+
+            $this->options = new Layotter_Options('element', $option_values);
+        }
 
         $this->register_frontend_hooks();
-
-        $this->options = new Layotter_Options('element', $option_values);
     }
 
 
@@ -278,12 +290,14 @@ abstract class Layotter_Element extends Layotter_Editable {
     public function to_array() {
         if ($this->template_id > -1) {
             return array(
+                'id' => $this->id,
                 'template_id' => $this->template_id,
                 'options' => $this->options->to_array(),
                 'view' => $this->get_backend_view()
             );
         } else {
             return array(
+                'id' => $this->id,
                 'type' => $this->type,
                 'values' => $this->clean_values,
                 'options' => $this->options->to_array(),
@@ -325,6 +339,6 @@ abstract class Layotter_Element extends Layotter_Editable {
             return $html_wrapper['before'] . $element_html . $html_wrapper['after'];
         }
     }
-    
-    
+
+
 }
