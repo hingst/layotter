@@ -62,6 +62,19 @@ function layotter_ajax_parse_element() {
         if ($element) {
             echo json_encode($element->to_array());
         }
+    } else if (isset($post_data['id']) AND isset($post_data['type']) AND is_string($post_data['type'])) {
+        $_POST = $post_data['values'];
+        $id = wp_insert_post(array(
+            'post_title' => 'Test',
+            'meta_input' => array(
+                'layotter_element_type' => $post_data['type']
+            )
+        ));
+
+        $element = Layotter::create_element_by_id($id);
+        if ($element) {
+            echo json_encode($element->to_array());
+        }
     } else if (isset($post_data['type']) AND is_string($post_data['type'])) {
         $values = Layotter_ACF::unwrap_post_values();
         $element = Layotter::create_element($post_data['type'], $values);

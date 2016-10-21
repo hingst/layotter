@@ -103,6 +103,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
             }
         }).success(function(reply) {
             editingElement.values = reply.values;
+            editingElement.id = reply.id;
             editingElement.view = reply.view;
             editingElement.isLoading = undefined;
             if (isNewElement) {

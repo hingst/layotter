@@ -20,6 +20,7 @@ app.service('data', function(){
 
     // new element template
     this.templates.element = {
+        id: 0,
         type: undefined,
         values: [],
         view: '',
