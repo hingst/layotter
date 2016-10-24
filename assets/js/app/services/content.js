@@ -76,7 +76,10 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
      */
     this.saveElement = function() {
         // ACF wraps all form fields in a required object called 'acf'
-        var values = jQuery('#layotter-edit, .layotter-modal #post').serializeObject();
+        var values = jQuery('#layotter-edit, .layotter-modal #post').serialize();
+            values += '&layotter_id=' + encodeURIComponent(editingElement.id) + '&layotter_type=' + encodeURIComponent(editingElement.type);
+
+
         if (typeof values.acf == 'undefined') {
             values.acf = {};
         }
@@ -96,11 +99,8 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         $http({
             url: ajaxurl + '?action=layotter_parse_element',
             method: 'POST',
-            data: {
-                id: editingElement.id,
-                type: editingElement.type,
-                values: values
-            }
+            data: values,
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
         }).success(function(reply) {
             editingElement.values = reply.values;
             editingElement.id = reply.id;
