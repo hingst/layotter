@@ -58,6 +58,7 @@ function layotter_ajax_parse_element() {
         $_POST = $post_data['values'];
         $id = wp_insert_post(array(
             'post_title' => 'Test revision',
+            'post_type' => Layotter_Editable_Model::post_type,
             'meta_input' => array(
                 'layotter_element_type' => get_post_meta($post_data['id'], 'layotter_element_type', true)
             )
@@ -71,7 +72,7 @@ function layotter_ajax_parse_element() {
         $_POST = $post_data['values'];
         $id = wp_insert_post(array(
             'post_title' => 'Test',
-            'post_type' => 'post', // TODO: create post type for elements
+            'post_type' => Layotter_Editable_Model::post_type,
             'meta_input' => array(
                 'layotter_element_type' => $post_data['type']
             )

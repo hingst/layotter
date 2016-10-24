@@ -4,6 +4,10 @@
  * Class Layotter_Editable_Model
  */
 class Layotter_Editable_Model {
+    /**
+     * define post_type for Layotter_Editable_Model
+     */
+    const post_type = 'layotter_editable';
 
     /**
      * @return array
@@ -35,16 +39,10 @@ class Layotter_Editable_Model {
 
         $args = array(
             'labels'             => $labels,
-            'description'        => __('CPT for Layotter Editables.', 'layotter'),
-            'public'             => true,
-            'publicly_queryable' => true,
-            'show_ui'            => true,
+            'public'             => false,
+            'show_ui'            => Layotter_Settings::is_debug_mode_enabled(),
             'show_in_menu'       => false,
-            'query_var'          => true,
             'capability_type'    => 'post',
-            'has_archive'        => true,
-            'hierarchical'       => true,
-            'menu_position'      => 99999,
             'supports'           => array('title'),
             'capabilities' => array(
                 'create_posts'   => 'do_not_allow',
@@ -54,7 +52,7 @@ class Layotter_Editable_Model {
             'map_meta_cap' => true,
         );
 
-        register_post_type('layotter_editable', $args);
+        register_post_type(self::post_type, $args);
     }
 
     /**
@@ -68,7 +66,7 @@ class Layotter_Editable_Model {
                 $labels['name'],
                 $labels['menu_name'],
                 'manage_options',
-                'edit.php?post_type=layotter_editable'
+                'edit.php?post_type=' . self::post_type
             );
         }
     }
