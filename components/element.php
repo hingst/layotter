@@ -27,7 +27,7 @@ abstract class Layotter_Element extends Layotter_Editable {
     /**
      * Must assign $this->title, $this->description, $this->icon and $this->field_group
      *
-     * May assign $this->order to override alphabetical odering in the "Add Element" screen.
+     * May assign $this->order to override alphabetical ordering in the "Add Element" screen.
      */
     abstract protected function attributes();
 
@@ -96,6 +96,14 @@ abstract class Layotter_Element extends Layotter_Editable {
         $this->register_frontend_hooks();
     }
 
+    /**
+     * Determine if this element has an id (is of new type)
+     *
+     * @return bool
+     */
+    final protected function has_id() {
+        return (is_int($this->id) AND $this->id != 0);
+    }
 
     /**
      * Get ACF fields for this element
@@ -296,7 +304,7 @@ abstract class Layotter_Element extends Layotter_Editable {
                 'options' => $this->options->to_array(),
                 'view' => $this->get_backend_view()
             );
-        } else if ($this->id) {
+        } else if ($this->has_id()) {
             return array(
                 'id' => $this->id,
                 'type' => $this->type,
@@ -323,7 +331,7 @@ abstract class Layotter_Element extends Layotter_Editable {
      */
     final public function get_backend_view() {
         ob_start();
-        if ($this->id) {
+        if ($this->has_id()) {
             $this->backend_view($this->values);
         } else {
             $this->backend_view($this->formatted_values);
@@ -355,7 +363,7 @@ abstract class Layotter_Element extends Layotter_Editable {
 
 
     final public function get_form_data() {
-        if ($this->id) {
+        if ($this->has_id()) {
             return array(
                 'title' => $this->title,
                 'icon' => $this->icon,

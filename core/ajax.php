@@ -25,7 +25,7 @@ add_action('wp_ajax_layotter_edit_element', 'layotter_ajax_edit_element');
 function layotter_ajax_edit_element() {
     $post_data = layotter_get_angular_post_data();
 
-    if (isset($post_data['id']) AND $post_data['id']) {
+    if (isset($post_data['id']) AND is_int($post_data['id']) AND $post_data['id'] != 0) {
         $element = Layotter::create_element_by_id($post_data['id']);
         if ($element) {
             echo json_encode($element->get_form_data());
@@ -54,7 +54,7 @@ add_action('wp_ajax_layotter_parse_element', 'layotter_ajax_parse_element');
 function layotter_ajax_parse_element() {
     $post_data = layotter_get_angular_post_data();
 
-    if (isset($post_data['id']) AND $post_data['id']) {
+    if (isset($post_data['id']) AND is_int($post_data['id']) AND $post_data['id'] != 0) {
         $_POST = $post_data['values'];
         $id = wp_insert_post(array(
             'post_title' => 'Test revision',
