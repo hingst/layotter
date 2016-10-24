@@ -71,7 +71,7 @@ abstract class Layotter_Element extends Layotter_Editable {
             $this->id = $id;
             $this->type = get_post_meta($id, 'layotter_element_type', true);
             $this->fields = $this->get_fields();
-            $this->values = get_fields($id);
+            $this->formatted_values = get_fields($id);
         } else {
             $structure = $this->validate_structure($structure);
             if (isset($structure['id'])) {
@@ -296,7 +296,7 @@ abstract class Layotter_Element extends Layotter_Editable {
             return array(
                 'id' => $this->id,
                 'type' => $this->type,
-                'values' => $this->values,
+                'values' => $this->formatted_values,
                 'options' => $this->options->to_array(),
                 'view' => $this->get_backend_view()
             );
@@ -319,11 +319,7 @@ abstract class Layotter_Element extends Layotter_Editable {
      */
     final public function get_backend_view() {
         ob_start();
-        if ($this->has_id()) {
-            $this->backend_view($this->values);
-        } else {
-            $this->backend_view($this->formatted_values);
-        }
+        $this->backend_view($this->formatted_values);
         return ob_get_clean();
     }
 
@@ -336,9 +332,9 @@ abstract class Layotter_Element extends Layotter_Editable {
      * @param array $post_options Formatted options for the parent post
      * @return string Frontend view HTML
      */
-    final public function get_frontend_view($col_options, $row_options, $post_options) {
+    final public function get_frontend_view($col_options, $row_options, $post_options, $col_width) {
         ob_start();
-        $this->frontend_view($this->formatted_values);
+        $this->frontend_view($this->formatted_values, $col_width, $col_options, $row_options, $post_options);
         $element_html = ob_get_clean();
 
         if (has_filter('layotter/view/element')) {

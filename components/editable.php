@@ -11,7 +11,6 @@ abstract class Layotter_Editable {
         $clean_values = array(),
         $formatted_values = array(),
         $fields = array(),
-        $values = array(),
         $form;
 
 
