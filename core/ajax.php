@@ -56,9 +56,14 @@ function layotter_ajax_parse_element() {
 
     if (isset($post_data['id']) AND $post_data['id']) {
         $_POST = $post_data['values'];
-        wp_update_post(array('ID' => $post_data['id']));
+        $id = wp_insert_post(array(
+            'post_title' => 'Test revision',
+            'meta_input' => array(
+                'layotter_element_type' => get_post_meta($post_data['id'], 'layotter_element_type', true)
+            )
+        ));
 
-        $element = Layotter::create_element_by_id($post_data['id']);
+        $element = Layotter::create_element_by_id($id);
         if ($element) {
             echo json_encode($element->to_array());
         }
@@ -66,6 +71,7 @@ function layotter_ajax_parse_element() {
         $_POST = $post_data['values'];
         $id = wp_insert_post(array(
             'post_title' => 'Test',
+            'post_type' => 'post', // TODO: create post type for elements
             'meta_input' => array(
                 'layotter_element_type' => $post_data['type']
             )
