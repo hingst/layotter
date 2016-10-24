@@ -9,11 +9,8 @@ abstract class Layotter_Element extends Layotter_Editable {
     
     protected
         // internal use only
-        $id = 0,
         $type = '',
         $template_id = -1,
-        $fields = array(),
-        $values = array(),
         $options = array(),
         // user-defined (mandatory)
         $title,
@@ -94,15 +91,6 @@ abstract class Layotter_Element extends Layotter_Editable {
         $this->options = new Layotter_Options('element', $option_values);
 
         $this->register_frontend_hooks();
-    }
-
-    /**
-     * Determine if this element has an id (is of new type)
-     *
-     * @return bool
-     */
-    final protected function has_id() {
-        return (is_int($this->id) AND $this->id != 0);
     }
 
     /**

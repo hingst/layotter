@@ -7,10 +7,22 @@
 abstract class Layotter_Editable {
 
     protected
+        $id = 0,
         $clean_values = array(),
         $formatted_values = array(),
+        $fields = array(),
+        $values = array(),
         $form;
 
+
+    /**
+     * Determine if this element has an id (is of new type)
+     *
+     * @return bool
+     */
+    final protected function has_id() {
+        return (is_int($this->id) AND $this->id != 0);
+    }
 
     /**
      * Apply $this->clean_values and $this->formatted values, create $this->form
