@@ -23,8 +23,8 @@ function layotter_get_angular_post_data() {
  */
 add_action('wp_ajax_layotter_edit_element', 'layotter_ajax_edit_element');
 function layotter_ajax_edit_element() {
-    if (isset($_POST['layotter_id']) AND ctype_digit($_POST['layotter_id']) AND $_POST['layotter_id'] != 0) {
-        $layotter_element_id = (int)$_POST['layotter_id'];
+    if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
+        $layotter_element_id = (int)$_POST['layotter_element_id'];
         $element = Layotter::create_element_by_id($layotter_element_id);
         if ($element) {
             echo json_encode($element->get_form_data());
@@ -51,8 +51,8 @@ function layotter_ajax_edit_element() {
  */
 add_action('wp_ajax_layotter_parse_element', 'layotter_ajax_parse_element');
 function layotter_ajax_parse_element() {
-    if (isset($_POST['layotter_id']) AND ctype_digit($_POST['layotter_id']) AND $_POST['layotter_id'] != 0) {
-        $old_id = (int)$_POST['layotter_id'];
+    if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
+        $old_id = (int)$_POST['layotter_element_id'];
         $id = wp_insert_post(array(
             'post_title' => 'Test revision',
             'post_type' => Layotter_Editable_Model::post_type,
@@ -65,7 +65,7 @@ function layotter_ajax_parse_element() {
         if ($element) {
             echo json_encode($element->to_array());
         }
-    } else if (isset($_POST['layotter_id']) AND isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
+    } else if (isset($_POST['layotter_element_id']) AND isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
         $id = wp_insert_post(array(
             'post_title' => 'Test',
             'post_type' => Layotter_Editable_Model::post_type,

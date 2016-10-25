@@ -64,7 +64,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
     this.editElement = function(element) {
         state.setElement(element);
         forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_element', {
-            layotter_id: element.id,
+            layotter_element_id: element.id,
             layotter_type: element.type,
             layotter_values: element.values
         });
@@ -89,7 +89,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
 
         // build query string from form data
         var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
-            + '&layotter_id=' + encodeURIComponent(editingElement.id) + '&layotter_type=' + encodeURIComponent(editingElement.type);
+            + '&layotter_element_id=' + encodeURIComponent(editingElement.id) + '&layotter_type=' + encodeURIComponent(editingElement.type);
         
         $http({
             url: ajaxurl + '?action=layotter_parse_element',
