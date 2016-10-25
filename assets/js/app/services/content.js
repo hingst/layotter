@@ -64,9 +64,9 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
     this.editElement = function(element) {
         state.setElement(element);
         forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_element', {
-            id: element.id,
-            type: element.type,
-            values: element.values
+            layotter_id: element.id,
+            layotter_type: element.type,
+            layotter_values: element.values
         });
     };
     
@@ -75,15 +75,6 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
      * Save values from the element edit form being currently displayed
      */
     this.saveElement = function() {
-        // ACF wraps all form fields in a required object called 'acf'
-        var values = jQuery('#layotter-edit, .layotter-modal #post').serialize();
-            values += '&layotter_id=' + encodeURIComponent(editingElement.id) + '&layotter_type=' + encodeURIComponent(editingElement.type);
-
-
-        if (typeof values.acf == 'undefined') {
-            values.acf = {};
-        }
-        
         // add element to model if creating a new element
         var isNewElement = false;
         if (state.getParent() !== null) {
@@ -95,12 +86,18 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         var editingElement = state.getElement();
         state.reset();
         editingElement.isLoading = true;
+
+        // build query string from form data
+        var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
+            + '&layotter_id=' + encodeURIComponent(editingElement.id) + '&layotter_type=' + encodeURIComponent(editingElement.type);
         
         $http({
             url: ajaxurl + '?action=layotter_parse_element',
             method: 'POST',
             data: values,
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
         }).success(function(reply) {
             editingElement.values = reply.values;
             editingElement.id = reply.id;
@@ -122,9 +119,9 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         state.setOptionsType(type);
         state.setElement(item);
         forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_options', {
-            type: type,
-            values: item.options,
-            post_id: layotterData.postID
+            layotter_type: type,
+            layotter_values: item.options,
+            layotter_post_id: layotterData.postID
         });
     };
     
@@ -133,25 +130,22 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
      * Save values from the options edit form being currently displayed
      */
     this.saveOptions = function() {
-        // ACF wraps all form fields in a required object called 'acf'
-        var values = jQuery('#layotter-edit, .layotter-modal #post').serializeObject();
-        if (typeof values.acf == 'undefined') {
-            values.acf = {};
-        }
-        
         // copy editing.element so editing can be reset while ajax is still loading
         var editingItem = state.getElement();
         var optionsType = state.getOptionsType();
         state.reset();
         editingItem.isLoading = true;
-        
+
+        // build query string from form data
+        var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
+            + '&layotter_type=' + encodeURIComponent(optionsType) + '&layotter_post_id=' + encodeURIComponent(layotterData.postID);
+
         $http({
             url: ajaxurl + '?action=layotter_parse_options',
             method: 'POST',
-            data: {
-                type: optionsType,
-                values: values,
-                post_id: layotterData.postID
+            data: values,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).success(function(reply) {
             editingItem.options = reply;

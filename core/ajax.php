@@ -23,21 +23,19 @@ function layotter_get_angular_post_data() {
  */
 add_action('wp_ajax_layotter_edit_element', 'layotter_ajax_edit_element');
 function layotter_ajax_edit_element() {
-    $post_data = layotter_get_angular_post_data();
-
-    if (isset($post_data['id']) AND is_int($post_data['id']) AND $post_data['id'] != 0) {
-        $element = Layotter::create_element_by_id($post_data['id']);
+    if (isset($_POST['layotter_id']) AND is_int($_POST['layotter_id']) AND $_POST['layotter_id'] != 0) {
+        $element = Layotter::create_element_by_id($_POST['layotter_id']);
         if ($element) {
             echo json_encode($element->get_form_data());
         }
-    } else if (isset($post_data['type']) AND is_string($post_data['type'])) {
-        if (isset($post_data['values'])) {
-            $values = $post_data['values'];
+    } else if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
+        if (isset($_POST['layotter_values'])) {
+            $values = $_POST['layotter_values'];
         } else {
             $values = array();
         }
 
-        $element = Layotter::create_element($post_data['type'], $values);
+        $element = Layotter::create_element($_POST['layotter_type'], $values);
         if ($element) {
             echo json_encode($element->get_form_data());
         }
@@ -52,15 +50,13 @@ function layotter_ajax_edit_element() {
  */
 add_action('wp_ajax_layotter_parse_element', 'layotter_ajax_parse_element');
 function layotter_ajax_parse_element() {
-    $post_data = layotter_get_angular_post_data();
-
-    if (isset($post_data['id']) AND is_int($post_data['id']) AND $post_data['id'] != 0) {
-        $_POST = $post_data['values'];
+    if (isset($_POST['layotter_id']) AND is_int($_POST['layotter_id']) AND $_POST['layotter_id'] != 0) {
+        $_POST = $_POST['layotter_values'];
         $id = wp_insert_post(array(
             'post_title' => 'Test revision',
             'post_type' => Layotter_Editable_Model::post_type,
             'meta_input' => array(
-                'layotter_element_type' => get_post_meta($post_data['id'], 'layotter_element_type', true)
+                'layotter_element_type' => get_post_meta($_POST['layotter_id'], 'layotter_element_type', true)
             )
         ));
 
@@ -68,13 +64,13 @@ function layotter_ajax_parse_element() {
         if ($element) {
             echo json_encode($element->to_array());
         }
-    } else if (isset($post_data['id']) AND isset($post_data['type']) AND is_string($post_data['type'])) {
-        $_POST = $post_data['values'];
+    } else if (isset($_POST['layotter_id']) AND isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
+        $_POST = $_POST['layotter_values'];
         $id = wp_insert_post(array(
             'post_title' => 'Test',
             'post_type' => Layotter_Editable_Model::post_type,
             'meta_input' => array(
-                'layotter_element_type' => $post_data['type']
+                'layotter_element_type' => $_POST['layotter_type']
             )
         ));
 
@@ -82,9 +78,9 @@ function layotter_ajax_parse_element() {
         if ($element) {
             echo json_encode($element->to_array());
         }
-    } else if (isset($post_data['type']) AND is_string($post_data['type'])) {
+    } else if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
         $values = Layotter_ACF::unwrap_post_values();
-        $element = Layotter::create_element($post_data['type'], $values);
+        $element = Layotter::create_element($_POST['layotter_type'], $values);
         if ($element) {
             echo json_encode($element->to_array());
         }
@@ -103,23 +99,21 @@ function layotter_ajax_parse_element() {
  */
 add_action('wp_ajax_layotter_edit_options', 'layotter_ajax_edit_options');
 function layotter_ajax_edit_options() {
-    $post_data = layotter_get_angular_post_data();
-
     // type and option values are required
-    if (isset($post_data['type']) AND is_string($post_data['type'])) {
-        if (isset($post_data['values'])) {
-            $values = $post_data['values'];
+    if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
+        if (isset($_POST['layotter_values'])) {
+            $values = $_POST['layotter_values'];
         } else {
             $values = array();
         }
 
-        if (isset($post_data['post_id'])) {
-            $post_id = $post_data['post_id'];
+        if (isset($_POST['layotter_post_id'])) {
+            $post_id = $_POST['layotter_post_id'];
         } else {
             $post_id = '';
         }
 
-        $options = new Layotter_Options($post_data['type'], $values, $post_id);
+        $options = new Layotter_Options($_POST['layotter_type'], $values, $post_id);
         if ($options->is_enabled()) {
             echo json_encode($options->get_form_data());
         }
@@ -134,17 +128,15 @@ function layotter_ajax_edit_options() {
  */
 add_action('wp_ajax_layotter_parse_options', 'layotter_ajax_parse_options');
 function layotter_ajax_parse_options() {
-    $post_data = layotter_get_angular_post_data();
-
-    if (isset($post_data['type']) AND is_string($post_data['type'])) {
-        if (isset($post_data['post_id'])) {
-            $post_id = $post_data['post_id'];
+    if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
+        if (isset($_POST['layotter_post_id'])) {
+            $post_id = $_POST['layotter_post_id'];
         } else {
             $post_id = '';
         }
 
         $values = Layotter_ACF::unwrap_post_values();
-        $options = new Layotter_Options($post_data['type'], $values, $post_id);
+        $options = new Layotter_Options($_POST['layotter_type'], $values, $post_id);
         if($options->is_enabled()) {
             echo json_encode($options->to_array());
         }

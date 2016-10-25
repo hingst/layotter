@@ -65,7 +65,14 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
      */
     this.fetchDataAndShowForm = function(url, data) {
         create(); // loading
-        $http.post(url, data).success(function(reply){
+        $http({
+            url: url,
+            method: 'POST',
+            data: jQuery.param(data),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        }).success(function(reply) {
             _this.data = reply;
             create(jQuery('#layotter-form').html());
         });
