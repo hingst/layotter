@@ -103,7 +103,7 @@ class Layotter_Col {
     public function get_frontend_view($row_options, $post_options) {
         $elements_html = '';
         foreach ($this->elements as $element) {
-            $elements_html .= $element->get_frontend_view($this->options->get_formatted_values(), $row_options, $post_options);
+            $elements_html .= $element->get_frontend_view($this->options->get_formatted_values(), $row_options, $post_options, $this->width);
         }
 
         $class = Layotter_Settings::get_col_layout_class($this->width);
