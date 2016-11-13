@@ -330,6 +330,7 @@ abstract class Layotter_Element extends Layotter_Editable {
      * @param array $col_options Formatted options for the parent column
      * @param array $row_options Formatted options for the parent row
      * @param array $post_options Formatted options for the parent post
+     * @param string $col_width Width of the parent column, e.g. '1/3'
      * @return string Frontend view HTML
      */
     final public function get_frontend_view($col_options, $row_options, $post_options, $col_width) {
