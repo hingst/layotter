@@ -103,7 +103,7 @@ class Layotter {
 
         foreach (array_keys(self::$registered_elements) as $element_type) {
             $element = Layotter::create_element($element_type);
-            if ($element AND $element->is_enabled_for($post_id)) {
+            if ($element AND ($element->is_enabled_for($post_id) OR $post_id == NULL)) {
                 $elements[] = $element;
             }
         }
