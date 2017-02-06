@@ -35,10 +35,10 @@ function layotter_make_search_dump($data, $raw_post){
     // then remove excess whitespace
     $spaced_content = str_replace('<', ' <', $content);
     $clean_content = strip_tags($spaced_content, '<img>');
-    $normalized_content = trim(clean_content);
+    $normalized_content = trim($clean_content);
 
-    // @TODO: What kind of Fallback could make sense here? http://php.net/manual/de/mbstring.installation.php "mbstring is a non-default extension."
-    if(function_exists('mb_ereg_replace')) {
+    // TODO: What kind of Fallback could make sense here? http://php.net/manual/de/mbstring.installation.php "mbstring is a non-default extension."
+    if (function_exists('mb_ereg_replace')) {
         $normalized_content = mb_ereg_replace('/\s+/', ' ', $normalized_content);
     }
 

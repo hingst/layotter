@@ -54,7 +54,6 @@ function layotter_ajax_parse_element() {
     if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
         $old_id = (int)$_POST['layotter_element_id'];
         $id = wp_insert_post(array(
-            'post_title' => 'Test revision',
             'post_type' => Layotter_Editable_Model::post_type,
             'meta_input' => array(
                 'layotter_element_type' => get_post_meta($old_id, 'layotter_element_type', true)
@@ -67,7 +66,6 @@ function layotter_ajax_parse_element() {
         }
     } else if (isset($_POST['layotter_element_id']) AND isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
         $id = wp_insert_post(array(
-            'post_title' => 'Test',
             'post_type' => Layotter_Editable_Model::post_type,
             'meta_input' => array(
                 'layotter_element_type' => $_POST['layotter_type']

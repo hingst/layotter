@@ -295,8 +295,6 @@ abstract class Layotter_Element extends Layotter_Editable {
         } else if ($this->has_id()) {
             return array(
                 'id' => $this->id,
-                'type' => $this->type,
-                'values' => $this->formatted_values,
                 'options' => $this->options->to_array(),
                 'view' => $this->get_backend_view()
             );

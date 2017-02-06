@@ -50,7 +50,7 @@ function layotter_disable_wptexturize($shortcodes) {
 /**
  * Disable wpautop for [layotter] shortcode
  *
- * When previewing changes to a post, Wordpress normally adds <p> tags that break JSON, so we'll disable 
+ * When previewing changes to a post, Wordpress normally adds <p> tags that break JSON, so we'll disable that.
  */
 add_filter('the_content', 'layotter_disable_wpautop', 1);
 function layotter_disable_wpautop($content) {

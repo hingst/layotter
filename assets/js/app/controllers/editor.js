@@ -42,7 +42,7 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
         var json = angular.toJson(valueClone, false); // change to true for pretty JSON
 
         // put shortcoded JSON into #content to make post previews work
-        // this will be replaced with a search dump when the post is saved
+        // gets replaced with a search dump when the post is saved
         jQuery('#content').val('[layotter]' + json + '[/layotter]');
 
         // enter JSON string into textarea
