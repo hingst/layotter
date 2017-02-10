@@ -361,4 +361,26 @@ abstract class Layotter_Element extends Layotter_Editable {
     }
 
 
+    final public function migrate() {
+        $id = wp_insert_post(array(
+            'post_type' => 'layotter_editable'
+        ), true);
+        update_post_meta($id, 'layotter_element_type', $this->type);
+
+        $values = $this->clean_values;
+
+        foreach ($this->get_fields() as $field) {
+            $field_name = $field['name'];
+
+            if (isset($values[$field_name])) {
+                $field['value'] = $values[$field_name];
+                update_field($field['key'], $field['value'], $id);
+            }
+        }
+
+        $this->id = $id;
+    }
+
+
+
 }

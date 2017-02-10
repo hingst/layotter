@@ -187,4 +187,11 @@ class Layotter_Post {
         }
     }
 
+
+    public function migrate() {
+        foreach ($this->rows as &$row) {
+            $row->migrate();
+        }
+    }
+
 }
