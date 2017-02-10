@@ -362,6 +362,10 @@ abstract class Layotter_Element extends Layotter_Editable {
 
 
     final public function migrate() {
+        if ($this->has_id()) {
+            return;
+        }
+
         $id = wp_insert_post(array(
             'post_type' => 'layotter_editable'
         ), true);
