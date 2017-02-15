@@ -49,7 +49,7 @@ class Layotter {
      * @param string|array $type_or_structure Type identifier or array with type, values and option values
      * @param array $values Field values, or empty array for default values
      * @param array $option_values Option values, or empty array for default values
-     * @return object|bool New element instance, or false on failure
+     * @return Layotter_Element New element instance, or false on failure
      */
     public static function create_element($type_or_structure, $values = array(), $option_values = array()) {
         if (is_string($type_or_structure)) {
@@ -77,6 +77,10 @@ class Layotter {
     }
 
 
+    /**
+     * @param $id
+     * @return Layotter_Element
+     */
     public static function create_element_by_id($id) {
         $type = get_post_meta($id, 'layotter_element_type', true);
 
