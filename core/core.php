@@ -24,13 +24,13 @@ class Layotter {
     public static function register_element($type, $class) {
         // fail if provided class name is not a valid class
         if (!class_exists($class) OR !is_subclass_of($class, 'Layotter_Element')) {
-            return false;
+            throw new Exception('Invalid class: ' . $class);
         }
         
         // fail if provided type is empty or already in use
         $type = self::clean_type($type);
         if (empty($type) OR isset(self::$registered_elements[$type])) {
-            return false;
+            throw new Exception('Invalid class: ' . $class);
         }
         
         // no errors, register the new element type
@@ -44,55 +44,62 @@ class Layotter {
 
 
     /**
-     * Create a new element instance with a specific type
-     *
-     * @param string|array $type_or_structure Type identifier or array with type, values and option values
-     * @param array $values Field values, or empty array for default values
-     * @param array $option_values Option values, or empty array for default values
-     * @return Layotter_Element New element instance, or false on failure
+     * @param string $type
+     * @return Layotter_Element
+     * @throws Exception
      */
-    public static function create_element($type_or_structure, $values = array(), $option_values = array()) {
-        if (is_string($type_or_structure)) {
-            $structure = array(
-                'type' => $type_or_structure,
-                'values' => $values,
-                'options' => $option_values
-            );
-        } else if (is_array($type_or_structure)) {
-            $structure = $type_or_structure;
+    public static function assemble_new_element($type) {
+        $type = strval($type);
+
+        if (isset(self::$registered_elements[$type])) {
+            $element = new self::$registered_elements[$type]();
+            $element->set_type();
+            return $element;
         } else {
-            return false;
+            throw new Exception('Unknown element type: ' . $type);
         }
-
-        if (isset($structure['type']) AND isset(self::$registered_elements[$structure['type']])) {
-            try {
-                $type = $structure['type'];
-                return new self::$registered_elements[$type]($structure);
-            } catch(Exception $e) {
-                trigger_error($e->getMessage(), E_USER_WARNING);
-            }
-        }
-
-        return false;
     }
 
 
     /**
-     * @param $id
+     * @param int $id
      * @return Layotter_Element
+     * @throws Exception
      */
-    public static function create_element_by_id($id) {
-        $type = get_post_meta($id, 'layotter_element_type', true);
+    public static function assemble_element($id) {
+        $id = intval($id);
+        $type = get_post_meta(Layotter_Editable::TYPE_META_FIELD, $id, true);
 
-        if ($type AND isset(self::$registered_elements[$type])) {
-            try {
-                return new self::$registered_elements[$type](array(), $id);
-            } catch(Exception $e) {
-                trigger_error($e->getMessage(), E_USER_WARNING);
-            }
+        if (isset(self::$registered_elements[$type])) {
+            return new self::$registered_elements[$type]($id);
+        } else {
+            throw new Exception('Element with ID ' . $id . ' has unknown type.');
         }
+    }
 
-        return false;
+
+    /**
+     * @param string $type
+     * @return Layotter_Options
+     * @throws Exception
+     */
+    public static function assemble_new_options($type) {
+        $type = strval($type);
+        $options = new Layotter_Options();
+        $options->set_type($type);
+        return $options;
+    }
+
+
+    /**
+     * @param int $id
+     * @return Layotter_Options
+     * @throws Exception
+     */
+    public static function assemble_options($id) {
+        $id = intval($id);
+        $options = new Layotter_Options($id);
+        return $options;
     }
 
 
@@ -121,8 +128,8 @@ class Layotter {
         $elements = array();
 
         foreach (array_keys(self::$registered_elements) as $element_type) {
-            $element = Layotter::create_element($element_type);
-            if ($element AND $element->is_enabled_for($post_id)) {
+            $element = Layotter::assemble_new_element($element_type);
+            if ($element->is_enabled_for($post_id)) {
                 $elements[] = $element;
             }
         }
@@ -146,15 +153,15 @@ class Layotter {
     public static function sort_element_types_helper($element_type_a, $element_type_b) {
         $a_order = $element_type_a->get('order');
         $b_order = $element_type_b->get('order');
-        $a_name = $element_type_a->get('title');
-        $b_name = $element_type_b->get('title');
+        $a_title = $element_type_a->get('title');
+        $b_title = $element_type_b->get('title');
 
         if ($a_order < $b_order) {
             return -1;
         } else if ($a_order > $b_order) {
             return 1;
         } else {
-            return strcasecmp($a_name, $b_name);
+            return strcasecmp($a_title, $b_title);
         }
     }
 
@@ -165,18 +172,15 @@ class Layotter {
      * @return bool Whether Layotter is enabled
      */
     public static function is_enabled() {
-        // fail if not in the backend
         if (!is_admin()) {
             return false;
         }
 
-        // fail if not on a relevant edit screen
         global $pagenow;
         if ($pagenow != 'post.php' AND $pagenow != 'post-new.php') {
             return false;
         }
 
-        // fail if layotter isn't enabled for the current post
         if (!self::is_enabled_for_post(get_the_ID())) {
             return false;
         }

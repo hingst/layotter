@@ -9,16 +9,15 @@ abstract class Layotter_Element extends Layotter_Editable {
     
     protected
         // internal use only
-        $type = '',
-        $template_id = -1,
-        $options = array(),
+        $options_id = 0,
         // user-defined (mandatory)
-        $title,
         $description,
-        $icon,
         $field_group,
         // user-defined (optional)
         $order = 0;
+
+    const
+        OPTIONS_META_FIELD = 'layotter_options_id';
 
 
     /**
@@ -60,35 +59,20 @@ abstract class Layotter_Element extends Layotter_Editable {
     /**
      * Create a new element
      *
-     * @param array $structure Element structure
-     * @param int $id Element's post ID
+     * @param int $id Element's post ID, 0 for new elements.
      * @throws Exception If the ACF field group defined for this element doesn't exist
      */
-    final public function __construct($structure, $id = 0) {
+    final public function __construct($id = 0) {
         $this->attributes();
 
-        if ($id) {
-            $this->id = $id;
-            $this->type = get_post_meta($id, 'layotter_element_type', true);
-            $this->fields = $this->get_fields();
-            $this->formatted_values = get_fields($id);
-        } else {
-            $structure = $this->validate_structure($structure);
-            if (isset($structure['id'])) {
-                $this->id = $structure['id'];
-            }
-            $this->type = $structure['type'];
-            $values = $structure['values'];
+        $this->id = intval($id);
+        $this->fields = $this->get_fields();
+        $this->values = get_fields($id);
 
-            $fields = $this->get_fields();
-            $this->apply_values($fields, $values);
-
-            $this->form->set_title($this->title);
-            $this->form->set_icon($this->icon);
+        if ($this->id !== 0) {
+            $this->set_type(get_post_meta($id, self::TYPE_META_FIELD, true));
+            $this->options_id = intval(get_post_meta($id, self::OPTIONS_META_FIELD, true));
         }
-
-        $option_values = $structure['options'];
-        $this->options = new Layotter_Options('element', $option_values);
 
         $this->register_frontend_hooks();
     }
@@ -100,6 +84,8 @@ abstract class Layotter_Element extends Layotter_Editable {
      * @throws Exception If $this->field_group wasn't assigned correctly in $this->attributes()
      */
     final protected function get_fields() {
+        // TODO: maybe clean fields to exclude stale fields?
+
         // ACF field group can be provided as post id (int) or slug ('group_xyz')
         if (!is_int($this->field_group) AND !is_string($this->field_group)) {
             throw new Exception('$this->field_group must be assigned in attributes() (error in class ' . get_called_class() . ')');
@@ -214,70 +200,6 @@ abstract class Layotter_Element extends Layotter_Editable {
 
 
     /**
-     * Declare this element as a template
-     *
-     * Templates are managed through the Layotter_Templates class, this method simply declares this element as an
-     * instance of a saved template. The template ID will be present in this element's JSON representation.
-     *
-     * @param int $template_id Template ID
-     */
-    final public function set_template_id($template_id) {
-        $this->template_id = $template_id;
-    }
-
-
-    /**
-     * Remove template ID and treat as a regular element
-     */
-    final public function unset_template_id() {
-        $this->template_id = -1;
-    }
-
-
-    /**
-     * Get element data to be saved in the database as a template
-     *
-     * Options and view are not necessary because:
-     *      1. Templates never have options, only an instance of a template has options
-     *      2. View is refreshed before every output, no need to save it to the database
-     *
-     * @return array Array representation of this element to be saved as a template
-     */
-    final public function get_template_data() {
-        return array(
-            'template_id' => $this->template_id,
-            'type' => $this->type,
-            'values' => $this->clean_values
-        );
-    }
-
-
-    /**
-     * Validate an array containing an element's structure
-     *
-     * Validates array structure and presence of required key/value pairs
-     *
-     * @param array $structure Element structure
-     * @return array Validated element structure
-     */
-    private function validate_structure($structure) {
-        if (!isset($structure['type']) OR !is_string($structure['type'])) {
-            $structure['type'] = '';
-        }
-
-        if (!isset($structure['values']) OR !is_array($structure['values'])) {
-            $structure['values'] = array();
-        }
-
-        if (!isset($structure['options']) OR !is_array($structure['options'])) {
-            $structure['options'] = array();
-        }
-
-        return $structure;
-    }
-
-
-    /**
      * Return array representation of this element for use in json_encode()
      *
      * PHP's JsonSerializable interface would be cleaner, but it's only available >= 5.4.0
@@ -285,30 +207,16 @@ abstract class Layotter_Element extends Layotter_Editable {
      * @return array Array representation of this element
      */
     public function to_array() {
-        if ($this->template_id > -1) {
-            return array(
-                'id' => $this->id,
-                'template_id' => $this->template_id,
-                'options' => $this->options->to_array(),
-                'view' => $this->get_backend_view()
-            );
-        } else if ($this->has_id()) {
-            return array(
-                'id' => $this->id,
-                'type' => $this->type,
-                'values' => $this->clean_values,
-                'options' => $this->options->to_array(),
-                'view' => $this->get_backend_view()
-            );
-        } else {
-            return array(
-                'id' => $this->id,
-                'type' => $this->type,
-                'values' => $this->clean_values,
-                'options' => $this->options->to_array(),
-                'view' => $this->get_backend_view()
-            );
-        }
+        return array(
+            'id' => $this->id,
+            //'options' => $this->options->to_array(),
+            'view' => $this->get_backend_view()
+        );
+    }
+
+
+    public function to_json() {
+        return json_encode($this->to_array());
     }
 
 
@@ -319,7 +227,7 @@ abstract class Layotter_Element extends Layotter_Editable {
      */
     final public function get_backend_view() {
         ob_start();
-        $this->backend_view($this->formatted_values);
+        $this->backend_view($this->values);
         return ob_get_clean();
     }
 
@@ -335,7 +243,7 @@ abstract class Layotter_Element extends Layotter_Editable {
      */
     final public function get_frontend_view($col_options, $row_options, $post_options, $col_width) {
         ob_start();
-        $this->frontend_view($this->formatted_values, $col_width, $col_options, $row_options, $post_options);
+        $this->frontend_view($this->values, $col_width, $col_options, $row_options, $post_options);
         $element_html = ob_get_clean();
 
         if (has_filter('layotter/view/element')) {
@@ -347,29 +255,15 @@ abstract class Layotter_Element extends Layotter_Editable {
     }
 
 
-    final public function get_form_data() {
-        if ($this->has_id()) {
-            return array(
-                'title' => $this->title,
-                'icon' => $this->icon,
-                'nonce' => wp_create_nonce('post'),
-                'fields' => Layotter_ACF::get_form_html($this->fields, $this->id)
-            );
-        } else {
-            return parent::get_form_data();
-        }
-    }
-
-
     final public function migrate() {
-        if ($this->has_id()) {
+        if ($this->id !== 0) {
             return;
         }
 
         $id = wp_insert_post(array(
             'post_type' => 'layotter_editable'
         ), true);
-        update_post_meta($id, 'layotter_element_type', $this->type);
+        update_post_meta($id, self::TYPE_META_FIELD, $this->type);
 
         $values = $this->clean_values;
 

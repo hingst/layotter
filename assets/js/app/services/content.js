@@ -92,7 +92,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
             + '&layotter_element_id=' + encodeURIComponent(editingElement.id) + '&layotter_type=' + encodeURIComponent(editingElement.type);
         
         $http({
-            url: ajaxurl + '?action=layotter_parse_element',
+            url: ajaxurl + '?action=layotter_save_element',
             method: 'POST',
             data: values,
             headers: {
@@ -141,7 +141,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
             + '&layotter_type=' + encodeURIComponent(optionsType) + '&layotter_post_id=' + encodeURIComponent(layotterData.postID);
 
         $http({
-            url: ajaxurl + '?action=layotter_parse_options',
+            url: ajaxurl + '?action=layotter_save_options',
             method: 'POST',
             data: values,
             headers: {

@@ -24,22 +24,13 @@ function layotter_get_angular_post_data() {
 add_action('wp_ajax_layotter_edit_element', 'layotter_ajax_edit_element');
 function layotter_ajax_edit_element() {
     if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
-        $layotter_element_id = (int)$_POST['layotter_element_id'];
-        $element = Layotter::create_element_by_id($layotter_element_id);
-        if ($element) {
-            echo json_encode($element->get_form_data());
-        }
+        $id = intval($_POST['layotter_element_id']);
+        $element = Layotter::assemble_element($id);
+        echo $element->get_form_json();
     } else if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
-        if (isset($_POST['layotter_values'])) {
-            $values = $_POST['layotter_values'];
-        } else {
-            $values = array();
-        }
-
-        $element = Layotter::create_element($_POST['layotter_type'], $values);
-        if ($element) {
-            echo json_encode($element->get_form_data());
-        }
+        $type = $_POST['layotter_type'];
+        $element = Layotter::assemble_new_element($type);
+        echo $element->get_form_json();
     }
 
     die(); // required by Wordpress after any AJAX call
@@ -47,41 +38,19 @@ function layotter_ajax_edit_element() {
 
 
 /**
- * Output JSON-encoded element data (called after editing an element)
+ * Output JSON-encoded element data (c<alled after editing an element)
  */
-add_action('wp_ajax_layotter_parse_element', 'layotter_ajax_parse_element');
-function layotter_ajax_parse_element() {
+add_action('wp_ajax_layotter_save_element', 'layotter_ajax_save_element');
+function layotter_ajax_save_element() {
     if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
-        $old_id = (int)$_POST['layotter_element_id'];
-        $id = wp_insert_post(array(
-            'post_type' => Layotter_Editable_Model::post_type,
-            'meta_input' => array(
-                'layotter_element_type' => get_post_meta($old_id, 'layotter_element_type', true)
-            )
-        ));
-
-        $element = Layotter::create_element_by_id($id);
-        if ($element) {
-            echo json_encode($element->to_array());
-        }
-    } else if (isset($_POST['layotter_element_id']) AND isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
-        $id = wp_insert_post(array(
-            'post_type' => Layotter_Editable_Model::post_type,
-            'meta_input' => array(
-                'layotter_element_type' => $_POST['layotter_type']
-            )
-        ));
-
-        $element = Layotter::create_element_by_id($id);
-        if ($element) {
-            echo json_encode($element->to_array());
-        }
+        $id = intval($_POST['layotter_element_id']);
+        $element = Layotter::assemble_element($id);
+        $element->save_from_post_data();
+        echo $element->to_json();
     } else if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
-        $values = Layotter_ACF::unwrap_post_values();
-        $element = Layotter::create_element($_POST['layotter_type'], $values);
-        if ($element) {
-            echo json_encode($element->to_array());
-        }
+        $element = Layotter::assemble_new_element($_POST['layotter_type']);
+        $element->save_from_post_data();
+        echo $element->to_json();
     }
 
     die(); // required by Wordpress after any AJAX call
@@ -124,8 +93,8 @@ function layotter_ajax_edit_options() {
 /**
  * Output JSON-encoded options data (called after editing post, row or element options)
  */
-add_action('wp_ajax_layotter_parse_options', 'layotter_ajax_parse_options');
-function layotter_ajax_parse_options() {
+add_action('wp_ajax_layotter_save_options', 'layotter_ajax_save_options');
+function layotter_ajax_save_options() {
     if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
         if (isset($_POST['layotter_post_id'])) {
             $post_id = $_POST['layotter_post_id'];
