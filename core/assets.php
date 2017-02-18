@@ -66,10 +66,10 @@ function layotter_assets_admin_enqueue_scripts() {
     
     
     // fetch default values for post, row and element options
-    $default_post_options = new Layotter_Options('post');
-    $default_row_options = new Layotter_Options('row');
-    $default_col_options = new Layotter_Options('col');
-    $default_element_options = new Layotter_Options('element');
+    $default_post_options = Layotter::assemble_new_options('post');
+    $default_row_options = Layotter::assemble_new_options('row');
+    $default_col_options = Layotter::assemble_new_options('col');
+    $default_element_options = Layotter::assemble_new_options('element');
     
     
     // fetch content structure for the current post

@@ -87,6 +87,7 @@ class Layotter {
         $type = strval($type);
         $options = new Layotter_Options();
         $options->set_type($type);
+        $options->set_post_type_context(get_post_type());
         return $options;
     }
 
@@ -99,6 +100,7 @@ class Layotter {
     public static function assemble_options($id) {
         $id = intval($id);
         $options = new Layotter_Options($id);
+        $options->set_post_type_context(get_post_type());
         return $options;
     }
 

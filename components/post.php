@@ -89,7 +89,7 @@ class Layotter_Post {
         }
 
         return array(
-            'options' => $this->options->to_array(),
+            'options_id' => $this->options->get_id(),
             'rows' => $rows
         );
     }

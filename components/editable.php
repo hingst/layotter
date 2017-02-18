@@ -8,7 +8,6 @@ abstract class Layotter_Editable {
 
     protected
         $id = 0,
-        $fields = array(),
         // new
         $icon,
         $title,
@@ -16,6 +15,9 @@ abstract class Layotter_Editable {
 
     const
         TYPE_META_FIELD = 'layotter_editable_type';
+
+
+    abstract protected function get_fields();
 
 
     /**
@@ -41,7 +43,7 @@ abstract class Layotter_Editable {
             'title' => $this->title,
             'icon' => $this->icon,
             'nonce' => wp_create_nonce('post'),
-            'fields' => Layotter_ACF::get_form_html($this->fields, $this->id)
+            'fields' => Layotter_ACF::get_form_html($this->get_fields(), $this->id)
         );
     }
 
@@ -60,6 +62,11 @@ abstract class Layotter_Editable {
                 self::TYPE_META_FIELD => $this->type
             )
         ));
+    }
+
+
+    public function get_id() {
+        return $this->id;
     }
 
 }

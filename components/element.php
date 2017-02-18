@@ -9,7 +9,6 @@ abstract class Layotter_Element extends Layotter_Editable {
     
     protected
         // internal use only
-        $options_id = 0,
         $options,
         // user-defined (mandatory)
         $description,
@@ -67,12 +66,11 @@ abstract class Layotter_Element extends Layotter_Editable {
         $this->attributes();
 
         $this->id = intval($id);
-        $this->fields = $this->get_fields();
 
         if ($this->id !== 0) {
             $this->set_type(get_post_meta($id, self::TYPE_META_FIELD, true));
-            $this->options_id = intval(get_post_meta($id, self::OPTIONS_META_FIELD, true));
-            $this->options = Layotter::assemble_options($this->options_id);
+            $options_id = intval(get_post_meta($id, self::OPTIONS_META_FIELD, true));
+            $this->options = Layotter::assemble_options($options_id);
         } else {
             $this->options = Layotter::assemble_new_options('element');
         }
@@ -194,7 +192,7 @@ abstract class Layotter_Element extends Layotter_Editable {
     public function to_array() {
         return array(
             'id' => $this->id,
-            'options_id' => $this->options_id,
+            'options_id' => $this->options->get_id(),
             'view' => $this->get_backend_view()
         );
     }

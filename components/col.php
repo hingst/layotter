@@ -88,7 +88,7 @@ class Layotter_Col {
         }
 
         return array(
-            'options' => $this->options->to_array(),
+            'options_id' => $this->options->get_id(),
             'elements' => $elements
         );
     }

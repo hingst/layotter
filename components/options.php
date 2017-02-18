@@ -34,12 +34,12 @@ class Layotter_Options extends Layotter_Editable {
 
 
     public function set_post_type_context($post_type) {
+        // TODO: this doesn't feel right - rethink
         $this->post_type_context = strval($post_type);
-        $this->fields = $this->get_fields();
     }
 
 
-    private function get_fields() {
+    protected function get_fields() {
         if (!post_type_exists($this->post_type_context)) {
             throw new Exception('Unknown post type: ' . $this->post_type_context);
         }
@@ -64,7 +64,7 @@ class Layotter_Options extends Layotter_Editable {
      * @return boolean Whether options are enabled
      */
     public function is_enabled() {
-        return !empty($this->fields);
+        return !empty($this->get_fields());
     }
 
 

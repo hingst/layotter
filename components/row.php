@@ -95,7 +95,7 @@ class Layotter_Row {
 
         return array(
             'layout' => $this->layout,
-            'options' => $this->options->to_array(),
+            'options_id' => $this->options->get_id(),
             'cols' => $cols
         );
     }
