@@ -87,7 +87,7 @@ function layotter_assets_admin_enqueue_scripts() {
     $element_types = array();
 
     foreach ($element_objects as $element_object) {
-        $element_types[] = $element_object->get_summary();
+        $element_types[] = $element_object->get_metadata();
     }
 
 
