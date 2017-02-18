@@ -114,19 +114,19 @@ function layotter_assets_admin_enqueue_scripts() {
             'options' => array(
                 'post' => array(
                     'enabled' => $default_post_options->is_enabled(),
-                    'defaults' => $default_post_options->get_clean_values(),
+                    'defaults' => $default_post_options->get_values(),
                 ),
                 'row' => array(
                     'enabled' => $default_row_options->is_enabled(),
-                    'defaults' => $default_row_options->get_clean_values(),
+                    'defaults' => $default_row_options->get_values(),
                 ),
                 'col' => array(
                     'enabled' => $default_col_options->is_enabled(),
-                    'defaults' => $default_col_options->get_clean_values(),
+                    'defaults' => $default_col_options->get_values(),
                 ),
                 'element' => array(
                     'enabled' => $default_element_options->is_enabled(),
-                    'defaults' => $default_element_options->get_clean_values(),
+                    'defaults' => $default_element_options->get_values(),
                 )
             ),
             'i18n' => array(

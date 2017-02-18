@@ -13,7 +13,6 @@ class Layotter_Options extends Layotter_Editable {
 
     final public function __construct($id = 0) {
         $this->id = intval($id);
-        $this->values = get_fields($id);
         $this->icon = 'cog';
 
         if ($this->id !== 0) {
@@ -70,11 +69,6 @@ class Layotter_Options extends Layotter_Editable {
 
 
     public function to_array() {
-        return array(); // TODO: implement
-    }
-
-
-    public function get_clean_values() {
         return array(); // TODO: implement
     }
     

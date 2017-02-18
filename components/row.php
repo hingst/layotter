@@ -121,11 +121,4 @@ class Layotter_Row {
         }
     }
 
-
-    public function migrate() {
-        foreach ($this->cols as &$col) {
-            $col->migrate();
-        }
-    }
-
 }

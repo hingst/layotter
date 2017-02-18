@@ -118,11 +118,4 @@ class Layotter_Col {
         }
     }
 
-
-    public function migrate() {
-        foreach ($this->elements as &$element) {
-            $element->migrate();
-        }
-    }
-
 }

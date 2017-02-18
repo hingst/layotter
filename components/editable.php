@@ -8,7 +8,6 @@ abstract class Layotter_Editable {
 
     protected
         $id = 0,
-        $values = array(),
         $fields = array(),
         // new
         $icon,

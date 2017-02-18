@@ -10,6 +10,7 @@ abstract class Layotter_Element extends Layotter_Editable {
     protected
         // internal use only
         $options_id = 0,
+        $options,
         // user-defined (mandatory)
         $description,
         $field_group,
@@ -67,11 +68,13 @@ abstract class Layotter_Element extends Layotter_Editable {
 
         $this->id = intval($id);
         $this->fields = $this->get_fields();
-        $this->values = get_fields($id);
 
         if ($this->id !== 0) {
             $this->set_type(get_post_meta($id, self::TYPE_META_FIELD, true));
             $this->options_id = intval(get_post_meta($id, self::OPTIONS_META_FIELD, true));
+            $this->options = Layotter::assemble_options($this->options_id);
+        } else {
+            $this->options = Layotter::assemble_new_options('element');
         }
 
         $this->register_frontend_hooks();
@@ -191,7 +194,7 @@ abstract class Layotter_Element extends Layotter_Editable {
     public function to_array() {
         return array(
             'id' => $this->id,
-            //'options' => $this->options->to_array(),
+            'options_id' => $this->options_id,
             'view' => $this->get_backend_view()
         );
     }
@@ -209,7 +212,7 @@ abstract class Layotter_Element extends Layotter_Editable {
      */
     final public function get_backend_view() {
         ob_start();
-        $this->backend_view($this->values);
+        $this->backend_view($this->get_values());
         return ob_get_clean();
     }
 
@@ -225,40 +228,15 @@ abstract class Layotter_Element extends Layotter_Editable {
      */
     final public function get_frontend_view($col_options, $row_options, $post_options, $col_width) {
         ob_start();
-        $this->frontend_view($this->values, $col_width, $col_options, $row_options, $post_options);
+        $this->frontend_view($this->get_values(), $col_width, $col_options, $row_options, $post_options);
         $element_html = ob_get_clean();
 
         if (has_filter('layotter/view/element')) {
-            return apply_filters('layotter/view/element', $element_html, $this->options->get_formatted_values(), $col_options, $row_options, $post_options);
+            return apply_filters('layotter/view/element', $element_html, $this->options->get_values(), $col_options, $row_options, $post_options);
         } else {
             $html_wrapper = Layotter_Settings::get_html_wrapper('elements');
             return $html_wrapper['before'] . $element_html . $html_wrapper['after'];
         }
-    }
-
-
-    final public function migrate() {
-        if ($this->id !== 0) {
-            return;
-        }
-
-        $id = wp_insert_post(array(
-            'post_type' => 'layotter_editable'
-        ), true);
-        update_post_meta($id, self::TYPE_META_FIELD, $this->type);
-
-        $values = $this->clean_values;
-
-        foreach ($this->get_fields() as $field) {
-            $field_name = $field['name'];
-
-            if (isset($values[$field_name])) {
-                $field['value'] = $values[$field_name];
-                update_field($field['key'], $field['value'], $id);
-            }
-        }
-
-        $this->id = $id;
     }
 
 
