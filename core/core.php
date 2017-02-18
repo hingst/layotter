@@ -53,7 +53,7 @@ class Layotter {
 
         if (isset(self::$registered_elements[$type])) {
             $element = new self::$registered_elements[$type]();
-            $element->set_type();
+            $element->set_type($type);
             return $element;
         } else {
             throw new Exception('Unknown element type: ' . $type);
