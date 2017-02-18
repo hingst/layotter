@@ -87,12 +87,7 @@ function layotter_assets_admin_enqueue_scripts() {
     $element_types = array();
 
     foreach ($element_objects as $element_object) {
-        $element_types[] = array(
-            'type' => $element_object->get('type'),
-            'title' => $element_object->get('title'),
-            'description' => $element_object->get('description'),
-            'icon' => $element_object->get('icon'),
-        );
+        $element_types[] = $element_object->get_summary();
     }
 
 

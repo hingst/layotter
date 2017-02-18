@@ -151,10 +151,13 @@ class Layotter {
      * @return int -1 if A comes first, 1 if B comes first, 0 if equal
      */
     public static function sort_element_types_helper($element_type_a, $element_type_b) {
-        $a_order = $element_type_a->get('order');
-        $b_order = $element_type_b->get('order');
-        $a_title = $element_type_a->get('title');
-        $b_title = $element_type_b->get('title');
+        $a_metadata = $element_type_a->get_metadata();
+        $b_metadata = $element_type_b->get_metadata();
+
+        $a_order = $a_metadata['order'];
+        $b_order = $b_metadata['order'];
+        $a_title = $a_metadata['title'];
+        $b_title = $b_metadata['title'];
 
         if ($a_order < $b_order) {
             return -1;

@@ -170,32 +170,14 @@ abstract class Layotter_Element extends Layotter_Editable {
     }
 
 
-    /**
-     * Get element data
-     *
-     * @param string $what What to get - can be 'type', 'title', 'description', 'icon'
-     * @return string Requested data
-     */
-    final public function get($what) {
-        switch ($what) {
-            case 'type':
-                return $this->type;
-
-            case 'title':
-                return $this->title;
-
-            case 'description':
-                return $this->description;
-
-            case 'icon':
-                return $this->icon;
-
-            case 'order':
-                return $this->order;
-
-            default:
-                return null;
-        }
+    public function get_metadata() {
+        return array(
+            'type' => $this->type,
+            'title' => $this->title,
+            'description' => $this->description,
+            'icon' => $this->icon,
+            'order' => $this->order
+        );
     }
 
 
