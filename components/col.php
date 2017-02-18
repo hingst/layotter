@@ -32,12 +32,9 @@ class Layotter_Col {
             }
 
             // if the template doesn't exist anymore, create a regular element
+            // TODO: re-implement (see line above)
             if (!$element_object) {
-                if (isset($element['id']) AND $element['id']) {
-                    $element_object = Layotter::create_element_by_id($element['id']);
-                } else {
-                    $element_object = Layotter::create_element($element);
-                }
+                $element_object = Layotter::assemble_element($element['id']);
             }
 
             if ($element_object) {

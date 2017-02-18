@@ -122,6 +122,8 @@ function layotter_ajax_save_options() {
  */
 add_action('wp_ajax_layotter_save_new_template', 'layotter_ajax_save_new_template');
 function layotter_ajax_save_new_template() {
+    return; // TODO: implement
+
     $post_data = layotter_get_angular_post_data();
     
     // type and field values are required
@@ -148,6 +150,8 @@ function layotter_ajax_save_new_template() {
  */
 add_action('wp_ajax_layotter_edit_template', 'layotter_ajax_edit_template');
 function layotter_ajax_edit_template() {
+    return; // TODO: implement
+
     $post_data = layotter_get_angular_post_data();
 
     // template ID is required
@@ -167,6 +171,8 @@ function layotter_ajax_edit_template() {
  */
 add_action('wp_ajax_layotter_update_template', 'layotter_ajax_update_template');
 function layotter_ajax_update_template() {
+    return; // TODO: implement
+
     $post_data = layotter_get_angular_post_data();
     
     // type and field values are required
@@ -195,6 +201,8 @@ function layotter_ajax_update_template() {
  */
 add_action('wp_ajax_layotter_delete_template', 'layotter_ajax_delete_template');
 function layotter_ajax_delete_template() {
+    return; // TODO: implement
+
     $post_data = layotter_get_angular_post_data();
 
     // template ID is required

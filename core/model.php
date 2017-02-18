@@ -43,7 +43,7 @@ class Layotter_Editable_Model {
             'show_ui'            => Layotter_Settings::is_debug_mode_enabled(),
             'show_in_menu'       => false,
             'capability_type'    => 'post',
-            'supports'           => array('title'),
+            'supports'           => array('title', 'custom-fields'),
             'capabilities' => array(
                 'create_posts'   => 'do_not_allow',
                 'delete_post'    => 'do_not_allow',

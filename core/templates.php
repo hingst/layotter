@@ -70,6 +70,8 @@ class Layotter_Templates {
      * @return array Array representations of element instances for all templates
      */
     public static function get_all_for_post($post_id) {
+        return array(); // TODO: implement
+
         $templates = array();
         $saved_templates = get_option('layotter_element_templates');
         if (!is_array($saved_templates)) {
@@ -158,6 +160,8 @@ class Layotter_Templates {
      * @return mixed New element instance, or false on failure
      */
     public static function create_element($id_or_structure, $options = array()) {
+        return false; // TODO: implement
+
         $element = false;
 
         if (is_array($id_or_structure)) {

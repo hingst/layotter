@@ -67,6 +67,16 @@ class Layotter_Options extends Layotter_Editable {
     public function is_enabled() {
         return !empty($this->fields);
     }
+
+
+    public function to_array() {
+        return array(); // TODO: implement
+    }
+
+
+    public function get_clean_values() {
+        return array(); // TODO: implement
+    }
     
     
 }
