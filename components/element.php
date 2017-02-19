@@ -69,11 +69,9 @@ abstract class Layotter_Element extends Layotter_Editable {
 
         if ($this->id !== 0) {
             $this->set_type(get_post_meta($id, self::TYPE_META_FIELD, true));
-            $options_id = intval(get_post_meta($id, self::OPTIONS_META_FIELD, true));
-            $this->options = Layotter::assemble_options($options_id);
-        } else {
-            $this->options = Layotter::assemble_new_options('element');
         }
+
+        $this->options = Layotter::assemble_new_options('element');
 
         $this->register_frontend_hooks();
     }
@@ -235,6 +233,17 @@ abstract class Layotter_Element extends Layotter_Editable {
             $html_wrapper = Layotter_Settings::get_html_wrapper('elements');
             return $html_wrapper['before'] . $element_html . $html_wrapper['after'];
         }
+    }
+
+
+    public function get_options() {
+        return $this->options;
+    }
+
+
+    public function set_options($id) {
+        $this->options = Layotter::assemble_options($id);
+        $this->options->set_post_type_context(get_post_type());
     }
 
 

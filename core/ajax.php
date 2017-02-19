@@ -66,24 +66,22 @@ function layotter_ajax_save_element() {
  */
 add_action('wp_ajax_layotter_edit_options', 'layotter_ajax_edit_options');
 function layotter_ajax_edit_options() {
-    // type and option values are required
-    if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
-        if (isset($_POST['layotter_values'])) {
-            $values = $_POST['layotter_values'];
-        } else {
-            $values = array();
-        }
+    if (isset($_POST['layotter_post_id'])) {
+        $post_type_context = get_post_type($_POST['layotter_post_id']);
+    } else {
+        $post_type_context = '';
+    }
 
-        if (isset($_POST['layotter_post_id'])) {
-            $post_id = $_POST['layotter_post_id'];
-        } else {
-            $post_id = '';
-        }
-
-        $options = new Layotter_Options($_POST['layotter_type'], $values, $post_id);
-        if ($options->is_enabled()) {
-            echo json_encode($options->get_form_data());
-        }
+    if (isset($_POST['layotter_options_id']) AND ctype_digit($_POST['layotter_options_id']) AND $_POST['layotter_options_id'] != 0) {
+        $id = intval($_POST['layotter_options_id']);
+        $options = Layotter::assemble_options($id);
+        $options->set_post_type_context($post_type_context);
+        echo $options->get_form_json();
+    } else if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
+        $type = $_POST['layotter_type'];
+        $options = Layotter::assemble_new_options($type);
+        $options->set_post_type_context($post_type_context);
+        echo $options->get_form_json();
     }
 
     die(); // required by Wordpress after any AJAX call
@@ -95,18 +93,23 @@ function layotter_ajax_edit_options() {
  */
 add_action('wp_ajax_layotter_save_options', 'layotter_ajax_save_options');
 function layotter_ajax_save_options() {
-    if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
-        if (isset($_POST['layotter_post_id'])) {
-            $post_id = $_POST['layotter_post_id'];
-        } else {
-            $post_id = '';
-        }
+    if (isset($_POST['layotter_post_id'])) {
+        $post_type_context = get_post_type($_POST['layotter_post_id']);
+    } else {
+        $post_type_context = '';
+    }
 
-        $values = Layotter_ACF::unwrap_post_values();
-        $options = new Layotter_Options($_POST['layotter_type'], $values, $post_id);
-        if($options->is_enabled()) {
-            echo json_encode($options->to_array());
-        }
+    if (isset($_POST['layotter_options_id']) AND ctype_digit($_POST['layotter_options_id']) AND $_POST['layotter_options_id'] != 0) {
+        $id = intval($_POST['layotter_options_id']);
+        $options = Layotter::assemble_options($id);
+        $options->set_post_type_context($post_type_context);
+        $options->save_from_post_data();
+        echo $options->to_json();
+    } else if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
+        $options = Layotter::assemble_new_options($_POST['layotter_type']);
+        $options->set_post_type_context($post_type_context);
+        $options->save_from_post_data();
+        echo $options->to_json();
     }
 
     die(); // required by Wordpress after any AJAX call

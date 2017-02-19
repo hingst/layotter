@@ -120,7 +120,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         state.setElement(item);
         forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_options', {
             layotter_type: type,
-            layotter_values: item.options,
+            layotter_options_id: item.options_id,
             layotter_post_id: layotterData.postID
         });
     };
@@ -148,7 +148,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).success(function(reply) {
-            editingItem.options = reply;
+            editingItem.options_id = parseInt(reply);
             editingItem.isLoading = undefined;
             history.pushStep(layotterData.i18n.history['edit_' + optionsType + '_options']);
         });

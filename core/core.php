@@ -66,12 +66,14 @@ class Layotter {
      * @return Layotter_Element
      * @throws Exception
      */
-    public static function assemble_element($id) {
+    public static function assemble_element($id, $options_id = 0) {
         $id = intval($id);
         $type = get_post_meta($id, Layotter_Editable::TYPE_META_FIELD, true);
 
         if (isset(self::$registered_elements[$type])) {
-            return new self::$registered_elements[$type]($id);
+            $element = new self::$registered_elements[$type]($id);
+            $element->set_options($options_id);
+            return $element;
         } else {
             throw new Exception('Element with ID ' . $id . ' has unknown type.');
         }

@@ -68,6 +68,12 @@ class Layotter_Options extends Layotter_Editable {
     }
 
 
+    public function to_json() {
+        // TODO: this is pointless
+        return json_encode($this->get_id());
+    }
+
+
     public function to_array() {
         return array(); // TODO: implement
     }
