@@ -50,7 +50,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         var editingElement = state.getElement();
         if (state.getOptionsType()) {
             _this.saveOptions();
-        } else if (typeof editingElement.template_id !== 'undefined') {
+        } else if (editingElement.is_template) {
             templates.saveTemplate();
         } else {
             _this.saveElement();
@@ -102,6 +102,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
             editingElement.values = reply.values;
             editingElement.id = reply.id;
             editingElement.view = reply.view;
+            editingElement.is_template = reply.is_template;
             editingElement.isLoading = undefined;
             editingElement.type = undefined;
             if (isNewElement) {

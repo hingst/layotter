@@ -24,22 +24,8 @@ class Layotter_Col {
         $this->options = Layotter::assemble_options($structure['options_id']);
 
         foreach ($structure['elements'] as $element) {
-            $element_object = false;
-
-            // if a template_id is set, try to create a template
-            if (isset($element['template_id'])) {
-                $element_object = Layotter_Templates::create_element($element);
-            }
-
-            // if the template doesn't exist anymore, create a regular element
-            // TODO: re-implement (see line above)
-            if (!$element_object) {
-                $element_object = Layotter::assemble_element($element['id'], $element['options_id']);
-            }
-
-            if ($element_object) {
-                $this->elements[] = $element_object;
-            }
+            $element_object = Layotter::assemble_element($element['id'], $element['options_id']);
+            $this->elements[] = $element_object;
         }
     }
 

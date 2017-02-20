@@ -125,23 +125,10 @@ function layotter_ajax_save_options() {
  */
 add_action('wp_ajax_layotter_save_new_template', 'layotter_ajax_save_new_template');
 function layotter_ajax_save_new_template() {
-    return; // TODO: implement
-
-    $post_data = layotter_get_angular_post_data();
-    
-    // type and field values are required
-    if (isset($post_data['type']) AND is_string($post_data['type'])) {
-        if (isset($post_data['values'])) {
-            $values = $post_data['values'];
-        } else {
-            $values = array();
-        }
-
-        $element = Layotter::create_element($post_data['type'], $values);
-        if ($element) {
-            $template = Layotter_Templates::save($element);
-            echo json_encode($template->to_array());
-        }
+    if (isset($_POST['id']) AND ctype_digit($_POST['id'])) {
+        $element = Layotter::assemble_element($_POST['id']);
+        $element->set_template(true);
+        echo $element->to_json();
     }
 
     die(); // required by Wordpress after any AJAX call
@@ -153,16 +140,10 @@ function layotter_ajax_save_new_template() {
  */
 add_action('wp_ajax_layotter_edit_template', 'layotter_ajax_edit_template');
 function layotter_ajax_edit_template() {
-    return; // TODO: implement
-
-    $post_data = layotter_get_angular_post_data();
-
-    // template ID is required
-    if (isset($post_data['template_id']) AND is_int($post_data['template_id'])) {
-        $element = Layotter_Templates::create_element($post_data['template_id']);
-        if ($element) {
-            echo json_encode($element->get_form_data());
-        }
+    if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
+        $id = intval($_POST['layotter_element_id']);
+        $element = Layotter::assemble_element($id);
+        echo $element->get_form_json();
     }
 
     die(); // required by Wordpress after any AJAX call
@@ -174,25 +155,11 @@ function layotter_ajax_edit_template() {
  */
 add_action('wp_ajax_layotter_update_template', 'layotter_ajax_update_template');
 function layotter_ajax_update_template() {
-    return; // TODO: implement
-
-    $post_data = layotter_get_angular_post_data();
-    
-    // type and field values are required
-    if (isset($post_data['template_id']) AND is_int($post_data['template_id'])) {
-        $id = $post_data['template_id'];
-        $template = Layotter_Templates::get($id);
-
-        if ($template) {
-            $values = Layotter_ACF::unwrap_post_values();
-
-            $element = Layotter::create_element($template['type'], $values);
-            if ($element) {
-                $element->set_template_id($id);
-                Layotter_Templates::update($id, $element->get_template_data());
-                echo json_encode($element->to_array());
-            }
-        }
+    if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
+        $id = intval($_POST['layotter_element_id']);
+        $element = Layotter::assemble_element($id);
+        $element->update_from_post_data();
+        echo $element->to_json();
     }
 
     die(); // required by Wordpress after any AJAX call
@@ -204,18 +171,11 @@ function layotter_ajax_update_template() {
  */
 add_action('wp_ajax_layotter_delete_template', 'layotter_ajax_delete_template');
 function layotter_ajax_delete_template() {
-    return; // TODO: implement
-
-    $post_data = layotter_get_angular_post_data();
-
-    // template ID is required
-    if (isset($post_data['template_id'])) {
-        $template_object = Layotter_Templates::create_element($post_data['template_id']);
-        if ($template_object) {
-            Layotter_Templates::delete($post_data['template_id']);
-            $template_object->unset_template_id();
-            echo json_encode($template_object->to_array());
-        }
+    if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
+        $id = intval($_POST['layotter_element_id']);
+        $element = Layotter::assemble_element($id);
+        $element->set_template(false);
+        echo $element->to_json();
     }
 
     die(); // required by Wordpress after any AJAX call

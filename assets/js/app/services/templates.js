@@ -21,7 +21,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
             okAction: function(){
                 state.setElement(element);
                 forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_template', {
-                    template_id: element.template_id
+                    layotter_element_id: element.id
                 });
             },
             cancelText: layotterData.i18n.cancel
@@ -41,13 +41,13 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
                 $http({
                     url: ajaxurl + '?action=layotter_delete_template',
                     method: 'POST',
-                    data: {
-                        template_id: _this.savedTemplates[index].template_id
+                    data: 'layotter_element_id=' + _this.savedTemplates[index].id,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(function(reply) {
-                    history.deletedTemplates.push(_this.savedTemplates[index].template_id);
-                    _this.savedTemplates[index].type = reply.type;
-                    _this.savedTemplates[index].values = reply.values;
+                    history.deletedTemplates.push(_this.savedTemplates[index].id);
+                    _this.savedTemplates[index].id = reply.id;
                     _this.savedTemplates[index].view = reply.view;
                     _this.savedTemplates[index].isLoading = undefined;
                     _this.savedTemplates[index].isHighlighted = undefined;
@@ -73,9 +73,9 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
         $http({
             url: ajaxurl + '?action=layotter_save_new_template',
             method: 'POST',
-            data: {
-                type: element.type,
-                values: element.values
+            data: 'id=' + element.id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).success(function(reply) {
             $animate.enabled(false);
@@ -84,9 +84,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
                 $animate.enabled(true);
             }, 1);
             element.isLoading = undefined;
-            element.template_id = reply.template_id;
-            element.type = undefined;
-            element.values = undefined;
+            element.is_template = reply.is_template;
             _this.watchTemplate(element);
             history.pushStep(layotterData.i18n.history.save_element_as_template);
         });
@@ -97,19 +95,21 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
      * Save template data from the form that's currently being displayed
      */
     this.saveTemplate = function() {
-        var values = jQuery('#layotter-edit, .layotter-modal #post').serializeObject();
-        
         // copy editing.element so state can be reset while ajax is still loading
         var editingElement = state.getElement();
         state.reset();
         editingElement.isLoading = true;
+
+        // build query string from form data
+        var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
+            + '&layotter_element_id=' + encodeURIComponent(editingElement.id);
         
         $http({
             url: ajaxurl + '?action=layotter_update_template',
             method: 'POST',
-            data: {
-                template_id: editingElement.template_id,
-                values: values
+            data: values,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).success(function(reply) {
             editingElement.view = reply.view;
@@ -138,12 +138,12 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
         $rootScope.$watch(function () {
             return template;
         }, function (value) {
-            var template_id = value.template_id;
+            var template_id = value.id;
 
             angular.forEach(data.contentStructure.rows, function(row){
                 angular.forEach(row.cols, function(col){
                     angular.forEach(col.elements, function(element){
-                        if (element.template_id == template_id) {
+                        if (element.id == template_id) {
                             var templateCopy = angular.copy(value);
                             templateCopy.options = element.options;
                             angular.extend(element, templateCopy);

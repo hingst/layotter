@@ -50,9 +50,10 @@ app.service('history', function($animate, $timeout, data) {
         angular.forEach(contentClone.rows, function(row){
             angular.forEach(row.cols, function(col){
                 angular.forEach(col.elements, function(element){
-                    if (typeof element.template_id !== 'undefined' && !element.template_deleted) {
+                    if (element.is_template && !element.template_deleted) {
                         if (_this.deletedTemplates.indexOf(element.template_id) !== -1) {
-                            element.template_id = -1;
+                            // TODO: this is completely broken
+                            element.is_template = false;
                             element.template_deleted = true;
                         }
                     }

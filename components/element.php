@@ -10,11 +10,15 @@ abstract class Layotter_Element extends Layotter_Editable {
     protected
         // internal use only
         $options,
+        $is_template = false,
         // user-defined (mandatory)
         $description,
         $field_group,
         // user-defined (optional)
         $order = 0;
+
+    const
+        IS_TEMPLATE_META_FIELD = 'layotter_is_template';
 
 
     /**
@@ -66,6 +70,9 @@ abstract class Layotter_Element extends Layotter_Editable {
 
         if ($this->id !== 0) {
             $this->set_type(get_post_meta($id, self::TYPE_META_FIELD, true));
+            if (get_post_meta($id, self::IS_TEMPLATE_META_FIELD, true)) {
+                $this->is_template = true;
+            }
         }
 
         $this->options = Layotter::assemble_new_options('element');
@@ -188,8 +195,15 @@ abstract class Layotter_Element extends Layotter_Editable {
         return array(
             'id' => $this->id,
             'options_id' => $this->options->get_id(),
-            'view' => $this->get_backend_view()
+            'view' => $this->get_backend_view(),
+            'is_template' => $this->is_template
         );
+    }
+
+
+    public function set_template($bool) {
+        $this->is_template = $bool;
+        update_post_meta($this->id, self::IS_TEMPLATE_META_FIELD, $bool);
     }
 
 
@@ -241,6 +255,15 @@ abstract class Layotter_Element extends Layotter_Editable {
     public function set_options($id) {
         $this->options = Layotter::assemble_options($id);
         $this->options->set_post_type_context(get_post_type());
+    }
+
+
+    public function update_from_post_data() {
+        // wp_insert_post triggers ACF hooks that read from $_POST and save custom fields
+        // it's ridiculous
+        wp_update_post(array(
+            'ID' => $this->id
+        ));
     }
 
 

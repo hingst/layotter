@@ -61,17 +61,17 @@
                                 <div class="layotter-element-canvas">
                                     <div class="layotter-element-buttons">
                                         <span class="layotter-element-button" ng-click="deleteElement(col.elements, $index)" title="<?php _e('Delete element', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>
-                                        <span class="layotter-element-button" ng-hide="element.template_id !== undefined && !element.template_deleted" ng-click="editElement(element)" title="<?php _e('Edit element', 'layotter'); ?>"><i class="fa fa-pencil"></i></span>
+                                        <span class="layotter-element-button" ng-hide="element.is_template && !element.template_deleted" ng-click="editElement(element)" title="<?php _e('Edit element', 'layotter'); ?>"><i class="fa fa-pencil"></i></span>
                                         <div class="layotter-element-dropdown">
                                             <i class="fa fa-caret-down"></i>
                                             <div class="layotter-element-dropdown-items">
                                                 <span ng-click="editOptions('element', element)" ng-show="optionsEnabled.element"><i class="fa fa-cog"></i><?php _e('Element options', 'layotter'); ?></span>
                                                 <span ng-click="duplicateElement(col.elements, $index)"><i class="fa fa-files-o"></i><?php _e('Duplicate element', 'layotter'); ?></span>
-                                                <span ng-hide="element.template_id !== undefined && !element.template_deleted" ng-click="saveNewTemplate(element)" ng-if="enableElementTemplates"><i class="fa fa-star"></i><?php _e('Save as template', 'layotter'); ?></span>
+                                                <span ng-hide="element.is_template && !element.template_deleted" ng-click="saveNewTemplate(element)" ng-if="enableElementTemplates"><i class="fa fa-star"></i><?php _e('Save as template', 'layotter'); ?></span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="layotter-element-message" ng-show="element.template_id !== undefined && !element.template_deleted">
+                                    <div class="layotter-element-message" ng-show="element.is_template && !element.template_deleted">
                                         <?php _e('This is a template.', 'layotter'); ?>
                                     </div>
                                     <div class="layotter-element-content" ng-bind-html="element.view"></div>

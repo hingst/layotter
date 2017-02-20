@@ -53,14 +53,15 @@ abstract class Layotter_Editable {
     }
 
 
-    final public function save_from_post_data() {
+    public function save_from_post_data() {
         // wp_insert_post triggers ACF hooks that read from $_POST and save custom fields
         // it's ridiculous
         $this->id = wp_insert_post(array(
             'post_type' => Layotter_Editable_Model::post_type,
             'meta_input' => array(
                 self::TYPE_META_FIELD => $this->type
-            )
+            ),
+            'post_status' => 'publish'
         ));
     }
 
