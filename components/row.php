@@ -22,7 +22,7 @@ class Layotter_Row {
         $structure = $this->apply_layout($structure);
 
         $this->layout = $structure['layout'];
-        $this->options = new Layotter_Options('row', $structure['options']);
+        $this->options = Layotter::assemble_options($structure['options_id']);
 
         foreach ($structure['cols'] as $col) {
             $this->cols[] = new Layotter_Col($col);

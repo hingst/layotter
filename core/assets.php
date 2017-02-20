@@ -66,10 +66,10 @@ function layotter_assets_admin_enqueue_scripts() {
     
     
     // fetch default values for post, row and element options
-    $default_post_options = Layotter::assemble_new_options('post');
-    $default_row_options = Layotter::assemble_new_options('row');
-    $default_col_options = Layotter::assemble_new_options('col');
-    $default_element_options = Layotter::assemble_new_options('element');
+    $post_options = Layotter::assemble_new_options('post');
+    $row_options = Layotter::assemble_new_options('row');
+    $col_options = Layotter::assemble_new_options('col');
+    $element_options = Layotter::assemble_new_options('element');
     
     
     // fetch content structure for the current post
@@ -111,23 +111,11 @@ function layotter_assets_admin_enqueue_scripts() {
             'enablePostLayouts' => $enable_post_layouts,
             'enableElementTemplates' => $enable_element_templates,
             'elementTypes' => $element_types,
-            'options' => array(
-                'post' => array(
-                    'enabled' => $default_post_options->is_enabled(),
-                    'defaults' => $default_post_options->get_values(),
-                ),
-                'row' => array(
-                    'enabled' => $default_row_options->is_enabled(),
-                    'defaults' => $default_row_options->get_values(),
-                ),
-                'col' => array(
-                    'enabled' => $default_col_options->is_enabled(),
-                    'defaults' => $default_col_options->get_values(),
-                ),
-                'element' => array(
-                    'enabled' => $default_element_options->is_enabled(),
-                    'defaults' => $default_element_options->get_values(),
-                )
+            'isOptionsEnabled' => array(
+                'post' => $post_options->is_enabled(),
+                'row' => $row_options->is_enabled(),
+                'col' => $col_options->is_enabled(),
+                'element' => $element_options->is_enabled()
             ),
             'i18n' => array(
                 'delete_row' => __('Delete row', 'layotter'),

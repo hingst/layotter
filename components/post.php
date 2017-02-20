@@ -20,7 +20,7 @@ class Layotter_Post {
         $structure = $this->get_structure($id_or_json);
         $structure = $this->validate_structure($structure);
 
-        $this->options = new Layotter_Options('post', $structure['options']);
+        $this->options = Layotter::assemble_options($structure['options_id']);
 
         foreach ($structure['rows'] as $row) {
             $this->rows[] = new Layotter_Row($row);

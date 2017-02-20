@@ -16,10 +16,10 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
     // data received from php
     $scope.allowedRowLayouts = layotterData.allowedRowLayouts;
     $scope.optionsEnabled = {
-        post: layotterData.options.post.enabled,
-        row: layotterData.options.row.enabled,
-        col: layotterData.options.col.enabled,
-        element: layotterData.options.element.enabled
+        post: layotterData.isOptionsEnabled.post,
+        row: layotterData.isOptionsEnabled.row,
+        col: layotterData.isOptionsEnabled.col,
+        element: layotterData.isOptionsEnabled.element
     };
     $scope.enablePostLayouts = layotterData.enablePostLayouts;
     $scope.enableElementTemplates = layotterData.enableElementTemplates;

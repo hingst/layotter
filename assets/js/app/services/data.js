@@ -5,7 +5,7 @@ app.service('data', function(){
     // use default post options for new posts
     if (layotterData.contentStructure === null) {
         this.contentStructure = {
-            options: layotterData.options.post.defaults,
+            options_id: 0,
             rows: []
         };
     } else {
@@ -21,17 +21,15 @@ app.service('data', function(){
     // new element template
     this.templates.element = {
         id: 0,
-        type: undefined,
-        values: [],
         view: '',
-        options: layotterData.options.element.defaults
+        options_id: 0
     };
 
 
     // new col template
     this.templates.col = {
         elements: [],
-        options: layotterData.options.col.defaults
+        options_id: 0
     };
 
 
@@ -47,6 +45,6 @@ app.service('data', function(){
     this.templates.row = {
         layout: defaultRowLayout,
         cols: defaultCols,
-        options: layotterData.options.row.defaults
+        options_id: 0
     };
 });

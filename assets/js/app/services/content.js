@@ -103,6 +103,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
             editingElement.id = reply.id;
             editingElement.view = reply.view;
             editingElement.isLoading = undefined;
+            editingElement.type = undefined;
             if (isNewElement) {
                 history.pushStep(layotterData.i18n.history.add_element);
             } else {

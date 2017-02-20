@@ -21,7 +21,7 @@ class Layotter_Col {
         $structure = $this->validate_structure($structure);
 
         $this->width = $structure['width'];
-        $this->options = new Layotter_Options('col', $structure['options']);
+        $this->options = Layotter::assemble_options($structure['options_id']);
 
         foreach ($structure['elements'] as $element) {
             $element_object = false;
