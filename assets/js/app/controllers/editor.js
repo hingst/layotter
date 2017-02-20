@@ -36,6 +36,7 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
                 angular.forEach(col.elements, function(element){
                     delete element.view;
                     delete element.is_template;
+                    delete element.isLoading;
                 });
             });
         });

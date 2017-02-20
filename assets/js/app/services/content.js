@@ -89,7 +89,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
 
         // build query string from form data
         var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
-            + '&layotter_element_id=' + encodeURIComponent(editingElement.id) + '&layotter_type=' + encodeURIComponent(editingElement.type);
+            + '&layotter_element_id=' + encodeURIComponent(editingElement.id);
         
         $http({
             url: ajaxurl + '?action=layotter_save_element',
@@ -99,12 +99,11 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).success(function(reply) {
-            editingElement.values = reply.values;
             editingElement.id = reply.id;
             editingElement.view = reply.view;
             editingElement.is_template = reply.is_template;
             editingElement.isLoading = undefined;
-            editingElement.type = undefined;
+            editingElement.type = undefined; // TODO: do I need this?
             if (isNewElement) {
                 history.pushStep(layotterData.i18n.history.add_element);
             } else {

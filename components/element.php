@@ -207,6 +207,11 @@ abstract class Layotter_Element extends Layotter_Editable {
     }
 
 
+    public function is_template() {
+        return $this->is_template;
+    }
+
+
     public function to_json() {
         return json_encode($this->to_array());
     }
@@ -258,6 +263,7 @@ abstract class Layotter_Element extends Layotter_Editable {
     }
 
 
+    // for templates only
     public function update_from_post_data() {
         // wp_insert_post triggers ACF hooks that read from $_POST and save custom fields
         // it's ridiculous

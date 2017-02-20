@@ -32,7 +32,6 @@ function layotter() {
         require_once __DIR__ . '/core/ajax.php';
         require_once __DIR__ . '/core/assets.php';
         require_once __DIR__ . '/core/interface.php';
-        require_once __DIR__ . '/core/templates.php';
         require_once __DIR__ . '/core/layouts.php';
         require_once __DIR__ . '/core/acf-locations.php';
         require_once __DIR__ . '/core/shortcode.php';

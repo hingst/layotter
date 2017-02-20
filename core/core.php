@@ -42,6 +42,10 @@ class Layotter {
         return true;
     }
 
+    public static function get_registered_element_types() {
+        return self::$registered_elements;
+    }
+
 
     /**
      * @param string $type
@@ -119,57 +123,6 @@ class Layotter {
         }
 
         return preg_replace('/[^a-z_]/', '', $type); // only a-z and _ allowed
-    }
-
-
-    /**
-     * Get element types enabled for a specific post
-     *
-     * @param int $post_id Post ID
-     * @return array Element instances
-     */
-    public static function get_filtered_element_types($post_id) {
-        $elements = array();
-
-        foreach (array_keys(self::$registered_elements) as $element_type) {
-            $element = Layotter::assemble_new_element($element_type);
-            if ($element->is_enabled_for($post_id)) {
-                $elements[] = $element;
-            }
-        }
-
-        usort($elements, array(__CLASS__, 'sort_element_types_helper'));
-
-        return $elements;
-    }
-
-
-    /**
-     * Helper used to sort a set of element types (to be used with usort())
-     *
-     * Sorts using the order attribute. Elements with the same order attribute are sorted alphabetically
-     * by name. Elements without an order attribute are treated as order = 0.
-     *
-     * @param Layotter_Element $element_type_a First element type for comparison
-     * @param Layotter_Element $element_type_b Second element type for comparison
-     * @return int -1 if A comes first, 1 if B comes first, 0 if equal
-     */
-    public static function sort_element_types_helper($element_type_a, $element_type_b) {
-        $a_metadata = $element_type_a->get_metadata();
-        $b_metadata = $element_type_b->get_metadata();
-
-        $a_order = $a_metadata['order'];
-        $b_order = $b_metadata['order'];
-        $a_title = $a_metadata['title'];
-        $b_title = $b_metadata['title'];
-
-        if ($a_order < $b_order) {
-            return -1;
-        } else if ($a_order > $b_order) {
-            return 1;
-        } else {
-            return strcasecmp($a_title, $b_title);
-        }
     }
 
 

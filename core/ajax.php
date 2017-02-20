@@ -45,7 +45,11 @@ function layotter_ajax_save_element() {
     if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
         $id = intval($_POST['layotter_element_id']);
         $element = Layotter::assemble_element($id);
-        $element->save_from_post_data();
+        if ($element->is_template()) {
+            $element->update_from_post_data();
+        } else {
+            $element->save_from_post_data();
+        }
         echo $element->to_json();
     } else if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
         $element = Layotter::assemble_new_element($_POST['layotter_type']);
@@ -128,37 +132,6 @@ function layotter_ajax_save_new_template() {
     if (isset($_POST['id']) AND ctype_digit($_POST['id'])) {
         $element = Layotter::assemble_element($_POST['id']);
         $element->set_template(true);
-        echo $element->to_json();
-    }
-
-    die(); // required by Wordpress after any AJAX call
-}
-
-
-/**
- * Output the edit form for a template
- */
-add_action('wp_ajax_layotter_edit_template', 'layotter_ajax_edit_template');
-function layotter_ajax_edit_template() {
-    if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
-        $id = intval($_POST['layotter_element_id']);
-        $element = Layotter::assemble_element($id);
-        echo $element->get_form_json();
-    }
-
-    die(); // required by Wordpress after any AJAX call
-}
-
-
-/**
- * Update element template and output the template's JSON-encoded data
- */
-add_action('wp_ajax_layotter_update_template', 'layotter_ajax_update_template');
-function layotter_ajax_update_template() {
-    if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
-        $id = intval($_POST['layotter_element_id']);
-        $element = Layotter::assemble_element($id);
-        $element->update_from_post_data();
         echo $element->to_json();
     }
 

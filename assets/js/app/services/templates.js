@@ -20,7 +20,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
             okText: layotterData.i18n.edit_template,
             okAction: function(){
                 state.setElement(element);
-                forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_template', {
+                forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_element', {
                     layotter_element_id: element.id
                 });
             },
@@ -105,7 +105,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
             + '&layotter_element_id=' + encodeURIComponent(editingElement.id);
         
         $http({
-            url: ajaxurl + '?action=layotter_update_template',
+            url: ajaxurl + '?action=layotter_save_element',
             method: 'POST',
             data: values,
             headers: {
