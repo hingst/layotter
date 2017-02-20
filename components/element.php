@@ -16,9 +16,6 @@ abstract class Layotter_Element extends Layotter_Editable {
         // user-defined (optional)
         $order = 0;
 
-    const
-        OPTIONS_META_FIELD = 'layotter_options_id';
-
 
     /**
      * Must assign $this->title, $this->description, $this->icon and $this->field_group
