@@ -37,6 +37,7 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
                     delete element.view;
                     delete element.is_template;
                     delete element.isLoading;
+                    delete element.isHighlighted;
                 });
             });
         });
