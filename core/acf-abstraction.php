@@ -290,15 +290,13 @@ class Layotter_ACF
      * @return array Raw field values
      */
     public static function unwrap_post_values() {
-        $post_data = layotter_get_angular_post_data();
-
         if (self::is_pro_installed()) {
-            if (isset($post_data['values']['acf']) AND is_array($post_data['values']['acf'])) {
-                return $post_data['values']['acf'];
+            if (isset($_POST['acf']) AND is_array($_POST['acf'])) {
+                return $_POST['acf'];
             }
         } else {
-            if (isset($post_data['values']['fields']) AND is_array($post_data['values']['fields'])) {
-                return $post_data['values']['fields'];
+            if (isset($_POST['fields']) AND is_array($_POST['fields'])) {
+                return $_POST['fields'];
             }
         }
 

@@ -74,12 +74,6 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
      * Save values from the element edit form being currently displayed
      */
     this.saveElement = function() {
-        // ACF wraps all form fields in a required object called 'acf'
-        var values = jQuery('#layotter-edit, .layotter-modal #post').serializeObject();
-        if (typeof values.acf == 'undefined') {
-            values.acf = {};
-        }
-        
         // add element to model if creating a new element
         var isNewElement = false;
         if (state.getParent() !== null) {
@@ -91,13 +85,21 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         var editingElement = state.getElement();
         state.reset();
         editingElement.isLoading = true;
+
+
+        // ACF wraps all form fields in a required object called 'acf'
+        var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
+        + '&layotter_element_type=' + encodeURIComponent(editingElement.type);
+
+
+        console.log(values);
         
         $http({
             url: ajaxurl + '?action=layotter_parse_element',
             method: 'POST',
-            data: {
-                type: editingElement.type,
-                values: values
+            data: values,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).success(function(reply) {
             editingElement.values = reply.values;

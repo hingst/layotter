@@ -48,11 +48,9 @@ function layotter_ajax_edit_element() {
  */
 add_action('wp_ajax_layotter_parse_element', 'layotter_ajax_parse_element');
 function layotter_ajax_parse_element() {
-    $post_data = layotter_get_angular_post_data();
-
-    if (isset($post_data['type']) AND is_string($post_data['type'])) {
+    if (isset($_POST['layotter_element_type']) AND is_string($_POST['layotter_element_type'])) {
         $values = Layotter_ACF::unwrap_post_values();
-        $element = Layotter::create_element($post_data['type'], $values);
+        $element = Layotter::create_element($_POST['layotter_element_type'], $values);
         if ($element) {
             echo json_encode($element->to_array());
         }
