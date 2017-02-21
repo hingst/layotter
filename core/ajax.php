@@ -48,9 +48,9 @@ function layotter_ajax_edit_element() {
  */
 add_action('wp_ajax_layotter_parse_element', 'layotter_ajax_parse_element');
 function layotter_ajax_parse_element() {
-    if (isset($_POST['layotter_element_type']) AND is_string($_POST['layotter_element_type'])) {
+    if (isset($_POST['type']) AND is_string($_POST['type'])) {
         $values = Layotter_ACF::unwrap_post_values();
-        $element = Layotter::create_element($_POST['layotter_element_type'], $values);
+        $element = Layotter::create_element($_POST['type'], $values);
         if ($element) {
             echo json_encode($element->to_array());
         }
@@ -100,17 +100,15 @@ function layotter_ajax_edit_options() {
  */
 add_action('wp_ajax_layotter_parse_options', 'layotter_ajax_parse_options');
 function layotter_ajax_parse_options() {
-    $post_data = layotter_get_angular_post_data();
-
-    if (isset($post_data['type']) AND is_string($post_data['type'])) {
-        if (isset($post_data['post_id'])) {
-            $post_id = $post_data['post_id'];
+    if (isset($_POST['type']) AND is_string($_POST['type'])) {
+        if (isset($_POST['post_id'])) {
+            $post_id = $_POST['post_id'];
         } else {
             $post_id = '';
         }
 
         $values = Layotter_ACF::unwrap_post_values();
-        $options = new Layotter_Options($post_data['type'], $values, $post_id);
+        $options = new Layotter_Options($_POST['type'], $values, $post_id);
         if($options->is_enabled()) {
             echo json_encode($options->to_array());
         }
