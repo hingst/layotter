@@ -31,7 +31,6 @@ function layotter() {
         require_once __DIR__ . '/core/core.php';
         require_once __DIR__ . '/core/ajax.php';
         require_once __DIR__ . '/core/assets.php';
-        require_once __DIR__ . '/core/layouts.php';
         require_once __DIR__ . '/core/acf-locations.php';
         require_once __DIR__ . '/core/shortcode.php';
         require_once __DIR__ . '/core/views.php';
@@ -43,6 +42,7 @@ function layotter() {
         require_once __DIR__ . '/components/post.php';
         require_once __DIR__ . '/components/row.php';
         require_once __DIR__ . '/components/col.php';
+        require_once __DIR__ . '/components/layout.php';
         require_once __DIR__ . '/components/element.php';
 
         // this library takes care of saving custom fields for each post revision

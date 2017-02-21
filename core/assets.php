@@ -74,16 +74,16 @@ function layotter_assets_admin_enqueue_scripts() {
     
     // fetch content structure for the current post
     $post_id = get_the_ID();
-    $content_structure = new Layotter_Post($post_id);
+    $layotter_post = new Layotter_Post($post_id);
 
 
     // fetch post layouts and element templates
-    $saved_layouts = Layotter_Layouts::get_all();
-    $saved_templates = $content_structure->get_available_templates();
+    $saved_layouts = $layotter_post->get_available_layouts();
+    $saved_templates = $layotter_post->get_available_templates();
 
 
     // fetch available element types
-    $element_objects = $content_structure->get_available_element_types();
+    $element_objects = $layotter_post->get_available_element_types();
     $element_types = array();
 
     foreach ($element_objects as $element_object) {
@@ -103,7 +103,7 @@ function layotter_assets_admin_enqueue_scripts() {
         array(
             'postID' => $post_id,
             'isACFPro' => Layotter_ACF::is_pro_installed(),
-            'contentStructure' => $content_structure->to_array(),
+            'contentStructure' => $layotter_post->to_array(),
             'allowedRowLayouts' => $allowed_row_layouts,
             'defaultRowLayout' => $default_row_layout,
             'savedLayouts' => $saved_layouts,

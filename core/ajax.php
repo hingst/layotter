@@ -164,10 +164,12 @@ function layotter_ajax_delete_template() {
  */
 add_action('wp_ajax_layotter_save_new_layout', 'layotter_ajax_save_new_layout');
 function layotter_ajax_save_new_layout() {
-    $_POST = stripslashes_deep($_POST);
     if (isset($_POST['name']) AND isset($_POST['json'])) {
-        $layout = Layotter_Layouts::save($_POST['name'], $_POST['json']);
-        echo json_encode($layout);
+        $json = stripslashes($_POST['json']);
+        $layout = new Layotter_Layout();
+        $layout->set_json($json);
+        $layout->save($_POST['name']);
+        echo $layout->to_json();
     }
 
     die(); // required by Wordpress after any AJAX call
@@ -180,10 +182,8 @@ function layotter_ajax_save_new_layout() {
 add_action('wp_ajax_layotter_load_layout', 'layotter_ajax_load_layout');
 function layotter_ajax_load_layout() {
     if (isset($_POST['layout_id'])) {
-        $post = Layotter_Layouts::get($_POST['layout_id']);
-        if ($post) {
-            echo json_encode($post->to_array());
-        }
+        $layout = new Layotter_Layout($_POST['layout_id']);
+        echo $layout->to_json();
     }
 
     die(); // required by Wordpress after any AJAX call
@@ -196,10 +196,9 @@ function layotter_ajax_load_layout() {
 add_action('wp_ajax_layotter_rename_layout', 'layotter_ajax_rename_layout');
 function layotter_ajax_rename_layout() {
     if (isset($_POST['layout_id']) AND isset($_POST['name'])) {
-        $renamed = Layotter_Layouts::rename($_POST['layout_id'], $_POST['name']);
-        if ($renamed) {
-            echo json_encode($renamed);
-        }
+        $layout = new Layotter_Layout($_POST['layout_id']);
+        $layout->rename($_POST['name']);
+        echo $layout->to_json();
     }
 
     die(); // required by Wordpress after any AJAX call
@@ -212,7 +211,8 @@ function layotter_ajax_rename_layout() {
 add_action('wp_ajax_layotter_delete_layout', 'layotter_ajax_delete_layout');
 function layotter_ajax_delete_layout() {
     if (isset($_POST['layout_id'])) {
-        Layotter_Layouts::delete($_POST['layout_id']);
+        $layout = new Layotter_Layout($_POST['layout_id']);
+        $layout->delete();
     }
 
     die(); // required by Wordpress after any AJAX call

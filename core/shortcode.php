@@ -26,6 +26,7 @@ function layotter_frontend_shortcode($atts, $input = '') {
         $post_id = intval($atts['post']);
         $layotter = new Layotter_Post($post_id);
     } else {
+        // if previewing a post
         $layotter = new Layotter_Post();
         $layotter->set_json($input);
     }

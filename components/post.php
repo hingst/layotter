@@ -6,10 +6,11 @@
  */
 class Layotter_Post {
 
-    private
+    protected
         $id = 0,
         $options,
-        $rows = array();
+        $rows = array(),
+        $json;
 
 
     /**
@@ -38,6 +39,7 @@ class Layotter_Post {
                 $this->rows[] = new Layotter_Row($row);
             }
             $this->options = Layotter::assemble_options($content['options_id']);
+            $this->json = $json;
         } else {
             throw new Exception('Post has broken JSON structure.');
         }
@@ -62,6 +64,11 @@ class Layotter_Post {
             'options_id' => $this->options->get_id(),
             'rows' => $rows
         );
+    }
+
+
+    public function to_json() {
+        return json_encode($this->to_array());
     }
 
 
@@ -159,6 +166,23 @@ class Layotter_Post {
         } else {
             return strcasecmp($a_title, $b_title);
         }
+    }
+
+
+    public function get_available_layouts() {
+        $layout_posts = get_posts(array(
+            'post_type' => Layotter_Layout::POST_TYPE_LAYOUTS,
+            'order' => 'ASC',
+            'posts_per_page' => -1
+        ));
+
+        $layouts = array();
+        foreach ($layout_posts as $layout_post) {
+            $layout = new Layotter_Layout($layout_post->ID);
+            $layouts[] = $layout->to_array();
+        }
+
+        return $layouts;
     }
 
 }
