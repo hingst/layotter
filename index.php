@@ -31,7 +31,6 @@ function layotter() {
         require_once __DIR__ . '/core/core.php';
         require_once __DIR__ . '/core/ajax.php';
         require_once __DIR__ . '/core/assets.php';
-        require_once __DIR__ . '/core/interface.php';
         require_once __DIR__ . '/core/layouts.php';
         require_once __DIR__ . '/core/acf-locations.php';
         require_once __DIR__ . '/core/shortcode.php';
@@ -62,6 +61,9 @@ function layotter() {
         
         // move underlying post_type for Layotter_Editable in menu under layitter-settings
         add_action('admin_menu', array('Layotter_Editable_Model', 'add_to_menu') );
+
+        // replace TinyMCE with Layotter
+        add_action('admin_head', array('Layotter', 'hook_editor'));
     }
 }
 
