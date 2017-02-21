@@ -24,7 +24,8 @@ function layotter_make_search_dump($data, $raw_post){
     $unslashed_json = stripslashes_deep($json);
 
     // turn JSON into post content HTML
-    $layotter_post = new Layotter_Post($unslashed_json);
+    $layotter_post = new Layotter_Post();
+    $layotter_post->set_json($unslashed_json);
     $content = $layotter_post->get_frontend_view();
 
     // save JSON to a custom field (oddly enough, Wordpress breaks JSON if it's stripslashed)

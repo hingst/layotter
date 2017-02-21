@@ -90,13 +90,13 @@ class Layotter_Col {
     public function get_frontend_view($row_options, $post_options) {
         $elements_html = '';
         foreach ($this->elements as $element) {
-            $elements_html .= $element->get_frontend_view($this->options->get_formatted_values(), $row_options, $post_options, $this->width);
+            $elements_html .= $element->get_frontend_view($this->options->get_values(), $row_options, $post_options, $this->width);
         }
 
         $class = Layotter_Settings::get_col_layout_class($this->width);
 
         if (has_filter('layotter/view/column')) {
-            return apply_filters('layotter/view/column', $elements_html, $class, $this->options->get_formatted_values(), $row_options, $post_options);
+            return apply_filters('layotter/view/column', $elements_html, $class, $this->options->get_values(), $row_options, $post_options);
         } else {
             $html_wrapper = Layotter_Settings::get_html_wrapper('cols');
             $html_before = str_replace('%%CLASS%%', $class, $html_wrapper['before']);

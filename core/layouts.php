@@ -56,7 +56,8 @@ class Layotter_Layouts {
         // deleted layouts remain in the database as null values, so check with is_array()
         if (isset($layouts[$layout_id]) AND is_array($layouts[$layout_id])) {
             $layout = self::validate_structure($layouts[$layout_id]);
-            $post = new Layotter_Post($layout['json']);
+            $post = new Layotter_Post();
+            $post->set_json($layout['json']);
             return $post;
         }
 

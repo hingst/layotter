@@ -19,11 +19,15 @@ function layotter_frontend_shortcode($atts, $input = '') {
     // before 1.5.0, JSON was stored directly in the post content
     // get_the_ID() wouldn't be reliable here because this shortcode handler might be triggered in a context where the
     // $post variable hasn't been correctly initialized, like do_shortcode() or apply_filters('the_content')
+    // TODO: absolutely keep the previous comment in mind when creating the migration script!
+
+
     if (isset($atts['post']) AND Layotter::is_enabled_for_post($atts['post'])) {
         $post_id = intval($atts['post']);
         $layotter = new Layotter_Post($post_id);
     } else {
-        $layotter = new Layotter_Post($input);
+        $layotter = new Layotter_Post();
+        $layotter->set_json($input);
     }
 
     $html = $layotter->get_frontend_view();
