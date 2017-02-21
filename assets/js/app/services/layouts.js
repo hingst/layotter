@@ -22,13 +22,14 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
             initialValue: angular.element('#title').val(),
             okText: layotterData.i18n.save_layout,
             okAction: function(value) {
+                var postData = 'name=' + encodeURIComponent(value) + '&json=' + encodeURIComponent(json);
                 angular.element('.layotter-save-layout-button-wrapper').addClass('layotter-loading');
                 $http({
                     url: ajaxurl + '?action=layotter_save_new_layout',
                     method: 'POST',
-                    data: {
-                        name: value,
-                        json: json
+                    data: postData,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(function(reply) {
                     _this.savedLayouts.push(reply);
@@ -80,8 +81,9 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
         $http({
             url: ajaxurl + '?action=layotter_load_layout',
             method: 'POST',
-            data: {
-                layout_id: id
+            data: 'layout_id=' + id,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).success(function(reply) {
             $animate.enabled(false);
@@ -114,9 +116,9 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                 $http({
                     url: ajaxurl + '?action=layotter_rename_layout',
                     method: 'POST',
-                    data: {
-                        layout_id: id,
-                        name: value
+                    data: 'layout_id=' + id + '&name=' + value,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(function(reply) {
                     layout.isLoading = undefined;
@@ -145,8 +147,9 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                 $http({
                     url: ajaxurl + '?action=layotter_delete_layout',
                     method: 'POST',
-                    data: {
-                        layout_id: id
+                    data: 'layout_id=' + id,
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).success(function() {
                     _this.savedLayouts.splice(index, 1);

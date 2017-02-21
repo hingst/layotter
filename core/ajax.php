@@ -164,11 +164,9 @@ function layotter_ajax_delete_template() {
  */
 add_action('wp_ajax_layotter_save_new_layout', 'layotter_ajax_save_new_layout');
 function layotter_ajax_save_new_layout() {
-    $post_data = layotter_get_angular_post_data();
-
-    // name and JSON are required
-    if (isset($post_data['name']) AND isset($post_data['json'])) {
-        $layout = Layotter_Layouts::save($post_data['name'], $post_data['json']);
+    $_POST = stripslashes_deep($_POST);
+    if (isset($_POST['name']) AND isset($_POST['json'])) {
+        $layout = Layotter_Layouts::save($_POST['name'], $_POST['json']);
         echo json_encode($layout);
     }
 
@@ -181,11 +179,8 @@ function layotter_ajax_save_new_layout() {
  */
 add_action('wp_ajax_layotter_load_layout', 'layotter_ajax_load_layout');
 function layotter_ajax_load_layout() {
-    $post_data = layotter_get_angular_post_data();
-
-    // template ID is required
-    if (isset($post_data['layout_id'])) {
-        $post = Layotter_Layouts::get($post_data['layout_id']);
+    if (isset($_POST['layout_id'])) {
+        $post = Layotter_Layouts::get($_POST['layout_id']);
         if ($post) {
             echo json_encode($post->to_array());
         }
@@ -200,11 +195,8 @@ function layotter_ajax_load_layout() {
  */
 add_action('wp_ajax_layotter_rename_layout', 'layotter_ajax_rename_layout');
 function layotter_ajax_rename_layout() {
-    $post_data = layotter_get_angular_post_data();
-
-    // template ID and new name are required
-    if (isset($post_data['layout_id']) AND isset($post_data['name'])) {
-        $renamed = Layotter_Layouts::rename($post_data['layout_id'], $post_data['name']);
+    if (isset($_POST['layout_id']) AND isset($_POST['name'])) {
+        $renamed = Layotter_Layouts::rename($_POST['layout_id'], $_POST['name']);
         if ($renamed) {
             echo json_encode($renamed);
         }
@@ -219,11 +211,8 @@ function layotter_ajax_rename_layout() {
  */
 add_action('wp_ajax_layotter_delete_layout', 'layotter_ajax_delete_layout');
 function layotter_ajax_delete_layout() {
-    $post_data = layotter_get_angular_post_data();
-
-    // template ID is required
-    if (isset($post_data['layout_id'])) {
-        Layotter_Layouts::delete($post_data['layout_id']);
+    if (isset($_POST['layout_id'])) {
+        Layotter_Layouts::delete($_POST['layout_id']);
     }
 
     die(); // required by Wordpress after any AJAX call
