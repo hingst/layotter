@@ -18,8 +18,6 @@ class Layotter_Col {
      * @param array $structure Column structure
      */
     public function __construct($structure) {
-        $structure = $this->validate_structure($structure);
-
         $this->width = $structure['width'];
         $this->options = Layotter::assemble_options($structure['options_id']);
 
@@ -27,35 +25,6 @@ class Layotter_Col {
             $element_object = Layotter::assemble_element($element['id'], $element['options_id']);
             $this->elements[] = $element_object;
         }
-    }
-
-
-    /**
-     * Validate an array containing a columns's structure
-     *
-     * Validates array structure and presence of required key/value pairs
-     *
-     * @param array $structure Column structure
-     * @return array Validated column structure
-     */
-    private function validate_structure($structure) {
-        if (!is_array($structure)) {
-            $structure = array();
-        }
-
-        if (!isset($structure['width']) OR !is_string($structure['width'])) {
-            $structure['width'] = '';
-        }
-
-        if (!isset($structure['options']) OR !is_array($structure['options'])) {
-            $structure['options'] = array();
-        }
-
-        if (!isset($structure['elements']) OR !is_array($structure['elements'])) {
-            $structure['elements'] = array();
-        }
-
-        return $structure;
     }
 
 

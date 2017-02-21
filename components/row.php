@@ -18,8 +18,7 @@ class Layotter_Row {
      * @param array $structure Row structure
      */
     public function __construct($structure) {
-        $structure = $this->validate_structure($structure);
-        $structure = $this->apply_layout($structure);
+        $structure = $this->apply_row_layout_to_cols($structure);
 
         $this->layout = $structure['layout'];
         $this->options = Layotter::assemble_options($structure['options_id']);
@@ -31,41 +30,12 @@ class Layotter_Row {
 
 
     /**
-     * Validate an array containing a row's structure
-     *
-     * Validates array structure and presence of required key/value pairs
-     *
-     * @param array $structure Row structure
-     * @return array Validated row structure
-     */
-    private function validate_structure($structure) {
-        if (!is_array($structure)) {
-            $structure = array();
-        }
-
-        if (!isset($structure['layout']) OR !is_string($structure['layout'])) {
-            $structure['layout'] = Layotter_Settings::get_default_row_layout();
-        }
-
-        if (!isset($structure['options']) OR !is_array($structure['options'])) {
-            $structure['options'] = array();
-        }
-
-        if (!isset($structure['cols']) OR !is_array($structure['cols'])) {
-            $structure['cols'] = array();
-        }
-
-        return $structure;
-    }
-
-
-    /**
      * Take a row structure and apply the row layout (e.g. '1/3 1/3 1/3') to the contained columns
      *
      * @param array $structure Row structure with layout and columns
      * @return array Row structure with layout applied to columns
      */
-    private function apply_layout($structure) {
+    private function apply_row_layout_to_cols($structure) {
         $layout_array = explode(' ', $structure['layout']);
 
         foreach ($structure['cols'] as $i => &$col) {

@@ -38,7 +38,6 @@ function layotter() {
         require_once __DIR__ . '/core/revisions.php';
         require_once __DIR__ . '/core/model.php';
 
-        require_once __DIR__ . '/components/form.php';
         require_once __DIR__ . '/components/editable.php';
         require_once __DIR__ . '/components/options.php';
         require_once __DIR__ . '/components/post.php';
