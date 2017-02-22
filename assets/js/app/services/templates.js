@@ -1,8 +1,8 @@
 /**
  * All things related to element templates
  */
-app.service('templates', function($rootScope, $http, $animate, $timeout, view, forms, modals, state, data, history){
-    
+app.service('templates', function($rootScope, $http, $animate, $timeout, view, forms, modals, state, data, history) {
+
 
     var _this = this;
 
@@ -18,7 +18,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
         modals.confirm({
             message: layotterData.i18n.edit_template_confirmation,
             okText: layotterData.i18n.edit_template,
-            okAction: function(){
+            okAction: function() {
                 state.setElement(element);
                 forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_template', {
                     template_id: element.template_id
@@ -27,8 +27,8 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
             cancelText: layotterData.i18n.cancel
         });
     };
-    
-    
+
+
     /**
      * Delete element template at $index
      */
@@ -36,7 +36,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
         modals.confirm({
             message: layotterData.i18n.delete_template_confirmation,
             okText: layotterData.i18n.delete_template,
-            okAction: function(){
+            okAction: function() {
                 _this.savedTemplates[index].isLoading = true;
                 $http({
                     url: ajaxurl + '?action=layotter_delete_template',
@@ -61,8 +61,8 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
             cancelText: layotterData.i18n.cancel
         });
     };
-    
-    
+
+
     /**
      * Create a new template from an existing element's data
      */
@@ -80,7 +80,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
         }).success(function(reply) {
             $animate.enabled(false);
             _this.savedTemplates.push(angular.copy(reply));
-            $timeout(function(){
+            $timeout(function() {
                 $animate.enabled(true);
             }, 1);
             element.isLoading = undefined;
@@ -91,25 +91,29 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
             history.pushStep(layotterData.i18n.history.save_element_as_template);
         });
     };
-    
-    
+
+
     /**
      * Save template data from the form that's currently being displayed
      */
     this.saveTemplate = function() {
-        var values = jQuery('#layotter-edit, .layotter-modal #post').serializeObject();
-        
-        // copy editing.element so state can be reset while ajax is still loading
+               // copy editing.element so state can be reset while ajax is still loading
         var editingElement = state.getElement();
         state.reset();
         editingElement.isLoading = true;
-        
+
+        var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
+            + '&'
+            + jQuery.param({
+                template_id: editingElement.template_id
+            });
+
         $http({
             url: ajaxurl + '?action=layotter_update_template',
             method: 'POST',
-            data: {
-                template_id: editingElement.template_id,
-                values: values
+            data: values,
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).success(function(reply) {
             editingElement.view = reply.view;
@@ -121,10 +125,10 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
     /**
      * Highlight a template instance (triggered when hovering over the template in the sidebar)
      */
-    this.highlightTemplate = function (element) {
+    this.highlightTemplate = function(element) {
         element.isHighlighted = true;
     };
-    this.unhighlightTemplate = function (element) {
+    this.unhighlightTemplate = function(element) {
         element.isHighlighted = undefined;
     };
 
@@ -134,15 +138,15 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
      *
      * TODO: improve performance, currently all elements are inspected every time a template changes
      */
-    this.watchTemplate = function (template) {
-        $rootScope.$watch(function () {
+    this.watchTemplate = function(template) {
+        $rootScope.$watch(function() {
             return template;
-        }, function (value) {
+        }, function(value) {
             var template_id = value.template_id;
 
-            angular.forEach(data.contentStructure.rows, function(row){
-                angular.forEach(row.cols, function(col){
-                    angular.forEach(col.elements, function(element){
+            angular.forEach(data.contentStructure.rows, function(row) {
+                angular.forEach(row.cols, function(col) {
+                    angular.forEach(col.elements, function(element) {
                         if (element.template_id == template_id) {
                             var templateCopy = angular.copy(value);
                             templateCopy.options = element.options;
@@ -153,5 +157,5 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
             });
         }, true);
     };
-    
+
 });

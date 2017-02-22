@@ -94,9 +94,6 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
                 type: editingElement.type
             });
 
-
-        console.log(values);
-
         $http({
             url: ajaxurl + '?action=layotter_parse_element',
             method: 'POST',

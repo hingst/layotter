@@ -172,12 +172,16 @@ function layotter_ajax_edit_template() {
  */
 add_action('wp_ajax_layotter_update_template', 'layotter_ajax_update_template');
 function layotter_ajax_update_template() {
-    $post_data = layotter_get_angular_post_data();
-    
     // type and field values are required
-    if (isset($post_data['template_id']) AND is_int($post_data['template_id'])) {
-        $id = $post_data['template_id'];
-        $template = Layotter_Templates::get($id);
+
+    if (isset($_POST['template_id']) AND (int)$_POST['template_id']!==0) {
+        $id = $_POST['template_id'];
+
+
+	    var_dump($_POST);
+
+
+	    $template = Layotter_Templates::get($id);
 
         if ($template) {
             $values = Layotter_ACF::unwrap_post_values();
