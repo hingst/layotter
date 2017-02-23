@@ -146,10 +146,7 @@ class Layotter_Post {
      * @param Layotter_Element $element_type_b Second element type for comparison
      * @return int -1 if A comes first, 1 if B comes first, 0 if equal
      */
-    public static function sort_element_types_helper($element_type_a, $element_type_b) {
-        $a_metadata = $element_type_a->get_metadata();
-        $b_metadata = $element_type_b->get_metadata();
-
+    public static function sort_element_types_helper($a_metadata, $b_metadata) {
         $a_order = $a_metadata['order'];
         $b_order = $b_metadata['order'];
         $a_title = $a_metadata['title'];
