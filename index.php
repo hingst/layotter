@@ -33,8 +33,9 @@ function layotter() {
         require_once __DIR__ . '/core/assets.php';
         require_once __DIR__ . '/core/acf-locations.php';
         require_once __DIR__ . '/core/shortcode.php';
-        require_once __DIR__ . '/core/views.php';
         require_once __DIR__ . '/core/revisions.php';
+
+        require_once __DIR__ . '/views/collection.php';
 
         require_once __DIR__ . '/components/editable.php';
         require_once __DIR__ . '/components/options.php';
