@@ -101,8 +101,8 @@ class Layotter_Post {
      */
     public function get_available_templates() {
         $template_posts = get_posts(array(
-            'post_type' => Layotter_Editable_Model::post_type,
-            'meta_key' => Layotter_Element::IS_TEMPLATE_META_FIELD,
+            'post_type' => Layotter_Editable::POST_TYPE_EDITABLE,
+            'meta_key' => Layotter_Element::META_FIELD_IS_TEMPLATE,
             'meta_value' => '1'
         ));
 

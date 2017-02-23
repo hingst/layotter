@@ -14,7 +14,8 @@ abstract class Layotter_Editable {
         $type;
 
     const
-        TYPE_META_FIELD = 'layotter_editable_type';
+        META_FIELD_EDITABLE_TYPE = 'layotter_editable_type',
+        POST_TYPE_EDITABLE = 'layotter_editable';
 
 
     abstract protected function get_fields();
@@ -57,9 +58,9 @@ abstract class Layotter_Editable {
         // wp_insert_post triggers ACF hooks that read from $_POST and save custom fields
         // it's ridiculous
         $this->id = wp_insert_post(array(
-            'post_type' => Layotter_Editable_Model::post_type,
+            'post_type' => self::POST_TYPE_EDITABLE,
             'meta_input' => array(
-                self::TYPE_META_FIELD => $this->type
+                self::META_FIELD_EDITABLE_TYPE => $this->type
             ),
             'post_status' => 'publish'
         ));

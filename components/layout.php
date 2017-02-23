@@ -3,9 +3,11 @@
 
 class Layotter_Layout extends Layotter_Post {
 
-    protected $layout_id = 0;
+    protected
+        $layout_id = 0;
 
-    const POST_TYPE_LAYOUTS = 'layotter_post_layout';
+    const
+        POST_TYPE_LAYOUTS = 'layotter_post_layout';
 
     public function __construct($id)
     {

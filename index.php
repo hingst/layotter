@@ -35,7 +35,6 @@ function layotter() {
         require_once __DIR__ . '/core/shortcode.php';
         require_once __DIR__ . '/core/views.php';
         require_once __DIR__ . '/core/revisions.php';
-        require_once __DIR__ . '/core/model.php';
 
         require_once __DIR__ . '/components/editable.php';
         require_once __DIR__ . '/components/options.php';
@@ -54,12 +53,6 @@ function layotter() {
         // include example element after theme is loaded (allows disabling the
         // example element with a settings filter in the theme)
         add_action('after_setup_theme', 'layotter_include_example_element');
-
-        // register underlying post_type for Layotter_Editable
-        add_action( 'init', array('Layotter_Editable_Model', 'register_post_types') );
-        
-        // move underlying post_type for Layotter_Editable in menu under layitter-settings
-        add_action('admin_menu', array('Layotter_Editable_Model', 'add_to_menu') );
 
         // replace TinyMCE with Layotter
         add_action('admin_head', array('Layotter', 'hook_editor'));

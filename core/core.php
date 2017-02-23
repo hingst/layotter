@@ -72,7 +72,7 @@ class Layotter {
      */
     public static function assemble_element($id, $options_id = 0) {
         $id = intval($id);
-        $type = get_post_meta($id, Layotter_Editable::TYPE_META_FIELD, true);
+        $type = get_post_meta($id, Layotter_Editable::META_FIELD_EDITABLE_TYPE, true);
 
         if (isset(self::$registered_elements[$type])) {
             $element = new self::$registered_elements[$type]($id);

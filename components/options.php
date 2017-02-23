@@ -16,7 +16,7 @@ class Layotter_Options extends Layotter_Editable {
         $this->icon = 'cog';
 
         if ($this->id !== 0) {
-            $this->set_type(get_post_meta($id, self::TYPE_META_FIELD, true));
+            $this->set_type(get_post_meta($id, self::META_FIELD_EDITABLE_TYPE, true));
         }
     }
 

@@ -18,7 +18,7 @@ abstract class Layotter_Element extends Layotter_Editable {
         $order = 0;
 
     const
-        IS_TEMPLATE_META_FIELD = 'layotter_is_template';
+        META_FIELD_IS_TEMPLATE = 'layotter_is_template';
 
 
     /**
@@ -69,8 +69,8 @@ abstract class Layotter_Element extends Layotter_Editable {
         $this->id = intval($id);
 
         if ($this->id !== 0) {
-            $this->set_type(get_post_meta($id, self::TYPE_META_FIELD, true));
-            if (get_post_meta($id, self::IS_TEMPLATE_META_FIELD, true)) {
+            $this->set_type(get_post_meta($id, self::META_FIELD_EDITABLE_TYPE, true));
+            if (get_post_meta($id, self::META_FIELD_IS_TEMPLATE, true)) {
                 $this->is_template = true;
             }
         }
@@ -203,7 +203,7 @@ abstract class Layotter_Element extends Layotter_Editable {
 
     public function set_template($bool) {
         $this->is_template = $bool;
-        update_post_meta($this->id, self::IS_TEMPLATE_META_FIELD, $bool);
+        update_post_meta($this->id, self::META_FIELD_IS_TEMPLATE, $bool);
     }
 
 
