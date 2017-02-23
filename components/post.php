@@ -20,15 +20,13 @@ class Layotter_Post {
      */
     public function __construct($id = 0) {
         $this->id = intval($id);
+        $this->options = Layotter::assemble_new_options('post');
 
         if ($this->id !== 0) {
             $json = get_post_meta($this->id, 'layotter_json', true);
             $this->set_json($json);
-        } else {
-            $this->options = Layotter::assemble_new_options('post');
+            $this->options->set_post_type_context(get_post_type($this->id));
         }
-
-        $this->options->set_post_type_context(get_post_type($this->id));
     }
 
 
@@ -40,8 +38,6 @@ class Layotter_Post {
             }
             $this->options = Layotter::assemble_options($content['options_id']);
             $this->json = $json;
-        } else {
-            throw new Exception('Post has broken JSON structure.');
         }
     }
 
