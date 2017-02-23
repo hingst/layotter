@@ -89,7 +89,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
 
         // build query string from form data
         var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
-            + '&layotter_element_id=' + encodeURIComponent(editingElement.id);
+            + '&layotter_element_id=' + encodeURIComponent(editingElement.id) + '&layotter_type=' + encodeURIComponent(editingElement.type);
         
         $http({
             url: ajaxurl + '?action=layotter_save_element',
