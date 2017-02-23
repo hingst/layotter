@@ -3,12 +3,10 @@
 
 class Layotter_Assets {
     public static function backend() {
-
         // load assets only if necessary
         if (!Layotter::is_enabled()) {
             return;
         }
-
 
         // styles
         wp_enqueue_style(
@@ -20,7 +18,6 @@ class Layotter_Assets {
             plugins_url('assets/css/font-awesome.min.css', __DIR__)
         );
 
-
         // jQuery plugin used to serialize form data
         wp_enqueue_script(
             'layotter-serialize',
@@ -28,8 +25,8 @@ class Layotter_Assets {
             array('jquery')
         );
 
-
         // Angular scripts
+        // TODO: lol two years and I never minified
         $scripts = array(
             'angular' => 'assets/js/vendor/angular.js',
             'angular-animate' => 'assets/js/vendor/angular-animate.js',
@@ -56,58 +53,30 @@ class Layotter_Assets {
             );
         }
 
-
-        // fetch allowed row layouts and default layout
-        $allowed_row_layouts = Layotter_Settings::get_allowed_row_layouts();
-        $default_row_layout = Layotter_Settings::get_default_row_layout();
-
-
         // fetch default values for post, row and element options
         $post_options = Layotter::assemble_new_options('post');
         $row_options = Layotter::assemble_new_options('row');
         $col_options = Layotter::assemble_new_options('col');
         $element_options = Layotter::assemble_new_options('element');
 
-
         // fetch content structure for the current post
-        $post_id = get_the_ID();
-        $layotter_post = new Layotter_Post($post_id);
-
-
-        // fetch post layouts and element templates
-        $saved_layouts = $layotter_post->get_available_layouts();
-        $saved_templates = $layotter_post->get_available_templates();
-
-
-        // fetch available element types
-        $element_objects = $layotter_post->get_available_element_types();
-        $element_types = array();
-
-        foreach ($element_objects as $element_object) {
-            $element_types[] = $element_object->get_metadata();
-        }
-
-
-        // fetch general settings
-        $enable_post_layouts = Layotter_Settings::post_layouts_enabled();
-        $enable_element_templates = Layotter_Settings::element_templates_enabled();
-
+        $layotter_post = new Layotter_Post(get_the_ID());
 
         // inject data for use with Javascript
         wp_localize_script(
             'layotter',
             'layotterData',
             array(
-                'postID' => $post_id,
+                'postID' => get_the_ID(),
                 'isACFPro' => Layotter_ACF::is_pro_installed(),
                 'contentStructure' => $layotter_post->to_array(),
-                'allowedRowLayouts' => $allowed_row_layouts,
-                'defaultRowLayout' => $default_row_layout,
-                'savedLayouts' => $saved_layouts,
-                'savedTemplates' => $saved_templates,
-                'enablePostLayouts' => $enable_post_layouts,
-                'enableElementTemplates' => $enable_element_templates,
-                'elementTypes' => $element_types,
+                'allowedRowLayouts' => Layotter_Settings::get_allowed_row_layouts(),
+                'defaultRowLayout' => Layotter_Settings::get_default_row_layout(),
+                'savedLayouts' => $layotter_post->get_available_layouts(),
+                'savedTemplates' => $layotter_post->get_available_templates(),
+                'enablePostLayouts' => Layotter_Settings::post_layouts_enabled(),
+                'enableElementTemplates' => Layotter_Settings::element_templates_enabled(),
+                'elementTypes' => $layotter_post->get_available_element_types_metadata(),
                 'isOptionsEnabled' => array(
                     'post' => $post_options->is_enabled(),
                     'row' => $row_options->is_enabled(),
@@ -158,7 +127,6 @@ class Layotter_Assets {
                 )
             )
         );
-
     }
 
 

@@ -120,13 +120,13 @@ class Layotter_Post {
      *
      * @return array Element instances
      */
-    public function get_available_element_types() {
+    public function get_available_element_types_metadata() {
         $elements = array();
 
         foreach (array_keys(Layotter::get_registered_element_types()) as $element_type) {
             $element = Layotter::assemble_new_element($element_type);
             if ($element->is_enabled_for($this->id)) {
-                $elements[] = $element;
+                $elements[] = $element->get_metadata();
             }
         }
 
