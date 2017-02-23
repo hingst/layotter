@@ -19,7 +19,7 @@ class Layotter_Layout extends Layotter_Post {
         $this->layout_id = wp_insert_post(array(
             'post_type' => self::POST_TYPE_LAYOUTS,
             'meta_input' => array(
-                'layotter_json' => $this->json,
+                Layotter::META_FIELD_JSON => $this->json,
             ),
             'post_status' => 'publish',
             'post_title' => $name
@@ -31,7 +31,7 @@ class Layotter_Layout extends Layotter_Post {
             'ID' => $this->layout_id,
             'post_type' => self::POST_TYPE_LAYOUTS,
             'meta_input' => array(
-                'layotter_json' => $this->json
+                Layotter::META_FIELD_JSON => $this->json
             ),
             'post_status' => 'publish'
         ));

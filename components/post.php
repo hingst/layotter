@@ -23,7 +23,7 @@ class Layotter_Post {
         $this->options = Layotter::assemble_new_options('post');
 
         if ($this->id !== 0) {
-            $json = get_post_meta($this->id, 'layotter_json', true);
+            $json = get_post_meta($this->id, Layotter::META_FIELD_JSON, true);
             $this->set_json($json);
             $this->options->set_post_type_context(get_post_type($this->id));
         }
