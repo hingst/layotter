@@ -12,6 +12,76 @@ class Layotter {
     
     
     private function __construct() {} // prevent instantiation
+
+
+    public static function init() {
+        // ACF abstraction layer is always required
+        require_once __DIR__ . '/../core/acf-abstraction.php';
+
+        // include files only if ACF is available
+        if (!Layotter_ACF::is_available()) {
+            return;
+        }
+
+        self::includes(); // TODO: autoloader
+
+        // include example element after theme is loaded (allows disabling the
+        // example element with a settings filter in the theme)
+        add_action('after_setup_theme', array(__CLASS__, 'include_example_element'));
+
+        // replace TinyMCE with Layotter
+        add_action('admin_head', array(__CLASS__, 'hook_editor'));
+
+        add_action('admin_enqueue_scripts', array('Layotter_Assets', 'backend'));
+        add_action('wp_enqueue_scripts', array('Layotter_Assets', 'frontend'));
+        add_action('admin_footer', array('Layotter_Assets', 'views'));
+
+        add_action('wp_ajax_layotter_edit_element', array('Layotter_Ajax_Endpoints', 'edit_element'));
+        add_action('wp_ajax_layotter_save_element', array('Layotter_Ajax_Endpoints', 'save_element'));
+        add_action('wp_ajax_layotter_edit_options', array('Layotter_Ajax_Endpoints', 'edit_options'));
+        add_action('wp_ajax_layotter_save_options', array('Layotter_Ajax_Endpoints', 'save_options'));
+        add_action('wp_ajax_layotter_save_new_template', array('Layotter_Ajax_Endpoints', 'save_new_template'));
+        add_action('wp_ajax_layotter_delete_template', array('Layotter_Ajax_Endpoints', 'delete_template'));
+        add_action('wp_ajax_layotter_save_new_layout', array('Layotter_Ajax_Endpoints', 'save_new_layout'));
+        add_action('wp_ajax_layotter_load_layout', array('Layotter_Ajax_Endpoints', 'load_layout'));
+        add_action('wp_ajax_layotter_rename_layout', array('Layotter_Ajax_Endpoints', 'rename_layout'));
+        add_action('wp_ajax_layotter_delete_layout', array('Layotter_Ajax_Endpoints', 'delete_layout'));
+
+        add_filter('acf/location/rule_types', array('Layotter_Acf_Location_Rules', 'category'));
+        add_filter('acf/location/rule_values/layotter', array('Layotter_Acf_Location_Rules', 'options'));
+        add_filter('acf/location/rule_match/layotter', array('Layotter_Acf_Location_Rules', 'match_rules'), 10, 3);
+    }
+
+    public static function includes() {
+        require_once __DIR__ . '/../core/core.php';
+        require_once __DIR__ . '/../core/ajax.php';
+        require_once __DIR__ . '/../core/assets.php';
+        require_once __DIR__ . '/../core/acf-locations.php';
+        require_once __DIR__ . '/../core/shortcode.php';
+        require_once __DIR__ . '/../core/revisions.php';
+
+        require_once __DIR__ . '/../components/editable.php';
+        require_once __DIR__ . '/../components/options.php';
+        require_once __DIR__ . '/../components/post.php';
+        require_once __DIR__ . '/../components/row.php';
+        require_once __DIR__ . '/../components/col.php';
+        require_once __DIR__ . '/../components/layout.php';
+        require_once __DIR__ . '/../components/element.php';
+
+        // this library takes care of saving custom fields for each post revision
+        // see https://wordpress.org/plugins/wp-post-meta-revisions/
+        if (!class_exists('WP_Post_Meta_Revisioning')) {
+            require_once __DIR__ . '/../lib/wp-post-meta-revisions.php';
+        }
+    }
+
+
+    public static function include_example_element() {
+        if (Layotter_Settings::example_element_enabled()) {
+            require_once __DIR__ . '/../example/field-group.php';
+            require_once __DIR__ . '/../example/element.php';
+        }
+    }
     
     
     /**
