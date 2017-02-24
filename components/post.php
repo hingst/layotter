@@ -211,20 +211,20 @@ class Layotter_Post {
         // insert spaces so <p>foo</p><p>bar</p> becomes "foo bar" instead of "foobar"
         // then strip all tags except <img>
         // then remove excess whitespace
-        $spaced_content = str_replace('<', ' <', $content);
-        $clean_content = strip_tags($spaced_content, '<img>');
-        $normalized_content = trim($clean_content);
+        $content = str_replace('<', ' <', $content);
+        $content = strip_tags($content, '<img>');
+        $content = trim($content);
 
         // TODO: What kind of Fallback could make sense here? http://php.net/manual/de/mbstring.installation.php "mbstring is a non-default extension."
         if (function_exists('mb_ereg_replace')) {
-            $normalized_content = mb_ereg_replace('/\s+/', ' ', $normalized_content);
+            $content = mb_ereg_replace('/\s+/', ' ', $content);
         }
 
         // wrap search dump with a [layotter] shortcode and return modified post data to be saved to the database
         // add the post ID because otherwise the shortcode handler would have no reliable way to get the post ID through
         // which the JSON data will be fetched
-        $shortcoded_content = '[layotter post="' . $post_id . '"]' . $normalized_content . '[/layotter]';
-        $data['post_content'] = $shortcoded_content;
+        $content = '[layotter post="' . $post_id . '"]' . $content . '[/layotter]';
+        $data['post_content'] = $content;
         return $data;
     }
 

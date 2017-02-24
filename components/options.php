@@ -43,14 +43,14 @@ class Layotter_Options extends Layotter_Editable {
             throw new Exception('Unknown post type: ' . $this->post_type_context);
         }
 
-        $field_groups = Layotter_Acf::get_filtered_field_groups(array(
+        $field_groups = Layotter_Acf_Abstraction::get_filtered_field_groups(array(
             'post_type' => $this->post_type_context,
             'layotter' => $this->type . '_options'
         ));
 
         $fields = array();
         foreach ($field_groups as $field_group) {
-            $fields = array_merge($fields, Layotter_Acf::get_fields($field_group));
+            $fields = array_merge($fields, Layotter_Acf_Abstraction::get_fields($field_group));
         }
 
         return $fields;

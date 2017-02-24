@@ -9,7 +9,7 @@ class Layotter_Example_Element extends Layotter_Element
         $this->title = __('Example element', 'layotter');
         $this->description = __('Use this element to play around and get started with Layotter.', 'layotter');
         $this->icon = 'star';
-        $this->field_group = Layotter_Acf::get_example_field_group_name();
+        $this->field_group = Layotter_Acf_Abstraction::get_example_field_group_name();
     }
 
     protected function frontend_view($fields) {
