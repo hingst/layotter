@@ -34,7 +34,6 @@ class Layotter_Options extends Layotter_Editable {
 
 
     public function set_post_type_context($post_type) {
-        // TODO: this doesn't feel right - rethink
         $this->post_type_context = strval($post_type);
     }
 
@@ -44,14 +43,14 @@ class Layotter_Options extends Layotter_Editable {
             throw new Exception('Unknown post type: ' . $this->post_type_context);
         }
 
-        $field_groups = Layotter_ACF::get_filtered_field_groups(array(
+        $field_groups = Layotter_Acf::get_filtered_field_groups(array(
             'post_type' => $this->post_type_context,
             'layotter' => $this->type . '_options'
         ));
 
         $fields = array();
         foreach ($field_groups as $field_group) {
-            $fields = array_merge($fields, Layotter_ACF::get_fields($field_group));
+            $fields = array_merge($fields, Layotter_Acf::get_fields($field_group));
         }
 
         return $fields;
@@ -65,17 +64,6 @@ class Layotter_Options extends Layotter_Editable {
      */
     public function is_enabled() {
         return !empty($this->get_fields());
-    }
-
-
-    public function to_json() {
-        // TODO: this is pointless
-        return json_encode($this->get_id());
-    }
-
-
-    public function to_array() {
-        return array(); // TODO: implement
     }
     
     

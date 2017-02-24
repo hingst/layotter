@@ -4,12 +4,14 @@
 /**
  * This abstraction layer makes it easier to adapt Layotter if ACF changes its API
  */
-class Layotter_ACF
+class Layotter_Acf
 {
-    const REQUIRED_VERSION = '4.4.10';
-    const REQUIRED_PRO_VERSION = '5.4.7';
+    const
+        REQUIRED_VERSION = '4.4.10',
+        REQUIRED_PRO_VERSION = '5.4.7';
 
-    private static $error_message = '';
+    private static
+        $error_message = '';
 
 
     /**
@@ -52,9 +54,9 @@ class Layotter_ACF
      * @return bool
      */
     public static function is_available() {
-        if (!Layotter_ACF::is_installed()) {
+        if (!Layotter_Acf::is_installed()) {
             self::$error_message = sprintf(__('Layotter requires the <a href="%s" target="_blank">Advanced Custom Fields</a> plugin, please install it before using Layotter.', 'layotter'), 'http://www.advancedcustomfields.com');
-        } else if (!Layotter_ACF::is_version_compatible()) {
+        } else if (!Layotter_Acf::is_version_compatible()) {
             $required_version = self::is_pro_installed() ? self::REQUIRED_PRO_VERSION : self::REQUIRED_VERSION;
             self::$error_message = sprintf(__('Your version of Advanced Custom Fields is outdated. Please install version %s or higher to be able to use Layotter.', 'layotter'), $required_version);
         }
@@ -116,7 +118,7 @@ class Layotter_ACF
      * @return string Field group name
      */
     public static function get_example_field_group_name() {
-        return Layotter_ACF::is_pro_installed() ? 'group_5605a65191086' : 'acf_title';
+        return Layotter_Acf::is_pro_installed() ? 'group_5605a65191086' : 'acf_title';
     }
 
 
@@ -265,7 +267,7 @@ class Layotter_ACF
      * Output form wrapper HTML depending on the installed version of ACF
      */
     public static function output_form_wrapper() {
-        if (Layotter_ACF::is_pro_installed()) {
+        if (Layotter_Acf::is_pro_installed()) {
             ?>
             <div class="acf-postbox">
                 <div id="acf-form-data" class="acf-hidden">

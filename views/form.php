@@ -1,6 +1,6 @@
 <div class="layotter-modal" ng-controller="ModalCtrl">
     <?php
-    if (Layotter_ACF::is_pro_installed()) {
+    if (Layotter_Acf::is_pro_installed()) {
         $id = 'layotter-edit';
     } else {
         $id = 'post';
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="layotter-modal-body">
-            <?php Layotter_ACF::output_form_wrapper(); ?>
+            <?php Layotter_Acf::output_form_wrapper(); ?>
         </div>
         <div class="layotter-modal-loading-container">
         </div>

@@ -44,7 +44,7 @@ abstract class Layotter_Editable {
             'title' => $this->title,
             'icon' => $this->icon,
             'nonce' => wp_create_nonce('post'),
-            'fields' => Layotter_ACF::get_form_html($this->get_fields(), $this->id)
+            'fields' => Layotter_Acf::get_form_html($this->get_fields(), $this->id)
         );
     }
 

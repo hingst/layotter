@@ -494,7 +494,7 @@ class Layotter_Settings {
                 </p>
                 <?php
 
-                $field_group_post_type = Layotter_ACF::get_field_group_post_type();
+                $field_group_post_type = Layotter_Acf::get_field_group_post_type();
 
                 $post_types = get_post_types(array(
                     '_builtin' => false,

@@ -68,7 +68,7 @@ class Layotter_Assets {
             'layotterData',
             array(
                 'postID' => get_the_ID(),
-                'isACFPro' => Layotter_ACF::is_pro_installed(),
+                'isACFPro' => Layotter_Acf::is_pro_installed(),
                 'contentStructure' => $layotter_post->to_array(),
                 'allowedRowLayouts' => Layotter_Settings::get_allowed_row_layouts(),
                 'defaultRowLayout' => Layotter_Settings::get_default_row_layout(),

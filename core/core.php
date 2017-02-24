@@ -23,7 +23,7 @@ class Layotter {
         require_once __DIR__ . '/../core/acf-abstraction.php';
 
         // include files only if ACF is available
-        if (!Layotter_ACF::is_available()) {
+        if (!Layotter_Acf::is_available()) {
             return;
         }
 

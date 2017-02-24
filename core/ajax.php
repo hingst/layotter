@@ -80,12 +80,12 @@ class Layotter_Ajax_Endpoints {
             $options = Layotter::assemble_options($id);
             $options->set_post_type_context($post_type_context);
             $options->save_from_post_data();
-            echo $options->to_json();
+            echo $options->get_id();
         } else if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
             $options = Layotter::assemble_new_options($_POST['layotter_type']);
             $options->set_post_type_context($post_type_context);
             $options->save_from_post_data();
-            echo $options->to_json();
+            echo $options->get_id();
         }
 
         die(); // required by Wordpress after any AJAX call
