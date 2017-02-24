@@ -57,6 +57,8 @@ class Layotter {
         add_shortcode('layotter', array('Layotter_Shortcode', 'register'));
         add_filter('the_content', array('Layotter_Shortcode', 'disable_wpautop'), 1);
         add_filter('no_texturize_shortcodes', array('Layotter_Shortcode', 'disable_wptexturize'));
+
+        add_filter('wp_insert_post_data', array('Layotter_Post', 'make_search_dump'), 999, 2);
     }
 
     public static function includes() {
@@ -65,7 +67,6 @@ class Layotter {
         require_once __DIR__ . '/../core/assets.php';
         require_once __DIR__ . '/../core/acf-locations.php';
         require_once __DIR__ . '/../core/shortcode.php';
-        require_once __DIR__ . '/../core/revisions.php';
 
         require_once __DIR__ . '/../components/editable.php';
         require_once __DIR__ . '/../components/options.php';
