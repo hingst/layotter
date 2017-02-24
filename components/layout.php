@@ -9,7 +9,7 @@ class Layotter_Layout extends Layotter_Post {
     const
         POST_TYPE_LAYOUTS = 'layotter_post_layout';
 
-    public function __construct($id)
+    public function __construct($id = 0)
     {
         parent::__construct($id);
         $this->layout_id = $id;
