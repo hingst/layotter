@@ -55,7 +55,7 @@ class Layotter {
         add_filter('acf/location/rule_match/layotter', array('Layotter_Acf_Location_Rules', 'match_rules'), 10, 3);
 
         add_shortcode('layotter', array('Layotter_Shortcode', 'register'));
-        add_filter('the_content', array('Layotter_Shortcode', 'disable_wpautop', 1));
+        add_filter('the_content', array('Layotter_Shortcode', 'disable_wpautop'), 1);
         add_filter('no_texturize_shortcodes', array('Layotter_Shortcode', 'disable_wptexturize'));
     }
 
