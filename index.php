@@ -14,10 +14,9 @@ GitHub Plugin URI: hingst/layotter
 load_plugin_textdomain('layotter', false, basename(__DIR__) . '/languages/');
 
 // settings are self-contained and should be included even if ACF is not available
-// one reason is that otherwise default settings would not be registered on plugin activation
+// otherwise default settings would not be registered on plugin activation
 require_once __DIR__ . '/core/settings.php';
 
-// include other files after plugins are loaded so ACF checks can be run
 require_once __DIR__ . '/core/core.php';
 Layotter::init();
 

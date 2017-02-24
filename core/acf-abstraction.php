@@ -1,18 +1,14 @@
 <?php
 
-
 /**
- * This abstraction layer makes it easier to adapt Layotter if ACF changes its API
+ * This abstraction layer makes it easier to adapt to new ACF versions
  */
-class Layotter_Acf_Abstraction
-{
-    const
-        REQUIRED_VERSION = '4.4.10',
-        REQUIRED_PRO_VERSION = '5.4.7';
+class Layotter_Acf_Abstraction {
 
-    private static
-        $error_message = '';
+    const REQUIRED_VERSION = '4.4.10';
+    const REQUIRED_PRO_VERSION = '5.4.7';
 
+    private static $error_message = '';
 
     /**
      * Check if ACF is installed
@@ -23,7 +19,6 @@ class Layotter_Acf_Abstraction
         return class_exists('acf');
     }
 
-
     /**
      * Check if ACF Pro is installed
      *
@@ -32,7 +27,6 @@ class Layotter_Acf_Abstraction
     public static function is_pro_installed() {
         return class_exists('acf_pro');
     }
-
 
     /**
      * Check if the installed version of ACF is compatible with this version of Layotter
@@ -47,9 +41,8 @@ class Layotter_Acf_Abstraction
         }
     }
 
-
     /**
-     * Check if a compatible version of ACF is installed and output an error message if not
+     * Write an error message if no compatible version of ACF is installed
      *
      * @return bool
      */
@@ -69,9 +62,8 @@ class Layotter_Acf_Abstraction
         return true;
     }
 
-
     /**
-     * Output an error message if ACF isn't installed (hooked to admin_notices by self::is_available())
+     * Output error message
      */
     public static function print_error() {
         ?>
@@ -83,9 +75,8 @@ class Layotter_Acf_Abstraction
         <?php
     }
 
-
     /**
-     * Get the post type for ACF field groups depending on the installed version of ACF
+     * Get the post type for ACF field groups
      *
      * @return string Post type for ACF field groups
      */
@@ -97,11 +88,10 @@ class Layotter_Acf_Abstraction
         }
     }
 
-
     /**
      * Get all ACF field groups
      *
-     * @return array All ACF field groups (array format varies between the free and Pro versions of ACF)
+     * @return array All ACF field groups (array format varies between the free and Pro version)
      */
     public static function get_all_field_groups() {
         if (self::is_pro_installed()) {
@@ -111,7 +101,6 @@ class Layotter_Acf_Abstraction
         }
     }
 
-
     /**
      * Returns field group name for the example element that comes with Layotter
      *
@@ -120,7 +109,6 @@ class Layotter_Acf_Abstraction
     public static function get_example_field_group_name() {
         return self::is_pro_installed() ? 'group_5605a65191086' : 'acf_title';
     }
-
 
     /**
      * Get ACF field groups that match a given set of location rules
@@ -155,7 +143,6 @@ class Layotter_Acf_Abstraction
         }
     }
 
-
     /**
      * Check if a given field group matches a given set of location rules
      *
@@ -172,7 +159,6 @@ class Layotter_Acf_Abstraction
         }
     }
 
-
     /**
      * Get fields for a given field group
      *
@@ -186,7 +172,6 @@ class Layotter_Acf_Abstraction
             return apply_filters('acf/field_group/get_fields', array(), $field_group['id']);
         }
     }
-
 
     /**
      * Get form HTML for a set of fields
@@ -206,7 +191,6 @@ class Layotter_Acf_Abstraction
 
         return ob_get_clean();
     }
-
 
     /**
      * Get a field group by its ID
@@ -228,7 +212,6 @@ class Layotter_Acf_Abstraction
         }
     }
 
-
     /**
      * Get a field group by its key
      *
@@ -243,7 +226,6 @@ class Layotter_Acf_Abstraction
             return self::get_field_group_by_id($key);
         }
     }
-
 
     /**
      * Run a field value through ACF's formatting filters to prepare them for output
@@ -261,7 +243,6 @@ class Layotter_Acf_Abstraction
             return apply_filters('acf/format_value_for_api', $value, uniqid('layotter_acf_'), $field_data); // for all field types
         }
     }
-
 
     /**
      * Output form wrapper HTML depending on the installed version of ACF
@@ -286,7 +267,6 @@ class Layotter_Acf_Abstraction
         }
     }
 
-
     /**
      * Unwrap POST values from ACF wrapper
      *
@@ -305,7 +285,6 @@ class Layotter_Acf_Abstraction
 
         return array();
     }
-
 
     /**
      * Prepare clean values for form creation

@@ -1,28 +1,31 @@
 <?php
 
-
 /**
  * Add custom location rules for ACF
- * 
- * Allows users to define post, row and element options by simply selecting an
+ *
+ * Allows us to define post, row and element options by selecting an
  * option in ACF's location settings when creating a field group.
  *
- * See ACF documentation on custom location rules for more info on what's happening in this file:
- * http://www.advancedcustomfields.com/resources/custom-location-rules/
+ * learn more: http://www.advancedcustomfields.com/resources/custom-location-rules/
  */
 class Layotter_Acf_Location_Rules {
 
     /**
      * Add 'Use with layotter' as first-level location option
+     *
+     * @param array $choices Options
+     * @return array More options
      */
     public static function category($choices) {
         $choices['Advanced']['layotter'] = __('Use with Layotter', 'layotter');
         return $choices;
     }
 
-
     /**
      * Add second-level location options
+     *
+     * @param array $choices Options
+     * @return array More options
      */
     public static function options($choices) {
         $choices['element'] = __('Use as element', 'layotter');
@@ -33,9 +36,13 @@ class Layotter_Acf_Location_Rules {
         return $choices;
     }
 
-
     /**
      * Determine whether a field group is associated with a specific option
+     *
+     * @param bool $match Did it match?
+     * @param array $rule Rule to check
+     * @param array $options User's selected options
+     * @return bool
      */
     public static function match_rules($match, $rule, $options) {
         if (isset($options['layotter']) AND $rule['value'] == $options['layotter']) {

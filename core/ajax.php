@@ -1,6 +1,10 @@
 <?php
 
+/**
+ * All Ajax requests arrive here
+ */
 class Layotter_Ajax_Endpoints {
+
     /**
      * Output the edit form for an element
      */
@@ -17,9 +21,9 @@ class Layotter_Ajax_Endpoints {
 
         die(); // required by Wordpress after any AJAX call
     }
-    
+
     /**
-     * Output JSON-encoded element data (c<alled after editing an element)
+     * Save an element
      */
     public static function save_element() {
         if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
@@ -39,9 +43,9 @@ class Layotter_Ajax_Endpoints {
 
         die(); // required by Wordpress after any AJAX call
     }
-    
+
     /**
-     * Output the edit form for post, row or element options
+     * Output the edit form for post, row, col or element options
      */
     public static function edit_options() {
         if (isset($_POST['layotter_post_id'])) {
@@ -64,9 +68,9 @@ class Layotter_Ajax_Endpoints {
 
         die(); // required by Wordpress after any AJAX call
     }
-    
+
     /**
-     * Output JSON-encoded options data (called after editing post, row or element options)
+     * Save options
      */
     public static function save_options() {
         if (isset($_POST['layotter_post_id'])) {
@@ -90,9 +94,9 @@ class Layotter_Ajax_Endpoints {
 
         die(); // required by Wordpress after any AJAX call
     }
-    
+
     /**
-     * Save element as a new template and output the new template's JSON-encoded data
+     * Save element as a new template
      */
     public static function save_new_template() {
         if (isset($_POST['id']) AND ctype_digit($_POST['id'])) {
@@ -103,7 +107,7 @@ class Layotter_Ajax_Endpoints {
 
         die(); // required by Wordpress after any AJAX call
     }
-    
+
     /**
      * Delete a template
      */
@@ -117,9 +121,9 @@ class Layotter_Ajax_Endpoints {
 
         die(); // required by Wordpress after any AJAX call
     }
-    
+
     /**
-     * Save JSON structure as a post layout
+     * Save a new post layout
      */
     public static function save_new_layout() {
         if (isset($_POST['name']) AND isset($_POST['json'])) {
@@ -132,9 +136,9 @@ class Layotter_Ajax_Endpoints {
 
         die(); // required by Wordpress after any AJAX call
     }
-    
+
     /**
-     * Load a post layout
+     * Output post layout data
      */
     public static function load_layout() {
         if (isset($_POST['layout_id'])) {
@@ -144,7 +148,7 @@ class Layotter_Ajax_Endpoints {
 
         die(); // required by Wordpress after any AJAX call
     }
-    
+
     /**
      * Rename a post layout
      */
@@ -157,7 +161,7 @@ class Layotter_Ajax_Endpoints {
 
         die(); // required by Wordpress after any AJAX call
     }
-    
+
     /**
      * Delete a post layout
      */

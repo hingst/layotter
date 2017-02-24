@@ -1,39 +1,29 @@
 <?php
 
-
 /**
  * Holds registered element types and serves as a factory for element instances
  */
 class Layotter {
-    
-    
-    private static
-        $registered_elements = array();
 
-    const
-        META_FIELD_JSON = 'layotter_json',
-        TEXTAREA_NAME = 'layotter_json';
-    
-    
-    private function __construct() {} // prevent instantiation
+    const META_FIELD_JSON = 'layotter_json';
+    const TEXTAREA_NAME = 'layotter_json';
 
+    private static $registered_elements = array();
 
     public static function init() {
         // ACF abstraction layer is always required
         require_once __DIR__ . '/../core/acf-abstraction.php';
 
-        // include files only if ACF is available
+        // run only if ACF is available
         if (!Layotter_Acf_Abstraction::is_available()) {
             return;
         }
 
-        self::includes(); // TODO: autoloader
+        self::includes();
 
-        // include example element after theme is loaded (allows disabling the
-        // example element with a settings filter in the theme)
-        add_action('after_setup_theme', array(__CLASS__, 'include_example_element'));
         add_action('admin_head', array(__CLASS__, 'hook_editor'));
         add_filter('wp_post_revision_meta_keys', array(__CLASS__, 'track_custom_field'));
+        add_action('after_setup_theme', array(__CLASS__, 'include_example_element'));
 
         add_action('admin_enqueue_scripts', array('Layotter_Assets', 'backend'));
         add_action('wp_enqueue_scripts', array('Layotter_Assets', 'frontend'));
@@ -61,6 +51,9 @@ class Layotter {
         add_filter('wp_insert_post_data', array('Layotter_Post', 'make_search_dump'), 999, 2);
     }
 
+    /**
+     * Include files
+     */
     public static function includes() {
         require_once __DIR__ . '/../core/core.php';
         require_once __DIR__ . '/../core/ajax.php';
@@ -83,47 +76,46 @@ class Layotter {
         }
     }
 
-
     /**
      * Track custom field in post revisions
      *
-     * Wordpress normally doesn't track custom field data in post revisions. Layotter includes the WP Post Meta Revisions
-     * plugin to remedy this. This filter tells the plugin to keep track of the custom field used by Layotter.
-     * See https://wordpress.org/plugins/wp-post-meta-revisions/
+     * Track JSON data with the WP Post Meta Revisions plugin because Wordpress normally doesn't track custom fields
      */
     function track_custom_field($keys) {
         $keys[] = self::META_FIELD_JSON;
         return $keys;
     }
 
-
+    /**
+     * Include example element if enabled in options
+     */
     public static function include_example_element() {
         if (Layotter_Settings::example_element_enabled()) {
             require_once __DIR__ . '/../example/field-group.php';
             require_once __DIR__ . '/../example/element.php';
         }
     }
-    
-    
+
     /**
      * Register a new element type
-     * 
+     *
      * @param string $type Unique type identifier
      * @param string $class Class name for this element type, must extend Layotter_Element
      * @return bool Whether the element type has been registered successfully
+     * @throws Exception
      */
     public static function register_element($type, $class) {
         // fail if provided class name is not a valid class
         if (!class_exists($class) OR !is_subclass_of($class, 'Layotter_Element')) {
             throw new Exception('Invalid class: ' . $class);
         }
-        
+
         // fail if provided type is empty or already in use
         $type = self::clean_type($type);
         if (empty($type) OR isset(self::$registered_elements[$type])) {
             throw new Exception('Invalid class: ' . $class);
         }
-        
+
         // no errors, register the new element type
         self::$registered_elements[$type] = $class;
 
@@ -133,12 +125,17 @@ class Layotter {
         return true;
     }
 
+    /**
+     * Get all registered element types
+     *
+     * @return array
+     */
     public static function get_registered_element_types() {
         return self::$registered_elements;
     }
 
-
     /**
+     * Create a new element
      * @param string $type
      * @return Layotter_Element
      * @throws Exception
@@ -154,7 +151,6 @@ class Layotter {
             throw new Exception('Unknown element type: ' . $type);
         }
     }
-
 
     /**
      * @param int $id
@@ -174,7 +170,6 @@ class Layotter {
         }
     }
 
-
     /**
      * @param string $type
      * @return Layotter_Options
@@ -188,7 +183,6 @@ class Layotter {
         return $options;
     }
 
-
     /**
      * @param int $id
      * @return Layotter_Options
@@ -200,7 +194,6 @@ class Layotter {
         $options->set_post_type_context(get_post_type());
         return $options;
     }
-
 
     /**
      * Remove illegal characters from a type identifier
@@ -215,7 +208,6 @@ class Layotter {
 
         return preg_replace('/[^a-z_]/', '', $type); // only a-z and _ allowed
     }
-
 
     /**
      * Check if Layotter is enabled for the current screen
@@ -238,7 +230,6 @@ class Layotter {
 
         return true;
     }
-
 
     /**
      * Check if Layotter is enabled for a specific post
@@ -263,9 +254,6 @@ class Layotter {
         return in_array($post_type, $enabled_post_types);
     }
 
-
-
-
     /**
      * Replace TinyMCE with Layotter on Layotter-enabled screens
      */
@@ -280,8 +268,7 @@ class Layotter {
         remove_post_type_support($post_type, 'editor');
 
         // insert layotter
-        add_meta_box(
-            'layotter_wrapper', // ID
+        add_meta_box('layotter_wrapper', // ID
             'Layotter', // title
             array(__CLASS__, 'output_editor'), // callback
             $post_type, // post type for which to enable
@@ -289,7 +276,6 @@ class Layotter {
             'high' // priority
         );
     }
-
 
     /**
      * Output backend HTML for Layotter
@@ -312,8 +298,7 @@ class Layotter {
 
         require_once __DIR__ . '/../views/editor.php';
     }
-    
-    
+
 }
 
 
