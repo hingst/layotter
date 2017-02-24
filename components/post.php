@@ -1,20 +1,17 @@
 <?php
 
-
 /**
  * A single post
  */
 class Layotter_Post {
 
-    protected
-        $id = 0,
-        $options,
-        $rows = array(),
-        $json;
-
+    protected $id = 0;
+    protected $options;
+    protected $rows = array();
+    protected $json;
 
     /**
-     * Create an object for a post
+     * Create post instance
      *
      * @param int $id Post ID
      */
@@ -29,7 +26,11 @@ class Layotter_Post {
         }
     }
 
-
+    /**
+     * Set post content as JSON
+     *
+     * @param string $json
+     */
     public function set_json($json) {
         $content = json_decode($json, true);
         if (is_array($content)) {
@@ -41,13 +42,10 @@ class Layotter_Post {
         }
     }
 
-
     /**
-     * Return array representation of this post for use in json_encode()
+     * Return array representation of this post
      *
-     * PHP's JsonSerializable interface would be cleaner, but it's only available >= 5.4.0
-     *
-     * @return array Array representation of this post
+     * @return array
      */
     public function to_array() {
         $rows = array();
@@ -62,11 +60,9 @@ class Layotter_Post {
         );
     }
 
-
     public function to_json() {
         return json_encode($this->to_array());
     }
-
 
     /**
      * Return frontend HTML for this post
@@ -89,11 +85,10 @@ class Layotter_Post {
         }
     }
 
-
     /**
-     * Get array representations of blank element instances for all saved templates that are available for a specific post
+     * Get array representations for all templates that are available for this post
      *
-     * @return array Array representations of element instances for all templates
+     * @return array
      */
     public function get_available_templates() {
         $template_posts = get_posts(array(
@@ -114,11 +109,12 @@ class Layotter_Post {
         return $templates;
     }
 
-
     /**
-     * Get element types enabled for a specific post
+     * Get metadata of all element types enabled for this post
      *
-     * @return array Element instances
+     * For display in the "Add Element" modal
+     *
+     * @return array
      */
     public function get_available_element_types_metadata() {
         $elements = array();
@@ -135,15 +131,14 @@ class Layotter_Post {
         return $elements;
     }
 
-
     /**
-     * Helper used to sort a set of element types (to be used with usort())
+     * Helper used to sort a set of element types
      *
-     * Sorts using the order attribute. Elements with the same order attribute are sorted alphabetically
-     * by name. Elements without an order attribute are treated as order = 0.
+     * Sorts using the order attribute. Elements with the same order attribute are sorted alphabetically.
+     * Elements without an order attribute come last.
      *
-     * @param Layotter_Element $element_type_a First element type for comparison
-     * @param Layotter_Element $element_type_b Second element type for comparison
+     * @param array $a_metadata Element A
+     * @param array $b_metadata Element B
      * @return int -1 if A comes first, 1 if B comes first, 0 if equal
      */
     public static function sort_element_types_helper($a_metadata, $b_metadata) {
@@ -161,7 +156,11 @@ class Layotter_Post {
         }
     }
 
-
+    /**
+     * Get array representations of all available layouts
+     *
+     * @return array
+     */
     public function get_available_layouts() {
         $layout_posts = get_posts(array(
             'post_type' => Layotter_Layout::POST_TYPE_LAYOUTS,
@@ -181,14 +180,11 @@ class Layotter_Post {
     /**
      * Build a search dump when saving a post, and save JSON to a custom field
      *
-     * Since 1.5.0, the JSON is saved to a custom field while the regular post content contains a search dump. Otherwise
-     * Wordpress' native search would be pretty useless (going through cryptic JSON). This feature also makes post
-     * revisions more usable, because the content is displayed as readable text instead of JSON data.
-     *
-     * This filter is used to build a search dump when saving a post, as well as saving the post's JSON strucutre to a
-     * custom field.
+     * @param array $data Post data about to be saved to the database
+     * @param array $raw_post Raw POST data from the edit screen
+     * @return array Post data with modified post_content
      */
-    public static function make_search_dump($data, $raw_post){
+    public static function make_search_dump($data, $raw_post) {
         $post_id = $raw_post['ID'];
 
         // don't change anything if not editing a Layotter-enabled post
@@ -208,9 +204,8 @@ class Layotter_Post {
         // save JSON to a custom field (oddly enough, Wordpress breaks JSON if it's stripslashed)
         update_post_meta($post_id, Layotter::META_FIELD_JSON, $json);
 
-        // insert spaces so <p>foo</p><p>bar</p> becomes "foo bar" instead of "foobar"
-        // then strip all tags except <img>
-        // then remove excess whitespace
+        // <p>foo</p><p>bar</p> should become "foo bar" instead of "foobar"
+        // keep images for their alt attributes
         $content = str_replace('<', ' <', $content);
         $content = strip_tags($content, '<img>');
         $content = trim($content);
@@ -221,8 +216,7 @@ class Layotter_Post {
         }
 
         // wrap search dump with a [layotter] shortcode and return modified post data to be saved to the database
-        // add the post ID because otherwise the shortcode handler would have no reliable way to get the post ID through
-        // which the JSON data will be fetched
+        // add a shortcude attribute give the shortcode handler a reliable way to get the post ID
         $content = '[layotter post="' . $post_id . '"]' . $content . '[/layotter]';
         $data['post_content'] = $content;
         return $data;

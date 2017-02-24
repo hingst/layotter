@@ -135,10 +135,11 @@ class Layotter {
     }
 
     /**
-     * Create a new element
-     * @param string $type
+     * Create a new element instance
+     *
+     * @param string $type Element type
      * @return Layotter_Element
-     * @throws Exception
+     * @throws Exception If type is invalid
      */
     public static function assemble_new_element($type) {
         $type = strval($type);
@@ -153,9 +154,11 @@ class Layotter {
     }
 
     /**
-     * @param int $id
+     * Create an instance from an existing element
+     *
+     * @param int $id Element ID
      * @return Layotter_Element
-     * @throws Exception
+     * @throws Exception If ID is invalid
      */
     public static function assemble_element($id, $options_id = 0) {
         $id = intval($id);
@@ -171,9 +174,10 @@ class Layotter {
     }
 
     /**
-     * @param string $type
+     * Create a new options instance
+     *
+     * @param string $type Options type
      * @return Layotter_Options
-     * @throws Exception
      */
     public static function assemble_new_options($type) {
         $type = strval($type);
@@ -184,9 +188,10 @@ class Layotter {
     }
 
     /**
-     * @param int $id
+     * Create an instance of existing options
+     *
+     * @param int $id Options ID
      * @return Layotter_Options
-     * @throws Exception
      */
     public static function assemble_options($id) {
         $id = intval($id);
@@ -212,7 +217,7 @@ class Layotter {
     /**
      * Check if Layotter is enabled for the current screen
      *
-     * @return bool Whether Layotter is enabled
+     * @return bool
      */
     public static function is_enabled() {
         if (!is_admin()) {
@@ -235,7 +240,7 @@ class Layotter {
      * Check if Layotter is enabled for a specific post
      *
      * @param int $post_id Post ID
-     * @return bool Whether Layotter is enabled
+     * @return bool
      */
     public static function is_enabled_for_post($post_id) {
         $override_enabled = apply_filters('layotter/enable_for_posts', array());

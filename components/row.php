@@ -1,19 +1,16 @@
 <?php
 
-
 /**
  * A single row
  */
 class Layotter_Row {
 
-    private
-        $layout = '',
-        $options,
-        $cols = array();
-
+    private $layout = '';
+    private $options;
+    private $cols = array();
 
     /**
-     * Create a new row
+     * Create a row instance
      *
      * @param array $structure Row structure
      */
@@ -28,7 +25,6 @@ class Layotter_Row {
         }
     }
 
-
     /**
      * Take a row structure and apply the row layout (e.g. '1/3 1/3 1/3') to the contained columns
      *
@@ -39,22 +35,16 @@ class Layotter_Row {
         $layout_array = explode(' ', $structure['layout']);
 
         foreach ($structure['cols'] as $i => &$col) {
-            $col['width']
-                = isset($layout_array[$i])
-                ? $layout_array[$i]
-                : '';
+            $col['width'] = isset($layout_array[$i]) ? $layout_array[$i] : '';
         }
 
         return $structure;
     }
 
-
     /**
-     * Return array representation of this row for use in json_encode()
+     * Return array representation of this row
      *
-     * PHP's JsonSerializable interface would be cleaner, but it's only available >= 5.4.0
-     *
-     * @return array Array representation of this row
+     * @return array
      */
     public function to_array() {
         $cols = array();
@@ -70,11 +60,10 @@ class Layotter_Row {
         );
     }
 
-
     /**
      * Return frontend HTML for this row
      *
-     * @param array $post_options Formatted options for the parent post
+     * @param array $post_options Option values for the parent post
      * @return string Frontend HTML
      */
     public function get_frontend_view($post_options) {

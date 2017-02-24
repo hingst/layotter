@@ -1,15 +1,11 @@
 <?php
 
-
 /**
  * Options for a post, row, columns or element
  */
 class Layotter_Options extends Layotter_Editable {
 
-
-    private
-        $post_type_context;
-
+    private $post_type_context;
 
     final public function __construct($id = 0) {
         $this->id = intval($id);
@@ -19,7 +15,6 @@ class Layotter_Options extends Layotter_Editable {
             $this->set_type(get_post_meta($id, self::META_FIELD_EDITABLE_TYPE, true));
         }
     }
-
 
     public function set_type($type) {
         $this->type = strval($type);
@@ -32,11 +27,9 @@ class Layotter_Options extends Layotter_Editable {
         $this->title = $titles[$this->type];
     }
 
-
     public function set_post_type_context($post_type) {
         $this->post_type_context = strval($post_type);
     }
-
 
     protected function get_fields() {
         if (!post_type_exists($this->post_type_context)) {
@@ -56,7 +49,6 @@ class Layotter_Options extends Layotter_Editable {
         return $fields;
     }
 
-
     /**
      * Check if this option type is enabled for the current post (i.e. an ACF field group exists)
      *
@@ -65,8 +57,7 @@ class Layotter_Options extends Layotter_Editable {
     public function is_enabled() {
         return !empty($this->get_fields());
     }
-    
-    
+
 }
 
 

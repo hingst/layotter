@@ -1,44 +1,43 @@
 <?php
 
-
 /**
  * Abstract class for editable components (options and elements)
  */
 abstract class Layotter_Editable {
 
-    protected
-        $id = 0,
-        // new
-        $icon,
-        $title,
-        $type;
+    const META_FIELD_EDITABLE_TYPE = 'layotter_editable_type';
+    const POST_TYPE_EDITABLE = 'layotter_editable';
 
-    const
-        META_FIELD_EDITABLE_TYPE = 'layotter_editable_type',
-        POST_TYPE_EDITABLE = 'layotter_editable';
-
+    protected $id = 0;
+    protected $icon;
+    protected $title;
+    protected $type;
 
     abstract protected function get_fields();
 
-
     /**
-     * Get clean values
+     * Get values
      *
-     * @return array Clean values
+     * @return array Values
      */
     final public function get_values() {
         return get_fields($this->id);
     }
 
-
-
-
+    /**
+     * Set element type
+     *
+     * @param string $type Type
+     */
     public function set_type($type) {
         $this->type = $type;
     }
 
-
-
+    /**
+     * Get form data
+     *
+     * @return array
+     */
     final public function get_form_data() {
         return array(
             'title' => $this->title,
@@ -48,15 +47,19 @@ abstract class Layotter_Editable {
         );
     }
 
-
+    /**
+     * Get form JSON
+     *
+     * @return string
+     */
     final public function get_form_json() {
         return json_encode($this->get_form_data());
     }
 
-
+    /**
+     * Use wp_insert_post to trigger ACF hooks that read from $_POST and save custom fields
+     */
     public function save_from_post_data() {
-        // wp_insert_post triggers ACF hooks that read from $_POST and save custom fields
-        // it's ridiculous
         $this->id = wp_insert_post(array(
             'post_type' => self::POST_TYPE_EDITABLE,
             'meta_input' => array(
@@ -66,7 +69,11 @@ abstract class Layotter_Editable {
         ));
     }
 
-
+    /**
+     * Get Element ID
+     *
+     * @return int ID
+     */
     public function get_id() {
         return $this->id;
     }

@@ -1,67 +1,55 @@
 <?php
 
-
 /**
  * All custom element types must extend this class
  */
 abstract class Layotter_Element extends Layotter_Editable {
 
-    
-    protected
-        // internal use only
-        $options,
-        $is_template = false,
-        // user-defined (mandatory)
-        $description,
-        $field_group,
-        // user-defined (optional)
-        $order = 0;
+    const META_FIELD_IS_TEMPLATE = 'layotter_is_template';
 
-    const
-        META_FIELD_IS_TEMPLATE = 'layotter_is_template';
-
+    protected $options;
+    protected $is_template = false;
+    protected $description;
+    protected $field_group;
+    protected $order = PHP_INT_MAX;
 
     /**
-     * Must assign $this->title, $this->description, $this->icon and $this->field_group
+     * Must set $this->title, $this->description, $this->icon and $this->field_group
      *
-     * May assign $this->order to override alphabetical ordering in the "Add Element" screen.
+     * May set $this->order to override alphabetical ordering in the "Add Element" screen.
      */
     abstract protected function attributes();
 
-
     /**
-     * Should output HTMl for the element's backend representation
+     * Should output element's backend HTML
      *
      * @param array $fields Field values
      */
     abstract protected function backend_view($fields);
 
-
     /**
-     * Should output HTMl for the element's frontend representation
+     * Should output element's frontend HTML
      *
      * @param array $fields Field values
      */
     abstract protected function frontend_view($fields);
 
-
     /**
-     * backend_assets() is optional and should be used to enqueue scripts and styles for the backend
+     * backend_assets() can be used to enqueue scripts and styles for the backend
      */
-    public static function backend_assets() {}
-
+    public static function backend_assets() {
+    }
 
     /**
-     * frontend_assets() is optional and should be used to enqueue scripts and styles for the backend
+     * frontend_assets() can be used to enqueue scripts and styles for the frontend
      */
-    public static function frontend_assets() {}
-
+    public static function frontend_assets() {
+    }
 
     /**
-     * Create a new element
+     * Create an element
      *
      * @param int $id Element's post ID, 0 for new elements.
-     * @throws Exception If the ACF field group defined for this element doesn't exist
      */
     final public function __construct($id = 0) {
         $this->attributes();
@@ -111,23 +99,20 @@ abstract class Layotter_Element extends Layotter_Editable {
         return Layotter_Acf_Abstraction::get_fields($field_group);
     }
 
-
     /**
      * Register hooks for backend assets
      *
-     * This allows element type developers to enqueue scripts and styles required to display this element
-     * correctly in the backend.
+     * Allows element types to enqueue scripts and styles in the backend.
      */
     final public static function register_backend_hooks() {
         add_action('admin_footer', array(get_called_class(), 'register_backend_hooks_helper'));
     }
 
-
     /**
      * Helper function for register_backend_hooks
      *
-     * To make sure that Layotter::is_enabled() returns the correct value, the check is delayed until admin_footer.
-     * Without the check, assets would be included on every single page in the backend.
+     * To make Layotter::is_enabled() work, the check is delayed until admin_footer.
+     * Without the check, assets would be included on every page in the backend.
      */
     final public static function register_backend_hooks_helper() {
         if (Layotter::is_enabled()) {
@@ -135,12 +120,10 @@ abstract class Layotter_Element extends Layotter_Editable {
         }
     }
 
-
     /**
      * Register hooks for frontend assets
      *
-     * This allows element type developers to enqueue scripts and styles required to display this element
-     * correctly in the frontend.
+     * Allows element types to enqueue scripts and styles in the frontend.
      */
     final private function register_frontend_hooks() {
         if (!is_admin()) {
@@ -148,12 +131,11 @@ abstract class Layotter_Element extends Layotter_Editable {
         }
     }
 
-
     /**
      * Check if this element type is enabled for a specific post
      *
      * @param int $post_id Post ID
-     * @return bool Whether this element type is enabled
+     * @return bool
      */
     final public function is_enabled_for($post_id) {
         $post_id = intval($post_id);
@@ -172,7 +154,11 @@ abstract class Layotter_Element extends Layotter_Editable {
         ));
     }
 
-
+    /**
+     * Get element metadata for display in the "Add Element" modal
+     *
+     * @return array Metadata
+     */
     public function get_metadata() {
         return array(
             'type' => $this->type,
@@ -183,13 +169,10 @@ abstract class Layotter_Element extends Layotter_Editable {
         );
     }
 
-
     /**
-     * Return array representation of this element for use in json_encode()
+     * Return array representation of this element
      *
-     * PHP's JsonSerializable interface would be cleaner, but it's only available >= 5.4.0
-     *
-     * @return array Array representation of this element
+     * @return array
      */
     public function to_array() {
         return array(
@@ -200,22 +183,33 @@ abstract class Layotter_Element extends Layotter_Editable {
         );
     }
 
-
+    /**
+     * Set or unset this element as a template
+     *
+     * @param bool $bool Set or unset
+     */
     public function set_template($bool) {
         $this->is_template = $bool;
         update_post_meta($this->id, self::META_FIELD_IS_TEMPLATE, $bool);
     }
 
-
+    /**
+     * Check if this element is a template
+     *
+     * @return bool
+     */
     public function is_template() {
         return $this->is_template;
     }
 
-
+    /**
+     * Get element data as JSON
+     *
+     * @return string
+     */
     public function to_json() {
         return json_encode($this->to_array());
     }
-
 
     /**
      * Get the backend view
@@ -228,13 +222,12 @@ abstract class Layotter_Element extends Layotter_Editable {
         return ob_get_clean();
     }
 
-
     /**
      * Get the frontend view
      *
-     * @param array $col_options Formatted options for the parent column
-     * @param array $row_options Formatted options for the parent row
-     * @param array $post_options Formatted options for the parent post
+     * @param array $col_options Option values for the parent column
+     * @param array $row_options Option values for the parent row
+     * @param array $post_options Option values for the parent post
      * @param string $col_width Width of the parent column, e.g. '1/3'
      * @return string Frontend view HTML
      */
@@ -251,19 +244,30 @@ abstract class Layotter_Element extends Layotter_Editable {
         }
     }
 
-
+    /**
+     * Get this element's options
+     *
+     * @return Layotter_Options
+     */
     public function get_options() {
         return $this->options;
     }
 
-
+    /**
+     * Set element options
+     *
+     * @param int $id Options ID
+     */
     public function set_options($id) {
         $this->options = Layotter::assemble_options($id);
         $this->options->set_post_type_context(get_post_type());
     }
 
-
-    // for templates only
+    /**
+     * Use wp_update_post to trigger ACF hooks that read $_POST and save custom fields
+     *
+     * This is only used for templates.
+     */
     public function update_from_post_data() {
         // wp_insert_post triggers ACF hooks that read from $_POST and save custom fields
         // it's ridiculous
@@ -271,7 +275,5 @@ abstract class Layotter_Element extends Layotter_Editable {
             'ID' => $this->id
         ));
     }
-
-
 
 }

@@ -1,16 +1,13 @@
 <?php
 
-
 /**
  * A single column
  */
 class Layotter_Col {
 
-    private
-        $width = '',
-        $options,
-        $elements = array();
-
+    private $width = '';
+    private $options;
+    private $elements = array();
 
     /**
      * Create a new columns
@@ -27,13 +24,10 @@ class Layotter_Col {
         }
     }
 
-
     /**
-     * Return array representation of this column for use in json_encode()
+     * Return array representation of this column
      *
-     * PHP's JsonSerializable interface would be cleaner, but it's only available >= 5.4.0
-     *
-     * @return array Array representation of this column
+     * @return array
      */
     public function to_array() {
         $elements = array();
@@ -48,12 +42,11 @@ class Layotter_Col {
         );
     }
 
-
     /**
      * Return frontend HTML for this column
      *
-     * @param array $row_options Formatted options for the parent row
-     * @param array $post_options Formatted options for the parent post
+     * @param array $row_options Option valuess for the parent row
+     * @param array $post_options Option values for the parent post
      * @return string Frontend HTML
      */
     public function get_frontend_view($row_options, $post_options) {

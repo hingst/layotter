@@ -1,12 +1,15 @@
 <?php
 
-
+/**
+ * Handles the shortcode for frontend view
+ */
 class Layotter_Shortcode {
+
     /**
      * Process post content
      *
      * @param array $atts Shortcode attributes
-     * @param string $input Data wrapped by the [layotter] shortcode
+     * @param string $input Search dump wrapped by [layotter] shortcode
      * @return string HTML for frontend view of the current post
      */
     public static function register($atts, $input = '') {
@@ -16,40 +19,36 @@ class Layotter_Shortcode {
         // $post variable hasn't been correctly initialized, like do_shortcode() or apply_filters('the_content')
         // TODO: absolutely keep the previous comment in mind when creating the migration script!
 
-
         if (isset($atts['post']) AND Layotter::is_enabled_for_post($atts['post'])) {
             $post_id = intval($atts['post']);
             $layotter = new Layotter_Post($post_id);
-        } else {
-            // if previewing a post
-            $layotter = new Layotter_Post();
-            $layotter->set_json($input);
+            $input = $layotter->get_frontend_view();
         }
 
-        $html = $layotter->get_frontend_view();
-
-        // apply wptexturize manually after post HTML has been parsed because automatic wptexturizing is disabled for
-        // Layotter content (see layotter_disable_wptexturize() below)
-        return wptexturize($html);
+        return wptexturize($input);
     }
-
 
     /**
      * Disable wptexturize for [layotter] shortcode
      *
      * Wordpress replaces some characters with html entities, e.g. < becomes &lt; - this breaks post previews, so we'll
      * disable it for Layotter contents.
+     *
+     * @param array $shortcodes wptexturize-disabled shortcodes
+     * @return array More wptexturize-disabled shortcodes
      */
     public static function disable_wptexturize($shortcodes) {
         $shortcodes[] = 'layotter';
         return $shortcodes;
     }
 
-
     /**
      * Disable wpautop for [layotter] shortcode
      *
      * When previewing changes to a post, Wordpress normally adds <p> tags that break JSON, so we'll disable that.
+     *
+     * @param string $content Post content
+     * @return string Post content
      */
     public static function disable_wpautop($content) {
         if (Layotter::is_enabled_for_post(get_the_ID())) {
