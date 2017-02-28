@@ -48,11 +48,9 @@ function layotter_ajax_edit_element() {
  */
 add_action('wp_ajax_layotter_parse_element', 'layotter_ajax_parse_element');
 function layotter_ajax_parse_element() {
-    $post_data = layotter_get_angular_post_data();
-
-    if (isset($post_data['type']) AND is_string($post_data['type'])) {
+    if (isset($_POST['type']) AND is_string($_POST['type'])) {
         $values = Layotter_ACF::unwrap_post_values();
-        $element = Layotter::create_element($post_data['type'], $values);
+        $element = Layotter::create_element($_POST['type'], $values);
         if ($element) {
             echo json_encode($element->to_array());
         }
@@ -102,17 +100,15 @@ function layotter_ajax_edit_options() {
  */
 add_action('wp_ajax_layotter_parse_options', 'layotter_ajax_parse_options');
 function layotter_ajax_parse_options() {
-    $post_data = layotter_get_angular_post_data();
-
-    if (isset($post_data['type']) AND is_string($post_data['type'])) {
-        if (isset($post_data['post_id'])) {
-            $post_id = $post_data['post_id'];
+    if (isset($_POST['type']) AND is_string($_POST['type'])) {
+        if (isset($_POST['post_id'])) {
+            $post_id = $_POST['post_id'];
         } else {
             $post_id = '';
         }
 
         $values = Layotter_ACF::unwrap_post_values();
-        $options = new Layotter_Options($post_data['type'], $values, $post_id);
+        $options = new Layotter_Options($_POST['type'], $values, $post_id);
         if($options->is_enabled()) {
             echo json_encode($options->to_array());
         }
@@ -176,12 +172,12 @@ function layotter_ajax_edit_template() {
  */
 add_action('wp_ajax_layotter_update_template', 'layotter_ajax_update_template');
 function layotter_ajax_update_template() {
-    $post_data = layotter_get_angular_post_data();
-    
     // type and field values are required
-    if (isset($post_data['template_id']) AND is_int($post_data['template_id'])) {
-        $id = $post_data['template_id'];
-        $template = Layotter_Templates::get($id);
+
+    if (isset($_POST['template_id']) AND (int)$_POST['template_id']!==0) {
+        $id = $_POST['template_id'];
+
+	    $template = Layotter_Templates::get($id);
 
         if ($template) {
             $values = Layotter_ACF::unwrap_post_values();
