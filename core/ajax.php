@@ -176,12 +176,10 @@ function layotter_ajax_update_template() {
 
     if (isset($_POST['template_id']) AND (int)$_POST['template_id']!==0) {
         $id = $_POST['template_id'];
-
-	    $template = Layotter_Templates::get($id);
+        $template = Layotter_Templates::get($id);
 
         if ($template) {
             $values = Layotter_ACF::unwrap_post_values();
-
             $element = Layotter::create_element($template['type'], $values);
             if ($element) {
                 $element->set_template_id($id);

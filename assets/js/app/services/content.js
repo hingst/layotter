@@ -85,8 +85,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         var editingElement = state.getElement();
         state.reset();
         editingElement.isLoading = true;
-
-
+        
         // ACF wraps all form fields in a required object called 'acf'
         var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
             + '&'
