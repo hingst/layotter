@@ -1,9 +1,13 @@
 <?php
 
+namespace Layotter\Components;
+use Layotter\Core;
+use Layotter\Settings;
+
 /**
  * A single column
  */
-class Layotter_Col {
+class Column {
 
     private $width = '';
     private $options;
@@ -16,10 +20,10 @@ class Layotter_Col {
      */
     public function __construct($structure) {
         $this->width = $structure['width'];
-        $this->options = Layotter::assemble_options($structure['options_id']);
+        $this->options = Core::assemble_options($structure['options_id']);
 
         foreach ($structure['elements'] as $element) {
-            $element_object = Layotter::assemble_element($element['id'], $element['options_id']);
+            $element_object = Core::assemble_element($element['id'], $element['options_id']);
             $this->elements[] = $element_object;
         }
     }
@@ -55,12 +59,12 @@ class Layotter_Col {
             $elements_html .= $element->get_frontend_view($this->options->get_values(), $row_options, $post_options, $this->width);
         }
 
-        $class = Layotter_Settings::get_col_layout_class($this->width);
+        $class = Settings::get_col_layout_class($this->width);
 
         if (has_filter('layotter/view/column')) {
             return apply_filters('layotter/view/column', $elements_html, $class, $this->options->get_values(), $row_options, $post_options);
         } else {
-            $html_wrapper = Layotter_Settings::get_html_wrapper('cols');
+            $html_wrapper = Settings::get_html_wrapper('cols');
             $html_before = str_replace('%%CLASS%%', $class, $html_wrapper['before']);
             return $html_before . $elements_html . $html_wrapper['after'];
         }

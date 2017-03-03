@@ -9,6 +9,7 @@ Text Domain: layotter
 GitHub Plugin URI: hingst/layotter
 */
 
+namespace Layotter;
 
 // load translations
 load_plugin_textdomain('layotter', false, basename(__DIR__) . '/languages/');
@@ -18,7 +19,7 @@ load_plugin_textdomain('layotter', false, basename(__DIR__) . '/languages/');
 require_once __DIR__ . '/core/settings.php';
 
 require_once __DIR__ . '/core/core.php';
-Layotter::init();
+Core::init();
 
 //add_action('plugins_loaded', array('Layotter', 'init'));
 // TODO: had init hooked to plugins_loaded before -- I guess there was a reason?

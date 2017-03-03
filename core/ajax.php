@@ -1,9 +1,13 @@
 <?php
 
+namespace Layotter\Ajax;
+use Layotter\Core;
+use Layotter\Components\Layout;
+
 /**
  * All Ajax requests arrive here
  */
-class Layotter_Ajax_Endpoints {
+class Endpoints {
 
     /**
      * Output the edit form for an element
@@ -11,11 +15,11 @@ class Layotter_Ajax_Endpoints {
     public static function edit_element() {
         if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
             $id = intval($_POST['layotter_element_id']);
-            $element = Layotter::assemble_element($id);
+            $element = Core::assemble_element($id);
             echo $element->get_form_json();
         } else if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
             $type = $_POST['layotter_type'];
-            $element = Layotter::assemble_new_element($type);
+            $element = Core::assemble_new_element($type);
             echo $element->get_form_json();
         }
 
@@ -28,7 +32,7 @@ class Layotter_Ajax_Endpoints {
     public static function save_element() {
         if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
             $id = intval($_POST['layotter_element_id']);
-            $element = Layotter::assemble_element($id);
+            $element = Core::assemble_element($id);
             if ($element->is_template()) {
                 $element->update_from_post_data();
             } else {
@@ -36,7 +40,7 @@ class Layotter_Ajax_Endpoints {
             }
             echo $element->to_json();
         } else if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
-            $element = Layotter::assemble_new_element($_POST['layotter_type']);
+            $element = Core::assemble_new_element($_POST['layotter_type']);
             $element->save_from_post_data();
             echo $element->to_json();
         }
@@ -56,12 +60,12 @@ class Layotter_Ajax_Endpoints {
 
         if (isset($_POST['layotter_options_id']) AND ctype_digit($_POST['layotter_options_id']) AND $_POST['layotter_options_id'] != 0) {
             $id = intval($_POST['layotter_options_id']);
-            $options = Layotter::assemble_options($id);
+            $options = Core::assemble_options($id);
             $options->set_post_type_context($post_type_context);
             echo $options->get_form_json();
         } else if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
             $type = $_POST['layotter_type'];
-            $options = Layotter::assemble_new_options($type);
+            $options = Core::assemble_new_options($type);
             $options->set_post_type_context($post_type_context);
             echo $options->get_form_json();
         }
@@ -81,12 +85,12 @@ class Layotter_Ajax_Endpoints {
 
         if (isset($_POST['layotter_options_id']) AND ctype_digit($_POST['layotter_options_id']) AND $_POST['layotter_options_id'] != 0) {
             $id = intval($_POST['layotter_options_id']);
-            $options = Layotter::assemble_options($id);
+            $options = Core::assemble_options($id);
             $options->set_post_type_context($post_type_context);
             $options->save_from_post_data();
             echo $options->get_id();
         } else if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
-            $options = Layotter::assemble_new_options($_POST['layotter_type']);
+            $options = Core::assemble_new_options($_POST['layotter_type']);
             $options->set_post_type_context($post_type_context);
             $options->save_from_post_data();
             echo $options->get_id();
@@ -100,7 +104,7 @@ class Layotter_Ajax_Endpoints {
      */
     public static function save_new_template() {
         if (isset($_POST['id']) AND ctype_digit($_POST['id'])) {
-            $element = Layotter::assemble_element($_POST['id']);
+            $element = Core::assemble_element($_POST['id']);
             $element->set_template(true);
             echo $element->to_json();
         }
@@ -114,7 +118,7 @@ class Layotter_Ajax_Endpoints {
     public static function delete_template() {
         if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
             $id = intval($_POST['layotter_element_id']);
-            $element = Layotter::assemble_element($id);
+            $element = Core::assemble_element($id);
             $element->set_template(false);
             echo $element->to_json();
         }
@@ -128,7 +132,7 @@ class Layotter_Ajax_Endpoints {
     public static function save_new_layout() {
         if (isset($_POST['name']) AND isset($_POST['json'])) {
             $json = stripslashes($_POST['json']);
-            $layout = new Layotter_Layout();
+            $layout = new Layout();
             $layout->set_json($json);
             $layout->save($_POST['name']);
             echo $layout->to_json();
@@ -142,7 +146,7 @@ class Layotter_Ajax_Endpoints {
      */
     public static function load_layout() {
         if (isset($_POST['layout_id'])) {
-            $layout = new Layotter_Layout($_POST['layout_id']);
+            $layout = new Layout($_POST['layout_id']);
             echo $layout->to_json();
         }
 
@@ -154,7 +158,7 @@ class Layotter_Ajax_Endpoints {
      */
     public static function rename_layout() {
         if (isset($_POST['layout_id']) AND isset($_POST['name'])) {
-            $layout = new Layotter_Layout($_POST['layout_id']);
+            $layout = new Layout($_POST['layout_id']);
             $layout->rename($_POST['name']);
             echo $layout->to_json();
         }
@@ -167,7 +171,7 @@ class Layotter_Ajax_Endpoints {
      */
     public static function delete_layout() {
         if (isset($_POST['layout_id'])) {
-            $layout = new Layotter_Layout($_POST['layout_id']);
+            $layout = new Layout($_POST['layout_id']);
             $layout->delete();
         }
 

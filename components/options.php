@@ -1,9 +1,12 @@
 <?php
 
+namespace Layotter\Components;
+use Layotter\Acf\Adapter;
+
 /**
  * Options for a post, row, columns or element
  */
-class Layotter_Options extends Layotter_Editable {
+class Options extends Editable {
 
     private $post_type_context;
 
@@ -33,17 +36,17 @@ class Layotter_Options extends Layotter_Editable {
 
     protected function get_fields() {
         if (!post_type_exists($this->post_type_context)) {
-            throw new Exception('Unknown post type: ' . $this->post_type_context);
+            throw new \Exception('Unknown post type: ' . $this->post_type_context);
         }
 
-        $field_groups = Layotter_Acf_Abstraction::get_filtered_field_groups(array(
+        $field_groups = Adapter::get_filtered_field_groups(array(
             'post_type' => $this->post_type_context,
             'layotter' => $this->type . '_options'
         ));
 
         $fields = array();
         foreach ($field_groups as $field_group) {
-            $fields = array_merge($fields, Layotter_Acf_Abstraction::get_fields($field_group));
+            $fields = array_merge($fields, Adapter::get_fields($field_group));
         }
 
         return $fields;

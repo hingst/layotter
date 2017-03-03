@@ -1,5 +1,7 @@
 <?php
 
+namespace Layotter\Acf;
+
 /**
  * Add custom location rules for ACF
  *
@@ -8,7 +10,7 @@
  *
  * learn more: http://www.advancedcustomfields.com/resources/custom-location-rules/
  */
-class Layotter_Acf_Location_Rules {
+class LocationRules {
 
     /**
      * Add 'Use with layotter' as first-level location option

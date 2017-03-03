@@ -1,9 +1,14 @@
 <?php
 
+namespace Layotter\Components;
+use Layotter\Core;
+use Layotter\Settings;
+use Layotter\Acf\Adapter;
+
 /**
  * All custom element types must extend this class
  */
-abstract class Layotter_Element extends Layotter_Editable {
+abstract class Element extends Editable {
 
     const META_FIELD_IS_TEMPLATE = 'layotter_is_template';
 
@@ -63,7 +68,7 @@ abstract class Layotter_Element extends Layotter_Editable {
             }
         }
 
-        $this->options = Layotter::assemble_new_options('element');
+        $this->options = Core::assemble_new_options('element');
 
         $this->register_frontend_hooks();
     }
@@ -72,31 +77,31 @@ abstract class Layotter_Element extends Layotter_Editable {
      * Get ACF fields for this element
      *
      * @return array ACF fields
-     * @throws Exception If $this->field_group wasn't assigned correctly in $this->attributes()
+     * @throws \Exception If $this->field_group wasn't assigned correctly in $this->attributes()
      */
     final protected function get_fields() {
         // TODO: maybe clean fields to exclude stale fields?
 
         // ACF field group can be provided as post id (int) or slug ('group_xyz')
         if (!is_int($this->field_group) AND !is_string($this->field_group)) {
-            throw new Exception('$this->field_group must be assigned in attributes() (error in class ' . get_called_class() . ')');
+            throw new \Exception('$this->field_group must be assigned in attributes() (error in class ' . get_called_class() . ')');
         }
 
         if (is_int($this->field_group)) {
-            $field_group = Layotter_Acf_Abstraction::get_field_group_by_id($this->field_group);
+            $field_group = Adapter::get_field_group_by_id($this->field_group);
             $identifier = 'post_id';
         } else {
-            $field_group = Layotter_Acf_Abstraction::get_field_group_by_key($this->field_group);
+            $field_group = Adapter::get_field_group_by_key($this->field_group);
             $identifier = 'acf-field-group';
         }
 
         // check if the field group exists
         if (!$field_group) {
-            throw new Exception('No ACF field group found for ' . $identifier . '=' . $this->field_group . ' (error in class ' . get_called_class() . ')');
+            throw new \Exception('No ACF field group found for ' . $identifier . '=' . $this->field_group . ' (error in class ' . get_called_class() . ')');
         }
 
         // return fields for the provided ACF field group
-        return Layotter_Acf_Abstraction::get_fields($field_group);
+        return Adapter::get_fields($field_group);
     }
 
     /**
@@ -115,7 +120,7 @@ abstract class Layotter_Element extends Layotter_Editable {
      * Without the check, assets would be included on every page in the backend.
      */
     final public static function register_backend_hooks_helper() {
-        if (Layotter::is_enabled()) {
+        if (Core::is_enabled()) {
             call_user_func(array(get_called_class(), 'backend_assets'));
         }
     }
@@ -142,12 +147,12 @@ abstract class Layotter_Element extends Layotter_Editable {
         $post_type = get_post_type($post_id);
 
         if (is_int($this->field_group)) {
-            $field_group = Layotter_Acf_Abstraction::get_field_group_by_id($this->field_group);
+            $field_group = Adapter::get_field_group_by_id($this->field_group);
         } else {
-            $field_group = Layotter_Acf_Abstraction::get_field_group_by_key($this->field_group);
+            $field_group = Adapter::get_field_group_by_key($this->field_group);
         }
 
-        return Layotter_Acf_Abstraction::is_field_group_visible($field_group, array(
+        return Adapter::is_field_group_visible($field_group, array(
             'post_id' => $post_id,
             'post_type' => $post_type,
             'layotter' => 'element'
@@ -239,7 +244,7 @@ abstract class Layotter_Element extends Layotter_Editable {
         if (has_filter('layotter/view/element')) {
             return apply_filters('layotter/view/element', $element_html, $this->options->get_values(), $col_options, $row_options, $post_options);
         } else {
-            $html_wrapper = Layotter_Settings::get_html_wrapper('elements');
+            $html_wrapper = Settings::get_html_wrapper('elements');
             return $html_wrapper['before'] . $element_html . $html_wrapper['after'];
         }
     }
@@ -247,7 +252,7 @@ abstract class Layotter_Element extends Layotter_Editable {
     /**
      * Get this element's options
      *
-     * @return Layotter_Options
+     * @return Options
      */
     public function get_options() {
         return $this->options;
@@ -259,7 +264,7 @@ abstract class Layotter_Element extends Layotter_Editable {
      * @param int $id Options ID
      */
     public function set_options($id) {
-        $this->options = Layotter::assemble_options($id);
+        $this->options = Core::assemble_options($id);
         $this->options->set_post_type_context(get_post_type());
     }
 

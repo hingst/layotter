@@ -1,9 +1,12 @@
 <?php
 
+namespace Layotter\Components;
+use Layotter\Acf\Adapter;
+
 /**
  * Abstract class for editable components (options and elements)
  */
-abstract class Layotter_Editable {
+abstract class Editable {
 
     const META_FIELD_EDITABLE_TYPE = 'layotter_editable_type';
     const POST_TYPE_EDITABLE = 'layotter_editable';
@@ -43,7 +46,7 @@ abstract class Layotter_Editable {
             'title' => $this->title,
             'icon' => $this->icon,
             'nonce' => wp_create_nonce('post'),
-            'fields' => Layotter_Acf_Abstraction::get_form_html($this->get_fields(), $this->id)
+            'fields' => Adapter::get_form_html($this->get_fields(), $this->id)
         );
     }
 

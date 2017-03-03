@@ -1,10 +1,12 @@
 <?php
 
+namespace Layotter\Components;
+use Layotter\Core;
+
 /**
- * Layotter_Posts turn into Layotter_Layouts when they are
- * saved to the database as templates for new posts.
+ * Layotter Posts turn into Layouts when they are saved to the database as templates for new posts.
  */
-class Layotter_Layout extends Layotter_Post {
+class Layout extends Post {
 
     const POST_TYPE_LAYOUTS = 'layotter_post_layout';
 
@@ -29,7 +31,7 @@ class Layotter_Layout extends Layotter_Post {
         $this->layout_id = wp_insert_post(array(
             'post_type' => self::POST_TYPE_LAYOUTS,
             'meta_input' => array(
-                Layotter::META_FIELD_JSON => $this->json,
+                Core::META_FIELD_JSON => $this->json,
             ),
             'post_status' => 'publish',
             'post_title' => $name

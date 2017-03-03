@@ -1,15 +1,19 @@
 <?php
 
+namespace Layotter;
+use Layotter\Acf\Adapter;
+use Layotter\Components\Post;
+
 /**
  * HTML templates, JS, CSS, and data to be passed to Javascript
  */
-class Layotter_Assets {
+class Assets {
 
     /**
      * Backend assets
      */
     public static function backend() {
-        if (!Layotter::is_enabled()) {
+        if (!Core::is_enabled()) {
             return;
         }
 
@@ -43,25 +47,25 @@ class Layotter_Assets {
         }
 
         // to check if options are enabled
-        $post_options = Layotter::assemble_new_options('post');
-        $row_options = Layotter::assemble_new_options('row');
-        $col_options = Layotter::assemble_new_options('col');
-        $element_options = Layotter::assemble_new_options('element');
+        $post_options = Core::assemble_new_options('post');
+        $row_options = Core::assemble_new_options('row');
+        $col_options = Core::assemble_new_options('col');
+        $element_options = Core::assemble_new_options('element');
 
         // get current post
-        $layotter_post = new Layotter_Post(get_the_ID());
+        $layotter_post = new Post(get_the_ID());
 
         // pass data to JS
         wp_localize_script('layotter', 'layotterData', array(
             'postID' => get_the_ID(),
-            'isACFPro' => Layotter_Acf_Abstraction::is_pro_installed(),
+            'isACFPro' => Adapter::is_pro_installed(),
             'contentStructure' => $layotter_post->to_array(),
-            'allowedRowLayouts' => Layotter_Settings::get_allowed_row_layouts(),
-            'defaultRowLayout' => Layotter_Settings::get_default_row_layout(),
+            'allowedRowLayouts' => Settings::get_allowed_row_layouts(),
+            'defaultRowLayout' => Settings::get_default_row_layout(),
             'savedLayouts' => $layotter_post->get_available_layouts(),
             'savedTemplates' => $layotter_post->get_available_templates(),
-            'enablePostLayouts' => Layotter_Settings::post_layouts_enabled(),
-            'enableElementTemplates' => Layotter_Settings::element_templates_enabled(),
+            'enablePostLayouts' => Settings::post_layouts_enabled(),
+            'enableElementTemplates' => Settings::element_templates_enabled(),
             'elementTypes' => $layotter_post->get_available_element_types_metadata(),
             'isOptionsEnabled' => array(
                 'post' => $post_options->is_enabled(),
@@ -118,7 +122,7 @@ class Layotter_Assets {
      * Include basic CSS in the frontend if enabled in settings
      */
     public static function frontend() {
-        if (!is_admin() AND Layotter_Settings::default_css_enabled()) {
+        if (!is_admin() AND Settings::default_css_enabled()) {
             wp_enqueue_style('layotter-frontend', plugins_url('assets/css/frontend.css', __DIR__));
         }
     }
@@ -126,10 +130,12 @@ class Layotter_Assets {
     /**
      * Include HTML templates for use in JS
      */
-    function views() {
-        if (!Layotter::is_enabled()) {
+    public static function views() {
+        var_dump('schineken');
+        if (!Core::is_enabled()) {
             return;
         }
+        var_dump('aaaaaaaschineken');
 
         ?>
         <script type="text/ng-template" id="layotter-form">

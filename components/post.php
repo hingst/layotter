@@ -1,9 +1,13 @@
 <?php
 
+namespace Layotter\Components;
+use Layotter\Core;
+use Layotter\Settings;
+
 /**
  * A single post
  */
-class Layotter_Post {
+class Post {
 
     protected $id = 0;
     protected $options;
@@ -17,10 +21,10 @@ class Layotter_Post {
      */
     public function __construct($id = 0) {
         $this->id = intval($id);
-        $this->options = Layotter::assemble_new_options('post');
+        $this->options = Core::assemble_new_options('post');
 
         if ($this->id !== 0) {
-            $json = get_post_meta($this->id, Layotter::META_FIELD_JSON, true);
+            $json = get_post_meta($this->id, Core::META_FIELD_JSON, true);
             $this->set_json($json);
             $this->options->set_post_type_context(get_post_type($this->id));
         }
@@ -35,9 +39,9 @@ class Layotter_Post {
         $content = json_decode($json, true);
         if (is_array($content)) {
             foreach ($content['rows'] as $row) {
-                $this->rows[] = new Layotter_Row($row);
+                $this->rows[] = new Row($row);
             }
-            $this->options = Layotter::assemble_options($content['options_id']);
+            $this->options = Core::assemble_options($content['options_id']);
             $this->json = $json;
         }
     }
@@ -80,7 +84,7 @@ class Layotter_Post {
             return apply_filters('layotter/view/post', $rows_html, $this->options->get_values());
         } else {
             // otherwise, get HTML wrapper from settings, apply and return HTML
-            $html_wrapper = Layotter_Settings::get_html_wrapper('wrapper');
+            $html_wrapper = Settings::get_html_wrapper('wrapper');
             return $html_wrapper['before'] . $rows_html . $html_wrapper['after'];
         }
     }
@@ -92,15 +96,15 @@ class Layotter_Post {
      */
     public function get_available_templates() {
         $template_posts = get_posts(array(
-            'post_type' => Layotter_Editable::POST_TYPE_EDITABLE,
-            'meta_key' => Layotter_Element::META_FIELD_IS_TEMPLATE,
+            'post_type' => Editable::POST_TYPE_EDITABLE,
+            'meta_key' => Element::META_FIELD_IS_TEMPLATE,
             'meta_value' => '1'
         ));
 
         $templates = array();
 
         foreach ($template_posts as $template) {
-            $element = Layotter::assemble_element($template->ID);
+            $element = Core::assemble_element($template->ID);
             if ($element->is_enabled_for($this->id)) {
                 $templates[] = $element->to_array();
             }
@@ -119,8 +123,8 @@ class Layotter_Post {
     public function get_available_element_types_metadata() {
         $elements = array();
 
-        foreach (array_keys(Layotter::get_registered_element_types()) as $element_type) {
-            $element = Layotter::assemble_new_element($element_type);
+        foreach (array_keys(Core::get_registered_element_types()) as $element_type) {
+            $element = Core::assemble_new_element($element_type);
             if ($element->is_enabled_for($this->id)) {
                 $elements[] = $element->get_metadata();
             }
@@ -163,14 +167,14 @@ class Layotter_Post {
      */
     public function get_available_layouts() {
         $layout_posts = get_posts(array(
-            'post_type' => Layotter_Layout::POST_TYPE_LAYOUTS,
+            'post_type' => Layout::POST_TYPE_LAYOUTS,
             'order' => 'ASC',
             'posts_per_page' => -1
         ));
 
         $layouts = array();
         foreach ($layout_posts as $layout_post) {
-            $layout = new Layotter_Layout($layout_post->ID);
+            $layout = new Layout($layout_post->ID);
             $layouts[] = $layout->to_array();
         }
 
@@ -188,21 +192,21 @@ class Layotter_Post {
         $post_id = $raw_post['ID'];
 
         // don't change anything if not editing a Layotter-enabled post
-        if (!Layotter::is_enabled_for_post($post_id) OR !isset($raw_post[Layotter::TEXTAREA_NAME])) {
+        if (!Core::is_enabled_for_post($post_id) OR !isset($raw_post[Core::TEXTAREA_NAME])) {
             return $data;
         }
 
         // copy JSON from POST and strip slashes that were added by Wordpress
-        $json = $raw_post[Layotter::TEXTAREA_NAME];
+        $json = $raw_post[Core::TEXTAREA_NAME];
         $unslashed_json = stripslashes_deep($json);
 
         // turn JSON into post content HTML
-        $layotter_post = new Layotter_Post();
+        $layotter_post = new Post();
         $layotter_post->set_json($unslashed_json);
         $content = $layotter_post->get_frontend_view();
 
         // save JSON to a custom field (oddly enough, Wordpress breaks JSON if it's stripslashed)
-        update_post_meta($post_id, Layotter::META_FIELD_JSON, $json);
+        update_post_meta($post_id, Core::META_FIELD_JSON, $json);
 
         // <p>foo</p><p>bar</p> should become "foo bar" instead of "foobar"
         // keep images for their alt attributes

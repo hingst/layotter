@@ -1,12 +1,14 @@
 <?php
 
-Layotter_Settings::init();
+namespace Layotter;
+
+Settings::init();
 
 /**
  * This shameful piece of spaghetti madness creates a settings page and sets default
  * settings on plugin activation. Completely self-contained.
  */
-class Layotter_Settings {
+class Settings {
 
     private static $last_edited_tab;
     private static $current_settings;
@@ -471,7 +473,7 @@ class Layotter_Settings {
                 </p>
                 <?php
 
-                $field_group_post_type = Layotter_Acf_Abstraction::get_field_group_post_type();
+                $field_group_post_type = Adapter::get_field_group_post_type();
 
                 $post_types = get_post_types(array(
                     '_builtin' => false,

@@ -1,9 +1,13 @@
 <?php
 
+namespace Layotter\Components;
+use Layotter\Core;
+use Layotter\Settings;
+
 /**
  * A single row
  */
-class Layotter_Row {
+class Row {
 
     private $layout = '';
     private $options;
@@ -18,10 +22,10 @@ class Layotter_Row {
         $structure = $this->apply_row_layout_to_cols($structure);
 
         $this->layout = $structure['layout'];
-        $this->options = Layotter::assemble_options($structure['options_id']);
+        $this->options = Core::assemble_options($structure['options_id']);
 
         foreach ($structure['cols'] as $col) {
-            $this->cols[] = new Layotter_Col($col);
+            $this->cols[] = new Column($col);
         }
     }
 
@@ -75,7 +79,7 @@ class Layotter_Row {
         if (has_filter('layotter/view/row')) {
             return apply_filters('layotter/view/row', $cols_html, $this->options->get_values(), $post_options);
         } else {
-            $html_wrapper = Layotter_Settings::get_html_wrapper('rows');
+            $html_wrapper = Settings::get_html_wrapper('rows');
             return $html_wrapper['before'] . $cols_html . $html_wrapper['after'];
         }
     }

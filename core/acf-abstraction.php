@@ -1,9 +1,11 @@
 <?php
 
+namespace Layotter\Acf;
+
 /**
  * This abstraction layer makes it easier to adapt to new ACF versions
  */
-class Layotter_Acf_Abstraction {
+class Adapter {
 
     const REQUIRED_VERSION = '4.4.10';
     const REQUIRED_PRO_VERSION = '5.4.7';
