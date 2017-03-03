@@ -18,15 +18,11 @@ class Core {
     private static $registered_elements = array();
 
     public static function init() {
-        // ACF abstraction layer is always required
-        require_once __DIR__ . '/../core/Acf/Adapter.php';
-
         // run only if ACF is available
         if (!Adapter::is_available()) {
             return;
         }
 
-        self::includes();
         self::aliases();
 
         add_action('admin_head', array(__CLASS__, 'hook_editor'));
@@ -63,21 +59,6 @@ class Core {
      * Include files
      */
     public static function includes() {
-        require_once __DIR__ . '/Acf/LocationRules.php';
-
-        require_once __DIR__ . '/Ajax/Endpoints.php';
-
-        require_once __DIR__ . '/Assets.php';
-        require_once __DIR__ . '/Shortcode.php';
-
-        require_once __DIR__ . '/Components/Editable.php';
-        require_once __DIR__ . '/Components/Options.php';
-        require_once __DIR__ . '/Components/Post.php';
-        require_once __DIR__ . '/Components/Row.php';
-        require_once __DIR__ . '/Components/Column.php';
-        require_once __DIR__ . '/Components/Layout.php';
-        require_once __DIR__ . '/Components/Element.php';
-
         // this library takes care of saving custom fields for each post revision
         // see https://wordpress.org/plugins/wp-post-meta-revisions/
         if (!class_exists('WP_Post_Meta_Revisioning')) {
@@ -108,8 +89,6 @@ class Core {
      */
     public static function include_example_element() {
         if (Settings::example_element_enabled()) {
-            require_once __DIR__ . '/Example/FieldGroup.php';
-            require_once __DIR__ . '/Example/Element.php';
             Example\FieldGroup::register();
             self::register_element('layotter_example_element', '\Layotter\Example\Element');
         }

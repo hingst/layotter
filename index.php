@@ -11,14 +11,14 @@ GitHub Plugin URI: hingst/layotter
 
 namespace Layotter;
 
+spl_autoload_register(function($class) {
+    if (stripos($class, __NAMESPACE__) === 0) {
+        require_once __DIR__ . '/core' . str_replace('\\', '/', strtolower(substr($class, strlen(__NAMESPACE__)))) . '.php';
+    }
+});
+
 // load translations
 load_plugin_textdomain('layotter', false, basename(__DIR__) . '/languages/');
 
-require_once __DIR__ . '/core/Settings.php';
-require_once __DIR__ . '/core/Core.php';
-
 Settings::init();
 Core::init();
-
-//add_action('plugins_loaded', array('Layotter', 'init'));
-// TODO: had init hooked to plugins_loaded before -- I guess there was a reason?
