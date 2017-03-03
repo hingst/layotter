@@ -48,10 +48,6 @@ class Options extends Editable {
      * @throws \Exception If post tpe doesn't exist
      */
     public function set_post_type_context($post_type) {
-        if (!post_type_exists($this->post_type_context)) {
-            throw new \Exception('Unknown post type: ' . $this->post_type_context);
-        }
-
         $this->post_type_context = strval($post_type);
     }
 
