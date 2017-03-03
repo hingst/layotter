@@ -24,7 +24,7 @@ abstract class Editable {
      *
      * @return array Values
      */
-    final public function get_values() {
+    public function get_values() {
         return get_fields($this->id);
     }
 
@@ -42,7 +42,7 @@ abstract class Editable {
      *
      * @return array
      */
-    final public function get_form_data() {
+    public function get_form_data() {
         return array(
             'title' => $this->title,
             'icon' => $this->icon,
@@ -56,7 +56,7 @@ abstract class Editable {
      *
      * @return string
      */
-    final public function get_form_json() {
+    public function get_form_json() {
         return json_encode($this->get_form_data());
     }
 

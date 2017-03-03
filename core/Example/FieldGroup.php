@@ -9,6 +9,9 @@ use Layotter\Acf\Adapter;
  */
 class FieldGroup {
 
+    /**
+     * Register field group that's used by the example element
+     */
     public static function register() {
         $key = Adapter::get_example_field_group_name();
         $title = __('Example element for Layotter', 'layotter');

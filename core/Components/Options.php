@@ -11,7 +11,12 @@ class Options extends Editable {
 
     private $post_type_context;
 
-    final public function __construct($id = 0) {
+    /**
+     * Create Options instance
+     *
+     * @param int $id Options' post ID, 0 for new options
+     */
+    public function __construct($id = 0) {
         $this->id = intval($id);
         $this->icon = 'cog';
 
@@ -20,6 +25,11 @@ class Options extends Editable {
         }
     }
 
+    /**
+     * Set options type (post, row, col, element)
+     *
+     * @param string $type Options type
+     */
     public function set_type($type) {
         $this->type = strval($type);
         $titles = array(
@@ -31,15 +41,26 @@ class Options extends Editable {
         $this->title = $titles[$this->type];
     }
 
+    /**
+     * Set post type context so Layotter can figure out if options are enabled for the current screen
+     *
+     * @param string $post_type Post type context
+     * @throws \Exception If post tpe doesn't exist
+     */
     public function set_post_type_context($post_type) {
-        $this->post_type_context = strval($post_type);
-    }
-
-    protected function get_fields() {
         if (!post_type_exists($this->post_type_context)) {
             throw new \Exception('Unknown post type: ' . $this->post_type_context);
         }
 
+        $this->post_type_context = strval($post_type);
+    }
+
+    /**
+     * Get ACF fields for these options
+     *
+     * @return array ACF fields
+     */
+    protected function get_fields() {
         $field_groups = Adapter::get_filtered_field_groups(array(
             'post_type' => $this->post_type_context,
             'layotter' => $this->type . '_options'
@@ -63,6 +84,3 @@ class Options extends Editable {
     }
 
 }
-
-
-

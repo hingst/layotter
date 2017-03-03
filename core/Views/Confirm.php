@@ -2,8 +2,14 @@
 
 namespace Layotter\Views;
 
+/**
+ * View for confirmation modals
+ */
 class Confirm {
 
+    /**
+     * Output view
+     */
     public static function view() {
         ?>
         <div class="layotter-modal-confirm">

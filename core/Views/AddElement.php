@@ -2,8 +2,14 @@
 
 namespace Layotter\Views;
 
+/**
+ * View for the "Add Element" popup screen
+ */
 class AddElement {
 
+    /**
+     * Output view
+     */
     public static function view() {
         ?>
         <div class="layotter-modal" ng-controller="ModalCtrl">

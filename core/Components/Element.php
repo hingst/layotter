@@ -55,9 +55,9 @@ abstract class Element extends Editable {
     /**
      * Create an element
      *
-     * @param int $id Element's post ID, 0 for new elements.
+     * @param int $id Element's post ID, 0 for new elements
      */
-    final public function __construct($id = 0) {
+    public function __construct($id = 0) {
         $this->attributes();
 
         $this->id = intval($id);
@@ -80,7 +80,7 @@ abstract class Element extends Editable {
      * @return array ACF fields
      * @throws \Exception If $this->field_group wasn't assigned correctly in $this->attributes()
      */
-    final protected function get_fields() {
+    protected function get_fields() {
         // TODO: maybe clean fields to exclude stale fields?
 
         // ACF field group can be provided as post id (int) or slug ('group_xyz')
@@ -110,7 +110,7 @@ abstract class Element extends Editable {
      *
      * Allows element types to enqueue scripts and styles in the backend.
      */
-    final public static function register_backend_hooks() {
+    public static function register_backend_hooks() {
         add_action('admin_footer', array(get_called_class(), 'register_backend_hooks_helper'));
     }
 
@@ -120,7 +120,7 @@ abstract class Element extends Editable {
      * To make Layotter::is_enabled() work, the check is delayed until admin_footer.
      * Without the check, assets would be included on every page in the backend.
      */
-    final public static function register_backend_hooks_helper() {
+    public static function register_backend_hooks_helper() {
         if (Core::is_enabled()) {
             call_user_func(array(get_called_class(), 'backend_assets'));
         }
@@ -131,7 +131,7 @@ abstract class Element extends Editable {
      *
      * Allows element types to enqueue scripts and styles in the frontend.
      */
-    final private function register_frontend_hooks() {
+    private function register_frontend_hooks() {
         if (!is_admin()) {
             call_user_func(array(get_called_class(), 'frontend_assets'));
         }
@@ -143,7 +143,7 @@ abstract class Element extends Editable {
      * @param int $post_id Post ID
      * @return bool
      */
-    final public function is_enabled_for($post_id) {
+    public function is_enabled_for($post_id) {
         $post_id = intval($post_id);
         $post_type = get_post_type($post_id);
 
@@ -222,7 +222,7 @@ abstract class Element extends Editable {
      *
      * @return string Backend view HTML
      */
-    final public function get_backend_view() {
+    public function get_backend_view() {
         ob_start();
         $this->backend_view($this->get_values());
         return ob_get_clean();
@@ -237,7 +237,7 @@ abstract class Element extends Editable {
      * @param string $col_width Width of the parent column, e.g. '1/3'
      * @return string Frontend view HTML
      */
-    final public function get_frontend_view($col_options, $row_options, $post_options, $col_width) {
+    public function get_frontend_view($col_options, $row_options, $post_options, $col_width) {
         ob_start();
         $this->frontend_view($this->get_values(), $col_width, $col_options, $row_options, $post_options);
         $element_html = ob_get_clean();

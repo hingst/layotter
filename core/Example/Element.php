@@ -10,6 +10,9 @@ use Layotter\Core;
  */
 class Element extends \Layotter\Components\Element {
 
+    /**
+     * Set attributes
+     */
     protected function attributes() {
         $this->title = __('Example element', 'layotter');
         $this->description = __('Use this element to play around and get started with Layotter.', 'layotter');
@@ -17,12 +20,22 @@ class Element extends \Layotter\Components\Element {
         $this->field_group = Adapter::get_example_field_group_name();
     }
 
+    /**
+     * Output frontend view
+     *
+     * @param array $fields Field values
+     */
     protected function frontend_view($fields) {
         echo '<div class="layotter-example-element">';
         echo $fields['content'];
         echo '</div>';
     }
 
+    /**
+     * Output backend view
+     *
+     * @param array $fields Field values
+     */
     protected function backend_view($fields) {
         echo '<div class="layotter-example-element">';
 

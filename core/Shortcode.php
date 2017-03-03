@@ -61,4 +61,3 @@ class Shortcode {
         return $content;
     }
 }
-

@@ -4,8 +4,14 @@ namespace Layotter\Views;
 
 use Layotter\Acf\Adapter;
 
+/**
+ * View for edit forms
+ */
 class Form {
 
+    /**
+     * Output view
+     */
     public static function view() {
         ?>
         <div class="layotter-modal" ng-controller="ModalCtrl">

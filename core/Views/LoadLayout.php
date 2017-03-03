@@ -2,8 +2,14 @@
 
 namespace Layotter\Views;
 
+/**
+ * View for the "Load Layout" modal
+ */
 class LoadLayout {
 
+    /**
+     * Output view
+     */
     public static function view() {
         ?>
         <div class="layotter-modal" ng-controller="ModalCtrl">

@@ -2,8 +2,14 @@
 
 namespace Layotter\Views;
 
+/**
+ * View for the main drag-and-drop editor
+ */
 class Editor {
 
+    /**
+     * Output view
+     */
     public static function view() {
         ?>
         <div id="layotter-loading">
