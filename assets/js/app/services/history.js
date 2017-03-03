@@ -51,8 +51,7 @@ app.service('history', function($animate, $timeout, data) {
             angular.forEach(row.cols, function(col){
                 angular.forEach(col.elements, function(element){
                     if (element.is_template && !element.template_deleted) {
-                        if (_this.deletedTemplates.indexOf(element.template_id) !== -1) {
-                            // TODO: this is completely broken
+                        if (_this.deletedTemplates.indexOf(element.id) !== -1) {
                             element.is_template = false;
                             element.template_deleted = true;
                         }
