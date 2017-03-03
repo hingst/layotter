@@ -1,6 +1,7 @@
 <?php
 
 namespace Layotter;
+
 use Layotter\Components\Post;
 
 /**

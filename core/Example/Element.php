@@ -1,14 +1,15 @@
 <?php
 
 namespace Layotter\Example;
+
 use Layotter\Acf\Adapter;
 use Layotter\Core;
 
 /**
  * This example element comes with Layotter and can be disabled in settings
  */
-class Element extends \Layotter\Components\Element
-{
+class Element extends \Layotter\Components\Element {
+
     protected function attributes() {
         $this->title = __('Example element', 'layotter');
         $this->description = __('Use this element to play around and get started with Layotter.', 'layotter');
@@ -36,5 +37,3 @@ class Element extends \Layotter\Components\Element
         echo '</div>';
     }
 }
-
-Core::register_element('layotter_example_element', '\Layotter\Example\Element');

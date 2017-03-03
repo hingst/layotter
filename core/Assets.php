@@ -1,6 +1,7 @@
 <?php
 
 namespace Layotter;
+
 use Layotter\Acf\Adapter;
 use Layotter\Components\Post;
 
@@ -131,11 +132,9 @@ class Assets {
      * Include HTML templates for use in JS
      */
     public static function views() {
-        var_dump('schineken');
         if (!Core::is_enabled()) {
             return;
         }
-        var_dump('aaaaaaaschineken');
 
         ?>
         <script type="text/ng-template" id="layotter-form">

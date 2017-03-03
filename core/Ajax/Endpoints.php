@@ -1,6 +1,7 @@
 <?php
 
 namespace Layotter\Ajax;
+
 use Layotter\Core;
 use Layotter\Components\Layout;
 
