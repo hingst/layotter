@@ -6,6 +6,7 @@ use Layotter\Acf\Adapter;
 use Layotter\Components\Editable;
 use Layotter\Components\Element;
 use Layotter\Components\Options;
+use Layotter\Views\Editor;
 
 /**
  * Holds registered element types and serves as a factory for element instances
@@ -299,7 +300,7 @@ class Core {
             echo '<textarea id="layotter-json" name="' . Core::TEXTAREA_NAME . '" style="' . $hidden_style . '"></textarea>';
         }
 
-        require_once __DIR__ . '/../views/editor.php';
+        Editor::view();
     }
 
 }

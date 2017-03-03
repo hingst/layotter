@@ -4,6 +4,12 @@ namespace Layotter;
 
 use Layotter\Acf\Adapter;
 use Layotter\Components\Post;
+use Layotter\Views\AddElement;
+use Layotter\Views\Confirm;
+use Layotter\Views\Form;
+use Layotter\Views\LoadLayout;
+use Layotter\Views\Prompt;
+use Layotter\Views\Templates;
 
 /**
  * HTML templates, JS, CSS, and data to be passed to Javascript
@@ -138,22 +144,22 @@ class Assets {
 
         ?>
         <script type="text/ng-template" id="layotter-form">
-            <?php require_once __DIR__ . '/../views/form.php'; ?>
+            <?php Form::view(); ?>
         </script>
         <script type="text/ng-template" id="layotter-add-element">
-            <?php require_once __DIR__ . '/../views/add-element.php'; ?>
+            <?php AddElement::view(); ?>
         </script>
         <script type="text/ng-template" id="layotter-load-layout">
-            <?php require_once __DIR__ . '/../views/load-layout.php'; ?>
+            <?php LoadLayout::view() ?>
         </script>
         <script type="text/ng-template" id="layotter-modal-confirm">
-            <?php require_once __DIR__ . '/../views/confirm.php'; ?>
+            <?php Confirm::view(); ?>
         </script>
         <script type="text/ng-template" id="layotter-modal-prompt">
-            <?php require_once __DIR__ . '/../views/prompt.php'; ?>
+            <?php Prompt::view(); ?>
         </script>
         <?php
 
-        require_once __DIR__ . '/../views/templates.php';
+        Templates::view();
     }
 }
