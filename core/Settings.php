@@ -2,8 +2,6 @@
 
 namespace Layotter;
 
-Settings::init();
-
 /**
  * This shameful piece of spaghetti madness creates a settings page and sets default
  * settings on plugin activation. Completely self-contained.
