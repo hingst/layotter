@@ -80,7 +80,7 @@ abstract class Element extends Editable {
      * @return array ACF fields
      * @throws \Exception If $this->field_group wasn't assigned correctly in $this->attributes()
      */
-    protected function get_fields() {
+    public function get_fields() {
         // TODO: maybe clean fields to exclude stale fields?
 
         // ACF field group can be provided as post id (int) or slug ('group_xyz')

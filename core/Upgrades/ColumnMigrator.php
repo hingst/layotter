@@ -2,6 +2,8 @@
 
 namespace Layotter\Upgrades;
 
+use Layotter\Core;
+
 class ColumnMigrator {
 
     private $old_data;
@@ -17,7 +19,8 @@ class ColumnMigrator {
         );
 
         if (isset($this->old_data['options'])) {
-            $new_options = new EditableMigrator('col', $ALLOWED_FIELDS, $this->old_data['options']); // TODO: where do I get allowed fields?
+            $options_template = Core::assemble_new_options('col');
+            $new_options = new EditableMigrator('col', $options_template->get_fields(), $this->old_data['options']);
             $new_data['options_id'] = $new_options->migrate();
         }
 

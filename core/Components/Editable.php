@@ -17,7 +17,7 @@ abstract class Editable {
     protected $title;
     protected $type;
 
-    abstract protected function get_fields();
+    abstract public function get_fields();
 
     /**
      * Get values

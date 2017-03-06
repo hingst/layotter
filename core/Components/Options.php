@@ -56,7 +56,7 @@ class Options extends Editable {
      *
      * @return array ACF fields
      */
-    protected function get_fields() {
+    public function get_fields() {
         $field_groups = Adapter::get_filtered_field_groups(array(
             'post_type' => $this->post_type_context,
             'layotter' => $this->type . '_options'
