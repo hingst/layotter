@@ -156,6 +156,7 @@ class Core {
      * Create an instance from an existing element
      *
      * @param int $id Element ID
+     * @param int $options_id Options ID
      * @return Element
      * @throws \Exception If ID is invalid
      */
