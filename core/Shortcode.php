@@ -23,7 +23,7 @@ class Shortcode {
         // $post variable hasn't been correctly initialized, like do_shortcode() or apply_filters('the_content')
         // TODO: absolutely keep the previous comment in mind when creating the migration script!
 
-        if (isset($atts['post']) AND Core::is_enabled_for_post($atts['post'])) {
+        if (isset($atts['post'])) {
             $post_id = intval($atts['post']);
             $layotter = new Post($post_id);
         } else {
