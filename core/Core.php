@@ -7,6 +7,7 @@ use Layotter\Components\Editable;
 use Layotter\Components\Element;
 use Layotter\Components\Options;
 use Layotter\Components\Post;
+use Layotter\Upgrades\MigrationHelper;
 use Layotter\Views\Editor;
 
 /**
@@ -120,6 +121,7 @@ class Core {
 
         // oddly enough, Wordpress breaks JSON if it's stripslashed
         update_post_meta($post_id, Core::META_FIELD_JSON, $json);
+        update_post_meta($post_id, MigrationHelper::META_FIELD_MODEL_VERSION, MigrationHelper::CURRENT_MODEL_VERSION);
 
         $data['post_content'] = $search_dump;
         return $data;
