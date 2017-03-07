@@ -26,9 +26,12 @@ class Shortcode {
         if (isset($atts['post']) AND Core::is_enabled_for_post($atts['post'])) {
             $post_id = intval($atts['post']);
             $layotter = new Post($post_id);
-            $input = $layotter->get_frontend_view();
+        } else {
+            $layotter = new Post();
+            $layotter->set_json($input);
         }
 
+        $input = $layotter->get_frontend_view();
         return wptexturize($input);
     }
 
