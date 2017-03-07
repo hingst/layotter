@@ -7,33 +7,33 @@ use Layotter\Core;
 class PostMigrator {
 
     private $id;
-    private $old_data;
 
     public function __construct($id) {
         $this->id = intval($id);
-        $this->old_data = $this->get_data();
     }
 
     public function migrate() {
+        $old_data = $this->get_data();
         $new_data = array(
             'options_id' => 0,
             'rows' => array()
         );
 
-        if (isset($this->old_data['options'])) {
+        if (isset($old_data['options'])) {
             $options_template = Core::assemble_new_options('post');
-            $new_options = new EditableMigrator('post', $options_template->get_fields(), $this->old_data['options']);
+            $new_options = new EditableMigrator('post', $options_template->get_fields(), $old_data['options']);
             $new_data['options_id'] = $new_options->migrate();
         }
 
-        if (isset($this->old_data['rows'])) {
-            foreach ($this->old_data['rows'] as $row) {
+        if (isset($old_data['rows'])) {
+            foreach ($old_data['rows'] as $row) {
                 $new_row = new RowMigrator($row);
                 $new_data['rows'][] = $new_row->migrate();
             }
         }
 
-        return $new_data;
+        $json = json_encode($new_data);
+        update_post_meta($this->id, Core::META_FIELD_JSON, $json);
     }
 
     private function get_data() {
