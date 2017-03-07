@@ -18,15 +18,15 @@ class Shortcode {
      */
     public static function register($atts, $input = '') {
         // since 1.5.0, shortcode attributes carry a post ID, and JSON is stored in a custom field
-        // before 1.5.0, JSON was stored directly in the post content
-        // get_the_ID() wouldn't be reliable here because this shortcode handler might be triggered in a context where the
-        // $post variable hasn't been correctly initialized, like do_shortcode() or apply_filters('the_content')
-        // TODO: absolutely keep the previous comment in mind when creating the migration script!
+        // before 1.5.0, JSON was stored directly in the shortcoded post content without a post ID attribute
+        // get_the_ID() wouldn't be reliable here because this shortcode handler can be triggered in a context where
+        // $post hasn't been correctly initialized, like do_shortcode() or apply_filters('the_content')
 
         if (isset($atts['post'])) {
             $post_id = intval($atts['post']);
             $layotter = new Post($post_id);
         } else {
+            // fallback for versions < 1.5.0
             $layotter = new Post();
             $layotter->set_json($input);
         }

@@ -5,6 +5,8 @@ namespace Layotter\Upgrades;
 class MigrationHelper {
 
 	const UPGRADE_OPTION = 'layotter_needs_upgrade';
+	const META_FIELD_MODEL_VERSION = 'layotter_model_version';
+	const CURRENT_MODEL_VERSION = '2.0.0';
 
 	/**
 	 * MigrationHelper constructor.

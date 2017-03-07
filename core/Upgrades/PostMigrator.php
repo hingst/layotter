@@ -2,6 +2,7 @@
 
 namespace Layotter\Upgrades;
 
+use Layotter\Components\Post;
 use Layotter\Core;
 
 class PostMigrator {
@@ -10,6 +11,14 @@ class PostMigrator {
 
     public function __construct($id) {
         $this->id = intval($id);
+    }
+
+    public function needs_upgrade() {
+        $model_version = get_post_meta($this->id, MigrationHelper::META_FIELD_MODEL_VERSION, true);
+        if (empty($model_version) OR version_compare($model_version, MigrationHelper::CURRENT_MODEL_VERSION) < 0) {
+            return true;
+        }
+        return false;
     }
 
     public function migrate() {
@@ -33,7 +42,18 @@ class PostMigrator {
         }
 
         $json = json_encode($new_data);
-        update_post_meta($this->id, Core::META_FIELD_JSON, $json);
+        $post = new Post();
+        $post->set_json($json);
+        $search_dump = '[layotter post="' . $this->id . '"]' . $post->get_search_dump() . '[/layotter]';
+
+        wp_update_post(array(
+            'ID' => $this->id,
+            'post_content' => $search_dump,
+            'meta_input' => array(
+                Core::META_FIELD_JSON => $json,
+                MigrationHelper::META_FIELD_MODEL_VERSION => MigrationHelper::CURRENT_MODEL_VERSION
+            )
+        ));
     }
 
     private function get_data() {

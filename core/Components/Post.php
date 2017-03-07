@@ -28,8 +28,8 @@ class Post {
 
         if ($this->id !== 0) {
             // migrate on demand
-            if (MigrationHelper::post_needs_upgrade($this->id)) {
-                $migrator = new PostMigrator($this->id);
+            $migrator = new PostMigrator($this->id);
+            if ($migrator->needs_upgrade()) {
                 $migrator->migrate();
             }
 
@@ -233,6 +233,23 @@ class Post {
         $content = '[layotter post="' . $post_id . '"]' . $content . '[/layotter]';
         $data['post_content'] = $content;
         return $data;
+    }
+
+    public function get_search_dump() {
+        $content = $this->get_frontend_view();
+
+        // <p>foo</p><p>bar</p> should become "foo bar" instead of "foobar"
+        // keep images for their alt attributes
+        $content = str_replace('<', ' <', $content);
+        $content = strip_tags($content, '<img>');
+        $content = trim($content);
+
+        // TODO: What kind of Fallback could make sense here? http://php.net/manual/de/mbstring.installation.php "mbstring is a non-default extension."
+        if (function_exists('mb_ereg_replace')) {
+            $content = mb_ereg_replace('/\s+/', ' ', $content);
+        }
+
+        return $content;
     }
 
 }

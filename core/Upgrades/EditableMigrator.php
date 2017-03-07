@@ -24,9 +24,11 @@ class EditableMigrator {
 
     public function migrate() {
         $id = wp_insert_post(array(
-            'post_type' => Editable::POST_TYPE_EDITABLE
-        ), true);
-        update_post_meta($id, Editable::META_FIELD_EDITABLE_TYPE, $this->type);
+            'post_type' => Editable::POST_TYPE_EDITABLE,
+            'meta_input' => array(
+                Editable::META_FIELD_EDITABLE_TYPE => $this->type
+            )
+        ));
 
         foreach ($this->fields as $field) {
             $field_name = $field['name'];
