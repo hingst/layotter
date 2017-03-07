@@ -4,6 +4,8 @@ namespace Layotter\Components;
 
 use Layotter\Core;
 use Layotter\Settings;
+use Layotter\Upgrades\MigrationHelper;
+use Layotter\Upgrades\PostMigrator;
 
 /**
  * A single post
@@ -25,6 +27,12 @@ class Post {
         $this->options = Core::assemble_new_options('post');
 
         if ($this->id !== 0) {
+            // migrate on demand
+            if (MigrationHelper::post_needs_upgrade($this->id)) {
+                $migrator = new PostMigrator($this->id);
+                $migrator->migrate();
+            }
+
             $json = get_post_meta($this->id, Core::META_FIELD_JSON, true);
             $this->set_json($json);
             $this->options->set_post_type_context(get_post_type($this->id));

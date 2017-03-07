@@ -18,14 +18,14 @@ class MigrationHelper {
 	/**
 	 * @return bool
 	 */
-	public function needs_upgrade() {
+	public static function needs_upgrade() {
 		$needs_upgrade = \get_option( self::UPGRADE_OPTION );
 
 		if ( ctype_digit( $needs_upgrade ) ) {
 			return (bool) $needs_upgrade;
 		}
 
-		$has_upgradable_posts = (bool) $this->count_upgradable_posts();
+		$has_upgradable_posts = (bool) self::count_upgradable_posts();
 
 		if ( $has_upgradable_posts ) {
 			\update_option( self::UPGRADE_OPTION, 1 );
@@ -37,16 +37,20 @@ class MigrationHelper {
 	/**
 	 * @return int
 	 */
-	private function count_upgradable_posts() {
-		$upgradable_posts = $this->get_upgradable_post_ids();
+	private static function count_upgradable_posts() {
+		$upgradable_posts = self::get_upgradable_post_ids();
 
 		return count( $upgradable_posts );
 	}
 
+	public static function post_needs_upgrade($id) {
+	    return in_array($id, self::get_upgradable_post_ids());
+    }
+
 	/**
 	 * @return array|null|object
 	 */
-	private function get_upgradable_post_ids() {
+	private static function get_upgradable_post_ids() {
 		global $wpdb;
 		$q = "SELECT ID FROM " . $wpdb->prefix . "posts WHERE post_content LIKE '[layotter%[/layotter]' OR ID IN(SELECT post_id FROM " . $wpdb->prefix . "postmeta WHERE meta_key='layotter_json')";
 
