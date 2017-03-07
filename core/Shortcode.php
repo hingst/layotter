@@ -17,8 +17,7 @@ class Shortcode {
      * @return string HTML for frontend view of the current post
      */
     public static function register($atts, $input = '') {
-        // since 1.5.0, shortcode attributes carry a post ID, and JSON is stored in a custom field
-        // before 1.5.0, JSON was stored directly in the shortcoded post content without a post ID attribute
+        // shortcode attributes carry a post ID, and JSON is stored in a custom field --
         // get_the_ID() wouldn't be reliable here because this shortcode handler can be triggered in a context where
         // $post hasn't been correctly initialized, like do_shortcode() or apply_filters('the_content')
 
