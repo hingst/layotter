@@ -6,6 +6,7 @@ use Layotter\Acf\Adapter;
 use Layotter\Components\Editable;
 use Layotter\Components\Element;
 use Layotter\Components\Options;
+use Layotter\Components\Post;
 use Layotter\Views\Editor;
 
 /**
@@ -29,6 +30,7 @@ class Core {
         add_action('admin_head', array(__CLASS__, 'hook_editor'));
         add_filter('wp_post_revision_meta_keys', array(__CLASS__, 'track_custom_field'));
         add_action('after_setup_theme', array(__CLASS__, 'include_example_element'));
+        add_filter('wp_insert_post_data', array(__CLASS__, 'save_post'), 999, 2);
 
         add_action('admin_enqueue_scripts', array('Layotter\Assets', 'backend'));
         add_action('wp_enqueue_scripts', array('Layotter\Assets', 'frontend'));
@@ -52,8 +54,6 @@ class Core {
         add_shortcode('layotter', array('Layotter\Shortcode', 'register'));
         add_filter('the_content', array('Layotter\Shortcode', 'disable_wpautop'), 1);
         add_filter('no_texturize_shortcodes', array('Layotter\Shortcode', 'disable_wptexturize'));
-
-        add_filter('wp_insert_post_data', array('Layotter\Components\Post', 'make_search_dump'), 999, 2);
     }
 
     /**
@@ -93,6 +93,36 @@ class Core {
             Example\FieldGroup::register();
             self::register_element('layotter_example_element', '\Layotter\Example\Element');
         }
+    }
+
+    /**
+     * Build a search dump when saving a post, and save JSON to a custom field
+     *
+     * @param array $data Post data about to be saved to the database
+     * @param array $raw_post Raw POST data from the edit screen
+     * @return array Post data with modified post_content
+     */
+    public static function save_post($data, $raw_post) {
+        $post_id = $raw_post['ID'];
+
+        if (!self::is_enabled_for_post($post_id) OR !isset($raw_post[self::TEXTAREA_NAME])) {
+            return $data;
+        }
+
+        // strip slashes that were added by Wordpress
+        $json = $raw_post[self::TEXTAREA_NAME];
+        $unslashed_json = stripslashes_deep($json);
+
+        // fetch search dump
+        $layotter_post = new Post();
+        $layotter_post->set_json($unslashed_json);
+        $search_dump = '[layotter post="' . $post_id . '"]' . $layotter_post->get_search_dump() . '[/layotter]';
+
+        // oddly enough, Wordpress breaks JSON if it's stripslashed
+        update_post_meta($post_id, Core::META_FIELD_JSON, $json);
+
+        $data['post_content'] = $search_dump;
+        return $data;
     }
 
     /**

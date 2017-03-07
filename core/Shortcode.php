@@ -26,7 +26,7 @@ class Shortcode {
             $post_id = intval($atts['post']);
             $layotter = new Post($post_id);
         } else {
-            // fallback for versions < 1.5.0
+            // for post previews only
             $layotter = new Post();
             $layotter->set_json($input);
         }

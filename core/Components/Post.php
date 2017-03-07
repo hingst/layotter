@@ -4,7 +4,6 @@ namespace Layotter\Components;
 
 use Layotter\Core;
 use Layotter\Settings;
-use Layotter\Upgrades\MigrationHelper;
 use Layotter\Upgrades\PostMigrator;
 
 /**
@@ -188,51 +187,6 @@ class Post {
         }
 
         return $layouts;
-    }
-
-    /**
-     * Build a search dump when saving a post, and save JSON to a custom field
-     *
-     * @param array $data Post data about to be saved to the database
-     * @param array $raw_post Raw POST data from the edit screen
-     * @return array Post data with modified post_content
-     */
-    public static function make_search_dump($data, $raw_post) {
-        $post_id = $raw_post['ID'];
-
-        // don't change anything if not editing a Layotter-enabled post
-        if (!Core::is_enabled_for_post($post_id) OR !isset($raw_post[Core::TEXTAREA_NAME])) {
-            return $data;
-        }
-
-        // copy JSON from POST and strip slashes that were added by Wordpress
-        $json = $raw_post[Core::TEXTAREA_NAME];
-        $unslashed_json = stripslashes_deep($json);
-
-        // turn JSON into post content HTML
-        $layotter_post = new Post();
-        $layotter_post->set_json($unslashed_json);
-        $content = $layotter_post->get_frontend_view();
-
-        // save JSON to a custom field (oddly enough, Wordpress breaks JSON if it's stripslashed)
-        update_post_meta($post_id, Core::META_FIELD_JSON, $json);
-
-        // <p>foo</p><p>bar</p> should become "foo bar" instead of "foobar"
-        // keep images for their alt attributes
-        $content = str_replace('<', ' <', $content);
-        $content = strip_tags($content, '<img>');
-        $content = trim($content);
-
-        // TODO: What kind of Fallback could make sense here? http://php.net/manual/de/mbstring.installation.php "mbstring is a non-default extension."
-        if (function_exists('mb_ereg_replace')) {
-            $content = mb_ereg_replace('/\s+/', ' ', $content);
-        }
-
-        // wrap search dump with a [layotter] shortcode and return modified post data to be saved to the database
-        // add a shortcude attribute give the shortcode handler a reliable way to get the post ID
-        $content = '[layotter post="' . $post_id . '"]' . $content . '[/layotter]';
-        $data['post_content'] = $content;
-        return $data;
     }
 
     public function get_search_dump() {
