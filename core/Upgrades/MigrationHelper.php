@@ -65,4 +65,14 @@ class MigrationHelper {
         return array_map($flatten, $wpdb->get_results($q, ARRAY_N));
     }
 
+
+    public function migrate_all_layouts() {
+        $layouts = get_option('layotter_post_layouts');
+
+        foreach ($layouts as $id => $layout) {
+            $lm = new LayoutMigrator($id);
+            $lm->migrate();
+        }
+    }
+
 }

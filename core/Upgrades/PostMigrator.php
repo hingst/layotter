@@ -50,7 +50,7 @@ class PostMigrator {
             'ID' => $this->id,
             'post_content' => $search_dump,
             'meta_input' => array(
-                Core::META_FIELD_JSON => $json,
+                Core::META_FIELD_JSON => addslashes($json),
                 MigrationHelper::META_FIELD_MODEL_VERSION => MigrationHelper::CURRENT_MODEL_VERSION
             )
         ));

@@ -14,7 +14,6 @@ class Post {
     protected $id = 0;
     protected $options;
     protected $rows = array();
-    protected $json;
 
     /**
      * Create post instance
@@ -50,7 +49,6 @@ class Post {
                 $this->rows[] = new Row($row);
             }
             $this->options = Core::assemble_options($content['options_id']);
-            $this->json = $json;
         }
     }
 
