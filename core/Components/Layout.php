@@ -33,7 +33,7 @@ class Layout extends Post {
         $this->layout_id = wp_insert_post(array(
             'post_type' => self::POST_TYPE_LAYOUTS,
             'meta_input' => array(
-                Core::META_FIELD_JSON => addslashes($this->to_json()),
+                Core::META_FIELD_JSON => addslashes(json_encode(parent::to_array())),
                 MigrationHelper::META_FIELD_MODEL_VERSION => MigrationHelper::CURRENT_MODEL_VERSION
             ),
             'post_status' => 'publish',
