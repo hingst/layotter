@@ -27,7 +27,8 @@ class EditableMigrator {
             'post_type' => Editable::POST_TYPE_EDITABLE,
             'meta_input' => array(
                 Editable::META_FIELD_EDITABLE_TYPE => $this->type
-            )
+            ),
+            'post_status' => 'publish'
         ));
 
         foreach ($this->fields as $field) {
