@@ -75,4 +75,13 @@ class MigrationHelper {
         }
     }
 
+    public function migrate_all_templates() {
+        $templates = get_option('layotter_element_templates');
+
+        foreach ($templates as $id => $template) {
+            $tm = new TemplateMigrator($id);
+            $tm->migrate();
+        }
+    }
+
 }
