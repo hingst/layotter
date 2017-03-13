@@ -1,0 +1,19 @@
+{
+    "name": "hingst/layotter",
+    "description": "Layotter is a drag-and-drop page builder for WordPress that lets users create complex layouts with no HTML skills required. It's made for developers, open source and free to include in custom and even premium themes.",
+    "type": "wordpress-plugin",
+    "require": {
+        "composer/installers": "^1.2"
+    },
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Dennis Hingst",
+            "email": "dennis@layotter.de"
+        },
+        {
+            "name": "Ben Kremer",
+            "email": "ben@layotter.de"
+        }
+    ]
+}
