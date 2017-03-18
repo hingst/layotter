@@ -2,6 +2,8 @@
 
 namespace Layotter;
 
+use Layotter\Acf\Adapter;
+
 /**
  * This shameful piece of spaghetti madness creates a settings page and sets default
  * settings on plugin activation. Completely self-contained.
@@ -331,7 +333,7 @@ class Settings {
         }
 
         wp_enqueue_script('layotter-settings', plugins_url('assets/js/settings.js', __DIR__), array('jquery'));
-        wp_enqueue_style('layotter-settings', plugins_url('assets/css/editor.css', __DIR__));
+        wp_enqueue_style('layotter', plugins_url('assets/css/editor.css', __DIR__));
         wp_enqueue_style('layotter-font-awesome', plugins_url('assets/css/font-awesome.min.css', __DIR__));
 
         // display notice if settings have been saved
