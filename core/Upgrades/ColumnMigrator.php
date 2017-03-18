@@ -26,7 +26,11 @@ class ColumnMigrator {
 
         if (isset($this->old_data['elements'])) {
             foreach ($this->old_data['elements'] as $element) {
-                $new_element = new ElementMigrator($element);
+                if (isset($element['template_id'])) {
+                    $new_element = new TemplateMigrator($element['template_id']);
+                } else {
+                    $new_element = new ElementMigrator($element);
+                }
                 $new_data['elements'][] = $new_element->migrate();
             }
         }
