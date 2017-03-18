@@ -236,8 +236,14 @@ class Layotter_ACF
         if (self::is_pro_installed()) {
             return _acf_get_field_group_by_key($key);
         } else {
-            // keys are not supported with ACF 4, fall back to ID
-            return self::get_field_group_by_id($key);
+            $field_groups = self::get_all_field_groups();
+            foreach ($field_groups as $field_group) {
+                $slug = get_post_field('post_name', $field_group['id']);
+                if ($field_group['id'] == $key OR $slug == $key) {
+                    return $field_group;
+                }
+            }
+            return false;
         }
     }
 
