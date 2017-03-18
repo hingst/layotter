@@ -17,7 +17,7 @@ abstract class Element extends Editable {
     protected $is_template = false;
     protected $description;
     protected $field_group;
-    protected $order = PHP_INT_MAX;
+    protected $order = 0;
 
     /**
      * Must set $this->title, $this->description, $this->icon and $this->field_group
