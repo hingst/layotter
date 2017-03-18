@@ -131,7 +131,7 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
                 });
                 acf.do_action('append', jQuery('#layotter-edit'));
             } else {
-                jQuery(document).trigger('acf/setup_fields', [ jQuery('.layotter-modal #post') ]);
+                jQuery(document).trigger('acf/setup_fields', [jQuery('.layotter-modal form')]);
             }
         }, 1);
     };
