@@ -28,6 +28,10 @@ class Core {
             return;
         }
 
+        if (MigrationHelper::needs_upgrade()) {
+            MigrationHelper::show_upgrade_prompt();
+            return;
+        }
 
         add_action('admin_head', array(__CLASS__, 'hook_editor'));
         add_filter('wp_post_revision_meta_keys', array(__CLASS__, 'track_custom_field'));

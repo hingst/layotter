@@ -1260,6 +1260,40 @@ span.description.layotter-description,
 
 
 /****************************************************/
+/* upgrade post notice */
+
+#layotter-upgrade-post {
+    max-width: 580px;
+    margin: 30px auto;
+    position: relative;
+}
+
+#layotter-upgrade-post-icons {
+    font-size: 50px;
+    position: absolute;
+    top: 12px;
+    left: 12px;
+}
+
+#layotter-upgrade-post-notice {
+    padding-left: 86px;
+
+    h1 {
+        padding: 0;
+        font-size: 30px;
+        line-height: 1.2;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+}
+
+
+/****************************************************/
 /* lightbox aka dennisbox */
 
 #dennisbox,

@@ -2,6 +2,10 @@
 
 namespace Layotter\Upgrades;
 
+use Layotter\Core;
+use Layotter\Views\UpgradeNotice;
+use Layotter\Views\Upgrader;
+
 class MigrationHelper {
 
     const UPGRADE_OPTION = 'layotter_needs_upgrade';
@@ -21,6 +25,10 @@ class MigrationHelper {
      * @return bool
      */
     public static function needs_upgrade() {
+        // TODO: implement
+        return true;
+
+
         $needs_upgrade = \get_option(self::UPGRADE_OPTION);
 
         if (ctype_digit($needs_upgrade)) {
@@ -82,6 +90,96 @@ class MigrationHelper {
             $tm = new TemplateMigrator($id);
             $tm->migrate();
         }
+    }
+
+    /**
+     * Create an admin menu entry for Layotter
+     */
+    public static function admin_menu() {
+        add_menu_page(__('Layotter Upgrade', 'layotter'), // title
+            'Layotter Upgrade', // menu name
+            'activate_plugins', // capability
+            'layotter-upgrade', // page name
+            array(__CLASS__, 'upgrade_page'), // callback
+            'dashicons-tagcloud', // icon
+            null // position
+        );
+    }
+
+    public static function upgrade_page() {
+        Upgrader::view();
+    }
+
+    public static function show_upgrade_prompt() {
+        add_action('admin_notices', array(__CLASS__, 'print_error'));
+        add_action('admin_head', array(__CLASS__, 'hook_editor'));
+        add_action('admin_head', array(__CLASS__, 'assets'));
+        add_action('admin_menu', array(__CLASS__, 'admin_menu'));
+    }
+
+    public static function assets() {
+        wp_enqueue_style('layotter', plugins_url('assets/css/editor.css', __DIR__ . '/../../..'));
+        wp_enqueue_style('layotter-font-awesome', plugins_url('assets/css/font-awesome.min.css', __DIR__ . '/../../..'));
+    }
+
+    /**
+     * Output error message
+     */
+    public static function print_error() {
+        $current_screen = get_current_screen();
+        $page = $current_screen->base;
+        if ($page == 'toplevel_page_layotter-upgrade') {
+            return;
+        }
+
+        ?>
+        <div class="error">
+            <p>
+                <?php _e('A database upgrade is required to continue using Layotter.', 'layotter'); ?>
+                <?php
+                if (current_user_can('activate_plugins')) {
+                    ?>
+                    <a href="<?php echo admin_url('admin.php?page=layotter-upgrade'); ?>"><?php _e('Go to the upgrade page', 'layotter');  ?></a>
+                    <?php
+                } else {
+                    _e('Please ask the site admin to run the upgrade.', 'layotter');
+                }
+                ?>
+            </p>
+        </div>
+        <?php
+    }
+
+    /**
+     * Replace TinyMCE with Layotter on Layotter-enabled screens
+     */
+    public static function hook_editor() {
+        if (!Core::is_enabled()) {
+            return;
+        }
+
+        $post_type = get_post_type();
+
+        // remove TinyMCE
+        remove_post_type_support($post_type, 'editor');
+
+        // insert layotter
+        add_meta_box('layotter_wrapper', // ID
+            'Layotter', // title
+            array(__CLASS__, 'output_editor'), // callback
+            $post_type, // post type for which to enable
+            'normal', // position
+            'high' // priority
+        );
+    }
+
+    /**
+     * Output backend HTML for Layotter
+     *
+     * @param $post object Post object as provided by Wordpress
+     */
+    public static function output_editor($post) {
+        UpgradeNotice::view();
     }
 
 }

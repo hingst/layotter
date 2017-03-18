@@ -926,6 +926,31 @@ span.description.layotter-description,
     opacity: 0.6; }
 
 /****************************************************/
+/* upgrade post notice */
+#layotter-upgrade-post {
+  max-width: 580px;
+  margin: 30px auto;
+  position: relative; }
+
+#layotter-upgrade-post-icons {
+  font-size: 50px;
+  position: absolute;
+  top: 12px;
+  left: 12px; }
+
+#layotter-upgrade-post-notice {
+  padding-left: 86px; }
+  #layotter-upgrade-post-notice h1 {
+    padding: 0;
+    font-size: 30px;
+    line-height: 1.2;
+    margin-bottom: 20px; }
+  #layotter-upgrade-post-notice p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px; }
+
+/****************************************************/
 /* lightbox aka dennisbox */
 #dennisbox,
 #dennisbox-modal {
