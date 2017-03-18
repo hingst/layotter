@@ -21,12 +21,13 @@ class Core {
     private static $registered_elements = array();
 
     public static function init() {
+        self::aliases();
+
         // run only if ACF is available
         if (!Adapter::is_available()) {
             return;
         }
 
-        self::aliases();
 
         add_action('admin_head', array(__CLASS__, 'hook_editor'));
         add_filter('wp_post_revision_meta_keys', array(__CLASS__, 'track_custom_field'));
