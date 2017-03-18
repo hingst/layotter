@@ -959,7 +959,7 @@ span.description.layotter-description,
   display: none; }
 
 #layotter-upgrade-loading {
-  max-width: 600px;
+  max-width: 640px;
   height: 30px;
   border: 1px solid #CCCCCC;
   border-radius: 3px;

@@ -38,10 +38,7 @@ class Upgrader {
                     <span id="layotter-upgrade-loading-bar"></span>
                     <span id="layotter-upgrade-loading-percent">30%</span>
                 </div>
-                <ul>
-                    <li>Updating post layouts &hellip; done.</li>
-                    <li>Updating element templates &hellip; done.</li>
-                    <li>Updating posts &hellip;</li>
+                <ul id="layotter-upgrade-tasks">
                 </ul>
             </div>
         </div>
