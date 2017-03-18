@@ -3,7 +3,7 @@
 namespace Layotter\Views;
 
 /**
- * View for the main drag-and-drop editor
+ * Replaces the drag-and-drop editor if an upgrade is required
  */
 class UpgradeNotice {
 
@@ -25,7 +25,7 @@ class UpgradeNotice {
                     <?php
                     if (current_user_can('activate_plugins')) {
                         ?>
-                        <a href="<?php echo admin_url('admin.php?page=layotter-settings'); ?>" class="button button-large button-primary"><?php _e('Go to the upgrade page', 'layotter'); ?></a>
+                        <a href="<?php echo admin_url('admin.php?page=layotter-upgrade'); ?>" class="button button-large button-primary"><?php _e('Go to the upgrade page', 'layotter'); ?></a>
                         <?php
                     } else {
                         _e('Please ask the site admin to run the upgrade.', 'layotter');

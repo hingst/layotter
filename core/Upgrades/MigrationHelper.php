@@ -96,13 +96,13 @@ class MigrationHelper {
      * Create an admin menu entry for Layotter
      */
     public static function admin_menu() {
-        add_menu_page(__('Layotter Upgrade', 'layotter'), // title
-            'Layotter Upgrade', // menu name
+        add_submenu_page(
+            'layotter-settings',
+            __('Layotter Database Upgrade', 'layotter'), // title
+            __('Database Upgrade', 'layotter'), // menu name
             'activate_plugins', // capability
             'layotter-upgrade', // page name
-            array(__CLASS__, 'upgrade_page'), // callback
-            'dashicons-tagcloud', // icon
-            null // position
+            array(__CLASS__, 'upgrade_page') // callback
         );
     }
 
@@ -120,6 +120,7 @@ class MigrationHelper {
     public static function assets() {
         wp_enqueue_style('layotter', plugins_url('assets/css/editor.css', __DIR__ . '/../../..'));
         wp_enqueue_style('layotter-font-awesome', plugins_url('assets/css/font-awesome.min.css', __DIR__ . '/../../..'));
+        wp_enqueue_script('layotter-upgrades', plugins_url('assets/js/upgrades.js', __DIR__ . '/../../..'), array('jquery'));
     }
 
     /**
@@ -128,7 +129,7 @@ class MigrationHelper {
     public static function print_error() {
         $current_screen = get_current_screen();
         $page = $current_screen->base;
-        if ($page == 'toplevel_page_layotter-upgrade') {
+        if ($page == 'layotter_page_layotter-upgrade') {
             return;
         }
 

@@ -1208,6 +1208,11 @@ $darkgray: #CCCCCC;
             font-size: $text-fa-m;
         }
     }
+
+    &.layotter-important {
+        font-weight: bold;
+        color: #e00;
+    }
 }
 
 .layotter-settings-checkboxes {
@@ -1289,6 +1294,41 @@ span.description.layotter-description,
         font-size: 16px;
         line-height: 1.6;
         margin-bottom: 20px;
+    }
+}
+
+
+/****************************************************/
+/* upgrade page */
+
+#layotter-upgrade-loading-wrapper {
+    display: none;
+}
+
+#layotter-upgrade-loading {
+    max-width: 600px;
+    height: 30px;
+    border: 1px solid $darkgray;
+    border-radius: 3px;
+    position: relative;
+
+    #layotter-upgrade-loading-bar {
+        background: $gray;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 70%;
+    }
+
+    #layotter-upgrade-loading-percent {
+        text-align: center;
+        line-height: 30px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
     }
 }
 

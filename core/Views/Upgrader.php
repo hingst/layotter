@@ -3,7 +3,7 @@
 namespace Layotter\Views;
 
 /**
- * View for the main drag-and-drop editor
+ * View for the database upgrade page
  */
 class Upgrader {
 
@@ -19,17 +19,31 @@ class Upgrader {
                 <strong><?php _e('A database upgrade is required to continue using Layotter.', 'layotter'); ?></strong>
             </p>
             <p class="layotter-settings-paragraph">
-                <?php _e('Your site is still working normally for your visitors. But to continue making changes, a database upgrade is required.', 'layotter'); ?><?php _e('The upgrade is fully automatic, but may take a while to complete, depending on the amount of content your site has.', 'layotter'); ?>
+                <?php _e('Your site is still working normally for your visitors. But to continue making changes, you need to upgrade the database. The upgrade is fully automatic, but may take a while to complete, depending on the amount of content your site has.', 'layotter'); ?>
             </p>
-            <p class="layotter-settings-paragraph layotter-with-icon">
-                <i class="fa fa-warning"></i>
-                <?php
-                _e("Please backup your database before you start. If something goes wrong, there's no built-in way to undo the upgrade!", 'layotter');
-                ?>
-            </p>
-            <p class="layotter-settings-paragraph">
-                <a href="#" class="button button-large button-primary"><?php _e('Run the upgrade now!', 'layotter'); ?></a>
-            </p>
+            <div id="layotter-upgrade-button-wrapper">
+                <p class="layotter-settings-paragraph layotter-with-icon layotter-important">
+                    <i class="fa fa-warning"></i>
+                    <?php
+                    _e("Please backup your database before you start. If something goes wrong, there's no built-in way to undo the upgrade!", 'layotter');
+                    ?>
+                </p>
+                <p class="layotter-settings-paragraph">
+                    <button class="button button-large button-danger" id="layotter-upgrade-button"><?php _e('Run the upgrade now!', 'layotter'); ?></button>
+                </p>
+            </div>
+            <div id="layotter-upgrade-loading-wrapper">
+                <h3>Running upgrade</h3>
+                <div id="layotter-upgrade-loading">
+                    <span id="layotter-upgrade-loading-bar"></span>
+                    <span id="layotter-upgrade-loading-percent">30%</span>
+                </div>
+                <ul>
+                    <li>Updating post layouts &hellip; done.</li>
+                    <li>Updating element templates &hellip; done.</li>
+                    <li>Updating posts &hellip;</li>
+                </ul>
+            </div>
         </div>
         <?php
     }

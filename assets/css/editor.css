@@ -882,6 +882,9 @@
       text-align: center;
       display: block;
       font-size: 14px; }
+  .layotter-settings-paragraph.layotter-important {
+    font-weight: bold;
+    color: #e00; }
 
 .layotter-settings-checkboxes {
   margin-bottom: 32px;
@@ -949,6 +952,33 @@ span.description.layotter-description,
     font-size: 16px;
     line-height: 1.6;
     margin-bottom: 20px; }
+
+/****************************************************/
+/* upgrade page */
+#layotter-upgrade-loading-wrapper {
+  display: none; }
+
+#layotter-upgrade-loading {
+  max-width: 600px;
+  height: 30px;
+  border: 1px solid #CCCCCC;
+  border-radius: 3px;
+  position: relative; }
+  #layotter-upgrade-loading #layotter-upgrade-loading-bar {
+    background: #E5E5E5;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 70%; }
+  #layotter-upgrade-loading #layotter-upgrade-loading-percent {
+    text-align: center;
+    line-height: 30px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0; }
 
 /****************************************************/
 /* lightbox aka dennisbox */
