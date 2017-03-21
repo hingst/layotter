@@ -120,6 +120,12 @@ class Assets {
                     'edit_column_options' => __('Edit column options', 'layotter'),
                     'edit_element_options' => __('Edit element options', 'layotter'),
                     'load_post_layout' => __('Load layout', 'layotter')
+                ),
+                'upgrades' => array(
+                    'confirm' => __('Please confirm that you have a created a database backup and want to run the upgrade now.', 'layotter'),
+                    'posts' => __('Updating posts', 'layotter'),
+                    'layouts' => __('Updating post layouts', 'layotter'),
+                    'templates' => __('Updating element templates', 'layotter'),
                 )
             )
         ));

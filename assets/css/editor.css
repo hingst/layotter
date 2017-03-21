@@ -955,7 +955,8 @@ span.description.layotter-description,
 
 /****************************************************/
 /* upgrade page */
-#layotter-upgrade-loading-wrapper {
+#layotter-upgrade-loading-wrapper,
+#layotter-upgrade-complete-wrapper {
   display: none; }
 
 #layotter-upgrade-loading {

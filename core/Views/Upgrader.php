@@ -33,13 +33,19 @@ class Upgrader {
                 </p>
             </div>
             <div id="layotter-upgrade-loading-wrapper">
-                <h3>Running upgrade</h3>
+                <h3><?php _e('Running upgrade', 'layotter'); ?></h3>
                 <div id="layotter-upgrade-loading">
                     <span id="layotter-upgrade-loading-bar"></span>
                     <span id="layotter-upgrade-loading-percent">30%</span>
                 </div>
                 <ul id="layotter-upgrade-tasks">
                 </ul>
+            </div>
+            <div id="layotter-upgrade-complete-wrapper">
+                <h3><?php _e('Upgrade complete', 'layotter'); ?></h3>
+                <p class="layotter-settings-paragraph">
+                    <?php _e("Your database has been upgraded and everything's back to normal. Happy editing!", 'layotter'); ?>
+                </p>
             </div>
         </div>
         <?php
