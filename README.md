@@ -2,9 +2,7 @@
 
 **Build fully customizable and easy to use Wordpress websites &ndash; with Layotter, the drag-and-drop page builder for developers!**
 
-As a professional Wordpress developer, you've probably got your own theme boilerplate, a favorite grid system, project structure, &hellip; you name it. So why should your page builder dictate its own HTML or CSS structure? Why should it come with a ton of predesigned modules that won't fit your client's design anyway? Well, we believe it shouldn't. So Layotter doesn't.
-
-Instead, Layotter does one thing, and it does a really good job at that: Being a slick and intuitive page builder for you to fill with exactly the modules you need.
+As a professional Wordpress developer, you've probably got your own theme boilerplate, a favorite grid system, project structure, &hellip; you name it. So why should your page builder dictate its own HTML or CSS structure? Why should it come with a ton of predesigned modules that won't fit your client's design anyway? We believe it shouldn't. So Layotter doesn't.
 
 ## If you like ACF, you'll love Layotter
 
