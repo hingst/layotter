@@ -33,6 +33,9 @@ class LayoutMigrator {
 
             $post = new PostMigrator($id);
             $post->migrate();
+
+            $layouts[$this->id] = null;
+            update_option('layotter_post_layouts', $layouts);
         }
     }
 

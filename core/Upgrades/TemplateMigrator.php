@@ -44,7 +44,9 @@ class TemplateMigrator {
                     $element->set_template(true);
                 }
 
-                $templates[$this->id]['migrated_to'] = $new_data['id'];
+                $templates[$this->id] = array(
+                    'migrated_to' => $new_data['id']
+                );
                 update_option('layotter_element_templates', $templates);
             }
         }
