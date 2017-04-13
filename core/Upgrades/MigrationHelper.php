@@ -26,7 +26,7 @@ class MigrationHelper {
      */
     public static function needs_upgrade() {
         // TODO: implement
-        return true;
+        return false;
 
 
         $needs_upgrade = \get_option(self::UPGRADE_OPTION);

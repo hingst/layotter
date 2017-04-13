@@ -8,6 +8,8 @@ use Layotter\Components\Element;
 use Layotter\Components\Options;
 use Layotter\Components\Post;
 use Layotter\Upgrades\MigrationHelper;
+use Layotter\Upgrades\Runners\LayoutsUpgrader;
+use Layotter\Upgrades\Runners\TemplatesUpgrader;
 use Layotter\Views\Editor;
 
 /**
@@ -325,6 +327,25 @@ class Core {
      * @param $post object Post object as provided by Wordpress
      */
     public static function output_editor($post) {
+
+        /*
+        $runner = new TemplatesUpgrader();
+        $runner->check_on_plugin_upgrade();
+        while($runner->needs_upgrade()) {
+            $runner->do_upgrade_step();
+            var_dump($runner->get_status());
+        }
+        var_dump(get_option('layotter_element_templates'));
+
+        $runner = new LayoutsUpgrader();
+        $runner->check_on_plugin_upgrade();
+        while($runner->needs_upgrade()) {
+            $runner->do_upgrade_step();
+            var_dump($runner->get_status());
+        }
+        var_dump(get_option('layotter_post_layouts'));
+        */
+
         $hidden_style = 'width: 1px; height: 1px; position: fixed; top: -999px; left: -999px;';
         $visible_style = 'width: 100%; height: 200px;margin-bottom: 30px;';
         echo '<textarea id="content" name="content" style="' . $hidden_style . '"></textarea>';
