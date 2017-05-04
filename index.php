@@ -1,5 +1,14 @@
 <?php
 /*
+
+        __                      __  __
+       / /   ____ ___  ______  / /_/ /____  _____
+      / /   / __ `/ / / / __ \/ __/ __/ _ \/ ___/
+     / /___/ /_/ / /_/ / /_/ / /_/ /_/  __/ /
+    /_____/\__,_/\__, /\____/\__/\__/\___/_/
+                /____/
+
+
 Plugin Name: Layotter
 Description: Add and arrange your content freely with an intuitive drag and drop interface!
 Author: Dennis Hingst
