@@ -12,7 +12,7 @@ abstract class OptionArrayUpgrader {
 
     abstract protected function is_item_upgradable($item);
 
-    abstract protected function get_migrator($id);
+    abstract protected function migrate($id);
 
     public function __construct() {
     }
@@ -31,6 +31,7 @@ abstract class OptionArrayUpgrader {
             return 0;
         }
         $upgradable_layouts = array_filter($layouts, function($item) {
+            // TODO: this check should probably take place in the Migrator, e.g. TemplateMigrator::needs_upgrade()
             return $this->is_item_upgradable($item);
         });
         return count($upgradable_layouts);
@@ -56,8 +57,7 @@ abstract class OptionArrayUpgrader {
 
         foreach ($layouts as $id => $layout) {
             if ($this->is_item_upgradable($layout)) {
-                $lm = $this->get_migrator($id);
-                $lm->migrate();
+                $this->migrate($id);
             }
         }
 

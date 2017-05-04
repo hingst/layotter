@@ -22,7 +22,8 @@ class TemplatesUpgrader extends OptionArrayUpgrader {
         return !isset($item['migrated_to']);
     }
 
-    protected function get_migrator($id) {
-        return new TemplateMigrator($id);
+    protected function migrate($id) {
+        $migrator = new TemplateMigrator($id);
+        $migrator->migrate();
     }
 }

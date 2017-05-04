@@ -22,7 +22,8 @@ class LayoutsUpgrader extends OptionArrayUpgrader {
         return !is_null($item);
     }
 
-    protected function get_migrator($id) {
-        return new LayoutMigrator($id);
+    protected function migrate($id) {
+        $migrator = new LayoutMigrator($id);
+        $migrator->migrate();
     }
 }

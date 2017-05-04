@@ -13,7 +13,7 @@ namespace Layotter;
 
 spl_autoload_register(function($class) {
     if (stripos($class, __NAMESPACE__) === 0) {
-        require_once __DIR__ . '/core' . str_replace('\\', '/', strtolower(substr($class, strlen(__NAMESPACE__)))) . '.php';
+        require_once __DIR__ . '/core' . str_replace('\\', '/', substr($class, strlen(__NAMESPACE__))) . '.php';
     }
 });
 

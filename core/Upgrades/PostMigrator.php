@@ -14,6 +14,7 @@ class PostMigrator {
     }
 
     public function needs_upgrade() {
+        // TODO: check if there's Layotter content in this post, otherwise regular content will break immediately
         $model_version = get_post_meta($this->id, MigrationHelper::META_FIELD_MODEL_VERSION, true);
         if (empty($model_version) OR version_compare($model_version, MigrationHelper::CURRENT_MODEL_VERSION) < 0) {
             return true;
