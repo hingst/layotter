@@ -3,7 +3,6 @@
 namespace Layotter\Components;
 
 use Layotter\Core;
-use Layotter\Upgrades\MigrationHelper;
 
 /**
  * Layotter Posts turn into Layouts when they are saved to the database as templates for new posts.
@@ -33,8 +32,7 @@ class Layout extends Post {
         $this->layout_id = wp_insert_post(array(
             'post_type' => self::POST_TYPE_LAYOUTS,
             'meta_input' => array(
-                Core::META_FIELD_JSON => addslashes(json_encode(parent::to_array())),
-                MigrationHelper::META_FIELD_MODEL_VERSION => MigrationHelper::CURRENT_MODEL_VERSION
+                Core::META_FIELD_JSON => addslashes(json_encode(parent::to_array()))
             ),
             'post_status' => 'publish',
             'post_title' => $name

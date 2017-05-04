@@ -7,9 +7,7 @@ use Layotter\Components\Editable;
 use Layotter\Components\Element;
 use Layotter\Components\Options;
 use Layotter\Components\Post;
-use Layotter\Upgrades\MigrationHelper;
-use Layotter\Upgrades\Runners\LayoutsUpgrader;
-use Layotter\Upgrades\Runners\TemplatesUpgrader;
+use Layotter\Upgrades\PluginMigrator;
 use Layotter\Views\Editor;
 
 /**
@@ -30,14 +28,10 @@ class Core {
             return;
         }
 
-        if (MigrationHelper::needs_upgrade()) {
-            MigrationHelper::show_upgrade_prompt();
-            return;
-        }
-
         add_action('admin_head', array(__CLASS__, 'hook_editor'));
         add_filter('wp_post_revision_meta_keys', array(__CLASS__, 'track_custom_field'));
         add_action('after_setup_theme', array(__CLASS__, 'include_example_element'));
+        add_action('init', array(__CLASS__, 'check_for_upgrade'));
         add_filter('wp_insert_post_data', array(__CLASS__, 'save_post'), 999, 2);
 
         add_action('admin_enqueue_scripts', array('Layotter\Assets', 'backend'));
@@ -88,9 +82,15 @@ class Core {
      *
      * Track JSON data with the WP Post Meta Revisions plugin because Wordpress normally doesn't track custom fields
      */
-    function track_custom_field($keys) {
+    public static function track_custom_field($keys) {
         $keys[] = self::META_FIELD_JSON;
         return $keys;
+    }
+
+    public static function check_for_upgrade() {
+        if (PluginMigrator::needs_upgrade()) {
+            PluginMigrator::upgrade();
+        }
     }
 
     /**
@@ -128,7 +128,7 @@ class Core {
 
         // oddly enough, Wordpress breaks JSON if it's stripslashed
         update_post_meta($post_id, Core::META_FIELD_JSON, $json);
-        update_post_meta($post_id, MigrationHelper::META_FIELD_MODEL_VERSION, MigrationHelper::CURRENT_MODEL_VERSION);
+        update_post_meta($post_id, PluginMigrator::META_FIELD_MODEL_VERSION, PluginMigrator::CURRENT_MODEL_VERSION);
 
         $data['post_content'] = $search_dump;
         return $data;
@@ -327,25 +327,6 @@ class Core {
      * @param $post object Post object as provided by Wordpress
      */
     public static function output_editor($post) {
-
-        /*
-        $runner = new TemplatesUpgrader();
-        $runner->check_on_plugin_upgrade();
-        while($runner->needs_upgrade()) {
-            $runner->do_upgrade_step();
-            var_dump($runner->get_status());
-        }
-        var_dump(get_option('layotter_element_templates'));
-
-        $runner = new LayoutsUpgrader();
-        $runner->check_on_plugin_upgrade();
-        while($runner->needs_upgrade()) {
-            $runner->do_upgrade_step();
-            var_dump($runner->get_status());
-        }
-        var_dump(get_option('layotter_post_layouts'));
-        */
-
         $hidden_style = 'width: 1px; height: 1px; position: fixed; top: -999px; left: -999px;';
         $visible_style = 'width: 100%; height: 200px;margin-bottom: 30px;';
         echo '<textarea id="content" name="content" style="' . $hidden_style . '"></textarea>';

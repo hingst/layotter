@@ -14,11 +14,15 @@ class PostMigrator {
     }
 
     public function needs_upgrade() {
-        // TODO: check if there's Layotter content in this post, otherwise regular content will break immediately
-        $model_version = get_post_meta($this->id, MigrationHelper::META_FIELD_MODEL_VERSION, true);
-        if (empty($model_version) OR version_compare($model_version, MigrationHelper::CURRENT_MODEL_VERSION) < 0) {
+        if (!Core::is_enabled_for_post($this->id)) {
+            return false;
+        }
+
+        $model_version = get_post_meta($this->id, PluginMigrator::META_FIELD_MODEL_VERSION, true);
+        if (empty($model_version) OR version_compare($model_version, PluginMigrator::CURRENT_MODEL_VERSION) < 0) {
             return true;
         }
+
         return false;
     }
 
@@ -52,7 +56,7 @@ class PostMigrator {
             'post_content' => $search_dump,
             'meta_input' => array(
                 Core::META_FIELD_JSON => addslashes($json),
-                MigrationHelper::META_FIELD_MODEL_VERSION => MigrationHelper::CURRENT_MODEL_VERSION
+                PluginMigrator::META_FIELD_MODEL_VERSION => PluginMigrator::CURRENT_MODEL_VERSION
             )
         ));
     }
