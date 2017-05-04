@@ -23,7 +23,8 @@ class LayoutMigrator {
             $id = wp_insert_post(array(
                 'post_type' => Layout::POST_TYPE_LAYOUTS,
                 'meta_input' => array(
-                    'layotter_json' => addslashes($layout['json'])
+                    'layotter_json' => addslashes($layout['json']),
+                    PluginMigrator::META_FIELD_MODEL_VERSION => PluginMigrator::CURRENT_MODEL_VERSION
                 ),
                 'post_status' => 'publish',
                 'post_title' => $layout['name'],
