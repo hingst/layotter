@@ -104,7 +104,9 @@ class Post {
         $template_posts = get_posts(array(
             'post_type' => Editable::POST_TYPE_EDITABLE,
             'meta_key' => Element::META_FIELD_IS_TEMPLATE,
-            'meta_value' => '1'
+            'meta_value' => '1',
+            'order' => 'ASC',
+            'posts_per_page' => -1
         ));
 
         $templates = array();
