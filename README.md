@@ -13,14 +13,14 @@ class Text_Element extends Layotter_Element {
     protected function attributes() {
         $this->title       = 'Text';
         $this->description = 'A very simple text element.';
-        $this->icon        = 'font';
-        $this->field_group = 'group_abc1337';
+        $this->icon        = 'font'; // pick an icon from Font Awesome
+        $this->field_group = 'group_abc1337'; // your ACF field group
     }
     protected function frontend_view($fields) {
-        echo $fields['content'];
+        echo $fields['content']; // what visitors will see
     }
     protected function backend_view($fields) {
-        echo $fields['content'];
+        echo $fields['content']; // what editors will see
     }
 }
 Layotter::register_element('text', 'Text_Element');
