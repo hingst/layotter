@@ -7,8 +7,8 @@ namespace Layotter\Acf;
  */
 class Adapter {
 
-    const REQUIRED_VERSION = '4.4.10';
-    const REQUIRED_PRO_VERSION = '5.4.7';
+    const REQUIRED_VERSION = '4.4.11';
+    const REQUIRED_PRO_VERSION = '5.5.9';
 
     private static $error_message = '';
 
