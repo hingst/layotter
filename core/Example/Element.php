@@ -3,7 +3,6 @@
 namespace Layotter\Example;
 
 use Layotter\Acf\Adapter;
-use Layotter\Core;
 
 /**
  * This example element comes with Layotter and can be disabled in settings
@@ -14,8 +13,8 @@ class Element extends \Layotter\Components\Element {
      * Set attributes
      */
     protected function attributes() {
-        $this->title = __('Example element', 'layotter');
-        $this->description = __('Use this element to play around and get started with Layotter.', 'layotter');
+        $this->title = __('Text editor', 'layotter');
+        $this->description = __('An intuitive editor for text and pictures.', 'layotter');
         $this->icon = 'star';
         $this->field_group = Adapter::get_example_field_group_name();
     }

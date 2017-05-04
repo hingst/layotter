@@ -94,6 +94,22 @@ class PostMigrator {
     }
 
     /**
+     * Check if pre 1.5.0 data structure is present for this post
+     *
+     * i.e. if JSON is stored directly in the post content
+     *
+     * @return bool
+     */
+    private function has_old_data_structure() {
+        $content_raw = get_post_field('post_content', $this->id);
+        if (preg_match('/\[layotter\](.*)\[\/layotter\]/ms', $content_raw)) {
+            return true;
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Get post JSON by post ID
      *
      * @return string|null JSON string containing post structure or null for new posts
@@ -102,9 +118,29 @@ class PostMigrator {
         if ($this->has_new_data_structure()) {
             // if post 1.5.0 data structure is present, get JSON from custom field
             return get_post_meta($this->id, 'layotter_json', true);
-        } else {
-            // otherwise, try to extract data from the post content
+        } else if ($this->has_old_data_structure()) {
+            // if pre 1.5.0 data structure is present, extract data from the post content
             return $this->get_json_from_legacy_post_content();
+        } else {
+            // otherwise, we're dealing with a regular Wordpress post; let's convert the post content to a WYSIWYG element
+            // TODO: simplify when you're sober
+            return json_encode(array(
+                'options' => array(),
+                'rows' => array(array(
+                    'layout' => '1/1',
+                    'options' => array(),
+                    'cols' => array(array(
+                        'options' => array(),
+                        'elements' => array(array(
+                            'options' => array(),
+                            'type' => 'layotter_example_element',
+                            'values' => array(
+                                'content' => apply_filters('the_content', get_post_field('post_content', $this->id))
+                            )
+                        ))
+                    ))
+                ))
+            ));
         }
     }
 

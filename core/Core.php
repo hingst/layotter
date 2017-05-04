@@ -97,10 +97,8 @@ class Core {
      * Include example element if enabled in options
      */
     public static function include_example_element() {
-        if (Settings::example_element_enabled()) {
-            Example\FieldGroup::register();
-            self::register_element('layotter_example_element', '\Layotter\Example\Element');
-        }
+        Example\FieldGroup::register();
+        self::register_element('layotter_example_element', '\Layotter\Example\Element');
     }
 
     /**

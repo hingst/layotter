@@ -602,12 +602,6 @@ class Settings {
                 <?php
             }
             ?>
-            <p class="layotter-settings-paragraph layotter-with-icon">
-                <i class="fa fa-warning"></i>
-                <?php
-                _e("Once you disable the example element type, all elements you've created with it will disappear.", 'layotter');
-                ?>
-            </p>
             <p class="layotter-settings-checkboxes">
                 <label>
                     <input type="checkbox" name="layotter_settings[general][enable_example_element]"
