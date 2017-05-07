@@ -1,1 +1,4 @@
-.idea/
+/.idea/
+/bin/
+/phpunit.xml.dist
+/tests/bootstrap.php
