@@ -272,4 +272,17 @@ class Adapter {
         }
     }
 
+    /**
+     * ID to be used in the <form> element
+     *
+     * @return string Form ID
+     */
+    public static function get_form_id() {
+        if (self::is_pro_installed()) {
+            return 'layotter-edit';
+        } else {
+            return 'post';
+        }
+    }
+
 }
