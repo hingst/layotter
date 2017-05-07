@@ -254,6 +254,9 @@
 
 /****************************************************/
 /* column buttons (add element, edit column options) */
+.layotter-col:hover .layotter-col-buttons-wrapper {
+  z-index: 5; }
+
 .layotter-col-buttons-wrapper {
   text-align: center;
   position: absolute;
@@ -261,7 +264,7 @@
   left: 0;
   right: 0;
   margin-top: -5px;
-  z-index: 5; }
+  z-index: 3; }
   .layotter-col-buttons-wrapper .layotter-col-button {
     font-size: 14px;
     cursor: pointer;
@@ -927,59 +930,6 @@ span.description.layotter-description,
     left: 0;
     background: #F1F1F1;
     opacity: 0.6; }
-
-/****************************************************/
-/* upgrade post notice */
-#layotter-upgrade-post {
-  max-width: 580px;
-  margin: 30px auto;
-  position: relative; }
-
-#layotter-upgrade-post-icons {
-  font-size: 50px;
-  position: absolute;
-  top: 12px;
-  left: 12px; }
-
-#layotter-upgrade-post-notice {
-  padding-left: 86px; }
-  #layotter-upgrade-post-notice h1 {
-    padding: 0;
-    font-size: 30px;
-    line-height: 1.2;
-    margin-bottom: 20px; }
-  #layotter-upgrade-post-notice p {
-    font-size: 16px;
-    line-height: 1.6;
-    margin-bottom: 20px; }
-
-/****************************************************/
-/* upgrade page */
-#layotter-upgrade-loading-wrapper,
-#layotter-upgrade-complete-wrapper {
-  display: none; }
-
-#layotter-upgrade-loading {
-  max-width: 640px;
-  height: 30px;
-  border: 1px solid #CCCCCC;
-  border-radius: 3px;
-  position: relative; }
-  #layotter-upgrade-loading #layotter-upgrade-loading-bar {
-    background: #E5E5E5;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 70%; }
-  #layotter-upgrade-loading #layotter-upgrade-loading-percent {
-    text-align: center;
-    line-height: 30px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0; }
 
 /****************************************************/
 /* lightbox aka dennisbox */
