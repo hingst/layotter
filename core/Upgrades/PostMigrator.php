@@ -123,23 +123,36 @@ class PostMigrator {
             return $this->get_json_from_legacy_post_content();
         } else {
             // otherwise, we're dealing with a regular Wordpress post; let's convert the post content to a WYSIWYG element
+            $rows = array();
+            $content = get_post_field('post_content', $this->id);
+
             // TODO: simplify when you're sober
+            if (!empty($content)) {
+                $rows[] = array(
+                    array(
+                        'layout' => '1/1',
+                        'options' => array(),
+                        'cols' => array(
+                            array(
+                                'options' => array(),
+                                'elements' => array(
+                                    array(
+                                        'options' => array(),
+                                        'type' => 'layotter_example_element',
+                                        'values' => array(
+                                            'content' => apply_filters('the_content', $content)
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                );
+            }
+
             return json_encode(array(
                 'options' => array(),
-                'rows' => array(array(
-                    'layout' => '1/1',
-                    'options' => array(),
-                    'cols' => array(array(
-                        'options' => array(),
-                        'elements' => array(array(
-                            'options' => array(),
-                            'type' => 'layotter_example_element',
-                            'values' => array(
-                                'content' => apply_filters('the_content', get_post_field('post_content', $this->id))
-                            )
-                        ))
-                    ))
-                ))
+                'rows' => $rows
             ));
         }
     }
