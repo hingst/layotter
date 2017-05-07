@@ -3,7 +3,7 @@
 Plugin Name: Layotter
 Description: Add and arrange your content freely with an intuitive drag and drop interface!
 Author: Dennis Hingst
-Version: 1.5.16
+Version: 1.5.17
 Author URI: http://www.layotter.com/
 Text Domain: layotter
 GitHub Plugin URI: hingst/layotter
