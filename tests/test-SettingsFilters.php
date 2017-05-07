@@ -172,6 +172,10 @@ class SettingsFiltersTest extends WP_UnitTestCase {
     }
 
     function test_GetHtmlWrapper() {
-        // TODO
+        $wrapper = Settings::get_html_wrapper('wrapper');
+        $this->assertArrayHasKey('before', $wrapper);
+        $this->assertEquals('<div class="lo-wrapper">', $wrapper['before']);
+        $this->assertArrayHasKey('after', $wrapper);
+        $this->assertEquals('</div>', $wrapper['after']);
     }
 }
