@@ -46,7 +46,7 @@ abstract class Editable {
         return array(
             'title' => $this->title,
             'icon' => $this->icon,
-            'nonce' => wp_create_nonce('post'),
+            'nonce' => wp_create_nonce(Adapter::get_nonce_name()),
             'fields' => Adapter::get_form_html($this->get_fields(), $this->id)
         );
     }

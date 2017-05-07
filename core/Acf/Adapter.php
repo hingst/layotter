@@ -252,9 +252,23 @@ class Adapter {
         } else {
             ?>
             <div class="acf_postbox">
+                <input type="hidden" name="acf_nonce" value="{{ form.nonce }}">
                 <div class="inside" ng-bind-html="form.fields | rawHtml"></div>
             </div>
             <?php
+        }
+    }
+
+    /**
+     * Nonce name that ACF validates when saving an element
+     *
+     * @return string Nonce name
+     */
+    public static function get_nonce_name() {
+        if (self::is_pro_installed()) {
+            return 'post';
+        } else {
+            return 'input';
         }
     }
 
