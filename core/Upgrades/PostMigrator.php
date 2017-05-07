@@ -129,19 +129,17 @@ class PostMigrator {
             // TODO: simplify when you're sober
             if (!empty($content)) {
                 $rows[] = array(
-                    array(
-                        'layout' => '1/1',
-                        'options' => array(),
-                        'cols' => array(
-                            array(
-                                'options' => array(),
-                                'elements' => array(
-                                    array(
-                                        'options' => array(),
-                                        'type' => 'layotter_example_element',
-                                        'values' => array(
-                                            'content' => apply_filters('the_content', $content)
-                                        )
+                    'layout' => '1/1',
+                    'options' => array(),
+                    'cols' => array(
+                        array(
+                            'options' => array(),
+                            'elements' => array(
+                                array(
+                                    'options' => array(),
+                                    'type' => 'layotter_example_element',
+                                    'values' => array(
+                                        'content' => apply_filters('the_content', $content)
                                     )
                                 )
                             )
