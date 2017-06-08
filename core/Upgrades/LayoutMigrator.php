@@ -3,6 +3,7 @@
 namespace Layotter\Upgrades;
 
 use Layotter\Components\Layout;
+use Layotter\Core;
 
 class LayoutMigrator {
 
@@ -23,7 +24,7 @@ class LayoutMigrator {
             $id = wp_insert_post(array(
                 'post_type' => Layout::POST_TYPE_LAYOUTS,
                 'meta_input' => array(
-                    'layotter_json' => addslashes($layout['json']),
+                    Core::META_FIELD_JSON => addslashes($layout['json']),
                     PluginMigrator::META_FIELD_MODEL_VERSION => PluginMigrator::CURRENT_MODEL_VERSION
                 ),
                 'post_status' => 'publish',

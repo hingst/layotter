@@ -41,7 +41,7 @@ class EditableMigrator {
 
             if (isset($this->values[$field_name])) {
                 $field['value'] = $this->values[$field_name];
-                update_field($field['key'], $field['value'], $id);
+                update_field($field['key'], addslashes($field['value']), $id);
             }
         }
 

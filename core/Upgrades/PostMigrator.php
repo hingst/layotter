@@ -53,7 +53,7 @@ class PostMigrator {
 
         wp_update_post(array(
             'ID' => $this->id,
-            'post_content' => $search_dump,
+            'post_content' => addslashes($search_dump),
             'meta_input' => array(
                 Core::META_FIELD_JSON => addslashes($json),
                 PluginMigrator::META_FIELD_MODEL_VERSION => PluginMigrator::CURRENT_MODEL_VERSION

@@ -124,7 +124,7 @@ class Core {
         $layotter_post->set_json($unslashed_json);
         $search_dump = '[layotter post="' . $post_id . '"]' . $layotter_post->get_search_dump() . '[/layotter]';
 
-        // oddly enough, Wordpress breaks JSON if it's stripslashed
+        // no addslashes() here because $json is still magic-quoted by Wordpress
         update_post_meta($post_id, Core::META_FIELD_JSON, $json);
         update_post_meta($post_id, PluginMigrator::META_FIELD_MODEL_VERSION, PluginMigrator::CURRENT_MODEL_VERSION);
 
