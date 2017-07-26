@@ -15,7 +15,8 @@ function _manually_load_plugin() {
     require dirname( dirname( dirname( __FILE__ ) ) ) . '/advanced-custom-fields/acf.php';
     require dirname( dirname( __FILE__ ) ) . '/index.php';
     \Layotter\Settings::set_defaults_on_activation();
-    require dirname( __FILE__ ) . '/helpers/field-group.php';
+	require dirname( __FILE__ ) . '/helpers/field-group.php';
+	require dirname( __FILE__ ) . '/helpers/element.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
