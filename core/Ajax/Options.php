@@ -11,52 +11,54 @@ class Options {
 
     /**
      * Output the edit form for post, row, col or element options
+     *
+     * @param array $data POST data
+     * @return array Form data
      */
-    public static function edit() {
-        if (isset($_POST['layotter_post_id'])) {
-            $post_type_context = get_post_type($_POST['layotter_post_id']);
+    public static function edit($data) {
+        if (isset($data['layotter_post_id'])) {
+            $post_type_context = get_post_type($data['layotter_post_id']);
         } else {
             $post_type_context = '';
         }
 
-        if (isset($_POST['layotter_options_id']) AND ctype_digit($_POST['layotter_options_id']) AND $_POST['layotter_options_id'] != 0) {
-            $id = intval($_POST['layotter_options_id']);
+        if (isset($data['layotter_options_id']) AND ctype_digit($data['layotter_options_id']) AND $data['layotter_options_id'] != 0) {
+            $id = intval($data['layotter_options_id']);
             $options = Core::assemble_options($id);
             $options->set_post_type_context($post_type_context);
-            echo $options->get_form_json();
-        } else if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
-            $type = $_POST['layotter_type'];
+            return $options->get_form_data();
+        } else if (isset($data['layotter_type']) AND is_string($data['layotter_type'])) {
+            $type = $data['layotter_type'];
             $options = Core::assemble_new_options($type);
             $options->set_post_type_context($post_type_context);
-            echo $options->get_form_json();
+            return $options->get_form_data();
         }
-
-        die();
     }
 
     /**
      * Save options
+     *
+     * @param array $data POST data
+     * @return string Options ID
      */
-    public static function save() {
-        if (isset($_POST['layotter_post_id'])) {
-            $post_type_context = get_post_type($_POST['layotter_post_id']);
+    public static function save($data) {
+        if (isset($data['layotter_post_id'])) {
+            $post_type_context = get_post_type($data['layotter_post_id']);
         } else {
             $post_type_context = '';
         }
 
-        if (isset($_POST['layotter_options_id']) AND ctype_digit($_POST['layotter_options_id']) AND $_POST['layotter_options_id'] != 0) {
-            $id = intval($_POST['layotter_options_id']);
+        if (isset($data['layotter_options_id']) AND ctype_digit($data['layotter_options_id']) AND $data['layotter_options_id'] != 0) {
+            $id = intval($data['layotter_options_id']);
             $options = Core::assemble_options($id);
             $options->set_post_type_context($post_type_context);
             $options->save_from_post_data();
-            echo $options->get_id();
-        } else if (isset($_POST['layotter_type']) AND is_string($_POST['layotter_type'])) {
-            $options = Core::assemble_new_options($_POST['layotter_type']);
+            return $options->get_id();
+        } else if (isset($data['layotter_type']) AND is_string($data['layotter_type'])) {
+            $options = Core::assemble_new_options($data['layotter_type']);
             $options->set_post_type_context($post_type_context);
             $options->save_from_post_data();
-            echo $options->get_id();
+            return $options->get_id();
         }
-
-        die();
     }
 }

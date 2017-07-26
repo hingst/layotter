@@ -70,10 +70,6 @@ class Post {
         );
     }
 
-    public function to_json() {
-        return json_encode($this->to_array());
-    }
-
     /**
      * Return frontend HTML for this post
      *

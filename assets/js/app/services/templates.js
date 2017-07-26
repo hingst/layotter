@@ -20,7 +20,8 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
             okText: layotterData.i18n.edit_template,
             okAction: function(){
                 state.setElement(element);
-                forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_element', {
+                forms.fetchDataAndShowForm(ajaxurl + '?action=layotter', {
+                    layotter_action: 'edit_element',
                     layotter_element_id: element.id
                 });
             },
@@ -39,9 +40,9 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
             okAction: function(){
                 _this.savedTemplates[index].isLoading = true;
                 $http({
-                    url: ajaxurl + '?action=layotter_delete_template',
+                    url: ajaxurl + '?action=layotter',
                     method: 'POST',
-                    data: 'layotter_element_id=' + _this.savedTemplates[index].id,
+                    data: 'layotter_action=delete_template&layotter_element_id=' + _this.savedTemplates[index].id,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
@@ -71,9 +72,9 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
         element.isLoading = true;
         view.showTemplates();
         $http({
-            url: ajaxurl + '?action=layotter_save_new_template',
+            url: ajaxurl + '?action=layotter',
             method: 'POST',
-            data: 'id=' + element.id,
+            data: 'layotter_action=create_template&id=' + element.id,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -102,10 +103,10 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
 
         // build query string from form data
         var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
-            + '&layotter_element_id=' + encodeURIComponent(editingElement.id);
+            + '&layotter_action=save_element&layotter_element_id=' + encodeURIComponent(editingElement.id);
         
         $http({
-            url: ajaxurl + '?action=layotter_save_element',
+            url: ajaxurl + '?action=layotter',
             method: 'POST',
             data: values,
             headers: {

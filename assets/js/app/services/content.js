@@ -63,7 +63,8 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
      */
     this.editElement = function(element) {
         state.setElement(element);
-        forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_element', {
+        forms.fetchDataAndShowForm(ajaxurl + '?action=layotter', {
+            layotter_action: 'edit_element',
             layotter_element_id: element.id,
             layotter_type: element.type,
             layotter_values: element.values
@@ -89,10 +90,10 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
 
         // build query string from form data
         var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
-            + '&layotter_element_id=' + encodeURIComponent(editingElement.id) + '&layotter_type=' + encodeURIComponent(editingElement.type);
+            + '&layotter_action=save_element&layotter_element_id=' + encodeURIComponent(editingElement.id) + '&layotter_type=' + encodeURIComponent(editingElement.type);
         
         $http({
-            url: ajaxurl + '?action=layotter_save_element',
+            url: ajaxurl + '?action=layotter',
             method: 'POST',
             data: values,
             headers: {
@@ -119,7 +120,8 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
     this.editOptions = function(type, item) {
         state.setOptionsType(type);
         state.setElement(item);
-        forms.fetchDataAndShowForm(ajaxurl + '?action=layotter_edit_options', {
+        forms.fetchDataAndShowForm(ajaxurl + '?action=layotter', {
+            layotter_action: 'edit_options',
             layotter_type: type,
             layotter_options_id: item.options_id,
             layotter_post_id: layotterData.postID
@@ -139,10 +141,10 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
 
         // build query string from form data
         var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
-            + '&layotter_type=' + encodeURIComponent(optionsType) + '&layotter_post_id=' + encodeURIComponent(layotterData.postID);
+            + '&layotter_action=save_options&layotter_type=' + encodeURIComponent(optionsType) + '&layotter_post_id=' + encodeURIComponent(layotterData.postID);
 
         $http({
-            url: ajaxurl + '?action=layotter_save_options',
+            url: ajaxurl + '?action=layotter',
             method: 'POST',
             data: values,
             headers: {

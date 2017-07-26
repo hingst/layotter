@@ -11,53 +11,56 @@ class Layouts {
 
     /**
      * Save a new post layout
+     *
+     * @param array $data POST data
+     * @return array Layout data
      */
-    public static function create() {
-        if (isset($_POST['name']) AND isset($_POST['json'])) {
-            $json = stripslashes($_POST['json']);
+    public static function create($data) {
+        if (isset($data['name']) AND isset($data['json'])) {
+            $json = stripslashes($data['json']);
             $layout = new Layout();
             $layout->set_json($json);
-            $layout->save($_POST['name']);
-            echo $layout->to_json();
+            $layout->save($data['name']);
+	        return $layout->to_array();
         }
-
-        die();
     }
 
     /**
      * Output post layout data
+     *
+     * @param array $data POST data
+     * @return array Layout data
      */
-    public static function load() {
-        if (isset($_POST['layout_id'])) {
-            $layout = new Layout($_POST['layout_id']);
-            echo $layout->to_json();
+    public static function load($data) {
+        if (isset($data['layout_id'])) {
+            $layout = new Layout($data['layout_id']);
+	        return $layout->to_array();
         }
-
-        die();
     }
 
-    /**
-     * Rename a post layout
-     */
-    public static function rename() {
-        if (isset($_POST['layout_id']) AND isset($_POST['name'])) {
-            $layout = new Layout($_POST['layout_id']);
-            $layout->rename($_POST['name']);
-            echo $layout->to_json();
+	/**
+	 * Rename a post layout
+	 *
+	 * @param array $data POST data
+	 * @return array Layout data
+	 */
+    public static function rename($data) {
+        if (isset($data['layout_id']) AND isset($data['name'])) {
+            $layout = new Layout($data['layout_id']);
+            $layout->rename($data['name']);
+	        return $layout->to_array();
         }
-
-        die();
     }
 
     /**
      * Delete a post layout
+     *
+     * @param array $data POST data
      */
-    public static function delete() {
-        if (isset($_POST['layout_id'])) {
-            $layout = new Layout($_POST['layout_id']);
+    public static function delete($data) {
+        if (isset($data['layout_id'])) {
+            $layout = new Layout($data['layout_id']);
             $layout->delete();
         }
-
-        die();
     }
 }

@@ -52,15 +52,6 @@ abstract class Editable {
     }
 
     /**
-     * Get form JSON
-     *
-     * @return string
-     */
-    public function get_form_json() {
-        return json_encode($this->get_form_data());
-    }
-
-    /**
      * Use wp_insert_post to trigger ACF hooks that read from $_POST and save custom fields
      */
     public function save_from_post_data() {

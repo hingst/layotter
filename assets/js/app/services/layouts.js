@@ -22,10 +22,10 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
             initialValue: angular.element('#title').val(),
             okText: layotterData.i18n.save_layout,
             okAction: function(value) {
-                var postData = 'name=' + encodeURIComponent(value) + '&json=' + encodeURIComponent(json);
+                var postData = 'layotter_action=create_layout&name=' + encodeURIComponent(value) + '&json=' + encodeURIComponent(json);
                 angular.element('.layotter-save-layout-button-wrapper').addClass('layotter-loading');
                 $http({
-                    url: ajaxurl + '?action=layotter_save_new_layout',
+                    url: ajaxurl + '?action=layotter',
                     method: 'POST',
                     data: postData,
                     headers: {
@@ -79,9 +79,9 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
         angular.element('#layotter').addClass('layotter-loading');
 
         $http({
-            url: ajaxurl + '?action=layotter_load_layout',
+            url: ajaxurl + '?action=layotter',
             method: 'POST',
-            data: 'layout_id=' + id,
+            data: 'layotter_action=load_layout&layout_id=' + id,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -115,9 +115,9 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                 layout.isLoading = true;
 
                 $http({
-                    url: ajaxurl + '?action=layotter_rename_layout',
+                    url: ajaxurl + '?action=layotter',
                     method: 'POST',
-                    data: 'layout_id=' + id + '&name=' + value,
+                    data: 'layotter_action=rename_layout&layout_id=' + id + '&name=' + value,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
@@ -146,9 +146,9 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                 layout.isLoading = true;
 
                 $http({
-                    url: ajaxurl + '?action=layotter_delete_layout',
+                    url: ajaxurl + '?action=layotter',
                     method: 'POST',
-                    data: 'layout_id=' + id,
+                    data: 'layotter_action=delete_layout&layout_id=' + id,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }

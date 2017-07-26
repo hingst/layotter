@@ -9,30 +9,32 @@ use Layotter\Core;
  */
 class Templates {
 
-    /**
-     * Save element as a new template
-     */
-    public static function create() {
-        if (isset($_POST['id']) AND ctype_digit($_POST['id'])) {
-            $element = Core::assemble_element($_POST['id']);
+	/**
+	 * Save element as a new template
+	 *
+	 * @param array $data POST data
+	 * @return array Template data
+	 */
+    public static function create($data) {
+        if (isset($data['id']) AND ctype_digit($data['id'])) {
+            $element = Core::assemble_element($data['id']);
             $element->set_template(true);
-            echo $element->to_json();
+            return $element->to_array();
         }
-
-        die();
     }
 
     /**
      * Delete a template
+     *
+     * @param array $data POST data
+     * @return array Element data
      */
-    public static function delete() {
-        if (isset($_POST['layotter_element_id']) AND ctype_digit($_POST['layotter_element_id']) AND $_POST['layotter_element_id'] != 0) {
-            $id = intval($_POST['layotter_element_id']);
+    public static function delete($data) {
+        if (isset($data['layotter_element_id']) AND ctype_digit($data['layotter_element_id']) AND $data['layotter_element_id'] != 0) {
+            $id = intval($data['layotter_element_id']);
             $element = Core::assemble_element($id);
             $element->set_template(false);
-            echo $element->to_json();
+            return $element->to_array();
         }
-
-        die();
     }
 }

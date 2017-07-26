@@ -209,15 +209,6 @@ abstract class Element extends Editable {
     }
 
     /**
-     * Get element data as JSON
-     *
-     * @return string
-     */
-    public function to_json() {
-        return json_encode($this->to_array());
-    }
-
-    /**
      * Get the backend view
      *
      * @return string Backend view HTML

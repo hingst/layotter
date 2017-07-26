@@ -38,16 +38,7 @@ class Core {
         add_action('wp_enqueue_scripts', array('Layotter\Assets', 'frontend'));
         add_action('admin_footer', array('Layotter\Assets', 'views'));
 
-        add_action('wp_ajax_layotter_edit_element', array('Layotter\Ajax\Elements', 'edit'));
-        add_action('wp_ajax_layotter_save_element', array('Layotter\Ajax\Elements', 'save'));
-        add_action('wp_ajax_layotter_edit_options', array('Layotter\Ajax\Options', 'edit'));
-        add_action('wp_ajax_layotter_save_options', array('Layotter\Ajax\Options', 'save'));
-        add_action('wp_ajax_layotter_save_new_template', array('Layotter\Ajax\Templates', 'create'));
-        add_action('wp_ajax_layotter_delete_template', array('Layotter\Ajax\Templates', 'delete'));
-        add_action('wp_ajax_layotter_save_new_layout', array('Layotter\Ajax\Layouts', 'create'));
-        add_action('wp_ajax_layotter_load_layout', array('Layotter\Ajax\Layouts', 'load'));
-        add_action('wp_ajax_layotter_rename_layout', array('Layotter\Ajax\Layouts', 'rename'));
-        add_action('wp_ajax_layotter_delete_layout', array('Layotter\Ajax\Layouts', 'delete'));
+        add_action('wp_ajax_layotter', array('Layotter\Ajax\Handler', 'handle'));
 
         add_filter('acf/location/rule_types', array('Layotter\Acf\LocationRules', 'category'));
         add_filter('acf/location/rule_values/layotter', array('Layotter\Acf\LocationRules', 'options'));
