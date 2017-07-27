@@ -16,7 +16,7 @@ function _manually_load_plugin() {
     require dirname( dirname( __FILE__ ) ) . '/index.php';
     \Layotter\Settings::set_defaults_on_activation();
 	require dirname( __FILE__ ) . '/helpers/field-group.php';
-	require dirname( __FILE__ ) . '/helpers/element.php';
+	require dirname( __FILE__ ) . '/helpers/data.php';
 }
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 

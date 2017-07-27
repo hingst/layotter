@@ -13,6 +13,10 @@ abstract class Element extends Editable {
 
     const META_FIELD_IS_TEMPLATE = 'layotter_is_template';
 
+    protected $id;
+	protected $icon;
+	protected $title;
+	protected $type;
     protected $options;
     protected $is_template = false;
     protected $description;
@@ -232,6 +236,9 @@ abstract class Element extends Editable {
         ob_start();
         $this->frontend_view($this->get_values(), $col_width, $col_options, $row_options, $post_options);
         $element_html = ob_get_clean();
+
+	    //var_dump(get_fields($this->id));
+	    //var_dump($this->id);
 
         if (has_filter('layotter/view/element')) {
             return apply_filters('layotter/view/element', $element_html, $this->options->get_values(), $col_options, $row_options, $post_options);

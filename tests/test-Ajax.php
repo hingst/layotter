@@ -1,6 +1,5 @@
 <?php
 
-use \Layotter\Components\Post;
 use \Layotter\Components\Editable;
 
 class AjaxTest extends WP_UnitTestCase {
@@ -14,11 +13,7 @@ class AjaxTest extends WP_UnitTestCase {
 			'post_content' => '',
 			'post_type' => Editable::POST_TYPE_EDITABLE
 		));
-		add_post_meta(self::$test_element, Editable::META_FIELD_EDITABLE_TYPE, 'element_test');
-	}
-
-	public function tearDown() {
-		parent::tearDown();
+		add_post_meta(self::$test_element, Editable::META_FIELD_EDITABLE_TYPE, 'layotter_example_element');
 	}
 
 	function test_EditElement() {

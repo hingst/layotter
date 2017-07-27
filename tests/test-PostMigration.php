@@ -4,15 +4,10 @@ use \Layotter\Components\Post;
 
 class PostMigrationTest extends WP_UnitTestCase {
 
-    private static $input = '{"options":[],"rows":[{"layout":"1/3 1/3 1/3","cols":[{"elements":[],"options":[]},{"elements":[{"type":"element_test","values":{"content":"Here\'s some text. With a <a href=\"http://google.com#hey\">link</a>. With some <strong>HTML</strong> <em>tags</em>. With a bunch of mean Unicode characters: áî　ラメ単色\"\'\\\\ß😆⚖️👩."},"options":[]}],"options":[]},{"elements":[],"options":[]}],"options":[]},{"layout":"1/3 1/3 1/3","cols":[{"elements":[],"options":[]},{"elements":[],"options":[]},{"elements":[],"options":[]}],"options":[]}]}';
-    //private static $input = '{"content":"Here\'s some text. With a <a href=\"http://google.com#hey\">link</a>"}';
-    private static $expected = '<div class="lo-wrapper"><div class="lo-row"><div class="lo-col-size4of12"></div><div class="lo-col-size4of12"><div class="lo-element"><div class="layotter-example-element"><p>Here\'s some text. With a <a href="http://google.com#hey">link</a>. With some <strong>HTML</strong> <em>tags</em>. With a bunch of mean Unicode characters: áî　ラメ単色"\'\\ß😆⚖️👩.</p>
-</div></div></div><div class="lo-col-size4of12"></div></div><div class="lo-row"><div class="lo-col-size4of12"></div><div class="lo-col-size4of12"></div><div class="lo-col-size4of12"></div></div></div>';
-
     public function setUp() {
         parent::setUp();
 
-        // wptexturize fucks with quotes in ways that we really don't care about in these tests
+        // wptexturize does weird things to quotes in JSON
         add_filter('run_wptexturize', '__return_false');
     }
 
@@ -22,26 +17,22 @@ class PostMigrationTest extends WP_UnitTestCase {
     }
 
     function test_CanMigrateFromPre150Structure() {
-        //$input = '[layotter]' . self::$input . '[/layotter]';
-
-        // wp_insert_post() expects magic quotes, fucking lunatics https://core.trac.wordpress.org/ticket/21767
-        $input = addslashes(self::$input);
+        // wp_insert_post() expects magic quotes, https://core.trac.wordpress.org/ticket/21767
+        $input = addslashes(Layotter_Test_Data::PRE_150_WRAPPED_JSON);
 
         $id = self::factory()->post->create(array(
             'post_content' => $input,
             'post_type' => 'page'
         ));
-        //var_dump($input);
-        //var_dump(get_post_field('post_content', $id));
 
         $post = new Post($id);
         $actual = $post->get_frontend_view();
-        $this->assertEquals(self::$expected, $actual);
+        $this->assertEquals(Layotter_Test_Data::EXPECTED_VIEW, $actual);
     }
 
     function test_CanMigrateFromPost150Structure() {
-        // wp_insert_post() expects magic quotes, fucking lunatics https://core.trac.wordpress.org/ticket/21767
-        $input = addslashes(self::$input);
+        // wp_insert_post() expects magic quotes, https://core.trac.wordpress.org/ticket/21767
+        $input = addslashes(Layotter_Test_Data::POST_150_JSON);
 
         $id = self::factory()->post->create(array(
             'meta_input' => array(
@@ -49,30 +40,29 @@ class PostMigrationTest extends WP_UnitTestCase {
             ),
             'post_type' => 'page'
         ));
-        //var_dump($input);
-        //var_dump(get_post_meta($id, 'layotter_json', true));
 
         $post = new Post($id);
         $actual = $post->get_frontend_view();
-        $this->assertEquals(self::$expected, $actual);
+        $this->assertEquals(Layotter_Test_Data::EXPECTED_VIEW, $actual);
     }
-/*
+
     function test_CanMigrateFromRegularPost() {
         $id = self::factory()->post->create(array(
-            'post_content' => 'arghl blarghl',
+            'post_content' => 'blah blah blah',
             'post_type' => 'page'
         ));
         $post = new Post($id);
-        $data = $post->to_json();
-        $this->assertEquals('', $data); // TODO
+        $actual = $post->to_array();
+        $this->assertRegExp(Layotter_Test_Data::EXPECTED_JSON_REGEX, json_encode($actual));
     }
 
     function test_CanMigrateFromEmptyPost() {
         $id = self::factory()->post->create(array(
+	        'post_content' => '',
             'post_type' => 'page'
         ));
         $post = new Post($id);
-        $data = $post->to_json();
-        $this->assertEquals('', $data); // TODO
-    }*/
+        $actual = $post->to_array();
+        $this->assertRegExp(Layotter_Test_Data::EXPECTED_EMPTY_JSON_REGEX, json_encode($actual));
+    }
 }
