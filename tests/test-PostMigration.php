@@ -58,7 +58,7 @@ class PostMigrationTest extends WP_UnitTestCase {
 
     function test_CanMigrateFromEmptyPost() {
         $id = self::factory()->post->create(array(
-	        'post_content' => '',
+            'post_content' => '',
             'post_type' => 'page'
         ));
         $post = new Post($id);
