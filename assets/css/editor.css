@@ -851,6 +851,8 @@
 
 /****************************************************/
 /* modals: ACF customization */
+.select2-container {
+  z-index: 999992; }
 #layotter-edit > .acf-error-message:first-child {
   position: absolute;
   top: 18px;
