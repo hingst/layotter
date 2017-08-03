@@ -1160,6 +1160,12 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* modals: ACF customization */
 
+// ACF 5.6+
+
+.select2-container {
+    z-index: 999992;
+}
+
 // ACF 5
 #layotter-edit {
     > .acf-error-message:first-child { // form validation error
