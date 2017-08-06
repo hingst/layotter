@@ -851,6 +851,9 @@
 
 /****************************************************/
 /* modals: ACF customization */
+.select2-container {
+  z-index: 100003; }
+
 #layotter-edit > .acf-error-message:first-child {
   position: absolute;
   top: 18px;
@@ -959,9 +962,9 @@ span.description.layotter-description,
       background: #fff url(../img/loading.gif) center no-repeat; }
 
 #dennisbox-modal .dennisbox-overlay {
-  z-index: 100003; }
-#dennisbox-modal .dennisbox-content {
   z-index: 100004; }
+#dennisbox-modal .dennisbox-content {
+  z-index: 100005; }
 
 /****************************************************/
 /* Wordpress style red button */
