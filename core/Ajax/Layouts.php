@@ -21,7 +21,8 @@ class Layouts {
             $layout = new Layout();
             $layout->set_json($json);
             $layout->save($data['name']);
-	        return $layout->to_array();
+
+            return $layout->to_array();
         }
     }
 
@@ -34,21 +35,23 @@ class Layouts {
     public static function load($data) {
         if (isset($data['layout_id'])) {
             $layout = new Layout($data['layout_id']);
-	        return $layout->to_array();
+
+            return $layout->to_array();
         }
     }
 
-	/**
-	 * Rename a post layout
-	 *
-	 * @param array $data POST data
-	 * @return array Layout data
-	 */
+    /**
+     * Rename a post layout
+     *
+     * @param array $data POST data
+     * @return array Layout data
+     */
     public static function rename($data) {
         if (isset($data['layout_id']) AND isset($data['name'])) {
             $layout = new Layout($data['layout_id']);
             $layout->rename($data['name']);
-	        return $layout->to_array();
+
+            return $layout->to_array();
         }
     }
 

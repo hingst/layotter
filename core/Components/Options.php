@@ -21,7 +21,7 @@ class Options extends Editable {
         $this->icon = 'cog';
 
         if ($this->id !== 0) {
-            $this->set_type(get_post_meta($id, self::META_FIELD_EDITABLE_TYPE, true));
+            $this->set_type(get_post_meta($this->id, self::META_FIELD_EDITABLE_TYPE, true));
         }
     }
 
