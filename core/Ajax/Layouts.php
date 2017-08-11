@@ -13,7 +13,7 @@ class Layouts {
      * Save a new post layout
      *
      * @param array $data POST data
-     * @return array Layout data
+     * @return Layout Layout data
      */
     public static function create($data) {
         if (isset($data['name']) AND isset($data['json'])) {
@@ -22,7 +22,7 @@ class Layouts {
             $layout->set_json($json);
             $layout->save($data['name']);
 
-            return $layout->to_array();
+            return $layout;
         }
     }
 
@@ -30,13 +30,13 @@ class Layouts {
      * Output post layout data
      *
      * @param array $data POST data
-     * @return array Layout data
+     * @return Layout Layout data
      */
     public static function load($data) {
         if (isset($data['layout_id'])) {
             $layout = new Layout($data['layout_id']);
 
-            return $layout->to_array();
+            return $layout;
         }
     }
 
@@ -44,14 +44,14 @@ class Layouts {
      * Rename a post layout
      *
      * @param array $data POST data
-     * @return array Layout data
+     * @return Layout Layout data
      */
     public static function rename($data) {
         if (isset($data['layout_id']) AND isset($data['name'])) {
             $layout = new Layout($data['layout_id']);
             $layout->rename($data['name']);
 
-            return $layout->to_array();
+            return $layout;
         }
     }
 

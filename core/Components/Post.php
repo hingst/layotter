@@ -9,7 +9,7 @@ use Layotter\Upgrades\PostMigrator;
 /**
  * A single post
  */
-class Post {
+class Post implements \JsonSerializable {
 
     protected $id = 0;
     protected $options;
@@ -57,16 +57,10 @@ class Post {
      *
      * @return array
      */
-    public function to_array() {
-        $rows = array();
-
-        foreach ($this->rows as $row) {
-            $rows[] = $row->to_array();
-        }
-
+    public function jsonSerialize() {
         return array(
             'options_id' => $this->options->get_id(),
-            'rows' => $rows
+            'rows' => $this->rows
         );
     }
 
@@ -110,7 +104,7 @@ class Post {
         foreach ($template_posts as $template) {
             $element = Core::assemble_element($template->ID);
             if ($element->is_enabled_for($this->id)) {
-                $templates[] = $element->to_array();
+                $templates[] = $element;
             }
         }
 
@@ -179,7 +173,7 @@ class Post {
         $layouts = array();
         foreach ($layout_posts as $layout_post) {
             $layout = new Layout($layout_post->ID);
-            $layouts[] = $layout->to_array();
+            $layouts[] = $layout;
         }
 
         return $layouts;

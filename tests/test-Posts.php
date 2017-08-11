@@ -30,9 +30,8 @@ class PostsTest extends WP_UnitTestCase {
 
     function test_ToArray() {
         $post = new Post(self::$id);
-        $actual = $post->to_array();
         $model_version = get_post_meta(self::$id, \Layotter\Upgrades\PluginMigrator::META_FIELD_MODEL_VERSION, true);
-        $this->assertRegExp(Layotter_Test_Data::EXPECTED_JSON_REGEX, json_encode($actual));
+        $this->assertRegExp(Layotter_Test_Data::EXPECTED_JSON_REGEX, json_encode($post));
         $this->assertEquals(\Layotter\Upgrades\PluginMigrator::CURRENT_MODEL_VERSION, $model_version);
     }
 
@@ -59,7 +58,7 @@ class PostsTest extends WP_UnitTestCase {
     function test_SetJson() {
         $post = new Post(self::$id);
         $new_post = new Post();
-        $new_post->set_json(json_encode($post->to_array()));
+        $new_post->set_json(json_encode($post));
         $this->assertEquals(Layotter_Test_Data::EXPECTED_VIEW, $new_post->get_frontend_view());
     }
 }

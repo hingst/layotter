@@ -8,7 +8,7 @@ use Layotter\Upgrades\PluginMigrator;
 /**
  * Layotter Posts turn into Layouts when they are saved to the database as templates for new posts.
  */
-class Layout extends Post {
+class Layout extends Post implements \JsonSerializable {
 
     const POST_TYPE_LAYOUTS = 'layotter_post_layout';
 
@@ -33,7 +33,7 @@ class Layout extends Post {
         $this->layout_id = wp_insert_post(array(
             'post_type' => self::POST_TYPE_LAYOUTS,
             'meta_input' => array(
-                Core::META_FIELD_JSON => addslashes(json_encode(parent::to_array())),
+                Core::META_FIELD_JSON => addslashes(json_encode(parent::jsonSerialize())),
                 PluginMigrator::META_FIELD_MODEL_VERSION => PluginMigrator::CURRENT_MODEL_VERSION
             ),
             'post_status' => 'publish',
@@ -65,11 +65,11 @@ class Layout extends Post {
      *
      * @return array
      */
-    public function to_array() {
+    public function jsonSerialize() {
         return array(
             'layout_id' => $this->layout_id,
             'name' => get_the_title($this->layout_id),
-            'json' => json_encode(parent::to_array()),
+            'json' => parent::jsonSerialize(),
             'time_created' => get_the_date('U', $this->layout_id)
         );
     }

@@ -9,7 +9,7 @@ use Layotter\Acf\Adapter;
 /**
  * All custom element types must extend this class
  */
-abstract class Element extends Editable {
+abstract class Element extends Editable implements \JsonSerializable {
 
     const META_FIELD_IS_TEMPLATE = 'layotter_is_template';
 
@@ -180,7 +180,7 @@ abstract class Element extends Editable {
      *
      * @return array
      */
-    public function to_array() {
+    public function jsonSerialize() {
         return array(
             'id' => $this->id,
             'options_id' => $this->options->get_id(),

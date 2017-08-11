@@ -66,7 +66,7 @@ class Assets {
         wp_localize_script('layotter', 'layotterData', array(
             'postID' => get_the_ID(),
             'isACFPro' => Adapter::is_pro_installed(),
-            'contentStructure' => $layotter_post->to_array(),
+            'contentStructure' => $layotter_post,
             'allowedRowLayouts' => Settings::get_allowed_row_layouts(),
             'defaultRowLayout' => Settings::get_default_row_layout(),
             'savedLayouts' => $layotter_post->get_available_layouts(),

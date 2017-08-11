@@ -8,7 +8,7 @@ use Layotter\Settings;
 /**
  * A single row
  */
-class Row {
+class Row implements \JsonSerializable {
 
     private $layout = '';
     private $options;
@@ -51,17 +51,11 @@ class Row {
      *
      * @return array
      */
-    public function to_array() {
-        $cols = array();
-
-        foreach ($this->cols as $col) {
-            $cols[] = $col->to_array();
-        }
-
+    public function jsonSerialize() {
         return array(
             'layout' => $this->layout,
             'options_id' => $this->options->get_id(),
-            'cols' => $cols
+            'cols' => $this->cols
         );
     }
 

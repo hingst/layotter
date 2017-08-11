@@ -8,7 +8,7 @@ use Layotter\Settings;
 /**
  * A single column
  */
-class Column {
+class Column implements \JsonSerializable {
 
     private $width = '';
     private $options;
@@ -34,16 +34,10 @@ class Column {
      *
      * @return array
      */
-    public function to_array() {
-        $elements = array();
-
-        foreach ($this->elements as $element) {
-            $elements[] = $element->to_array();
-        }
-
+    public function jsonSerialize() {
         return array(
             'options_id' => $this->options->get_id(),
-            'elements' => $elements
+            'elements' => $this->elements
         );
     }
 

@@ -56,9 +56,8 @@ class PostMigrationTest extends WP_UnitTestCase {
             'post_type' => 'page'
         ));
         $post = new Post($id);
-        $actual = $post->to_array();
         $model_version = get_post_meta($id, \Layotter\Upgrades\PluginMigrator::META_FIELD_MODEL_VERSION, true);
-        $this->assertRegExp(Layotter_Test_Data::EXPECTED_JSON_REGEX, json_encode($actual));
+        $this->assertRegExp(Layotter_Test_Data::EXPECTED_JSON_REGEX, json_encode($post));
         $this->assertEquals(\Layotter\Upgrades\PluginMigrator::CURRENT_MODEL_VERSION, $model_version);
     }
 
@@ -68,9 +67,8 @@ class PostMigrationTest extends WP_UnitTestCase {
             'post_type' => 'page'
         ));
         $post = new Post($id);
-        $actual = $post->to_array();
         $model_version = get_post_meta($id, \Layotter\Upgrades\PluginMigrator::META_FIELD_MODEL_VERSION, true);
-        $this->assertRegExp(Layotter_Test_Data::EXPECTED_EMPTY_JSON_REGEX, json_encode($actual));
+        $this->assertRegExp(Layotter_Test_Data::EXPECTED_EMPTY_JSON_REGEX, json_encode($post));
         $this->assertEquals(\Layotter\Upgrades\PluginMigrator::CURRENT_MODEL_VERSION, $model_version);
     }
 }

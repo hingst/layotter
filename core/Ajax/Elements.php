@@ -2,6 +2,7 @@
 
 namespace Layotter\Ajax;
 
+use Layotter\Components\Element;
 use Layotter\Core;
 
 /**
@@ -31,7 +32,7 @@ class Elements {
      * Save an element
      *
      * @param array $data POST data
-     * @return array Element data
+     * @return Element Element data
      */
     public static function save($data) {
         if (isset($data['layotter_element_id']) AND ctype_digit($data['layotter_element_id']) AND $data['layotter_element_id'] != 0) {
@@ -42,11 +43,11 @@ class Elements {
             } else {
                 $element->save_from_post_data();
             }
-            return $element->to_array();
+            return $element;
         } else if (isset($data['layotter_type']) AND is_string($data['layotter_type'])) {
             $element = Core::assemble_new_element($data['layotter_type']);
             $element->save_from_post_data();
-            return $element->to_array();
+            return $element;
         }
     }
 }
