@@ -8,4 +8,5 @@ class Layotter_Test_Data {
 </div></div></div></div></div>';
     const EXPECTED_JSON_REGEX = '~\{"options_id"\:\d+,"rows"\:\[\{"layout"\:"1\\\\/1","options_id"\:\d+,"cols"\:\[\{"options_id"\:\d+,"elements"\:\[\{"id"\:\d+,"options_id"\:\d+,"view"\:"\<div class\=\\\\"layotter\-example\-element\\\\"\>\<p\>blah blah blah\<\\\\/p\>\\\\n\<\\\\/div\>","is_template"\:false\}\]\}\]\}\]~';
     const EXPECTED_EMPTY_JSON_REGEX = '~\{"options_id"\:\d+,"rows"\:\[\]\}~';
+    const EXPECTED_SEARCH_DUMP = 'blah blah blah';
 }

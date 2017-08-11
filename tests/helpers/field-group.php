@@ -49,6 +49,49 @@ if (Adapter::is_pro_installed()) {
         'active' => 1,
         'description' => '',
     ));
+    acf_add_local_field_group(array(
+        'key' => 'group_597e17d33715a',
+        'title' => 'options',
+        'fields' => array(
+            array(
+                'key' => 'field_597e17d7a2ed1',
+                'label' => 'text',
+                'name' => 'text',
+                'type' => 'text',
+                'instructions' => '',
+                'required' => 0,
+                'conditional_logic' => 0,
+                'wrapper' => array(
+                    'width' => '',
+                    'class' => '',
+                    'id' => '',
+                ),
+                'default_value' => '',
+                'placeholder' => '',
+                'prepend' => '',
+                'append' => '',
+                'maxlength' => '',
+            ),
+        ),
+        'location' => array(
+            array(
+                array(
+                    'param' => 'layotter',
+                    'operator' => '==',
+                    'value' => 'element_options',
+                ),
+            ),
+        ),
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 1,
+        'description' => '',
+    ));
+    // TODO: non Pro field group
 } else {
     register_field_group(array(
         'id' => 'group_test',
