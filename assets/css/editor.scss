@@ -999,7 +999,10 @@ $darkgray: #CCCCCC;
 
     .layotter-modal-confirm-message {
         padding: 20px;
-        font-size: $text-m;
+
+        p {
+            font-size: $text-m;
+        }
     }
 
     .layotter-modal-confirm-buttons {

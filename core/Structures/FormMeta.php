@@ -30,6 +30,11 @@ class FormMeta implements \JsonSerializable {
     private $fields = [];
 
     /**
+     * @var int ID of the item that is being edited
+     */
+    private $editable_id = 0;
+
+    /**
      * Constructor.
      *
      * @param $title string Human readable form title
@@ -37,7 +42,7 @@ class FormMeta implements \JsonSerializable {
      * @param $nonce string Nonce for ACF form validation
      * @param $fields string ACF form HTML
      */
-    public function __construct($title, $icon, $nonce, $fields) {
+    public function __construct($title, $icon, $nonce, $fields, $editable_id) {
         if (is_string($title)) {
             $this->title = $title;
         } else {
@@ -61,6 +66,12 @@ class FormMeta implements \JsonSerializable {
         } else {
             Errors::invalid_argument_recoverable('fields');
         }
+
+        if (is_int($editable_id)) {
+            $this->editable_id = $editable_id;
+        } else {
+            Errors::invalid_argument_recoverable('editable_id');
+        }
     }
 
     /**
@@ -73,7 +84,8 @@ class FormMeta implements \JsonSerializable {
             'title' => $this->title,
             'icon' => $this->icon,
             'nonce' => $this->nonce,
-            'fields' => $this->fields
+            'fields' => $this->fields,
+            'editableID' => $this->editable_id // ACF needs this
         ];
     }
 

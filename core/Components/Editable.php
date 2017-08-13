@@ -64,7 +64,13 @@ abstract class Editable {
      * @return FormMeta Form meta data
      */
     public function get_form_meta() {
-        return new FormMeta($this->title, $this->icon, wp_create_nonce(Adapter::get_nonce_name()), Adapter::get_form_html($this->get_fields(), $this->id));
+        return new FormMeta(
+            $this->title,
+            $this->icon,
+            wp_create_nonce(Adapter::get_nonce_name()),
+            Adapter::get_form_html($this->get_fields(), $this->id),
+            $this->id
+        );
     }
 
     /**

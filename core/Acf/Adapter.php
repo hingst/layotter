@@ -243,8 +243,11 @@ class Adapter {
             ?>
             <div class="acf-postbox">
                 <div id="acf-form-data" class="acf-hidden">
-                    <input type="hidden" name="_acf_nonce" value="{{ form.nonce }}">
-                    <input id="layotter-changed" type="hidden" name="_acfchanged" value="0">
+                    <input type="hidden" name="_acf_post_id" value="{{ form.editableID }}" />
+                    <input type="hidden" name="_acf_nonce" value="{{ form.nonce }}" />
+                    <input type="hidden" name="_acf_validation" value="1" />
+                    <input type="hidden" name="_acf_ajax" value="1" />
+                    <input type="hidden" name="_acf_changed" value="0" />
                 </div>
                 <div class="acf-fields" ng-bind-html="form.fields | rawHtml"></div>
             </div>

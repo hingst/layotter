@@ -88,6 +88,7 @@ class Assets {
                 'cancel' => __('Cancel', 'layotter'),
                 'discard_changes' => __('Discard changes', 'layotter'),
                 'discard_changes_confirmation' => __('Do you want to cancel and discard all changes?', 'layotter'),
+                'discard_changes_go_back_confirmation' => __('Do you want to go back and discard all changes?', 'layotter'),
                 'delete_row_confirmation' => __('Do you want to delete this row and all its elements?', 'layotter'),
                 'delete_element_confirmation' => __('Do you want to delete this element?', 'layotter'),
                 'delete_template_confirmation' => __('Do you want to delete this template? You can not undo this action.', 'layotter'),

@@ -14,6 +14,8 @@ app.service('state', function(forms){
             this.optionsType = null;
             _this.showBackButton = false;
             forms.close();
+            forms.fieldsChanged = false;
+            forms.listenForFieldChanges = false;
         }
     };
     editing.reset();

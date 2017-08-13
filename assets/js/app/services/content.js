@@ -29,7 +29,22 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
      * Go back to show the list of available element types when editing a new element
      */
     this.backToShowNewElementTypes = function() {
-        forms.showHTML(angular.element('#layotter-add-element').html());
+        if (forms.fieldsChanged) {
+            modals.confirm({
+                message: layotterData.i18n.discard_changes_go_back_confirmation,
+                okText: layotterData.i18n.discard_changes,
+                okAction: function(){
+                    forms.showHTML(angular.element('#layotter-add-element').html());
+                    forms.fieldsChanged = false;
+                    forms.listenForFieldChanges = false;
+                },
+                cancelText: layotterData.i18n.cancel
+            });
+        } else {
+            forms.showHTML(angular.element('#layotter-add-element').html());
+            forms.fieldsChanged = false;
+            forms.listenForFieldChanges = false;
+        }
     };
     
     
@@ -273,7 +288,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
      * Close Lightbox only if no edit form is currently present
      */
     this.cancelEditing = function() {
-        if (angular.element('#layotter-changed').val() === '1') {
+        if (forms.fieldsChanged) {
             modals.confirm({
                 message: layotterData.i18n.discard_changes_confirmation,
                 okText: layotterData.i18n.discard_changes,

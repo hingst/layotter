@@ -5,7 +5,16 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
 
 
     var _this = this;
+    this.fieldsChanged = false;
+    this.listenForFieldChanges = false;
     this.data = {}; // contains field data for the form that's currently being displayed
+
+
+    angular.element(document).on('change', '.layotter-modal input, .layotter-modal textarea, .layotter-modal select', function(){
+        if (_this.listenForFieldChanges) {
+            _this.fieldsChanged = true;
+        }
+    });
 
 
     angular.element(document).on('submit', '#layotter-edit', function(){
@@ -118,6 +127,8 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
         } else if (typeof html === 'string') {
             contentBox.html(html);
         }
+
+        _this.listenForFieldChanges = true;
 
         // compile lightbox contents
         $timeout(function(){

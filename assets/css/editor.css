@@ -716,8 +716,9 @@
   position: relative;
   height: 100%; }
   .layotter-modal-confirm .layotter-modal-confirm-message {
-    padding: 20px;
-    font-size: 14px; }
+    padding: 20px; }
+    .layotter-modal-confirm .layotter-modal-confirm-message p {
+      font-size: 14px; }
   .layotter-modal-confirm .layotter-modal-confirm-buttons {
     position: absolute;
     bottom: 0;
