@@ -7,7 +7,7 @@ class LayoutMigrationTest extends WP_UnitTestCase {
 
     function test_CanMigrateLayout() {
         update_option('layotter_post_layouts', [
-            0 => [
+            [
                 'layout_id' => 0,
                 'name' => 'cheese',
                 'json' => Layotter_Test_Data::POST_150_JSON,

@@ -113,9 +113,9 @@ class Post implements \JsonSerializable {
     }
 
     /**
-     * Get array representations for all templates that are available for this post
+     * Get instances of all templates that are available for this post
      *
-     * @return array
+     * @return Element[]
      */
     public function get_available_templates() {
         $template_posts = get_posts([
