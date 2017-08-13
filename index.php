@@ -26,8 +26,4 @@ spl_autoload_register(function($class) {
     }
 });
 
-// load translations
-load_plugin_textdomain('layotter', false, basename(__DIR__) . '/languages/');
-
-Settings::init();
 Core::init();

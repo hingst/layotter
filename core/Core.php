@@ -18,12 +18,20 @@ class Core {
     const META_FIELD_JSON = 'layotter_json';
     const TEXTAREA_NAME = 'layotter_json';
 
+    /**
+     * @var array Registered element types => their respective class names
+     */
     private static $registered_elements = array();
 
+    /**
+     * Gets everything going
+     */
     public static function init() {
+        load_plugin_textdomain('layotter', false, basename(__DIR__) . '/languages/');
+        Settings::init();
         self::aliases();
 
-        // run only if ACF is available
+        // continue only if ACF is available
         if (!Adapter::is_available()) {
             return;
         }
@@ -78,6 +86,9 @@ class Core {
         return $keys;
     }
 
+    /**
+     * Upgrades the plugin on demand
+     */
     public static function check_for_upgrade() {
         if (PluginMigrator::needs_upgrade()) {
             PluginMigrator::upgrade();
@@ -153,12 +164,12 @@ class Core {
     }
 
     /**
-     * Get all registered element types
+     * Get identifiers for all registered element types
      *
      * @return array
      */
     public static function get_registered_element_types() {
-        return self::$registered_elements;
+        return array_keys(self::$registered_elements);
     }
 
     /**
@@ -172,6 +183,7 @@ class Core {
         $type = strval($type);
 
         if (isset(self::$registered_elements[$type])) {
+            /** @var $element Element */
             $element = new self::$registered_elements[$type]();
             $element->set_type($type);
             return $element;
@@ -193,6 +205,7 @@ class Core {
         $type = get_post_meta($id, Editable::META_FIELD_EDITABLE_TYPE, true);
 
         if (isset(self::$registered_elements[$type])) {
+            /** @var $element Element */
             $element = new self::$registered_elements[$type]($id);
             $element->set_options($options_id);
             return $element;

@@ -8,7 +8,7 @@ namespace Layotter\Acf;
 class Adapter {
 
     const REQUIRED_VERSION = '4.4.11';
-    const REQUIRED_PRO_VERSION = '5.5.9';
+    const REQUIRED_PRO_VERSION = '5.6.0';
 
     private static $error_message = '';
 
@@ -243,7 +243,7 @@ class Adapter {
             ?>
             <div class="acf-postbox">
                 <div id="acf-form-data" class="acf-hidden">
-                    <input type="hidden" name="_acfnonce" value="{{ form.nonce }}">
+                    <input type="hidden" name="_acf_nonce" value="{{ form.nonce }}">
                     <input id="layotter-changed" type="hidden" name="_acfchanged" value="0">
                 </div>
                 <div class="acf-fields" ng-bind-html="form.fields | rawHtml"></div>

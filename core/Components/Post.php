@@ -4,6 +4,8 @@ namespace Layotter\Components;
 
 use Layotter\Core;
 use Layotter\Settings;
+use Layotter\Structures\ElementTypeMeta;
+use Layotter\Structures\PostStructure;
 use Layotter\Upgrades\PostMigrator;
 
 /**
@@ -11,8 +13,19 @@ use Layotter\Upgrades\PostMigrator;
  */
 class Post implements \JsonSerializable {
 
+    /**
+     * @var int Post ID
+     */
     protected $id = 0;
+
+    /**
+     * @var Options Post options
+     */
     protected $options;
+
+    /**
+     * @var Row[] Contained Rows
+     */
     protected $rows = array();
 
     /**
@@ -43,17 +56,17 @@ class Post implements \JsonSerializable {
      * @param string $json
      */
     public function set_json($json) {
-        $content = json_decode($json, true);
-        if (is_array($content)) {
-            foreach ($content['rows'] as $row) {
-                $this->rows[] = new Row($row);
-            }
-            $this->options = Core::assemble_options($content['options_id']);
+        $structure = json_decode($json, true);
+        $data = new PostStructure($structure);
+        $this->options = Core::assemble_options($data->get_options_id());
+
+        foreach ($data->get_rows() as $row) {
+            $this->rows[] = new Row($row);
         }
     }
 
     /**
-     * Return array representation of this post
+     * Return array representation for use in json_encode()
      *
      * @return array
      */
@@ -112,19 +125,18 @@ class Post implements \JsonSerializable {
     }
 
     /**
-     * Get metadata of all element types enabled for this post
-     *
+     * Get meta data of all element types enabled for this post
      * For display in the "Add Element" modal
      *
-     * @return array
+     * @return ElementTypeMeta[]
      */
-    public function get_available_element_types_metadata() {
+    public function get_available_element_types_meta() {
         $elements = array();
 
-        foreach (array_keys(Core::get_registered_element_types()) as $element_type) {
+        foreach (Core::get_registered_element_types() as $element_type) {
             $element = Core::assemble_new_element($element_type);
             if ($element->is_enabled_for($this->id)) {
-                $elements[] = $element->get_metadata();
+                $elements[] = $element->get_type_meta();
             }
         }
 
@@ -135,19 +147,18 @@ class Post implements \JsonSerializable {
 
     /**
      * Helper used to sort a set of element types
-     *
      * Sorts using the order attribute. Elements with the same order attribute are sorted alphabetically.
      * Elements without an order attribute come last.
      *
-     * @param array $a_metadata Element A
-     * @param array $b_metadata Element B
+     * @param ElementTypeMeta $a_meta Element A meta data
+     * @param ElementTypeMeta $b_meta Element B meta data
      * @return int -1 if A comes first, 1 if B comes first, 0 if equal
      */
-    public static function sort_element_types_helper($a_metadata, $b_metadata) {
-        $a_order = $a_metadata['order'];
-        $b_order = $b_metadata['order'];
-        $a_title = $a_metadata['title'];
-        $b_title = $b_metadata['title'];
+    public static function sort_element_types_helper($a_meta, $b_meta) {
+        $a_order = $a_meta->get_order();
+        $b_order = $b_meta->get_order();
+        $a_title = $a_meta->get_title();
+        $b_title = $b_meta->get_title();
 
         if ($a_order < $b_order) {
             return -1;
@@ -161,7 +172,7 @@ class Post implements \JsonSerializable {
     /**
      * Get array representations of all available layouts
      *
-     * @return array
+     * @return Layout[] All available layouts
      */
     public function get_available_layouts() {
         $layout_posts = get_posts(array(
@@ -179,6 +190,11 @@ class Post implements \JsonSerializable {
         return $layouts;
     }
 
+    /**
+     * Create a search dump that will be saved to the post content
+     *
+     * @return string Post content without HTML tags and whitespace
+     */
     public function get_search_dump() {
         $content = $this->get_frontend_view();
 

@@ -12,6 +12,9 @@ class Layout extends Post implements \JsonSerializable {
 
     const POST_TYPE_LAYOUTS = 'layotter_post_layout';
 
+    /**
+     * @var int Layout ID (e.g. post ID)
+     */
     protected $layout_id = 0;
 
     /**
@@ -61,7 +64,7 @@ class Layout extends Post implements \JsonSerializable {
     }
 
     /**
-     * Get array representation of this layout
+     * Return array representation for use in json_encode()
      *
      * @return array
      */

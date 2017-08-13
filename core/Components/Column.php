@@ -4,33 +4,44 @@ namespace Layotter\Components;
 
 use Layotter\Core;
 use Layotter\Settings;
+use Layotter\Structures\ColumnStructure;
 
 /**
  * A single column
  */
 class Column implements \JsonSerializable {
 
+    /**
+     * @var string Column width, e.g. '1/3'
+     */
     private $width = '';
+
+    /**
+     * @var Options Column options
+     */
     private $options;
+
+    /**
+     * @var Element[] Contained elements
+     */
     private $elements = array();
 
     /**
-     * Create a new columns
+     * Create a new column
      *
-     * @param array $structure Column structure
+     * @param ColumnStructure $data Column structure
      */
-    public function __construct($structure) {
-        $this->width = $structure['width'];
-        $this->options = Core::assemble_options($structure['options_id']);
+    public function __construct($data) {
+        $this->width = $data->get_width();
+        $this->options = Core::assemble_options($data->get_options_id());
 
-        foreach ($structure['elements'] as $element) {
-            $element_object = Core::assemble_element($element['id'], $element['options_id']);
-            $this->elements[] = $element_object;
+        foreach ($data->get_elements() as $element) {
+            $this->elements[] = Core::assemble_element($element->get_id(), $element->get_options_id());
         }
     }
 
     /**
-     * Return array representation of this column
+     * Return array representation for use in json_encode()
      *
      * @return array
      */
@@ -44,7 +55,7 @@ class Column implements \JsonSerializable {
     /**
      * Return frontend HTML for this column
      *
-     * @param array $row_options Option valuess for the parent row
+     * @param array $row_options Option values for the parent row
      * @param array $post_options Option values for the parent post
      * @return string Frontend HTML
      */

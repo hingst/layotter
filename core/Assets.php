@@ -73,7 +73,7 @@ class Assets {
             'savedTemplates' => $layotter_post->get_available_templates(),
             'enablePostLayouts' => Settings::post_layouts_enabled(),
             'enableElementTemplates' => Settings::element_templates_enabled(),
-            'elementTypes' => $layotter_post->get_available_element_types_metadata(),
+            'elementTypes' => $layotter_post->get_available_element_types_meta(),
             'isOptionsEnabled' => array(
                 'post' => $post_options->is_enabled(),
                 'row' => $row_options->is_enabled(),

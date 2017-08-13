@@ -15,13 +15,13 @@ class Layouts {
      * @param array $data POST data
      * @return Layout Layout data
      */
-    public static function create($data) {
+    public static function create($data = null) {
+        $data = is_null($data) ? $_POST : $data;
         if (isset($data['name']) AND isset($data['json'])) {
             $json = stripslashes($data['json']);
             $layout = new Layout();
             $layout->set_json($json);
             $layout->save($data['name']);
-
             return $layout;
         }
     }
@@ -32,10 +32,10 @@ class Layouts {
      * @param array $data POST data
      * @return Layout Layout data
      */
-    public static function load($data) {
+    public static function load($data = null) {
+        $data = is_null($data) ? $_POST : $data;
         if (isset($data['layout_id'])) {
             $layout = new Layout($data['layout_id']);
-
             return $layout;
         }
     }
@@ -46,11 +46,11 @@ class Layouts {
      * @param array $data POST data
      * @return Layout Layout data
      */
-    public static function rename($data) {
+    public static function rename($data = null) {
+        $data = is_null($data) ? $_POST : $data;
         if (isset($data['layout_id']) AND isset($data['name'])) {
             $layout = new Layout($data['layout_id']);
             $layout->rename($data['name']);
-
             return $layout;
         }
     }
@@ -60,7 +60,8 @@ class Layouts {
      *
      * @param array $data POST data
      */
-    public static function delete($data) {
+    public static function delete($data = null) {
+        $data = is_null($data) ? $_POST : $data;
         if (isset($data['layout_id'])) {
             $layout = new Layout($data['layout_id']);
             $layout->delete();

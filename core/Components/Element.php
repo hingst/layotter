@@ -5,6 +5,7 @@ namespace Layotter\Components;
 use Layotter\Core;
 use Layotter\Settings;
 use Layotter\Acf\Adapter;
+use Layotter\Structures\ElementTypeMeta;
 
 /**
  * All custom element types must extend this class
@@ -13,10 +14,29 @@ abstract class Element extends Editable implements \JsonSerializable {
 
     const META_FIELD_IS_TEMPLATE = 'layotter_is_template';
 
+    /**
+     * @var Options Element options
+     */
     protected $options;
+
+    /**
+     * @var bool Whether the element instance is a template
+     */
     protected $is_template = false;
+
+    /**
+     * @var string Human readable element type description
+     */
     protected $description;
+
+    /**
+     * @var int|string ACF field group (ID or slug)
+     */
     protected $field_group;
+
+    /**
+     * @var int Ordering number relative to other element types
+     */
     protected $order = 0;
 
     /**
@@ -161,22 +181,22 @@ abstract class Element extends Editable implements \JsonSerializable {
     }
 
     /**
-     * Get element metadata for display in the "Add Element" modal
+     * Get element type meta data for display in the "Add Element" modal
      *
-     * @return array Metadata
+     * @return ElementTypeMeta Element type meta data
      */
-    public function get_metadata() {
-        return array(
-            'type' => $this->type,
-            'title' => $this->title,
-            'description' => $this->description,
-            'icon' => $this->icon,
-            'order' => $this->order
+    public function get_type_meta() {
+        return new ElementTypeMeta(
+            $this->type,
+            $this->title,
+            $this->description,
+            $this->icon,
+            $this->order
         );
     }
 
     /**
-     * Return array representation of this element
+     * Return array representation for use in json_encode()
      *
      * @return array
      */

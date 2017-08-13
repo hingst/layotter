@@ -86,7 +86,7 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).success(function(reply) {
-            var r = jQuery.parseJSON(reply.json);
+            var r = reply.json;
             $animate.enabled(false);
             data.contentStructure.options = r.options;
             data.contentStructure.rows = r.rows;

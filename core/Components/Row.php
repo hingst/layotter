@@ -4,50 +4,44 @@ namespace Layotter\Components;
 
 use Layotter\Core;
 use Layotter\Settings;
+use Layotter\Structures\RowStructure;
 
 /**
  * A single row
  */
 class Row implements \JsonSerializable {
 
+    /**
+     * @var string Contained column layout, e.g. '1/3 1/3 1/3'
+     */
     private $layout = '';
+
+    /**
+     * @var Options Row options
+     */
     private $options;
+
+    /**
+     * @var Column[] Contained columns
+     */
     private $cols = array();
 
     /**
      * Create a row instance
      *
-     * @param array $structure Row structure
+     * @param RowStructure $data Row structure
      */
-    public function __construct($structure) {
-        $structure = $this->apply_row_layout_to_cols($structure);
+    public function __construct($data) {
+        $this->layout = $data->get_layout();
+        $this->options = Core::assemble_options($data->get_options_id());
 
-        $this->layout = $structure['layout'];
-        $this->options = Core::assemble_options($structure['options_id']);
-
-        foreach ($structure['cols'] as $col) {
+        foreach ($data->get_columns() as $col) {
             $this->cols[] = new Column($col);
         }
     }
 
     /**
-     * Take a row structure and apply the row layout (e.g. '1/3 1/3 1/3') to the contained columns
-     *
-     * @param array $structure Row structure with layout and columns
-     * @return array Row structure with layout applied to columns
-     */
-    private function apply_row_layout_to_cols($structure) {
-        $layout_array = explode(' ', $structure['layout']);
-
-        foreach ($structure['cols'] as $i => &$col) {
-            $col['width'] = isset($layout_array[$i]) ? $layout_array[$i] : '';
-        }
-
-        return $structure;
-    }
-
-    /**
-     * Return array representation of this row
+     * Return array representation for use in json_encode()
      *
      * @return array
      */

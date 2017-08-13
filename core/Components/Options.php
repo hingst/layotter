@@ -9,6 +9,9 @@ use Layotter\Acf\Adapter;
  */
 class Options extends Editable {
 
+    /**
+     * @var string Post type context is required to determine which options fields should be visible
+     */
     private $post_type_context;
 
     /**
