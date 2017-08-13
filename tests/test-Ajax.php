@@ -1,6 +1,8 @@
 <?php
 
+use \Layotter\Ajax\Elements;
 use \Layotter\Components\Editable;
+use \Layotter\Structures\FormMeta;
 
 class AjaxTest extends WP_UnitTestCase {
 
@@ -20,11 +22,8 @@ class AjaxTest extends WP_UnitTestCase {
         $data = [
             'layotter_id' => strval(self::$test_element)
         ];
-        $element = \Layotter\Ajax\Elements::edit($data);
-        $this->assertArrayHasKey('title', $element);
-        $this->assertArrayHasKey('icon', $element);
-        $this->assertArrayHasKey('nonce', $element);
-        $this->assertArrayHasKey('fields', $element);
-        $this->assertContains('<textarea id="wysiwyg-acf-field-content-', $element['fields']);
+        $element = Elements::edit($data);
+        $this->assertTrue($element instanceof FormMeta);
+        $this->assertContains('<textarea id="wysiwyg-acf-field-content-', $element->get_fields());
     }
 }

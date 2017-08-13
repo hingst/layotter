@@ -10,7 +10,7 @@ use Layotter\Errors;
 class ElementTypeMeta implements \JsonSerializable {
 
     /**
-     * @var string Element type
+     * @var string Element type identifier
      */
     private $type = '';
 
@@ -73,6 +73,15 @@ class ElementTypeMeta implements \JsonSerializable {
         } else {
             Errors::invalid_argument_recoverable('order');
         }
+    }
+
+    /**
+     * Type getter
+     *
+     * @return string Element type identifier
+     */
+    public function get_type() {
+        return $this->type;
     }
 
     /**

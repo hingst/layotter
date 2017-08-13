@@ -76,4 +76,13 @@ class FormMeta implements \JsonSerializable {
             'fields' => $this->fields
         ];
     }
+
+    /**
+     * Fields getter
+     *
+     * @return string ACF form HTML
+     */
+    public function get_fields() {
+        return $this->fields;
+    }
 }
