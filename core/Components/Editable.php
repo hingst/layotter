@@ -3,6 +3,7 @@
 namespace Layotter\Components;
 
 use Layotter\Acf\Adapter;
+use Layotter\Errors;
 use Layotter\Structures\FormMeta;
 
 /**
@@ -50,7 +51,11 @@ abstract class Editable {
      * @param string $type Type
      */
     public function set_type($type) {
-        $this->type = $type;
+        if (is_string($type)) {
+            $this->type = $type;
+        } else {
+            Errors::invalid_argument_not_recoverable('type');
+        }
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Layotter\Ajax;
 
 use Layotter\Core;
+use Layotter\Errors;
 use Layotter\Structures\FormMeta;
 
 /**
@@ -17,14 +18,14 @@ class Options {
      * @return FormMeta Form meta data
      */
     public static function edit($data = null) {
-        $data = is_null($data) ? $_POST : $data;
-        if (isset($data['layotter_post_id'])) {
+        $data = is_array($data) ? $data : $_POST;
+        if (isset($data['layotter_post_id']) && Handler::is_positive_int($data['layotter_post_id'])) {
             $post_type_context = get_post_type($data['layotter_post_id']);
         } else {
             $post_type_context = '';
         }
 
-        if (isset($data['layotter_options_id']) && ctype_digit($data['layotter_options_id']) && $data['layotter_options_id'] != 0) {
+        if (isset($data['layotter_options_id']) && Handler::is_positive_int($data['layotter_options_id'])) {
             $id = intval($data['layotter_options_id']);
             $options = Core::assemble_options($id);
             $options->set_post_type_context($post_type_context);
@@ -34,6 +35,8 @@ class Options {
             $options = Core::assemble_new_options($type);
             $options->set_post_type_context($post_type_context);
             return $options->get_form_meta();
+        } else {
+            Errors::invalid_argument_not_recoverable('layotter_options_id or layotter_type');
         }
     }
 
@@ -44,14 +47,14 @@ class Options {
      * @return string Options ID
      */
     public static function save($data = null) {
-        $data = is_null($data) ? $_POST : $data;
-        if (isset($data['layotter_post_id'])) {
+        $data = is_array($data) ? $data : $_POST;
+        if (isset($data['layotter_post_id']) && Handler::is_positive_int($data['layotter_post_id'])) {
             $post_type_context = get_post_type($data['layotter_post_id']);
         } else {
             $post_type_context = '';
         }
 
-        if (isset($data['layotter_options_id']) && ctype_digit($data['layotter_options_id']) && $data['layotter_options_id'] != 0) {
+        if (isset($data['layotter_options_id']) && Handler::is_positive_int($data['layotter_options_id'])) {
             $id = intval($data['layotter_options_id']);
             $options = Core::assemble_options($id);
             $options->set_post_type_context($post_type_context);
@@ -62,6 +65,8 @@ class Options {
             $options->set_post_type_context($post_type_context);
             $options->save_from_post_data();
             return $options->get_id();
+        } else {
+            Errors::invalid_argument_not_recoverable('layotter_options_id or layotter_type');
         }
     }
 }

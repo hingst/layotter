@@ -2,6 +2,8 @@
 
 namespace Layotter\Structures;
 
+use Layotter\Errors;
+
 /**
  * Mirrors JSON structure in which posts are saved to the database
  */
@@ -26,15 +28,19 @@ class PostStructure {
         if (is_array($structure)) {
             if (isset($structure['options_id']) && is_int($structure['options_id'])) {
                 $this->options_id = $structure['options_id'];
+            } else {
+                Errors::invalid_argument_recoverable('options_id');
             }
 
             if (isset($structure['rows']) && is_array($structure['rows'])) {
                 foreach ($structure['rows'] as $row_structure) {
                     $this->rows[] = new RowStructure($row_structure);
                 }
+            } else {
+                Errors::invalid_argument_recoverable('rows');
             }
         } else {
-            throw new \InvalidArgumentException('Structure must be an array.');
+            Errors::invalid_argument_recoverable('structure');
         }
     }
 

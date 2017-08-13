@@ -2,6 +2,8 @@
 
 namespace Layotter\Structures;
 
+use Layotter\Errors;
+
 /**
  * Mirrors JSON structure in which rows are saved to the database
  */
@@ -31,10 +33,14 @@ class RowStructure {
         if (is_array($structure)) {
             if (isset($structure['layout']) && is_string($structure['layout'])) {
                 $this->layout = $structure['layout'];
+            } else {
+                Errors::invalid_argument_recoverable('layout');
             }
 
             if (isset($structure['options_id']) && is_int($structure['options_id'])) {
                 $this->options_id = $structure['options_id'];
+            } else {
+                Errors::invalid_argument_recoverable('options_id');
             }
 
             $layout_array = explode(' ', $this->layout);
@@ -43,9 +49,11 @@ class RowStructure {
                     $col_structure['width'] = isset($layout_array[ $i ]) ? $layout_array[ $i ] : '';
                     $this->columns[] = new ColumnStructure($col_structure);
                 }
+            } else {
+                Errors::invalid_argument_recoverable('cols');
             }
         } else {
-            throw new \InvalidArgumentException('Structure must be an array.');
+            Errors::invalid_argument_recoverable('structure');
         }
     }
 

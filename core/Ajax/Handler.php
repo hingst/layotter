@@ -46,4 +46,14 @@ class Handler {
 
         die();
     }
+
+    /**
+     * Check if a POST string variable contains only a positive integer
+     *
+     * @param $check string Value to check
+     * @return bool
+     */
+    public static function is_positive_int($check) {
+        return (ctype_digit($check) && intval($check) !== 0);
+    }
 }

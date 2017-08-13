@@ -2,6 +2,8 @@
 
 namespace Layotter\Structures;
 
+use Layotter\Errors;
+
 /**
  * Used to pass around element type meta data in a predictable structure
  */
@@ -44,22 +46,32 @@ class ElementTypeMeta implements \JsonSerializable {
     public function __construct($type, $title, $description, $icon, $order) {
         if (is_string($type)) {
             $this->type = $type;
+        } else {
+            Errors::invalid_argument_recoverable('type');
         }
 
         if (is_string($title)) {
             $this->title = $title;
+        } else {
+            Errors::invalid_argument_recoverable('title');
         }
 
         if (is_string($description)) {
             $this->description = $description;
+        } else {
+            Errors::invalid_argument_recoverable('description');
         }
 
         if (is_string($icon)) {
             $this->icon = $icon;
+        } else {
+            Errors::invalid_argument_recoverable('icon');
         }
 
         if (is_int($order)) {
             $this->order = $order;
+        } else {
+            Errors::invalid_argument_recoverable('order');
         }
     }
 

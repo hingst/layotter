@@ -3,6 +3,7 @@
 namespace Layotter\Components;
 
 use Layotter\Acf\Adapter;
+use Layotter\Errors;
 
 /**
  * Options for a post, row, columns or element
@@ -12,7 +13,7 @@ class Options extends Editable {
     /**
      * @var string Post type context is required to determine which options fields should be visible
      */
-    private $post_type_context;
+    private $post_type_context = '';
 
     /**
      * Create Options instance
@@ -20,6 +21,10 @@ class Options extends Editable {
      * @param int $id Options' post ID, 0 for new options
      */
     public function __construct($id = 0) {
+        if (!is_int($id)) {
+            Errors::invalid_argument_not_recoverable('id');
+        }
+
         $this->id = intval($id);
         $this->icon = 'cog';
 
@@ -34,24 +39,30 @@ class Options extends Editable {
      * @param string $type Options type
      */
     public function set_type($type) {
-        $this->type = strval($type);
+        if (!self::is_valid_type($type)) {
+            Errors::invalid_argument_not_recoverable('type');
+        }
+
         $titles = [
             'post' => __('Post options', 'layotter'),
             'row' => __('Row options', 'layotter'),
             'col' => __('Column options', 'layotter'),
             'element' => __('Element options', 'layotter')
         ];
-        $this->title = $titles[ $this->type ];
+        $this->type = $type;
+        $this->title = $titles[ $type ];
     }
 
     /**
      * Set post type context so Layotter can figure out if options are enabled for the current screen
      *
-     * @param string $post_type Post type context
-     * @throws \Exception If post tpe doesn't exist
+     * @param string $post_type Post type context, can be empty for no restrictions
      */
     public function set_post_type_context($post_type) {
-        $this->post_type_context = strval($post_type);
+        if (is_string($post_type) && post_type_exists($post_type)) {
+            $this->post_type_context = strval($post_type);
+        }
+
     }
 
     /**
@@ -80,6 +91,16 @@ class Options extends Editable {
      */
     public function is_enabled() {
         return !empty($this->get_fields());
+    }
+
+    /**
+     * Check if a type name is a valid options type
+     *
+     * @param $type string Type name
+     * @return bool
+     */
+    public static function is_valid_type($type) {
+        return (is_string($type) && in_array($type, ['post', 'row', 'col', 'element']));
     }
 
 }

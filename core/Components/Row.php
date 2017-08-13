@@ -3,6 +3,7 @@
 namespace Layotter\Components;
 
 use Layotter\Core;
+use Layotter\Errors;
 use Layotter\Settings;
 use Layotter\Structures\RowStructure;
 
@@ -32,6 +33,10 @@ class Row implements \JsonSerializable {
      * @param RowStructure $data Row structure
      */
     public function __construct($data) {
+        if (!($data instanceof RowStructure)) {
+            Errors::invalid_argument_not_recoverable('data');
+        }
+
         $this->layout = $data->get_layout();
         $this->options = Core::assemble_options($data->get_options_id());
 

@@ -22,7 +22,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
                 state.setElement(element);
                 forms.fetchDataAndShowForm(ajaxurl + '?action=layotter', {
                     layotter_action: 'edit_element',
-                    layotter_element_id: element.id
+                    layotter_id: element.id
                 });
             },
             cancelText: layotterData.i18n.cancel
@@ -42,7 +42,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
                 $http({
                     url: ajaxurl + '?action=layotter',
                     method: 'POST',
-                    data: 'layotter_action=delete_template&layotter_element_id=' + _this.savedTemplates[index].id,
+                    data: 'layotter_action=delete_template&layotter_id=' + _this.savedTemplates[index].id,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
@@ -74,7 +74,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
         $http({
             url: ajaxurl + '?action=layotter',
             method: 'POST',
-            data: 'layotter_action=create_template&id=' + element.id,
+            data: 'layotter_action=create_template&layotter_id=' + element.id,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -103,7 +103,7 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
 
         // build query string from form data
         var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
-            + '&layotter_action=save_element&layotter_element_id=' + encodeURIComponent(editingElement.id);
+            + '&layotter_action=save_element&layotter_id=' + encodeURIComponent(editingElement.id);
         
         $http({
             url: ajaxurl + '?action=layotter',

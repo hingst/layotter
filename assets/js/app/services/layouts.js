@@ -22,7 +22,7 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
             initialValue: angular.element('#title').val(),
             okText: layotterData.i18n.save_layout,
             okAction: function(value) {
-                var postData = 'layotter_action=create_layout&name=' + encodeURIComponent(value) + '&json=' + encodeURIComponent(json);
+                var postData = 'layotter_action=create_layout&layotter_name=' + encodeURIComponent(value) + '&layotter_json=' + encodeURIComponent(json);
                 angular.element('.layotter-save-layout-button-wrapper').addClass('layotter-loading');
                 $http({
                     url: ajaxurl + '?action=layotter',
@@ -81,7 +81,7 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
         $http({
             url: ajaxurl + '?action=layotter',
             method: 'POST',
-            data: 'layotter_action=load_layout&layout_id=' + id,
+            data: 'layotter_action=load_layout&layotter_id=' + id,
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
@@ -117,7 +117,7 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                 $http({
                     url: ajaxurl + '?action=layotter',
                     method: 'POST',
-                    data: 'layotter_action=rename_layout&layout_id=' + id + '&name=' + value,
+                    data: 'layotter_action=rename_layout&layotter_id=' + id + '&layotter_name=' + value,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
@@ -148,7 +148,7 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
                 $http({
                     url: ajaxurl + '?action=layotter',
                     method: 'POST',
-                    data: 'layotter_action=delete_layout&layout_id=' + id,
+                    data: 'layotter_action=delete_layout&layotter_id=' + id,
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }

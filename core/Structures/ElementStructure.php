@@ -2,6 +2,8 @@
 
 namespace Layotter\Structures;
 
+use Layotter\Errors;
+
 /**
  * Mirrors JSON structure in which elements are saved to the database
  */
@@ -18,11 +20,6 @@ class ElementStructure {
     private $options_id = 0;
 
     /**
-     * @var bool Whether element is a template
-     */
-    private $is_template = false;
-
-    /**
      * Constructor.
      *
      * @param $structure array json_decode()'d post structure
@@ -32,17 +29,17 @@ class ElementStructure {
         if (is_array($structure)) {
             if (isset($structure['id']) && is_int($structure['id'])) {
                 $this->id = $structure['id'];
+            } else {
+                Errors::invalid_argument_recoverable('id');
             }
 
             if (isset($structure['options_id']) && is_int($structure['options_id'])) {
                 $this->options_id = $structure['options_id'];
-            }
-
-            if (isset($structure['is_template']) && is_bool($structure['is_template'])) {
-                $this->is_template = $structure['is_template'];
+            } else {
+                Errors::invalid_argument_recoverable('options_id');
             }
         } else {
-            throw new \InvalidArgumentException('Structure must be an array.');
+            Errors::invalid_argument_recoverable('structure');
         }
     }
 
@@ -64,12 +61,4 @@ class ElementStructure {
         return $this->options_id;
     }
 
-    /**
-     * IsTemplate getter
-     *
-     * @return bool Whether element is a template
-     */
-    public function get_is_template() {
-        return $this->is_template;
-    }
 }

@@ -21,7 +21,7 @@ class Core {
     /**
      * @var array Registered element types => their respective class names
      */
-    private static $registered_elements = [];
+    private static $registered_element_types = [];
 
     /**
      * Gets everything going
@@ -80,6 +80,9 @@ class Core {
      * Track custom field in post revisions
      *
      * Track JSON data with the WP Post Meta Revisions plugin because Wordpress normally doesn't track custom fields
+     *
+     * @param $keys array Meta field names that are already being tracked
+     * @return array Input with added Layotter JSON meta field
      */
     public static function track_custom_field($keys) {
         $keys[] = self::META_FIELD_JSON;
@@ -139,28 +142,27 @@ class Core {
      *
      * @param string $type Unique type identifier
      * @param string $class Class name for this element type
-     * @return bool Whether the element type has been registered successfully
-     * @throws \Exception
      */
     public static function register_element($type, $class) {
-        // fail if provided class name is not a valid class
-        if (!class_exists($class) || !is_subclass_of($class, 'Layotter\Components\Element')) {
-            throw new \Exception('Invalid class: ' . $class);
+        if (!is_string($type) || !is_string($class)) {
+            Errors::invalid_argument_not_recoverable('type or class');
         }
 
-        // fail if provided type is empty or already in use
-        $type = self::clean_type($type);
-        if (empty($type) || isset(self::$registered_elements[$type])) {
-            throw new \Exception('Invalid class: ' . $class);
+        // fail if provided class name is not a valid class
+        if (!class_exists($class) || !is_subclass_of($class, 'Layotter\Components\Element')) {
+            Errors::invalid_argument_not_recoverable('class');
+        }
+
+        // fail if provided type identifier is invalid or already in use
+        if (!self::is_valid_type_identifier($type) || isset(self::$registered_element_types[$type])) {
+            Errors::invalid_argument_not_recoverable('type');
         }
 
         // no errors, register the new element type
-        self::$registered_elements[$type] = $class;
+        self::$registered_element_types[$type] = $class;
 
         // register element type's hooks for the backend (frontend hooks are registered on demand)
         call_user_func([$class, 'register_backend_hooks']);
-
-        return true;
     }
 
     /**
@@ -169,7 +171,7 @@ class Core {
      * @return array
      */
     public static function get_registered_element_types() {
-        return array_keys(self::$registered_elements);
+        return array_keys(self::$registered_element_types);
     }
 
     /**
@@ -180,16 +182,14 @@ class Core {
      * @throws \Exception If type is invalid
      */
     public static function assemble_new_element($type) {
-        $type = strval($type);
-
-        if (isset(self::$registered_elements[$type])) {
-            /** @var $element Element */
-            $element = new self::$registered_elements[$type]();
-            $element->set_type($type);
-            return $element;
-        } else {
-            throw new \Exception('Unknown element type: ' . $type);
+        if (!is_string($type) || !isset(self::$registered_element_types[$type])) {
+            Errors::invalid_argument_not_recoverable('type');
         }
+
+        /** @var $element Element */
+        $element = new self::$registered_element_types[$type]();
+        $element->set_type($type);
+        return $element;
     }
 
     /**
@@ -201,17 +201,20 @@ class Core {
      * @throws \Exception If ID is invalid
      */
     public static function assemble_element($id, $options_id = 0) {
-        $id = intval($id);
+        if (!is_int($id) || !is_int($options_id)) {
+            Errors::invalid_argument_not_recoverable('id or options_id');
+        }
+
         $type = get_post_meta($id, Editable::META_FIELD_EDITABLE_TYPE, true);
 
-        if (isset(self::$registered_elements[$type])) {
-            /** @var $element Element */
-            $element = new self::$registered_elements[$type]($id);
-            $element->set_options($options_id);
-            return $element;
-        } else {
-            throw new \Exception('Element with ID ' . $id . ' has unknown type.');
+        if (!is_string($type) || !isset(self::$registered_element_types[$type])) {
+            Errors::invalid_argument_not_recoverable('id');
         }
+
+        /** @var $element Element */
+        $element = new self::$registered_element_types[$type]($id);
+        $element->set_options($options_id);
+        return $element;
     }
 
     /**
@@ -221,7 +224,10 @@ class Core {
      * @return Options
      */
     public static function assemble_new_options($type) {
-        $type = strval($type);
+        if (!Options::is_valid_type($type)) {
+            Errors::invalid_argument_not_recoverable('type');
+        }
+
         $options = new Options();
         $options->set_type($type);
         $options->set_post_type_context(get_post_type());
@@ -235,24 +241,23 @@ class Core {
      * @return Options
      */
     public static function assemble_options($id) {
-        $id = intval($id);
+        if (!is_int($id)) {
+            Errors::invalid_argument_not_recoverable('id');
+        }
+
         $options = new Options($id);
         $options->set_post_type_context(get_post_type());
         return $options;
     }
 
     /**
-     * Remove illegal characters from a type identifier
+     * Validate a type identifier
      *
-     * @param string $type Dirty type identifier
-     * @return string Clean type identifier
+     * @param string $type Type identifier should only contain lowercase letters and underscores
+     * @return bool Clean type identifier
      */
-    private static function clean_type($type) {
-        if (!is_string($type)) {
-            return '';
-        }
-
-        return preg_replace('/[^a-z_]/', '', $type); // only a-z and _ allowed
+    private static function is_valid_type_identifier($type) {
+        return (is_string($type) && preg_match('/^[a-z_]+$/', $type));
     }
 
     /**
@@ -284,6 +289,10 @@ class Core {
      * @return bool
      */
     public static function is_enabled_for_post($post_id) {
+        if (!is_int($post_id)) {
+            return false;
+        }
+
         $override_enabled = apply_filters('layotter/enable_for_posts', []);
         $override_disabled = apply_filters('layotter/disable_for_posts', []);
 

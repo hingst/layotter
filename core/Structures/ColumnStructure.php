@@ -2,6 +2,8 @@
 
 namespace Layotter\Structures;
 
+use Layotter\Errors;
+
 /**
  * Mirrors JSON structure in which columns are saved to the database
  */
@@ -31,19 +33,25 @@ class ColumnStructure {
         if (is_array($structure)) {
             if (isset($structure['options_id']) && is_int($structure['options_id'])) {
                 $this->options_id = $structure['options_id'];
+            } else {
+                Errors::invalid_argument_recoverable('options_id');
             }
 
             if (isset($structure['width']) && is_string($structure['width'])) {
                 $this->width = $structure['width'];
+            } else {
+                Errors::invalid_argument_recoverable('width');
             }
 
             if (isset($structure['elements']) && is_array($structure['elements'])) {
                 foreach ($structure['elements'] as $element_structure) {
                     $this->elements[] = new ElementStructure($element_structure);
                 }
+            } else {
+                Errors::invalid_argument_recoverable('elements');
             }
         } else {
-            throw new \InvalidArgumentException('Structure must be an array.');
+            Errors::invalid_argument_recoverable('structure');
         }
     }
 

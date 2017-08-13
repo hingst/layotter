@@ -18,7 +18,7 @@ class AjaxTest extends WP_UnitTestCase {
 
     function test_EditElement() {
         $data = [
-            'layotter_element_id' => strval(self::$test_element)
+            'layotter_id' => strval(self::$test_element)
         ];
         $element = \Layotter\Ajax\Elements::edit($data);
         $this->assertArrayHasKey('title', $element);

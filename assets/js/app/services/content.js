@@ -65,9 +65,8 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         state.setElement(element);
         forms.fetchDataAndShowForm(ajaxurl + '?action=layotter', {
             layotter_action: 'edit_element',
-            layotter_element_id: element.id,
-            layotter_type: element.type,
-            layotter_values: element.values
+            layotter_id: element.id,
+            layotter_type: element.type
         });
     };
     
@@ -90,7 +89,7 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
 
         // build query string from form data
         var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
-            + '&layotter_action=save_element&layotter_element_id=' + encodeURIComponent(editingElement.id) + '&layotter_type=' + encodeURIComponent(editingElement.type);
+            + '&layotter_action=save_element&layotter_id=' + encodeURIComponent(editingElement.id) + '&layotter_type=' + encodeURIComponent(editingElement.type);
         
         $http({
             url: ajaxurl + '?action=layotter',

@@ -3,6 +3,7 @@
 namespace Layotter\Components;
 
 use Layotter\Core;
+use Layotter\Errors;
 use Layotter\Settings;
 use Layotter\Acf\Adapter;
 use Layotter\Structures\ElementTypeMeta;
@@ -77,9 +78,12 @@ abstract class Element extends Editable implements \JsonSerializable {
      * @param int $id Element's post ID, 0 for new elements
      */
     public function __construct($id = 0) {
-        $this->attributes();
+        if (!is_int($id)) {
+            Errors::invalid_argument_not_recoverable('id');
+        }
 
-        $this->id = intval($id);
+        $this->attributes();
+        $this->id = $id;
 
         if ($this->id !== 0) {
             $this->set_type(get_post_meta($id, self::META_FIELD_EDITABLE_TYPE, true));
@@ -160,7 +164,10 @@ abstract class Element extends Editable implements \JsonSerializable {
      * @return bool
      */
     public function is_enabled_for($post_id) {
-        $post_id = intval($post_id);
+        if (!is_int($post_id)) {
+            Errors::invalid_argument_not_recoverable('post_id');
+        }
+
         $post_type = get_post_type($post_id);
 
         if (is_int($this->field_group)) {
@@ -205,6 +212,10 @@ abstract class Element extends Editable implements \JsonSerializable {
      * @param bool $bool Set or unset
      */
     public function set_template($bool) {
+        if (!is_bool($bool)) {
+            Errors::invalid_argument_not_recoverable('bool');
+        }
+
         $this->is_template = $bool;
         update_post_meta($this->id, self::META_FIELD_IS_TEMPLATE, $bool);
     }
@@ -266,6 +277,10 @@ abstract class Element extends Editable implements \JsonSerializable {
      * @param int $id Options ID
      */
     public function set_options($id) {
+        if (!is_int($id)) {
+            Errors::invalid_argument_not_recoverable('id');
+        }
+
         $this->options = Core::assemble_options($id);
         $this->options->set_post_type_context(get_post_type());
     }

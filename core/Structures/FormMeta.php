@@ -2,6 +2,8 @@
 
 namespace Layotter\Structures;
 
+use Layotter\Errors;
+
 /**
  * Used to pass around form meta data in a predictable structure
  */
@@ -38,18 +40,26 @@ class FormMeta implements \JsonSerializable {
     public function __construct($title, $icon, $nonce, $fields) {
         if (is_string($title)) {
             $this->title = $title;
+        } else {
+            Errors::invalid_argument_recoverable('title');
         }
 
         if (is_string($icon)) {
             $this->icon = $icon;
+        } else {
+            Errors::invalid_argument_recoverable('icon');
         }
 
         if (is_string($nonce)) {
             $this->nonce = $nonce;
+        } else {
+            Errors::invalid_argument_recoverable('nonce');
         }
 
         if (is_string($fields)) {
             $this->fields = $fields;
+        } else {
+            Errors::invalid_argument_recoverable('fields');
         }
     }
 

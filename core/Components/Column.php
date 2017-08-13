@@ -3,6 +3,7 @@
 namespace Layotter\Components;
 
 use Layotter\Core;
+use Layotter\Errors;
 use Layotter\Settings;
 use Layotter\Structures\ColumnStructure;
 
@@ -32,6 +33,10 @@ class Column implements \JsonSerializable {
      * @param ColumnStructure $data Column structure
      */
     public function __construct($data) {
+        if (!($data instanceof ColumnStructure)) {
+            Errors::invalid_argument_not_recoverable('data');
+        }
+
         $this->width = $data->get_width();
         $this->options = Core::assemble_options($data->get_options_id());
 

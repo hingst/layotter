@@ -3,6 +3,7 @@
 namespace Layotter\Components;
 
 use Layotter\Core;
+use Layotter\Errors;
 use Layotter\Upgrades\PluginMigrator;
 
 /**
@@ -23,6 +24,10 @@ class Layout extends Post implements \JsonSerializable {
      * @param int $id Layout ID (0 for new layout)
      */
     public function __construct($id = 0) {
+        if (!is_int($id)) {
+            Errors::invalid_argument_not_recoverable('id');
+        }
+
         parent::__construct($id);
         $this->layout_id = $id;
     }
@@ -33,6 +38,8 @@ class Layout extends Post implements \JsonSerializable {
      * @param string $name Human readable name
      */
     public function save($name) {
+        $name = (is_string($name) && !empty($name)) ? $name : __('Unnamed layout', 'layotter');
+
         $this->layout_id = wp_insert_post([
             'post_type' => self::POST_TYPE_LAYOUTS,
             'meta_input' => [
@@ -50,6 +57,8 @@ class Layout extends Post implements \JsonSerializable {
      * @param string $name New layout name
      */
     public function rename($name) {
+        $name = (is_string($name) && !empty($name)) ? $name : __('Unnamed layout', 'layotter');
+
         wp_update_post([
             'ID' => $this->layout_id,
             'post_title' => $name

@@ -3,6 +3,7 @@
 namespace Layotter\Components;
 
 use Layotter\Core;
+use Layotter\Errors;
 use Layotter\Settings;
 use Layotter\Structures\ElementTypeMeta;
 use Layotter\Structures\PostStructure;
@@ -34,7 +35,11 @@ class Post implements \JsonSerializable {
      * @param int $id Post ID
      */
     public function __construct($id = 0) {
-        $this->id = intval($id);
+        if (!is_int($id)) {
+            Errors::invalid_argument_not_recoverable('id');
+        }
+
+        $this->id = $id;
         $this->options = Core::assemble_new_options('post');
 
         if ($this->id !== 0) {
@@ -56,7 +61,16 @@ class Post implements \JsonSerializable {
      * @param string $json
      */
     public function set_json($json) {
+        if (!is_string($json)) {
+            Errors::invalid_argument_not_recoverable('json');
+        }
+
         $structure = json_decode($json, true);
+
+        if (!is_array($structure)) {
+            Errors::invalid_argument_not_recoverable('json');
+        }
+
         $data = new PostStructure($structure);
         $this->options = Core::assemble_options($data->get_options_id());
 
