@@ -59,25 +59,20 @@ abstract class Editable {
      * @return FormMeta Form meta data
      */
     public function get_form_meta() {
-        return new FormMeta(
-            $this->title,
-            $this->icon,
-            wp_create_nonce(Adapter::get_nonce_name()),
-            Adapter::get_form_html($this->get_fields(), $this->id)
-        );
+        return new FormMeta($this->title, $this->icon, wp_create_nonce(Adapter::get_nonce_name()), Adapter::get_form_html($this->get_fields(), $this->id));
     }
 
     /**
      * Use wp_insert_post to trigger ACF hooks that read from $_POST and save custom fields
      */
     public function save_from_post_data() {
-        $this->id = wp_insert_post(array(
+        $this->id = wp_insert_post([
             'post_type' => self::POST_TYPE_EDITABLE,
-            'meta_input' => array(
+            'meta_input' => [
                 self::META_FIELD_EDITABLE_TYPE => $this->type
-            ),
+            ],
             'post_status' => 'publish'
-        ));
+        ]);
     }
 
     /**

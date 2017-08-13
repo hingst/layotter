@@ -33,15 +33,15 @@ class Layout extends Post implements \JsonSerializable {
      * @param string $name Human readable name
      */
     public function save($name) {
-        $this->layout_id = wp_insert_post(array(
+        $this->layout_id = wp_insert_post([
             'post_type' => self::POST_TYPE_LAYOUTS,
-            'meta_input' => array(
+            'meta_input' => [
                 Core::META_FIELD_JSON => addslashes(json_encode(parent::jsonSerialize())),
                 PluginMigrator::META_FIELD_MODEL_VERSION => PluginMigrator::CURRENT_MODEL_VERSION
-            ),
+            ],
             'post_status' => 'publish',
             'post_title' => $name
-        ));
+        ]);
     }
 
     /**
@@ -50,10 +50,10 @@ class Layout extends Post implements \JsonSerializable {
      * @param string $name New layout name
      */
     public function rename($name) {
-        wp_update_post(array(
+        wp_update_post([
             'ID' => $this->layout_id,
             'post_title' => $name
-        ));
+        ]);
     }
 
     /**
@@ -69,12 +69,12 @@ class Layout extends Post implements \JsonSerializable {
      * @return array
      */
     public function jsonSerialize() {
-        return array(
+        return [
             'layout_id' => $this->layout_id,
             'name' => get_the_title($this->layout_id),
             'json' => parent::jsonSerialize(),
             'time_created' => get_the_date('U', $this->layout_id)
-        );
+        ];
     }
 
     public function get_id() {

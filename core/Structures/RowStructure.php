@@ -20,7 +20,7 @@ class RowStructure {
     /**
      * @var ColumnStructure[] Contained columns
      */
-    private $columns = array();
+    private $columns = [];
 
     /**
      * Constructor.
@@ -40,7 +40,7 @@ class RowStructure {
             $layout_array = explode(' ', $this->layout);
             if (isset($structure['cols']) && is_array($structure['cols'])) {
                 foreach ($structure['cols'] as $i => $col_structure) {
-                    $col_structure['width'] = isset($layout_array[$i]) ? $layout_array[$i] : '';
+                    $col_structure['width'] = isset($layout_array[ $i ]) ? $layout_array[ $i ] : '';
                     $this->columns[] = new ColumnStructure($col_structure);
                 }
             }

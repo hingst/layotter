@@ -21,7 +21,7 @@ class Core {
     /**
      * @var array Registered element types => their respective class names
      */
-    private static $registered_elements = array();
+    private static $registered_elements = [];
 
     /**
      * Gets everything going
@@ -36,25 +36,25 @@ class Core {
             return;
         }
 
-        add_action('admin_head', array(__CLASS__, 'hook_editor'));
-        add_filter('wp_post_revision_meta_keys', array(__CLASS__, 'track_custom_field'));
-        add_action('after_setup_theme', array(__CLASS__, 'include_example_element'));
-        add_action('init', array(__CLASS__, 'check_for_upgrade'));
-        add_filter('wp_insert_post_data', array(__CLASS__, 'save_post'), 999, 2);
+        add_action('admin_head', [__CLASS__, 'hook_editor']);
+        add_filter('wp_post_revision_meta_keys', [__CLASS__, 'track_custom_field']);
+        add_action('after_setup_theme', [__CLASS__, 'include_example_element']);
+        add_action('init', [__CLASS__, 'check_for_upgrade']);
+        add_filter('wp_insert_post_data', [__CLASS__, 'save_post'], 999, 2);
 
-        add_action('admin_enqueue_scripts', array('Layotter\Assets', 'backend'));
-        add_action('wp_enqueue_scripts', array('Layotter\Assets', 'frontend'));
-        add_action('admin_footer', array('Layotter\Assets', 'views'));
+        add_action('admin_enqueue_scripts', ['Layotter\Assets', 'backend']);
+        add_action('wp_enqueue_scripts', ['Layotter\Assets', 'frontend']);
+        add_action('admin_footer', ['Layotter\Assets', 'views']);
 
-        add_action('wp_ajax_layotter', array('Layotter\Ajax\Handler', 'handle'));
+        add_action('wp_ajax_layotter', ['Layotter\Ajax\Handler', 'handle']);
 
-        add_filter('acf/location/rule_types', array('Layotter\Acf\LocationRules', 'category'));
-        add_filter('acf/location/rule_values/layotter', array('Layotter\Acf\LocationRules', 'options'));
-        add_filter('acf/location/rule_match/layotter', array('Layotter\Acf\LocationRules', 'match_rules'), 10, 3);
+        add_filter('acf/location/rule_types', ['Layotter\Acf\LocationRules', 'category']);
+        add_filter('acf/location/rule_values/layotter', ['Layotter\Acf\LocationRules', 'options']);
+        add_filter('acf/location/rule_match/layotter', ['Layotter\Acf\LocationRules', 'match_rules'], 10, 3);
 
-        add_shortcode('layotter', array('Layotter\Shortcode', 'register'));
-        add_filter('the_content', array('Layotter\Shortcode', 'disable_wpautop'), 1);
-        add_filter('no_texturize_shortcodes', array('Layotter\Shortcode', 'disable_wptexturize'));
+        add_shortcode('layotter', ['Layotter\Shortcode', 'register']);
+        add_filter('the_content', ['Layotter\Shortcode', 'disable_wpautop'], 1);
+        add_filter('no_texturize_shortcodes', ['Layotter\Shortcode', 'disable_wptexturize']);
     }
 
     /**
@@ -113,7 +113,7 @@ class Core {
     public static function save_post($data, $raw_post) {
         $post_id = $raw_post['ID'];
 
-        if (!self::is_enabled_for_post($post_id) OR !isset($raw_post[self::TEXTAREA_NAME])) {
+        if (!self::is_enabled_for_post($post_id) || !isset($raw_post[self::TEXTAREA_NAME])) {
             return $data;
         }
 
@@ -144,13 +144,13 @@ class Core {
      */
     public static function register_element($type, $class) {
         // fail if provided class name is not a valid class
-        if (!class_exists($class) OR !is_subclass_of($class, 'Layotter\Components\Element')) {
+        if (!class_exists($class) || !is_subclass_of($class, 'Layotter\Components\Element')) {
             throw new \Exception('Invalid class: ' . $class);
         }
 
         // fail if provided type is empty or already in use
         $type = self::clean_type($type);
-        if (empty($type) OR isset(self::$registered_elements[$type])) {
+        if (empty($type) || isset(self::$registered_elements[$type])) {
             throw new \Exception('Invalid class: ' . $class);
         }
 
@@ -158,7 +158,7 @@ class Core {
         self::$registered_elements[$type] = $class;
 
         // register element type's hooks for the backend (frontend hooks are registered on demand)
-        call_user_func(array($class, 'register_backend_hooks'));
+        call_user_func([$class, 'register_backend_hooks']);
 
         return true;
     }
@@ -266,7 +266,7 @@ class Core {
         }
 
         global $pagenow;
-        if ($pagenow != 'post.php' AND $pagenow != 'post-new.php') {
+        if ($pagenow != 'post.php' && $pagenow != 'post-new.php') {
             return false;
         }
 
@@ -284,8 +284,8 @@ class Core {
      * @return bool
      */
     public static function is_enabled_for_post($post_id) {
-        $override_enabled = apply_filters('layotter/enable_for_posts', array());
-        $override_disabled = apply_filters('layotter/disable_for_posts', array());
+        $override_enabled = apply_filters('layotter/enable_for_posts', []);
+        $override_disabled = apply_filters('layotter/disable_for_posts', []);
 
         if (in_array($post_id, $override_enabled)) {
             return true;
@@ -316,7 +316,7 @@ class Core {
         // insert layotter
         add_meta_box('layotter_wrapper', // ID
             'Layotter', // title
-            array(__CLASS__, 'output_editor'), // callback
+            [__CLASS__, 'output_editor'], // callback
             $post_type, // post type for which to enable
             'normal', // position
             'high' // priority

@@ -57,7 +57,7 @@ class Adapter {
         }
 
         if (!empty(self::$error_message)) {
-            add_action('admin_notices', array(__CLASS__, 'print_error'));
+            add_action('admin_notices', [__CLASS__, 'print_error']);
             return false;
         }
 
@@ -99,7 +99,7 @@ class Adapter {
         if (self::is_pro_installed()) {
             return acf_get_field_groups();
         } else {
-            return apply_filters('acf/get_field_groups', array());
+            return apply_filters('acf/get_field_groups', []);
         }
     }
 
@@ -121,7 +121,7 @@ class Adapter {
     public static function get_filtered_field_groups($filters) {
         if (self::is_pro_installed()) {
             $field_groups = self::get_all_field_groups();
-            $filtered_field_groups = array();
+            $filtered_field_groups = [];
 
             foreach ($field_groups as $field_group) {
                 foreach ($field_group['location'] as $location_group) {
@@ -141,7 +141,7 @@ class Adapter {
 
             return $filtered_field_groups;
         } else {
-            return apply_filters('acf/location/match_field_groups', array(), $filters);
+            return apply_filters('acf/location/match_field_groups', [], $filters);
         }
     }
 
@@ -156,7 +156,7 @@ class Adapter {
         if (self::is_pro_installed()) {
             return acf_get_field_group_visibility($field_group, $filters);
         } else {
-            $filtered_field_group_ids = apply_filters('acf/location/match_field_groups', array(), $filters);
+            $filtered_field_group_ids = apply_filters('acf/location/match_field_groups', [], $filters);
             return in_array($field_group['id'], $filtered_field_group_ids);
         }
     }
@@ -171,7 +171,7 @@ class Adapter {
         if (self::is_pro_installed()) {
             return acf_get_fields($field_group);
         } else {
-            return apply_filters('acf/field_group/get_fields', array(), $field_group['id']);
+            return apply_filters('acf/field_group/get_fields', [], $field_group['id']);
         }
     }
 
@@ -227,7 +227,7 @@ class Adapter {
             $field_groups = self::get_all_field_groups();
             foreach ($field_groups as $field_group) {
                 $slug = get_post_field('post_name', $field_group['id']);
-                if ($field_group['id'] == $key OR $slug == $key) {
+                if ($field_group['id'] == $key || $slug == $key) {
                     return $field_group;
                 }
             }

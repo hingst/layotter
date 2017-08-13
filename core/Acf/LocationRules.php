@@ -47,7 +47,7 @@ class LocationRules {
      * @return bool
      */
     public static function match_rules($match, $rule, $options) {
-        if (isset($options['layotter']) AND $rule['value'] == $options['layotter']) {
+        if (isset($options['layotter']) && $rule['value'] == $options['layotter']) {
             return true;
         } else {
             return $match;

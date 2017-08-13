@@ -22,46 +22,46 @@ class Settings {
      */
     public static function init() {
         // do stuff on plugin activation
-        register_activation_hook(dirname(__DIR__) . '/index.php', array(__CLASS__, 'set_defaults_on_activation'));
-        add_action('wpmu_new_blog', array(__CLASS__, 'set_defaults_on_new_site'));
+        register_activation_hook(dirname(__DIR__) . '/index.php', [__CLASS__, 'set_defaults_on_activation']);
+        add_action('wpmu_new_blog', [__CLASS__, 'set_defaults_on_new_site']);
 
         // use the following line FOR DEBUGGING ONLY
         // REMOVES ALL SETTINGS on plugin deactivation!
-        // register_deactivation_hook(dirname(__DIR__) . '/index.php', array(__CLASS__, 'remove_all_settings'));
+        // register_deactivation_hook(dirname(__DIR__) . '/index.php', [__CLASS__, 'remove_all_settings']);
 
         // translate labels on admin_init - otherwise translations wouldn't be available yet
-        add_action('admin_init', array(__CLASS__, 'translate_labels'));
+        add_action('admin_init', [__CLASS__, 'translate_labels']);
 
         // enable settings page only if we're in the backend
         if (is_admin()) {
             // register settings, create menu entry, load assets
-            add_action('admin_init', array(__CLASS__, 'admin_init'));
-            add_action('admin_menu', array(__CLASS__, 'admin_menu'));
-            add_action('admin_head', array(__CLASS__, 'admin_head'));
+            add_action('admin_init', [__CLASS__, 'admin_init']);
+            add_action('admin_menu', [__CLASS__, 'admin_menu']);
+            add_action('admin_head', [__CLASS__, 'admin_head']);
         }
 
-        self::$default_settings = array(
-            'general' => array(
-                'enable_for' => array(
+        self::$default_settings = [
+            'general' => [
+                'enable_for' => [
                     'page' => '1'
-                ),
+                ],
                 'enable_default_element_type' => '1',
                 'enable_post_layouts' => '1',
                 'enable_element_templates' => '1',
                 'enable_default_css' => '1',
                 'enable_example_element' => '1',
-                'debug_mode' => array(
+                'debug_mode' => [
                     'administrator' => '0'
-                )
-            ),
-            'wrapper' => array(
+                ]
+            ],
+            'wrapper' => [
                 'html_before' => '<div class="lo-wrapper">',
                 'html_after' => '</div>'
-            ),
-            'rows' => array(
+            ],
+            'rows' => [
                 'html_before' => '<div class="lo-row">',
                 'html_after' => '</div>',
-                'allow' => array(
+                'allow' => [
                     '1/1' => '1',
                     '1/2 1/2' => '1',
                     '1/3 1/3 1/3' => '1',
@@ -70,13 +70,13 @@ class Settings {
                     '1/4 1/4 1/4 1/4' => '0',
                     '3/4 1/4' => '0',
                     '1/4 3/4' => '0',
-                ),
+                ],
                 'default_layout' => '1/3 1/3 1/3'
-            ),
-            'cols' => array(
+            ],
+            'cols' => [
                 'html_before' => '<div class="%%CLASS%%">',
                 'html_after' => '</div>',
-                'classes' => array(
+                'classes' => [
                     '1/12' => 'lo-col-size1of12',
                     '1/6' => 'lo-col-size2of12',
                     '1/4' => 'lo-col-size3of12',
@@ -89,20 +89,20 @@ class Settings {
                     '5/6' => 'lo-col-size10of12',
                     '11/12' => 'lo-col-size11of12',
                     '1/1' => 'lo-col-size12of12'
-                ),
-            ),
-            'elements' => array(
+                ],
+            ],
+            'elements' => [
                 'html_before' => '<div class="lo-element">',
                 'html_after' => '</div>'
-            )
-        );
+            ]
+        ];
     }
 
     /**
      * Translations get their own method because Wordpress' translation service isn't ready at init()
      */
     public static function translate_labels() {
-        self::$col_class_translations = array(
+        self::$col_class_translations = [
             '1/1' => __('Full width', 'layotter'),
             '1/2' => __('A half', 'layotter'),
             '1/3' => __('A third', 'layotter'),
@@ -115,7 +115,7 @@ class Settings {
             '5/12' => __('Five twelfths', 'layotter'),
             '7/12' => __('Seven twelfths', 'layotter'),
             '11/12' => __('Eleven twelfths', 'layotter')
-        );
+        ];
     }
 
     /**
@@ -126,8 +126,8 @@ class Settings {
      */
     private static function get_settings($category = '') {
         $settings = get_option('layotter_settings');
-        if (isset($settings[$category])) {
-            return $settings[$category];
+        if (isset($settings[ $category ])) {
+            return $settings[ $category ];
         } else {
             return $settings;
         }
@@ -139,10 +139,10 @@ class Settings {
      * @return array Enabled post types
      */
     public static function get_enabled_post_types() {
-        $enabled_post_types = array();
+        $enabled_post_types = [];
 
         $settings = self::get_settings('general');
-        if (isset($settings['enable_for']) AND is_array($settings['enable_for'])) {
+        if (isset($settings['enable_for']) && is_array($settings['enable_for'])) {
             foreach ($settings['enable_for'] as $post_type => $enabled) {
                 if ($enabled == '1') {
                     $enabled_post_types[] = $post_type;
@@ -160,7 +160,7 @@ class Settings {
      */
     public static function post_layouts_enabled() {
         $settings = self::get_settings('general');
-        $is_enabled = (isset($settings['enable_post_layouts']) AND $settings['enable_post_layouts'] == '1');
+        $is_enabled = (isset($settings['enable_post_layouts']) && $settings['enable_post_layouts'] == '1');
         return apply_filters('layotter/enable_post_layouts', $is_enabled);
     }
 
@@ -171,7 +171,7 @@ class Settings {
      */
     public static function element_templates_enabled() {
         $settings = self::get_settings('general');
-        $is_enabled = (isset($settings['enable_element_templates']) AND $settings['enable_element_templates'] == '1');
+        $is_enabled = (isset($settings['enable_element_templates']) && $settings['enable_element_templates'] == '1');
         return apply_filters('layotter/enable_element_templates', $is_enabled);
     }
 
@@ -182,7 +182,7 @@ class Settings {
      */
     public static function default_css_enabled() {
         $settings = self::get_settings('general');
-        $is_enabled = (isset($settings['enable_default_css']) AND $settings['enable_default_css'] == '1');
+        $is_enabled = (isset($settings['enable_default_css']) && $settings['enable_default_css'] == '1');
         return apply_filters('layotter/enable_default_css', $is_enabled);
     }
 
@@ -193,7 +193,7 @@ class Settings {
      */
     public static function example_element_enabled() {
         $settings = self::get_settings('general');
-        $is_enabled = (isset($settings['enable_example_element']) AND $settings['enable_example_element'] == '1');
+        $is_enabled = (isset($settings['enable_example_element']) && $settings['enable_example_element'] == '1');
         return apply_filters('layotter/enable_example_element', $is_enabled);
     }
 
@@ -204,9 +204,9 @@ class Settings {
      */
     public static function is_debug_mode_enabled() {
         // fetch roles that debug mode is enabled for
-        $enabled_for_roles = array();
+        $enabled_for_roles = [];
         $settings = self::get_settings('general');
-        if (isset($settings['debug_mode']) AND is_array($settings['debug_mode'])) {
+        if (isset($settings['debug_mode']) && is_array($settings['debug_mode'])) {
             foreach ($settings['debug_mode'] as $role => $enabled) {
                 if ($enabled == '1') {
                     $enabled_for_roles[] = $role;
@@ -235,10 +235,10 @@ class Settings {
      * @return array Row layouts, e.g. ['1/1', '1/3 1/3 1/3']
      */
     public static function get_allowed_row_layouts() {
-        $allowed_layouts = array();
+        $allowed_layouts = [];
 
         $settings = self::get_settings('rows');
-        if (isset($settings['allow']) AND is_array($settings['allow'])) {
+        if (isset($settings['allow']) && is_array($settings['allow'])) {
             foreach ($settings['allow'] as $layout => $allowed) {
                 if ($allowed == '1') {
                     $allowed_layouts[] = $layout;
@@ -268,9 +268,9 @@ class Settings {
      */
     public static function get_col_layout_class($layout) {
         $settings = self::get_settings('cols');
-        $classes = (isset($settings['classes']) AND is_array($settings['classes'])) ? $settings['classes'] : array();
+        $classes = (isset($settings['classes']) && is_array($settings['classes'])) ? $settings['classes'] : [];
         $classes = apply_filters('layotter/columns/classes', $classes);
-        return $classes[$layout];
+        return $classes[ $layout ];
     }
 
     /**
@@ -281,10 +281,10 @@ class Settings {
      */
     public static function get_html_wrapper($type) {
         $settings = self::get_settings($type);
-        return array(
+        return [
             'before' => $settings['html_before'],
             'after' => $settings['html_after']
-        );
+        ];
     }
 
     /**
@@ -308,7 +308,6 @@ class Settings {
 
     /**
      * Remove all settings on plugin deactivation
-     *
      * For debugging only!
      */
     public static function remove_all_settings() {
@@ -332,13 +331,13 @@ class Settings {
             return;
         }
 
-        wp_enqueue_script('layotter-settings', plugins_url('assets/js/settings.js', __DIR__), array('jquery'));
+        wp_enqueue_script('layotter-settings', plugins_url('assets/js/settings.js', __DIR__), ['jquery']);
         wp_enqueue_style('layotter', plugins_url('assets/css/editor.css', __DIR__));
         wp_enqueue_style('layotter-font-awesome', plugins_url('assets/css/font-awesome.min.css', __DIR__));
 
         // display notice if settings have been saved
         if (isset($_GET['settings-updated'])) {
-            add_action('admin_notices', array(__CLASS__, 'settings_saved_notice'));
+            add_action('admin_notices', [__CLASS__, 'settings_saved_notice']);
         }
     }
 
@@ -361,7 +360,7 @@ class Settings {
             'Layotter', // menu name
             'activate_plugins', // capability
             'layotter-settings', // page name
-            array(__CLASS__, 'settings_page'), // callback
+            [__CLASS__, 'settings_page'], // callback
             'dashicons-tagcloud', // icon
             null // position
         );
@@ -374,7 +373,7 @@ class Settings {
         self::$current_settings = self::get_settings();
 
         self::$last_edited_tab = '#layotter-settings-general';
-        if (isset($_GET['settings-updated']) AND isset(self::$current_settings['internal']['last_edited_tab']) AND !empty(self::$current_settings['internal']['last_edited_tab'])) {
+        if (isset($_GET['settings-updated']) && isset(self::$current_settings['internal']['last_edited_tab']) && !empty(self::$current_settings['internal']['last_edited_tab'])) {
             self::$last_edited_tab = self::$current_settings['internal']['last_edited_tab'];
         }
 
@@ -428,7 +427,7 @@ class Settings {
         if (isset(self::$current_settings['general'])) {
             $settings = self::$current_settings['general'];
         } else {
-            $settings = array();
+            $settings = [];
         }
 
         ?>
@@ -475,10 +474,10 @@ class Settings {
 
                 $field_group_post_type = Adapter::get_field_group_post_type();
 
-                $post_types = get_post_types(array(
+                $post_types = get_post_types([
                     '_builtin' => false,
                     'show_ui' => true
-                ), 'objects');
+                ], 'objects');
 
                 foreach ($post_types as $post_type) {
 
@@ -492,8 +491,8 @@ class Settings {
                         <label>
                             <input type="checkbox"
                                    name="layotter_settings[general][enable_for][<?php echo $post_type->name; ?>]"
-                                   value="1" <?php if (isset($settings['enable_for'][$post_type->name])) {
-                                checked($settings['enable_for'][$post_type->name]);
+                                   value="1" <?php if (isset($settings['enable_for'][ $post_type->name ])) {
+                                checked($settings['enable_for'][ $post_type->name ]);
                             } ?>>
                             <?php echo $post_type->label; ?>
                         </label>
@@ -626,7 +625,7 @@ class Settings {
         if (isset(self::$current_settings['wrapper'])) {
             $settings = self::$current_settings['wrapper'];
         } else {
-            $settings = array();
+            $settings = [];
         }
 
         ?>
@@ -714,7 +713,7 @@ class Settings {
         if (isset(self::$current_settings['rows'])) {
             $settings = self::$current_settings['rows'];
         } else {
-            $settings = array();
+            $settings = [];
         }
 
         ?>
@@ -821,8 +820,8 @@ class Settings {
                         <label>
                             <input type="checkbox" data-layout="<?php echo $layout; ?>"
                                    name="layotter_settings[rows][allow][<?php echo $layout; ?>]"
-                                   value="1" <?php if (isset($settings['allow'][$layout])) {
-                                checked($settings['allow'][$layout]);
+                                   value="1" <?php if (isset($settings['allow'][ $layout ])) {
+                                checked($settings['allow'][ $layout ]);
                             } ?>>
                             <span class="layotter-row-layout-option">
                                     <?php
@@ -885,7 +884,7 @@ class Settings {
         if (isset(self::$current_settings['cols'])) {
             $settings = self::$current_settings['cols'];
         } else {
-            $settings = array();
+            $settings = [];
         }
 
         ?>
@@ -985,11 +984,11 @@ class Settings {
                     ?>
                     <tr valign="top">
                         <th scope="row">
-                            <?php echo self::$col_class_translations[$col]; ?>
+                            <?php echo self::$col_class_translations[ $col ]; ?>
                         </th>
                         <td>
                             <input type="text" name="layotter_settings[cols][classes][<?php echo $col; ?>]"
-                                   value="<?php echo $settings['classes'][$col]; ?>">
+                                   value="<?php echo $settings['classes'][ $col ]; ?>">
                             <span class="description layotter-description"><?php _e('Default:', 'layotter'); ?></span>
                             <code class="layotter-default-value"
                                   title="<?php _e('Click to reset', 'layotter'); ?>"><?php echo $default_class; ?></code>
@@ -1016,7 +1015,7 @@ class Settings {
         if (isset(self::$current_settings['elements'])) {
             $settings = self::$current_settings['elements'];
         } else {
-            $settings = array();
+            $settings = [];
         }
 
         ?>
@@ -1100,7 +1099,6 @@ class Settings {
 
     /**
      * Outputs form HTML for debug settings
-     *
      * This setting is actually a part of the general settings data structure, but has its own tab for clarity.
      */
     public static function settings_debug() {
@@ -1108,7 +1106,7 @@ class Settings {
         if (isset(self::$current_settings['general'])) {
             $settings = self::$current_settings['general'];
         } else {
-            $settings = array();
+            $settings = [];
         }
 
         ?>
@@ -1141,8 +1139,8 @@ class Settings {
                         <label>
                             <input type="checkbox"
                                    name="layotter_settings[general][debug_mode][<?php echo $role_key; ?>]"
-                                   value="1" <?php if (isset($settings['debug_mode'][$role_key])) {
-                                checked($settings['debug_mode'][$role_key]);
+                                   value="1" <?php if (isset($settings['debug_mode'][ $role_key ])) {
+                                checked($settings['debug_mode'][ $role_key ]);
                             } ?>>
                             <?php echo translate_user_role($role['name']); ?>
                         </label>

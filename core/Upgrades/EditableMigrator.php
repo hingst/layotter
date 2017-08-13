@@ -7,8 +7,8 @@ use Layotter\Components\Editable;
 class EditableMigrator {
 
     private $type;
-    private $fields = array();
-    private $values = array();
+    private $fields = [];
+    private $values = [];
 
     public function __construct($type, $allowed_fields, $provided_values) {
         $this->type = strval($type);
@@ -23,24 +23,24 @@ class EditableMigrator {
     }
 
     public function migrate() {
-        $id = wp_insert_post(array(
+        $id = wp_insert_post([
             'post_type' => Editable::POST_TYPE_EDITABLE,
-            'meta_input' => array(
+            'meta_input' => [
                 Editable::META_FIELD_EDITABLE_TYPE => $this->type
-            ),
+            ],
             'post_status' => 'publish'
-        ));
+        ]);
 
         foreach ($this->fields as $field) {
             $field_name = $field['name'];
 
             // quick fix for broken Repeater fields
-            if ($field['type'] == 'repeater' && is_array($this->values[$field_name])) {
-                $values[$field_name] = array_values($this->values[$field_name]);
+            if ($field['type'] == 'repeater' && is_array($this->values[ $field_name ])) {
+                $values[ $field_name ] = array_values($this->values[ $field_name ]);
             }
 
-            if (isset($this->values[$field_name])) {
-                $field['value'] = $this->values[$field_name];
+            if (isset($this->values[ $field_name ])) {
+                $field['value'] = $this->values[ $field_name ];
                 update_field($field['key'], addslashes($field['value']), $id);
             }
         }

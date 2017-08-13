@@ -18,7 +18,7 @@ class Templates {
      */
     public static function create($data = null) {
         $data = is_null($data) ? $_POST : $data;
-        if (isset($data['id']) AND ctype_digit($data['id'])) {
+        if (isset($data['id']) && ctype_digit($data['id'])) {
             $element = Core::assemble_element($data['id']);
             $element->set_template(true);
             return $element;
@@ -33,7 +33,7 @@ class Templates {
      */
     public static function delete($data = null) {
         $data = is_null($data) ? $_POST : $data;
-        if (isset($data['layotter_element_id']) AND ctype_digit($data['layotter_element_id']) AND $data['layotter_element_id'] != 0) {
+        if (isset($data['layotter_element_id']) && ctype_digit($data['layotter_element_id']) && $data['layotter_element_id'] != 0) {
             $id = intval($data['layotter_element_id']);
             $element = Core::assemble_element($id);
             $element->set_template(false);

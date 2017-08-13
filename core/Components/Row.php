@@ -24,7 +24,7 @@ class Row implements \JsonSerializable {
     /**
      * @var Column[] Contained columns
      */
-    private $cols = array();
+    private $cols = [];
 
     /**
      * Create a row instance
@@ -46,11 +46,11 @@ class Row implements \JsonSerializable {
      * @return array
      */
     public function jsonSerialize() {
-        return array(
+        return [
             'layout' => $this->layout,
             'options_id' => $this->options->get_id(),
             'cols' => $this->cols
-        );
+        ];
     }
 
     /**

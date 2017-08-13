@@ -15,7 +15,7 @@ class PostStructure {
     /**
      * @var RowStructure[] Contained rows
      */
-    private $rows = array();
+    private $rows = [];
 
     /**
      * Constructor.

@@ -41,7 +41,6 @@ abstract class Element extends Editable implements \JsonSerializable {
 
     /**
      * Must set $this->title, $this->description, $this->icon and $this->field_group
-     *
      * May set $this->order to override alphabetical ordering in the "Add Element" screen.
      */
     abstract protected function attributes();
@@ -104,7 +103,7 @@ abstract class Element extends Editable implements \JsonSerializable {
         // TODO: maybe clean fields to exclude stale fields?
 
         // ACF field group can be provided as post id (int) or slug ('group_xyz')
-        if (!is_int($this->field_group) AND !is_string($this->field_group)) {
+        if (!is_int($this->field_group) && !is_string($this->field_group)) {
             throw new \Exception('$this->field_group must be assigned in attributes() (error in class ' . get_called_class() . ')');
         }
 
@@ -127,33 +126,30 @@ abstract class Element extends Editable implements \JsonSerializable {
 
     /**
      * Register hooks for backend assets
-     *
      * Allows element types to enqueue scripts and styles in the backend.
      */
     public static function register_backend_hooks() {
-        add_action('admin_footer', array(get_called_class(), 'register_backend_hooks_helper'));
+        add_action('admin_footer', [get_called_class(), 'register_backend_hooks_helper']);
     }
 
     /**
      * Helper function for register_backend_hooks
-     *
      * To make Layotter::is_enabled() work, the check is delayed until admin_footer.
      * Without the check, assets would be included on every page in the backend.
      */
     public static function register_backend_hooks_helper() {
         if (Core::is_enabled()) {
-            call_user_func(array(get_called_class(), 'backend_assets'));
+            call_user_func([get_called_class(), 'backend_assets']);
         }
     }
 
     /**
      * Register hooks for frontend assets
-     *
      * Allows element types to enqueue scripts and styles in the frontend.
      */
     private function register_frontend_hooks() {
         if (!is_admin()) {
-            call_user_func(array(get_called_class(), 'frontend_assets'));
+            call_user_func([get_called_class(), 'frontend_assets']);
         }
     }
 
@@ -173,11 +169,11 @@ abstract class Element extends Editable implements \JsonSerializable {
             $field_group = Adapter::get_field_group_by_key($this->field_group);
         }
 
-        return Adapter::is_field_group_visible($field_group, array(
+        return Adapter::is_field_group_visible($field_group, [
             'post_id' => $post_id,
             'post_type' => $post_type,
             'layotter' => 'element'
-        ));
+        ]);
     }
 
     /**
@@ -186,13 +182,7 @@ abstract class Element extends Editable implements \JsonSerializable {
      * @return ElementTypeMeta Element type meta data
      */
     public function get_type_meta() {
-        return new ElementTypeMeta(
-            $this->type,
-            $this->title,
-            $this->description,
-            $this->icon,
-            $this->order
-        );
+        return new ElementTypeMeta($this->type, $this->title, $this->description, $this->icon, $this->order);
     }
 
     /**
@@ -201,12 +191,12 @@ abstract class Element extends Editable implements \JsonSerializable {
      * @return array
      */
     public function jsonSerialize() {
-        return array(
+        return [
             'id' => $this->id,
             'options_id' => $this->options->get_id(),
             'view' => $this->get_backend_view(),
             'is_template' => $this->is_template
-        );
+        ];
     }
 
     /**
@@ -282,13 +272,12 @@ abstract class Element extends Editable implements \JsonSerializable {
 
     /**
      * Use wp_update_post to trigger ACF hooks that read $_POST and save custom fields
-     *
      * This is only used for templates.
      */
     public function update_from_post_data() {
-        wp_update_post(array(
+        wp_update_post([
             'ID' => $this->id
-        ));
+        ]);
     }
 
 }

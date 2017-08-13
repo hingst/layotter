@@ -87,12 +87,12 @@ class ElementTypeMeta implements \JsonSerializable {
      * @return array
      */
     public function jsonSerialize() {
-        return array(
+        return [
             'type' => $this->type,
             'title' => $this->title,
             'description' => $this->description,
             'icon' => $this->icon,
             'order' => $this->order
-        );
+        ];
     }
 }

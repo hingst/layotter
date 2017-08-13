@@ -25,7 +25,7 @@ class FormMeta implements \JsonSerializable {
     /**
      * @var string ACF form HTML
      */
-    private $fields = array();
+    private $fields = [];
 
     /**
      * Constructor.
@@ -59,11 +59,11 @@ class FormMeta implements \JsonSerializable {
      * @return array
      */
     public function jsonSerialize() {
-        return array(
+        return [
             'title' => $this->title,
             'icon' => $this->icon,
             'nonce' => $this->nonce,
             'fields' => $this->fields
-        );
+        ];
     }
 }

@@ -19,11 +19,11 @@ class Elements {
      */
     public static function edit($data = null) {
         $data = is_null($data) ? $_POST : $data;
-        if (isset($data['layotter_element_id']) AND ctype_digit($data['layotter_element_id']) AND $data['layotter_element_id'] != 0) {
+        if (isset($data['layotter_element_id']) && ctype_digit($data['layotter_element_id']) && $data['layotter_element_id'] != 0) {
             $id = intval($data['layotter_element_id']);
             $element = Core::assemble_element($id);
             return $element->get_form_meta();
-        } else if (isset($data['layotter_type']) AND is_string($data['layotter_type'])) {
+        } else if (isset($data['layotter_type']) && is_string($data['layotter_type'])) {
             $type = $data['layotter_type'];
             $element = Core::assemble_new_element($type);
             return $element->get_form_meta();
@@ -38,7 +38,7 @@ class Elements {
      */
     public static function save($data = null) {
         $data = is_null($data) ? $_POST : $data;
-        if (isset($data['layotter_element_id']) AND ctype_digit($data['layotter_element_id']) AND $data['layotter_element_id'] != 0) {
+        if (isset($data['layotter_element_id']) && ctype_digit($data['layotter_element_id']) && $data['layotter_element_id'] != 0) {
             $id = intval($data['layotter_element_id']);
             $element = Core::assemble_element($id);
             if ($element->is_template()) {
@@ -47,7 +47,7 @@ class Elements {
                 $element->save_from_post_data();
             }
             return $element;
-        } else if (isset($data['layotter_type']) AND is_string($data['layotter_type'])) {
+        } else if (isset($data['layotter_type']) && is_string($data['layotter_type'])) {
             $element = Core::assemble_new_element($data['layotter_type']);
             $element->save_from_post_data();
             return $element;

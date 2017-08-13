@@ -20,7 +20,7 @@ class ColumnStructure {
     /**
      * @var ElementStructure[] Contained elements
      */
-    private $elements = array();
+    private $elements = [];
 
     /**
      * Constructor.

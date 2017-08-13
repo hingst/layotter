@@ -17,7 +17,7 @@ class Layouts {
      */
     public static function create($data = null) {
         $data = is_null($data) ? $_POST : $data;
-        if (isset($data['name']) AND isset($data['json'])) {
+        if (isset($data['name']) && isset($data['json'])) {
             $json = stripslashes($data['json']);
             $layout = new Layout();
             $layout->set_json($json);
@@ -48,7 +48,7 @@ class Layouts {
      */
     public static function rename($data = null) {
         $data = is_null($data) ? $_POST : $data;
-        if (isset($data['layout_id']) AND isset($data['name'])) {
+        if (isset($data['layout_id']) && isset($data['name'])) {
             $layout = new Layout($data['layout_id']);
             $layout->rename($data['name']);
             return $layout;

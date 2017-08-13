@@ -14,41 +14,41 @@ class AcfAdapterTest extends WP_UnitTestCase {
     }
 
     function test_FieldGroupFilter() {
-        $expect_zero = Adapter::get_filtered_field_groups(array(
+        $expect_zero = Adapter::get_filtered_field_groups([
             'post_type' => 'page',
             'layotter' => 'dummy'
-        ));
-        $expect_two = Adapter::get_filtered_field_groups(array(
+        ]);
+        $expect_two = Adapter::get_filtered_field_groups([
             'post_type' => 'page',
             'layotter' => 'element'
-        ));
+        ]);
         $this->assertEquals(0, count($expect_zero));
         $this->assertEquals(2, count($expect_two)); // example element + unit test helper group
     }
 
     function test_FieldGroupVisible() {
         $field_group = Adapter::get_field_group_by_key('group_test');
-        $post_id = self::factory()->post->create(array(
+        $post_id = self::factory()->post->create([
             'post_type' => 'page'
-        ));
-        $expect_true = \Layotter\Acf\Adapter::is_field_group_visible($field_group, array(
+        ]);
+        $expect_true = \Layotter\Acf\Adapter::is_field_group_visible($field_group, [
             'post_id' => $post_id,
             'post_type' => get_post_type($post_id),
             'layotter' => 'element'
-        ));
+        ]);
         $this->assertTrue($expect_true);
     }
 
     function test_FieldGroupNotVisible() {
         $field_group = Adapter::get_field_group_by_key('group_test');
-        $post_id = self::factory()->post->create(array(
+        $post_id = self::factory()->post->create([
             'post_type' => 'post'
-        ));
-        $expect_false = \Layotter\Acf\Adapter::is_field_group_visible($field_group, array(
+        ]);
+        $expect_false = \Layotter\Acf\Adapter::is_field_group_visible($field_group, [
             'post_id' => $post_id,
             'post_type' => get_post_type($post_id),
             'layotter' => 'element'
-        ));
+        ]);
         $this->assertFalse($expect_false);
     }
 

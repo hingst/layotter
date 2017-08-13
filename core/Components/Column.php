@@ -24,7 +24,7 @@ class Column implements \JsonSerializable {
     /**
      * @var Element[] Contained elements
      */
-    private $elements = array();
+    private $elements = [];
 
     /**
      * Create a new column
@@ -46,10 +46,10 @@ class Column implements \JsonSerializable {
      * @return array
      */
     public function jsonSerialize() {
-        return array(
+        return [
             'options_id' => $this->options->get_id(),
             'elements' => $this->elements
-        );
+        ];
     }
 
     /**

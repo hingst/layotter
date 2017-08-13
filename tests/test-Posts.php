@@ -12,12 +12,12 @@ class PostsTest extends WP_UnitTestCase {
         // wp_insert_post() expects magic quotes, https://core.trac.wordpress.org/ticket/21767
         $input = addslashes(Layotter_Test_Data::POST_150_JSON);
 
-        self::$id = self::factory()->post->create(array(
-            'meta_input' => array(
+        self::$id = self::factory()->post->create([
+            'meta_input' => [
                 'layotter_json' => $input
-            ),
+            ],
             'post_type' => 'page'
-        ));
+        ]);
 
         // wptexturize fucks with quotes in ways that we really don't care about in these tests
         add_filter('run_wptexturize', '__return_false');

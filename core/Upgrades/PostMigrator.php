@@ -19,7 +19,7 @@ class PostMigrator {
         }
 
         $model_version = get_post_meta($this->id, PluginMigrator::META_FIELD_MODEL_VERSION, true);
-        if (empty($model_version) OR version_compare($model_version, PluginMigrator::CURRENT_MODEL_VERSION) < 0) {
+        if (empty($model_version) || version_compare($model_version, PluginMigrator::CURRENT_MODEL_VERSION) < 0) {
             return true;
         }
 
@@ -28,10 +28,10 @@ class PostMigrator {
 
     public function migrate() {
         $old_data = $this->get_data();
-        $new_data = array(
+        $new_data = [
             'options_id' => 0,
-            'rows' => array()
-        );
+            'rows' => []
+        ];
 
         if (isset($old_data['options'])) {
             $options_template = Core::assemble_new_options('post');
@@ -51,14 +51,14 @@ class PostMigrator {
         $post->set_json($json);
         $search_dump = '[layotter post="' . $this->id . '"]' . $post->get_search_dump() . '[/layotter]';
 
-        wp_update_post(array(
+        wp_update_post([
             'ID' => $this->id,
             'post_content' => addslashes($search_dump),
-            'meta_input' => array(
+            'meta_input' => [
                 Core::META_FIELD_JSON => addslashes($json),
                 PluginMigrator::META_FIELD_MODEL_VERSION => PluginMigrator::CURRENT_MODEL_VERSION
-            )
-        ));
+            ]
+        ]);
     }
 
     private function get_data() {
@@ -66,7 +66,7 @@ class PostMigrator {
         if ($this->is_json($json)) {
             return json_decode($json, true);
         } else {
-            return array();
+            return [];
         }
     }
 
@@ -123,35 +123,35 @@ class PostMigrator {
             return $this->get_json_from_legacy_post_content();
         } else {
             // otherwise, we're dealing with a regular Wordpress post; let's convert the post content to a WYSIWYG element
-            $rows = array();
+            $rows = [];
             $content = get_post_field('post_content', $this->id);
 
             // TODO: simplify when you're sober
             if (!empty($content)) {
-                $rows[] = array(
+                $rows[] = [
                     'layout' => '1/1',
-                    'options' => array(),
-                    'cols' => array(
-                        array(
-                            'options' => array(),
-                            'elements' => array(
-                                array(
-                                    'options' => array(),
+                    'options' => [],
+                    'cols' => [
+                        [
+                            'options' => [],
+                            'elements' => [
+                                [
+                                    'options' => [],
                                     'type' => 'layotter_example_element',
-                                    'values' => array(
+                                    'values' => [
                                         'content' => apply_filters('the_content', $content)
-                                    )
-                                )
-                            )
-                        )
-                    )
-                );
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ];
             }
 
-            return json_encode(array(
-                'options' => array(),
+            return json_encode([
+                'options' => [],
                 'rows' => $rows
-            ));
+            ]);
         }
     }
 
@@ -167,7 +167,7 @@ class PostMigrator {
         $content_raw = get_post_field('post_content', $this->id);
 
         // verify that the content is correctly formatted, unwrap from shortcode
-        $matches = array();
+        $matches = [];
         if (preg_match('/\[layotter\](.*)\[\/layotter\]/ms', $content_raw, $matches)) {
             $content_json = $matches[1];
             return $content_json;

@@ -24,11 +24,11 @@ class FieldGroup {
         }
 
         if (Adapter::is_pro_installed()) {
-            acf_add_local_field_group(array(
+            acf_add_local_field_group([
                 'key' => $key,
                 'title' => '',
-                'fields' => array(
-                    array(
+                'fields' => [
+                    [
                         'key' => 'field_5605a6ed2418e',
                         'label' => $content_label,
                         'name' => 'content',
@@ -36,26 +36,26 @@ class FieldGroup {
                         'instructions' => '',
                         'required' => 0,
                         'conditional_logic' => 0,
-                        'wrapper' => array(
+                        'wrapper' => [
                             'width' => '',
                             'class' => '',
                             'id' => '',
-                        ),
+                        ],
                         'default_value' => $default_text,
                         'tabs' => 'all',
                         'toolbar' => 'full',
                         'media_upload' => 1,
-                    ),
-                ),
-                'location' => array(
-                    array(
-                        array(
+                    ],
+                ],
+                'location' => [
+                    [
+                        [
                             'param' => 'layotter',
                             'operator' => '==',
                             'value' => $location_rule,
-                        ),
-                    ),
-                ),
+                        ],
+                    ],
+                ],
                 'menu_order' => 0,
                 'position' => 'normal',
                 'style' => 'default',
@@ -64,13 +64,13 @@ class FieldGroup {
                 'hide_on_screen' => '',
                 'active' => 1,
                 'description' => '',
-            ));
+            ]);
         } else {
-            register_field_group(array(
+            register_field_group([
                 'id' => $key,
                 'title' => '',
-                'fields' => array(
-                    array(
+                'fields' => [
+                    [
                         'key' => 'field_58011c654f032',
                         'label' => $content_label,
                         'name' => 'content',
@@ -78,26 +78,26 @@ class FieldGroup {
                         'default_value' => $default_text,
                         'toolbar' => 'full',
                         'media_upload' => 'yes',
-                    ),
-                ),
-                'location' => array(
-                    array(
-                        array(
+                    ],
+                ],
+                'location' => [
+                    [
+                        [
                             'param' => 'layotter',
                             'operator' => '==',
                             'value' => $location_rule,
                             'order_no' => 0,
                             'group_no' => 0,
-                        ),
-                    ),
-                ),
-                'options' => array(
+                        ],
+                    ],
+                ],
+                'options' => [
                     'position' => 'normal',
                     'layout' => 'no_box',
-                    'hide_on_screen' => array(),
-                ),
+                    'hide_on_screen' => [],
+                ],
                 'menu_order' => 0,
-            ));
+            ]);
         }
     }
 }

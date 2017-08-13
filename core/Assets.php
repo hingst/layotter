@@ -30,7 +30,7 @@ class Assets {
 
         // scripts
         // TODO: lol two years and I never minified
-        $scripts = array(
+        $scripts = [
             'angular' => 'assets/js/vendor/angular.js',
             'angular-animate' => 'assets/js/vendor/angular-animate.js',
             'angular-sanitize' => 'assets/js/vendor/angular-sanitize.js',
@@ -48,7 +48,7 @@ class Assets {
             'layotter-service-forms' => 'assets/js/app/services/forms.js',
             'layotter-service-modals' => 'assets/js/app/services/modals.js',
             'layotter-service-history' => 'assets/js/app/services/history.js'
-        );
+        ];
         foreach ($scripts as $name => $path) {
             wp_enqueue_script($name, plugins_url($path, __DIR__));
         }
@@ -63,7 +63,7 @@ class Assets {
         $layotter_post = new Post(get_the_ID());
 
         // pass data to JS
-        wp_localize_script('layotter', 'layotterData', array(
+        wp_localize_script('layotter', 'layotterData', [
             'postID' => get_the_ID(),
             'isACFPro' => Adapter::is_pro_installed(),
             'contentStructure' => $layotter_post,
@@ -74,13 +74,13 @@ class Assets {
             'enablePostLayouts' => Settings::post_layouts_enabled(),
             'enableElementTemplates' => Settings::element_templates_enabled(),
             'elementTypes' => $layotter_post->get_available_element_types_meta(),
-            'isOptionsEnabled' => array(
+            'isOptionsEnabled' => [
                 'post' => $post_options->is_enabled(),
                 'row' => $row_options->is_enabled(),
                 'col' => $col_options->is_enabled(),
                 'element' => $element_options->is_enabled()
-            ),
-            'i18n' => array(
+            ],
+            'i18n' => [
                 'delete_row' => __('Delete row', 'layotter'),
                 'delete_element' => __('Delete element', 'layotter'),
                 'delete_template' => __('Delete template', 'layotter'),
@@ -100,7 +100,7 @@ class Assets {
                 'delete_layout' => __('Delete layout', 'layotter'),
                 'load_layout_confirmation' => __('Do want to load this layout and overwrite the existing content?', 'layotter'),
                 'load_layout' => __('Load layout', 'layotter'),
-                'history' => array(
+                'history' => [
                     'undo' => __('Undo:', 'layotter'),
                     'redo' => __('Redo:', 'layotter'),
                     'add_element' => __('Add element', 'layotter'),
@@ -120,22 +120,22 @@ class Assets {
                     'edit_column_options' => __('Edit column options', 'layotter'),
                     'edit_element_options' => __('Edit element options', 'layotter'),
                     'load_post_layout' => __('Load layout', 'layotter')
-                ),
-                'upgrades' => array(
+                ],
+                'upgrades' => [
                     'confirm' => __('Please confirm that you have a created a database backup and want to run the upgrade now.', 'layotter'),
                     'posts' => __('Updating posts', 'layotter'),
                     'layouts' => __('Updating post layouts', 'layotter'),
                     'templates' => __('Updating element templates', 'layotter'),
-                )
-            )
-        ));
+                ]
+            ]
+        ]);
     }
 
     /**
      * Include basic CSS in the frontend if enabled in settings
      */
     public static function frontend() {
-        if (!is_admin() AND Settings::default_css_enabled()) {
+        if (!is_admin() && Settings::default_css_enabled()) {
             wp_enqueue_style('layotter-frontend', plugins_url('assets/css/frontend.css', __DIR__));
         }
     }

@@ -26,7 +26,7 @@ class Post implements \JsonSerializable {
     /**
      * @var Row[] Contained Rows
      */
-    protected $rows = array();
+    protected $rows = [];
 
     /**
      * Create post instance
@@ -71,10 +71,10 @@ class Post implements \JsonSerializable {
      * @return array
      */
     public function jsonSerialize() {
-        return array(
+        return [
             'options_id' => $this->options->get_id(),
             'rows' => $this->rows
-        );
+        ];
     }
 
     /**
@@ -104,15 +104,15 @@ class Post implements \JsonSerializable {
      * @return array
      */
     public function get_available_templates() {
-        $template_posts = get_posts(array(
+        $template_posts = get_posts([
             'post_type' => Editable::POST_TYPE_EDITABLE,
             'meta_key' => Element::META_FIELD_IS_TEMPLATE,
             'meta_value' => '1',
             'order' => 'ASC',
             'posts_per_page' => -1
-        ));
+        ]);
 
-        $templates = array();
+        $templates = [];
 
         foreach ($template_posts as $template) {
             $element = Core::assemble_element($template->ID);
@@ -131,7 +131,7 @@ class Post implements \JsonSerializable {
      * @return ElementTypeMeta[]
      */
     public function get_available_element_types_meta() {
-        $elements = array();
+        $elements = [];
 
         foreach (Core::get_registered_element_types() as $element_type) {
             $element = Core::assemble_new_element($element_type);
@@ -140,7 +140,7 @@ class Post implements \JsonSerializable {
             }
         }
 
-        usort($elements, array($this, 'sort_element_types_helper'));
+        usort($elements, [$this, 'sort_element_types_helper']);
 
         return $elements;
     }
@@ -175,13 +175,13 @@ class Post implements \JsonSerializable {
      * @return Layout[] All available layouts
      */
     public function get_available_layouts() {
-        $layout_posts = get_posts(array(
+        $layout_posts = get_posts([
             'post_type' => Layout::POST_TYPE_LAYOUTS,
             'order' => 'ASC',
             'posts_per_page' => -1
-        ));
+        ]);
 
-        $layouts = array();
+        $layouts = [];
         foreach ($layout_posts as $layout_post) {
             $layout = new Layout($layout_post->ID);
             $layouts[] = $layout;

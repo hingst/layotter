@@ -15,7 +15,7 @@ class PluginMigrator {
      */
     public static function needs_upgrade() {
         $model_version = get_option(self::META_FIELD_MODEL_VERSION);
-        return (empty($model_version) OR version_compare($model_version, self::CURRENT_MODEL_VERSION) < 0);
+        return (empty($model_version) || version_compare($model_version, self::CURRENT_MODEL_VERSION) < 0);
     }
 
     public static function upgrade() {

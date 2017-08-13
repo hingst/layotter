@@ -12,10 +12,10 @@ class ElementsTest extends WP_UnitTestCase {
     }
 
     function test_EnabledForPost() {
-        $id = self::factory()->post->create(array(
+        $id = self::factory()->post->create([
             'post_content' => '',
             'post_type' => 'page'
-        ));
+        ]);
         $element = Core::assemble_new_element('layotter_example_element');
         $this->assertTrue($element->is_enabled_for($id));
     }

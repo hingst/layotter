@@ -35,13 +35,13 @@ class Options extends Editable {
      */
     public function set_type($type) {
         $this->type = strval($type);
-        $titles = array(
+        $titles = [
             'post' => __('Post options', 'layotter'),
             'row' => __('Row options', 'layotter'),
             'col' => __('Column options', 'layotter'),
             'element' => __('Element options', 'layotter')
-        );
-        $this->title = $titles[$this->type];
+        ];
+        $this->title = $titles[ $this->type ];
     }
 
     /**
@@ -60,12 +60,12 @@ class Options extends Editable {
      * @return array ACF fields
      */
     public function get_fields() {
-        $field_groups = Adapter::get_filtered_field_groups(array(
+        $field_groups = Adapter::get_filtered_field_groups([
             'post_type' => $this->post_type_context,
             'layotter' => $this->type . '_options'
-        ));
+        ]);
 
-        $fields = array();
+        $fields = [];
         foreach ($field_groups as $field_group) {
             $fields = array_merge($fields, Adapter::get_fields($field_group));
         }

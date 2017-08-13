@@ -13,10 +13,10 @@ class ColumnMigrator {
     }
 
     public function migrate() {
-        $new_data = array(
+        $new_data = [
             'options_id' => 0,
-            'elements' => array()
-        );
+            'elements' => []
+        ];
 
         if (isset($this->old_data['options'])) {
             $options_template = Core::assemble_new_options('col');
