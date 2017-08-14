@@ -60,7 +60,7 @@ class Options extends Editable {
      */
     public function set_post_type_context($post_type) {
         if (is_string($post_type) && post_type_exists($post_type)) {
-            $this->post_type_context = strval($post_type);
+            $this->post_type_context = $post_type;
         }
     }
 
