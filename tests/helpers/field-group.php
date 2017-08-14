@@ -50,13 +50,13 @@ if (Adapter::is_pro_installed()) {
         'description' => '',
     ]);
     acf_add_local_field_group([
-        'key' => 'group_597e17d33715a',
+        'key' => 'group_5991e509a7176',
         'title' => 'options',
         'fields' => [
             [
-                'key' => 'field_597e17d7a2ed1',
-                'label' => 'text',
-                'name' => 'text',
+                'key' => 'field_5991e51351f18',
+                'label' => 'option',
+                'name' => 'option',
                 'type' => 'text',
                 'instructions' => '',
                 'required' => 0,
@@ -78,6 +78,27 @@ if (Adapter::is_pro_installed()) {
                 [
                     'param' => 'layotter',
                     'operator' => '==',
+                    'value' => 'post_options',
+                ],
+            ],
+            [
+                [
+                    'param' => 'layotter',
+                    'operator' => '==',
+                    'value' => 'row_options',
+                ],
+            ],
+            [
+                [
+                    'param' => 'layotter',
+                    'operator' => '==',
+                    'value' => 'col_options',
+                ],
+            ],
+            [
+                [
+                    'param' => 'layotter',
+                    'operator' => '==',
                     'value' => 'element_options',
                 ],
             ],
@@ -91,7 +112,7 @@ if (Adapter::is_pro_installed()) {
         'active' => 1,
         'description' => '',
     ]);
-    // TODO: non Pro field group
+    // TODO: non Pro field groups
 } else {
     register_field_group([
         'id' => 'group_test',

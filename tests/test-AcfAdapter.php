@@ -10,7 +10,7 @@ class AcfAdapterTest extends WP_UnitTestCase {
 
     function test_DefaultFieldGroupIsAvailable() {
         $field_groups = Adapter::get_all_field_groups();
-        $this->assertEquals(2, count($field_groups)); // example element + unit test helper group
+        $this->assertEquals(3, count($field_groups)); // example element + 2 unit test helper groups
     }
 
     function test_FieldGroupFilter() {

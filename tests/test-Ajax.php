@@ -24,6 +24,6 @@ class AjaxTest extends WP_UnitTestCase {
         ];
         $element = Elements::edit($data);
         $this->assertTrue($element instanceof FormMeta);
-        $this->assertContains('<textarea id="wysiwyg-acf-field-content-', $element->get_fields());
+        $this->assertContains(Layotter_Test_Data::EXPECTED_TEXTAREA_FIRST_LINE, $element->get_fields());
     }
 }

@@ -12,12 +12,12 @@ require_once $_tests_dir . '/includes/functions.php';
  * Manually load the plugin being tested.
  */
 function _manually_load_plugin() {
-    require dirname(dirname(dirname(__FILE__))) . '/advanced-custom-fields/acf.php';
+    require dirname(dirname(dirname(__FILE__))) . '/advanced-custom-fields-pro/acf.php';
     require dirname(dirname(__FILE__)) . '/index.php';
     \Layotter\Settings::set_defaults_on_activation();
     require dirname(__FILE__) . '/helpers/field-group.php';
     require dirname(__FILE__) . '/helpers/data.php';
-    require dirname(__FILE__) . '/helpers/element.php';
+    require dirname(__FILE__) . '/helpers/filters.php';
 }
 
 tests_add_filter('muplugins_loaded', '_manually_load_plugin');
