@@ -80,6 +80,11 @@ if (Adapter::is_pro_installed()) {
                     'operator' => '==',
                     'value' => 'post_options',
                 ],
+                [
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'page',
+                ],
             ],
             [
                 [
@@ -112,7 +117,6 @@ if (Adapter::is_pro_installed()) {
         'active' => 1,
         'description' => '',
     ]);
-    // TODO: non Pro field groups
 } else {
     register_field_group([
         'id' => 'group_test',
@@ -143,6 +147,75 @@ if (Adapter::is_pro_installed()) {
                     'value' => 'page',
                     'order_no' => 0,
                     'group_no' => 0,
+                ],
+            ],
+        ],
+        'options' => [
+            'position' => 'normal',
+            'layout' => 'no_box',
+            'hide_on_screen' => [],
+        ],
+        'menu_order' => 0,
+    ]);
+    register_field_group([
+        'id' => 'acf_options',
+        'title' => 'options',
+        'fields' => [
+            [
+                'key' => 'field_5991f09c7e3a6',
+                'label' => 'options',
+                'name' => 'options',
+                'type' => 'text',
+                'default_value' => '',
+                'placeholder' => '',
+                'prepend' => '',
+                'append' => '',
+                'formatting' => 'html',
+                'maxlength' => '',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param' => 'layotter',
+                    'operator' => '==',
+                    'value' => 'post_options',
+                    'order_no' => 0,
+                    'group_no' => 0,
+                ],
+                [
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'page',
+                    'order_no' => 1,
+                    'group_no' => 0,
+                ],
+            ],
+            [
+                [
+                    'param' => 'layotter',
+                    'operator' => '==',
+                    'value' => 'row_options',
+                    'order_no' => 0,
+                    'group_no' => 1,
+                ],
+            ],
+            [
+                [
+                    'param' => 'layotter',
+                    'operator' => '==',
+                    'value' => 'col_options',
+                    'order_no' => 0,
+                    'group_no' => 2,
+                ],
+            ],
+            [
+                [
+                    'param' => 'layotter',
+                    'operator' => '==',
+                    'value' => 'element_options',
+                    'order_no' => 0,
+                    'group_no' => 3,
                 ],
             ],
         ],

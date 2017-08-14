@@ -41,4 +41,15 @@ class OptionsTest extends WP_UnitTestCase {
         $this->assertEquals(1, count($options->get_values()));
     }
 
+    function test_PostTypeContext() {
+        $options = Core::assemble_new_options('post');
+        $options->set_post_type_context('post');
+
+        $this->assertFalse($options->is_enabled());
+
+        $options->set_post_type_context('page');
+
+        $this->assertTrue($options->is_enabled());
+    }
+
 }
