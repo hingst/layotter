@@ -1163,6 +1163,10 @@ $darkgray: #CCCCCC;
 /****************************************************/
 /* modals: ACF customization */
 
+.select2-container {
+    z-index: 100003;
+}
+
 // ACF 5
 #layotter-edit {
     > .acf-error-message:first-child { // form validation error
@@ -1310,11 +1314,11 @@ span.description.layotter-description,
 
 #dennisbox-modal {
     .dennisbox-overlay {
-        z-index: 100003;
+        z-index: 100004;
     }
 
     .dennisbox-content {
-        z-index: 100004;
+        z-index: 100005;
     }
 }
 
