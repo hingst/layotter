@@ -1170,11 +1170,21 @@ body > .select2-container {
 
 // ACF 5
 #layotter-edit {
-    > .acf-error-message:first-child { // form validation error
+    > .acf-temp-remove:first-child {
+        height: auto !important; // prevent broken animation when closing error message
+    }
+
+    > .acf-error-message:first-child,
+    > .acf-temp-remove:first-child .acf-error-message { // form validation error
         position: absolute;
         top: 18px;
         right: 18px;
+        padding-right: 40px;
         z-index: 1;
+
+        .acf-icon {
+            top: 5px;
+        }
     }
 
     .acf-tab-group {

@@ -856,11 +856,18 @@ body > .mce-container,
 body > .select2-container {
   z-index: 100003 !important; }
 
-#layotter-edit > .acf-error-message:first-child {
+#layotter-edit > .acf-temp-remove:first-child {
+  height: auto !important; }
+#layotter-edit > .acf-error-message:first-child,
+#layotter-edit > .acf-temp-remove:first-child .acf-error-message {
   position: absolute;
   top: 18px;
   right: 18px;
+  padding-right: 40px;
   z-index: 1; }
+  #layotter-edit > .acf-error-message:first-child .acf-icon,
+  #layotter-edit > .acf-temp-remove:first-child .acf-error-message .acf-icon {
+    top: 5px; }
 #layotter-edit .acf-tab-group {
   padding-left: 12px; }
 
