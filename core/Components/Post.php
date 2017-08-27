@@ -73,6 +73,7 @@ class Post implements \JsonSerializable {
 
         $data = new PostStructure($structure);
         $this->options = Core::assemble_options($data->get_options_id());
+        $this->rows = [];
 
         foreach ($data->get_rows() as $row) {
             $this->rows[] = new Row($row);

@@ -70,12 +70,17 @@ class Options extends Editable {
      * @return array ACF fields
      */
     public function get_fields() {
-        $field_groups = Adapter::get_filtered_field_groups([
-            'post_type' => $this->post_type_context,
+        $filters = [
             'layotter' => $this->type . '_options'
-        ]);
+        ];
 
+        if (!empty($this->post_type_context)) {
+            $filters['post_type'] = $this->post_type_context;
+        }
+
+        $field_groups = Adapter::get_filtered_field_groups($filters);
         $fields = [];
+        
         foreach ($field_groups as $field_group) {
             $fields = array_merge($fields, Adapter::get_fields($field_group));
         }

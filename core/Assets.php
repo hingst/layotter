@@ -52,6 +52,16 @@ class Assets {
         foreach ($scripts as $name => $path) {
             wp_enqueue_script($name, plugins_url($path, __DIR__));
         }
+    }
+
+    /**
+     * Localization must be called in admin_footer because otherwise ACF isn't done initializing and
+     * Adapter::get_filtered_field_groups() doesn't work correctly.
+     */
+    public static function backend_localization() {
+        if (!Core::is_enabled()) {
+            return;
+        }
 
         // to check if options are enabled
         $post_options = Core::assemble_new_options('post');
@@ -63,7 +73,7 @@ class Assets {
         $layotter_post = new Post(get_the_ID());
 
         // pass data to JS
-        wp_localize_script('layotter', 'layotterData', [
+        $data = [
             'postID' => get_the_ID(),
             'isACFPro' => Adapter::is_pro_installed(),
             'contentStructure' => $layotter_post,
@@ -129,7 +139,9 @@ class Assets {
                     'templates' => __('Updating element templates', 'layotter'),
                 ]
             ]
-        ]);
+        ];
+
+        echo '<script>var layotterData = ' . json_encode($data) . '</script>';
     }
 
     /**

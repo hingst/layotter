@@ -43,6 +43,7 @@ class Core {
         add_filter('wp_insert_post_data', [__CLASS__, 'save_post'], 999, 2);
 
         add_action('admin_enqueue_scripts', ['Layotter\Assets', 'backend']);
+        add_action('admin_footer', ['Layotter\Assets', 'backend_localization']);
         add_action('wp_enqueue_scripts', ['Layotter\Assets', 'frontend']);
         add_action('admin_footer', ['Layotter\Assets', 'views']);
 
@@ -208,7 +209,7 @@ class Core {
         $type = get_post_meta($id, Editable::META_FIELD_EDITABLE_TYPE, true);
 
         if (!is_string($type) || !isset(self::$registered_element_types[$type])) {
-            Errors::invalid_argument_not_recoverable('id');
+            Errors::invalid_argument_not_recoverable('type');
         }
 
         /** @var $element Element */

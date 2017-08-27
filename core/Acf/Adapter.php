@@ -120,26 +120,7 @@ class Adapter {
      */
     public static function get_filtered_field_groups($filters) {
         if (self::is_pro_installed()) {
-            $field_groups = self::get_all_field_groups();
-            $filtered_field_groups = [];
-
-            foreach ($field_groups as $field_group) {
-                foreach ($field_group['location'] as $location_group) {
-                    if (!empty($location_group)) {
-                        foreach ($location_group as $rule) {
-                            if ($rule['param'] == 'layotter') {
-                                // force rule match for 'layotter' rules
-                                $match = apply_filters('acf/location/rule_match/layotter', false, $rule, $filters);
-                                if ($match) {
-                                    $filtered_field_groups[] = $field_group;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            return $filtered_field_groups;
+            return acf_get_field_groups($filters);
         } else {
             return apply_filters('acf/location/match_field_groups', [], $filters);
         }

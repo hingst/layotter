@@ -21,7 +21,7 @@ GitHub Plugin URI: hingst/layotter
 namespace Layotter;
 
 spl_autoload_register(function($class) {
-    if (stripos($class, __NAMESPACE__) === 0) {
+    if (stripos($class, __NAMESPACE__ . '\\') === 0) {
         require_once __DIR__ . '/core' . str_replace('\\', '/', substr($class, strlen(__NAMESPACE__))) . '.php';
     }
 });

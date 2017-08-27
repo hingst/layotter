@@ -80,11 +80,11 @@ if (Adapter::is_pro_installed()) {
                     'operator' => '==',
                     'value' => 'post_options',
                 ],
-                [
+                /*[
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'page',
-                ],
+                ],*/
             ],
             [
                 [
@@ -183,13 +183,13 @@ if (Adapter::is_pro_installed()) {
                     'order_no' => 0,
                     'group_no' => 0,
                 ],
-                [
+                /*[
                     'param' => 'post_type',
                     'operator' => '==',
                     'value' => 'page',
                     'order_no' => 1,
                     'group_no' => 0,
-                ],
+                ],*/
             ],
             [
                 [
