@@ -6,6 +6,7 @@ class PostMigrationTest extends WP_UnitTestCase {
 
     public function setUp() {
         parent::setUp();
+        Layotter_Test_Data::setup_postdata();
 
         // wptexturize does weird things to quotes in JSON
         add_filter('run_wptexturize', '__return_false');
@@ -13,6 +14,7 @@ class PostMigrationTest extends WP_UnitTestCase {
 
     public function tearDown() {
         remove_filter('run_wptexturize', '__return_false');
+        Layotter_Test_Data::reset_postdata();
         parent::tearDown();
     }
 

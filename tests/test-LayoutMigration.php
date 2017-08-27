@@ -5,6 +5,16 @@ use \Layotter\Upgrades\LayoutMigrator;
 
 class LayoutMigrationTest extends WP_UnitTestCase {
 
+    public function setUp() {
+        parent::setUp();
+        Layotter_Test_Data::setup_postdata();
+    }
+
+    public function tearDown() {
+        Layotter_Test_Data::reset_postdata();
+        parent::tearDown();
+    }
+
     function test_CanMigrateLayout() {
         update_option('layotter_post_layouts', [
             [
