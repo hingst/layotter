@@ -51,7 +51,6 @@ class Post implements \JsonSerializable {
 
             $json = get_post_meta($this->id, Core::META_FIELD_JSON, true);
             $this->set_json($json);
-            $this->options->set_post_type_context(get_post_type($this->id));
         }
     }
 

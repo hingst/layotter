@@ -282,7 +282,6 @@ abstract class Element extends Editable implements \JsonSerializable {
         }
 
         $this->options = Core::assemble_options($id);
-        $this->options->set_post_type_context(get_post_type());
     }
 
     /**

@@ -92,12 +92,22 @@ if (Adapter::is_pro_installed()) {
                     'operator' => '==',
                     'value' => 'row_options',
                 ],
+                [
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'post',
+                ],
             ],
             [
                 [
                     'param' => 'layotter',
                     'operator' => '==',
                     'value' => 'col_options',
+                ],
+                [
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'page',
                 ],
             ],
             [

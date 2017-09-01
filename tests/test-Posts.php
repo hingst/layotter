@@ -8,7 +8,6 @@ class PostsTest extends WP_UnitTestCase {
 
     public function setUp() {
         parent::setUp();
-        Layotter_Test_Data::setup_postdata();
 
         // wp_insert_post() expects magic quotes, https://core.trac.wordpress.org/ticket/21767
         $input = addslashes(Layotter_Test_Data::POST_150_JSON);
@@ -26,7 +25,6 @@ class PostsTest extends WP_UnitTestCase {
 
     public function tearDown() {
         remove_filter('run_wptexturize', '__return_false');
-        Layotter_Test_Data::reset_postdata();
         parent::tearDown();
     }
 

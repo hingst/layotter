@@ -68,6 +68,10 @@ class Assets {
         $row_options = Core::assemble_new_options('row');
         $col_options = Core::assemble_new_options('col');
         $element_options = Core::assemble_new_options('element');
+        $post_options->set_post_type_context(get_post_type());
+        $row_options->set_post_type_context(get_post_type());
+        $col_options->set_post_type_context(get_post_type());
+        $element_options->set_post_type_context(get_post_type());
 
         // get current post
         $layotter_post = new Post(get_the_ID());

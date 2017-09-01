@@ -120,7 +120,47 @@ class Adapter {
      */
     public static function get_filtered_field_groups($filters) {
         if (self::is_pro_installed()) {
-            return acf_get_field_groups($filters);
+            $field_groups = self::get_all_field_groups();
+            $filtered_field_groups = [];
+
+            foreach ($field_groups as $field_group) {
+                foreach ($field_group['location'] as $group) {
+                    if (empty($group)) {
+                        continue;
+                    }
+
+                    // assume field group matches
+                    $match = true;
+
+                    // field group should only match if it has a Layotter rule
+                    $found_layotter_rule = false;
+
+                    foreach ($group as $rule_id => $rule) {
+                        if ($rule['param'] == 'layotter') {
+                            $match = apply_filters('acf/location/rule_match/layotter', $match, $rule, $filters);
+                            $found_layotter_rule = true;
+                        } else if ($rule['param'] == 'post_type' && !isset($filters['post_type'])) {
+                            // if a post type rule exists but no filter, ignore the rule
+                            $match = true;
+                        } else if ($rule['param'] == 'post_type') {
+                            $match = apply_filters('acf/location/rule_match/post_type', $match, $rule, $filters);
+                        } else {
+                            // other rules are not supported
+                            $match = false;
+                        }
+
+                        if (!$match) {
+                            break;
+                        }
+                    }
+
+                    if ($found_layotter_rule && $match) {
+                        $filtered_field_groups[] = $field_group;
+                    }
+                }
+            }
+
+            return $filtered_field_groups;
         } else {
             return apply_filters('acf/location/match_field_groups', [], $filters);
         }

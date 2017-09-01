@@ -50,7 +50,7 @@ class LocationRules {
         if (isset($options['layotter']) && $rule['value'] == $options['layotter']) {
             return true;
         } else {
-            return $match;
+            return false;
         }
     }
 

@@ -11,9 +11,9 @@ use Layotter\Errors;
 class Options extends Editable {
 
     /**
-     * @var string Post type context is required to determine which options fields should be visible
+     * @var string|null Post type context is required to determine which options fields should be visible
      */
-    private $post_type_context = '';
+    private $post_type_context = null;
 
     /**
      * Create Options instance
@@ -59,8 +59,10 @@ class Options extends Editable {
      * @param string $post_type Post type context, can be empty for no restrictions
      */
     public function set_post_type_context($post_type) {
-        if (is_string($post_type) && post_type_exists($post_type)) {
+        if (is_null($post_type) || (is_string($post_type) && post_type_exists($post_type))) {
             $this->post_type_context = $post_type;
+        } else {
+            Errors::invalid_argument_recoverable('post_type');
         }
     }
 
@@ -74,7 +76,7 @@ class Options extends Editable {
             'layotter' => $this->type . '_options'
         ];
 
-        if (!empty($this->post_type_context)) {
+        if (!is_null($this->post_type_context)) {
             $filters['post_type'] = $this->post_type_context;
         }
 

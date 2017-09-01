@@ -231,7 +231,6 @@ class Core {
 
         $options = new Options();
         $options->set_type($type);
-        $options->set_post_type_context(get_post_type());
         return $options;
     }
 
@@ -247,7 +246,6 @@ class Core {
         }
 
         $options = new Options($id);
-        $options->set_post_type_context(get_post_type());
         return $options;
     }
 

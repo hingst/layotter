@@ -5,16 +5,6 @@ use \Layotter\Core;
 
 class OptionsTest extends WP_UnitTestCase {
 
-    public function setUp() {
-        parent::setUp();
-        Layotter_Test_Data::setup_postdata();
-    }
-
-    public function tearDown() {
-        Layotter_Test_Data::reset_postdata();
-        parent::tearDown();
-    }
-
     function test_ElementOptions() {
         $options = Core::assemble_new_options('element');
 

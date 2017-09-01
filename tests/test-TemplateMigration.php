@@ -4,16 +4,6 @@ use \Layotter\Components\Post;
 
 class TemplateMigrationTest extends WP_UnitTestCase {
 
-    public function setUp() {
-        parent::setUp();
-        Layotter_Test_Data::setup_postdata();
-    }
-
-    public function tearDown() {
-        Layotter_Test_Data::reset_postdata();
-        parent::tearDown();
-    }
-
     function test_CanMigrateTemplate() {
         update_option('layotter_element_templates', [
             [
