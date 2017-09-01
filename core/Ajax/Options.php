@@ -7,7 +7,7 @@ use Layotter\Errors;
 use Layotter\Structures\FormMeta;
 
 /**
- * All Ajax requests arrive here
+ * Handles Ajax requests concerning options
  */
 class Options {
 

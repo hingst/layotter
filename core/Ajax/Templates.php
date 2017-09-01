@@ -7,7 +7,7 @@ use Layotter\Core;
 use Layotter\Errors;
 
 /**
- * All Ajax requests arrive here
+ * Handles Ajax requests concerning elements
  */
 class Templates {
 

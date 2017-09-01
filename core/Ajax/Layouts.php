@@ -6,7 +6,7 @@ use Layotter\Components\Layout;
 use Layotter\Errors;
 
 /**
- * All Ajax requests arrive here
+ * Handles Ajax requests concerning layouts
  */
 class Layouts {
 

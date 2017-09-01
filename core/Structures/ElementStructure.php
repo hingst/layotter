@@ -23,7 +23,6 @@ class ElementStructure {
      * Constructor.
      *
      * @param $structure array json_decode()'d post structure
-     * @throws \Exception If element ID is missing
      */
     public function __construct($structure) {
         if (is_array($structure)) {

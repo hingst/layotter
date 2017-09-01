@@ -82,7 +82,7 @@ class Options extends Editable {
 
         $field_groups = Adapter::get_filtered_field_groups($filters);
         $fields = [];
-        
+
         foreach ($field_groups as $field_group) {
             $fields = array_merge($fields, Adapter::get_fields($field_group));
         }

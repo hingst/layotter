@@ -91,7 +91,7 @@ class Core {
     }
 
     /**
-     * Upgrades the plugin on demand
+     * Upgrades the database on demand
      */
     public static function check_for_upgrade() {
         if (PluginMigrator::needs_upgrade()) {
@@ -117,12 +117,12 @@ class Core {
     public static function save_post($data, $raw_post) {
         $post_id = $raw_post['ID'];
 
-        if (!self::is_enabled_for_post($post_id) || !isset($raw_post[self::TEXTAREA_NAME])) {
+        if (!self::is_enabled_for_post($post_id) || !isset($raw_post[ self::TEXTAREA_NAME ])) {
             return $data;
         }
 
         // strip slashes that were added by Wordpress
-        $json = $raw_post[self::TEXTAREA_NAME];
+        $json = $raw_post[ self::TEXTAREA_NAME ];
         $unslashed_json = stripslashes_deep($json);
 
         // fetch search dump
@@ -155,12 +155,12 @@ class Core {
         }
 
         // fail if provided type identifier is invalid or already in use
-        if (!self::is_valid_type_identifier($type) || isset(self::$registered_element_types[$type])) {
+        if (!self::is_valid_type_identifier($type) || isset(self::$registered_element_types[ $type ])) {
             Errors::invalid_argument_not_recoverable('type');
         }
 
         // no errors, register the new element type
-        self::$registered_element_types[$type] = $class;
+        self::$registered_element_types[ $type ] = $class;
 
         // register element type's hooks for the backend (frontend hooks are registered on demand)
         call_user_func([$class, 'register_backend_hooks']);
@@ -180,15 +180,14 @@ class Core {
      *
      * @param string $type Element type
      * @return Element
-     * @throws \Exception If type is invalid
      */
     public static function assemble_new_element($type) {
-        if (!is_string($type) || !isset(self::$registered_element_types[$type])) {
+        if (!is_string($type) || !isset(self::$registered_element_types[ $type ])) {
             Errors::invalid_argument_not_recoverable('type');
         }
 
         /** @var $element Element */
-        $element = new self::$registered_element_types[$type]();
+        $element = new self::$registered_element_types[ $type ]();
         $element->set_type($type);
         return $element;
     }
@@ -199,7 +198,6 @@ class Core {
      * @param int $id Element ID
      * @param int $options_id Options ID
      * @return Element
-     * @throws \Exception If ID is invalid
      */
     public static function assemble_element($id, $options_id = 0) {
         if (!is_int($id) || !is_int($options_id)) {
@@ -208,12 +206,12 @@ class Core {
 
         $type = get_post_meta($id, Editable::META_FIELD_EDITABLE_TYPE, true);
 
-        if (!is_string($type) || !isset(self::$registered_element_types[$type])) {
+        if (!is_string($type) || !isset(self::$registered_element_types[ $type ])) {
             Errors::invalid_argument_not_recoverable('type');
         }
 
         /** @var $element Element */
-        $element = new self::$registered_element_types[$type]($id);
+        $element = new self::$registered_element_types[ $type ]($id);
         $element->set_options($options_id);
         return $element;
     }
