@@ -173,8 +173,8 @@ if (Adapter::is_pro_installed()) {
         'fields' => [
             [
                 'key' => 'field_5991f09c7e3a6',
-                'label' => 'options',
-                'name' => 'options',
+                'label' => 'option',
+                'name' => 'option',
                 'type' => 'text',
                 'default_value' => '',
                 'placeholder' => '',
@@ -209,6 +209,13 @@ if (Adapter::is_pro_installed()) {
                     'order_no' => 0,
                     'group_no' => 1,
                 ],
+                [
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'post',
+                    'order_no' => 1,
+                    'group_no' => 0,
+                ],
             ],
             [
                 [
@@ -217,6 +224,13 @@ if (Adapter::is_pro_installed()) {
                     'value' => 'col_options',
                     'order_no' => 0,
                     'group_no' => 2,
+                ],
+                [
+                    'param' => 'post_type',
+                    'operator' => '==',
+                    'value' => 'page',
+                    'order_no' => 1,
+                    'group_no' => 0,
                 ],
             ],
             [

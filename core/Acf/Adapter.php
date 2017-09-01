@@ -119,23 +119,35 @@ class Adapter {
      * @return array Filtered ACF field groups (array format varies between the free and Pro versions of ACF)
      */
     public static function get_filtered_field_groups($filters) {
-        if (self::is_pro_installed()) {
-            $field_groups = self::get_all_field_groups();
-            $filtered_field_groups = [];
+        $field_groups = self::get_all_field_groups();
+        $filtered_field_groups = [];
 
-            foreach ($field_groups as $field_group) {
-                foreach ($field_group['location'] as $group) {
-                    if (empty($group)) {
-                        continue;
-                    }
+        foreach ($field_groups as $field_group) {
+            if (!self::is_pro_installed()) {
+                $field_group['location'] = apply_filters('acf/field_group/get_location', [], $field_group['id']);
+            }
 
-                    // assume field group matches
-                    $match = true;
+            foreach ($field_group['location'] as $group) {
+                if (empty($group)) {
+                    continue;
+                }
 
-                    // field group should only match if it has a Layotter rule
-                    $found_layotter_rule = false;
+                // assume field group matches
+                $match = true;
 
-                    foreach ($group as $rule_id => $rule) {
+                // field group should only match if it has a Layotter rule
+                $found_layotter_rule = false;
+
+                if (is_array($group)) {
+                    foreach ($group as $rule) {
+                        if (!self::is_pro_installed()) {
+                            // Hack for ef_media => now post_type = attachment
+                            if ($rule['param'] == 'ef_media') {
+                                $rule['param'] = 'post_type';
+                                $rule['value'] = 'attachment';
+                            }
+                        }
+
                         if ($rule['param'] == 'layotter') {
                             $match = apply_filters('acf/location/rule_match/layotter', $match, $rule, $filters);
                             $found_layotter_rule = true;
@@ -159,11 +171,9 @@ class Adapter {
                     }
                 }
             }
-
-            return $filtered_field_groups;
-        } else {
-            return apply_filters('acf/location/match_field_groups', [], $filters);
         }
+
+        return $filtered_field_groups;
     }
 
     /**
