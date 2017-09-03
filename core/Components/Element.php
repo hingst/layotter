@@ -104,8 +104,6 @@ abstract class Element extends Editable implements \JsonSerializable {
      * @throws \Exception If $this->field_group wasn't assigned correctly in $this->attributes()
      */
     public function get_fields() {
-        // TODO: maybe clean fields to exclude stale fields?
-
         // ACF field group can be provided as post id (int) or slug ('group_xyz')
         if (!is_int($this->field_group) && !is_string($this->field_group)) {
             throw new \Exception('$this->field_group must be assigned in attributes() (error in class ' . get_called_class() . ')');
