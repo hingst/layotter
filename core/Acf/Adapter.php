@@ -307,7 +307,7 @@ class Adapter {
     }
 
     /**
-     * ID to be used in the <form> element
+     * Get ID to be used in the <form> element
      *
      * @return string Form ID
      */
@@ -317,6 +317,30 @@ class Adapter {
         } else {
             return 'post';
         }
+    }
+
+    /**
+     * Update a field's value
+     *
+     * @param string $field_name The field's name
+     * @param mixed $value New value, can be any type that ACF supports
+     * @param int $post_id Post ID
+     */
+    public static function update_field_value($field_name, $value, $post_id) {
+        // currently same implementation in ACF 4 and 5
+        update_field($field_name, $value, $post_id);
+    }
+
+    /**
+     * Get a field's value
+     *
+     * @param string $field_name The field's name
+     * @param int $post_id Post ID
+     * @return mixed Whatever ACF has saved for that field
+     */
+    public static function get_field_value($field_name, $post_id) {
+        // currently same implementation in ACF 4 and 5
+        return get_field($field_name, $post_id);
     }
 
 }

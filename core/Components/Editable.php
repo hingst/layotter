@@ -42,7 +42,12 @@ abstract class Editable {
      * @return array Values
      */
     public function get_values() {
-        return get_fields($this->id);
+        $values = [];
+        $fields = $this->get_fields();
+        foreach ($fields as $field) {
+            $values[ $field['name'] ] = Adapter::get_field_value($field['name'], $this->id);
+        }
+        return $values;
     }
 
     /**

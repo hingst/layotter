@@ -2,6 +2,7 @@
 
 namespace Layotter\Upgrades;
 
+use Layotter\Acf\Adapter;
 use Layotter\Components\Editable;
 
 class EditableMigrator {
@@ -41,7 +42,7 @@ class EditableMigrator {
 
             if (isset($this->values[ $field_name ])) {
                 $field['value'] = $this->values[ $field_name ];
-                update_field($field['key'], addslashes($field['value']), $id);
+                Adapter::update_field_value($field['key'], addslashes($field['value']), $id);
             }
         }
 

@@ -69,7 +69,7 @@ class AcfAdapterTest extends WP_UnitTestCase {
 
     function test_GenerateFormForExistingElement() {
         $post_id = self::factory()->post->create();
-        update_field('field_test', 'blah blah blah', $post_id);
+        Adapter::update_field_value('field_test', 'blah blah blah', $post_id);
         $field_group = Adapter::get_field_group_by_key('group_test');
         $fields = Adapter::get_fields($field_group);
         $html = Adapter::get_form_html($fields, $post_id);
