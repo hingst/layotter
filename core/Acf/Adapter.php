@@ -328,7 +328,7 @@ class Adapter {
      */
     public static function update_field_value($field_name, $value, $post_id) {
         // currently same implementation in ACF 4 and 5
-        update_field($field_name, $value, $post_id);
+        update_field($field_name, addslashes($value), $post_id);
     }
 
     /**
