@@ -178,7 +178,7 @@ add_action('wp_ajax_layotter_update_template', 'layotter_ajax_update_template');
 function layotter_ajax_update_template() {
     $post_data = stripslashes_deep($_POST); // strip Wordpress magic quotes
 
-    if (isset($post_data['template_id']) AND (int)$post_data['template_id'] !== 0) {
+    if (isset($post_data['template_id'])) {
         $id = $post_data['template_id'];
         $template = Layotter_Templates::get($id);
 

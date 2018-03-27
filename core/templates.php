@@ -21,8 +21,12 @@ class Layotter_Templates {
             $structure = array();
         }
 
-        if (!isset($structure['template_id']) OR !is_int($structure['template_id'])) {
+        if (!isset($structure['template_id']) OR (!is_int($structure['template_id']) AND !ctype_digit($structure['template_id']))) {
             $structure['template_id'] = -1;
+        }
+
+        if (is_string($structure['template_id']) AND ctype_digit($structure['template_id'])) {
+            $structure['template_id'] = (int) $structure['template_id'];
         }
 
         if (!isset($structure['type']) OR !is_string($structure['type'])) {
