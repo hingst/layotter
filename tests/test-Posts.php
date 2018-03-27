@@ -1,6 +1,7 @@
 <?php
 
 use \Layotter\Components\Post;
+use \Layotter\Upgrades\PluginMigrator;
 
 class PostsTest extends WP_UnitTestCase {
 
@@ -28,19 +29,21 @@ class PostsTest extends WP_UnitTestCase {
         parent::tearDown();
     }
 
+    function test_ModelVersion() {
+        new Post(self::$id);
+        $model_version = get_post_meta(self::$id, PluginMigrator::META_FIELD_MODEL_VERSION, true);
+        $this->assertEquals(PluginMigrator::CURRENT_MODEL_VERSION, $model_version);
+    }
+
     function test_ToArray() {
         $post = new Post(self::$id);
-        $model_version = get_post_meta(self::$id, \Layotter\Upgrades\PluginMigrator::META_FIELD_MODEL_VERSION, true);
         $this->assertRegExp(Layotter_Test_Data::EXPECTED_JSON_REGEX, json_encode($post));
-        $this->assertEquals(\Layotter\Upgrades\PluginMigrator::CURRENT_MODEL_VERSION, $model_version);
     }
 
     function test_FrontendView() {
         $post = new Post(self::$id);
         $actual = $post->get_frontend_view();
-        $model_version = get_post_meta(self::$id, \Layotter\Upgrades\PluginMigrator::META_FIELD_MODEL_VERSION, true);
         $this->assertEquals(Layotter_Test_Data::EXPECTED_VIEW, $actual);
-        $this->assertEquals(\Layotter\Upgrades\PluginMigrator::CURRENT_MODEL_VERSION, $model_version);
     }
 
     function test_AvailableElementTypes() {
