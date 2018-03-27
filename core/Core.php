@@ -154,8 +154,12 @@ class Core {
             Errors::invalid_argument_not_recoverable('class');
         }
 
-        // fail if provided type identifier is invalid or already in use
-        if (!self::is_valid_type_identifier($type) || isset(self::$registered_element_types[ $type ])) {
+        // We *should* fail if the provided type identifier is invalid, but for backwards compatibility
+        // we'll have to keep going (in older versions the identifier was simply stripped of invalid
+        // characters, so e.g. "type-name" would silently be cleaned to "typename" - all these elements
+        // from older Layotter versions would break if we changed the logic now)
+        $type = self::clean_type_identifier($type);
+        if (empty($type) || isset(self::$registered_element_types[ $type ])) {
             Errors::invalid_argument_not_recoverable('type');
         }
 
@@ -248,13 +252,17 @@ class Core {
     }
 
     /**
-     * Validate a type identifier
+     * Remove illegal characters from a type identifier
      *
-     * @param string $type Type identifier should only contain lowercase letters and underscores
-     * @return bool Clean type identifier
+     * @param string $type Dirty type identifier
+     * @return string Clean type identifier
      */
-    private static function is_valid_type_identifier($type) {
-        return (is_string($type) && preg_match('/^[a-z_]+$/', $type));
+    private static function clean_type_identifier($type) {
+        if (!is_string($type)) {
+            return '';
+        }
+
+        return preg_replace('/[^a-z_]/', '', $type);
     }
 
     /**
