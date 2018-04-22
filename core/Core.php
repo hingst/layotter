@@ -3,7 +3,6 @@
 namespace Layotter;
 
 use Layotter\Acf\Adapter;
-use Layotter\Components\Editable;
 use Layotter\Components\Element;
 use Layotter\Components\Options;
 use Layotter\Components\Post;
@@ -15,7 +14,54 @@ use Layotter\Views\Editor;
  */
 class Core {
 
+    /**
+     * The current model version
+     */
+    const CURRENT_MODEL_VERSION = '2.0.0';
+
+    /**
+     * Name of the meta field keeping an Editable's type
+     */
+    const META_FIELD_EDITABLE_TYPE = 'layotter_editable_type';
+
+    /**
+     * Name of the meta field that flags an element as a template
+     */
+    const META_FIELD_IS_TEMPLATE = 'layotter_is_template';
+
+    /**
+     * Name of the meta field keeping an Editable's JSON
+     */
     const META_FIELD_JSON = 'layotter_json';
+
+    /**
+     * Name of the meta field keeping an Editable's model version
+     */
+    const META_FIELD_MODEL_VERSION = 'layotter_model_version';
+
+    /**
+     * Name of the post type for Editables
+     */
+    const POST_TYPE_EDITABLE = 'layotter_editable';
+
+    /**
+     * Name of the post type for post layouts
+     */
+    const POST_TYPE_LAYOUT = 'layotter_post_layout';
+
+    /**
+     * Minimum required ACF version (if ACF free is installed)
+     */
+    const REQUIRED_ACF_VERSION = '4.4.11';
+
+    /**
+     * Minimum required ACF version (if ACF Pro is installed)
+     */
+    const REQUIRED_ACF_PRO_VERSION = '5.6.0';
+
+    /**
+     * Name of the textarea for a post's JSON
+     */
     const TEXTAREA_NAME = 'layotter_json';
 
     /**
@@ -24,22 +70,23 @@ class Core {
     private static $registered_element_types = [];
 
     /**
-     * Gets everything going
+     * Entry point that registers all required actions and filters
      */
     public static function init() {
         load_plugin_textdomain('layotter', false, basename(__DIR__) . '/languages/');
         Settings::init();
         self::aliases();
 
-        // continue only if ACF is available
         if (!Adapter::is_available()) {
             return;
         }
 
+        self::includes();
+
         add_action('admin_head', [__CLASS__, 'hook_editor']);
         add_filter('wp_post_revision_meta_keys', [__CLASS__, 'track_custom_field']);
         add_action('after_setup_theme', [__CLASS__, 'include_example_element']);
-        add_action('init', [__CLASS__, 'check_for_upgrade']);
+        add_action('init', [__CLASS__, 'upgrade_on_demand']);
         add_filter('wp_insert_post_data', [__CLASS__, 'save_post'], 999, 2);
 
         add_action('admin_enqueue_scripts', ['Layotter\Assets', 'backend']);
@@ -91,16 +138,20 @@ class Core {
     }
 
     /**
-     * Upgrades the database on demand
+     * Upgrades the database if necessary
      */
-    public static function check_for_upgrade() {
+    public static function upgrade_on_demand() {
         if (PluginMigrator::needs_upgrade()) {
             PluginMigrator::upgrade();
         }
     }
 
     /**
-     * Include example element if enabled in options
+     * Include example element
+     *
+     * Hook up the example element even if it is disabled in settings so that
+     * existing elements keep working. The element is simply hidden from the
+     * "Add Element" screen.
      */
     public static function include_example_element() {
         Example\FieldGroup::register();
@@ -132,7 +183,7 @@ class Core {
 
         // no addslashes() here because $json is still magic-quoted by Wordpress
         update_post_meta($post_id, Core::META_FIELD_JSON, $json);
-        update_post_meta($post_id, PluginMigrator::META_FIELD_MODEL_VERSION, PluginMigrator::CURRENT_MODEL_VERSION);
+        update_post_meta($post_id, self::META_FIELD_MODEL_VERSION, self::CURRENT_MODEL_VERSION);
 
         $data['post_content'] = $search_dump;
         return $data;
@@ -156,8 +207,7 @@ class Core {
 
         // We *should* fail if the provided type identifier is invalid, but for backwards compatibility
         // we'll have to keep going (in older versions the identifier was simply stripped of invalid
-        // characters, so e.g. "type-name" would silently be cleaned to "typename" - all these elements
-        // from older Layotter versions would break if we changed the logic now)
+        // characters, so all these elements from older versions would break if we changed the logic now)
         $type = self::clean_type_identifier($type);
         if (empty($type) || isset(self::$registered_element_types[ $type ])) {
             Errors::invalid_argument_not_recoverable('type');
@@ -208,7 +258,7 @@ class Core {
             Errors::invalid_argument_not_recoverable('id or options_id');
         }
 
-        $type = get_post_meta($id, Editable::META_FIELD_EDITABLE_TYPE, true);
+        $type = get_post_meta($id, self::META_FIELD_EDITABLE_TYPE, true);
 
         if (!is_string($type) || !isset(self::$registered_element_types[ $type ])) {
             Errors::invalid_argument_not_recoverable('type');
@@ -327,7 +377,7 @@ class Core {
         // remove TinyMCE
         remove_post_type_support($post_type, 'editor');
 
-        // insert layotter
+        // insert Layotter
         add_meta_box('layotter_wrapper', // ID
             'Layotter', // title
             [__CLASS__, 'output_editor'], // callback

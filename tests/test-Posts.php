@@ -1,7 +1,8 @@
 <?php
 
-use \Layotter\Components\Post;
-use \Layotter\Upgrades\PluginMigrator;
+use Layotter\Components\Post;
+use Layotter\Core;
+use Layotter\Upgrades\PluginMigrator;
 
 class PostsTest extends WP_UnitTestCase {
 
@@ -31,8 +32,8 @@ class PostsTest extends WP_UnitTestCase {
 
     function test_ModelVersion() {
         new Post(self::$id);
-        $model_version = get_post_meta(self::$id, PluginMigrator::META_FIELD_MODEL_VERSION, true);
-        $this->assertEquals(PluginMigrator::CURRENT_MODEL_VERSION, $model_version);
+        $model_version = get_post_meta(self::$id, Core::META_FIELD_MODEL_VERSION, true);
+        $this->assertEquals(Core::CURRENT_MODEL_VERSION, $model_version);
     }
 
     function test_ToArray() {

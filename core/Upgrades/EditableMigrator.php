@@ -3,7 +3,7 @@
 namespace Layotter\Upgrades;
 
 use Layotter\Acf\Adapter;
-use Layotter\Components\Editable;
+use Layotter\Core;
 
 class EditableMigrator {
 
@@ -25,9 +25,9 @@ class EditableMigrator {
 
     public function migrate() {
         $id = wp_insert_post([
-            'post_type' => Editable::POST_TYPE_EDITABLE,
+            'post_type' => Core::POST_TYPE_EDITABLE,
             'meta_input' => [
-                Editable::META_FIELD_EDITABLE_TYPE => $this->type
+                Core::META_FIELD_EDITABLE_TYPE => $this->type
             ],
             'post_status' => 'publish'
         ]);

@@ -1,7 +1,8 @@
 <?php
 
-use \Layotter\Components\Post;
-use \Layotter\Upgrades\LayoutMigrator;
+use Layotter\Components\Post;
+use Layotter\Core;
+use Layotter\Upgrades\LayoutMigrator;
 
 class LayoutMigrationTest extends WP_UnitTestCase {
 
@@ -25,8 +26,8 @@ class LayoutMigrationTest extends WP_UnitTestCase {
         $id = $layouts[0]->get_id();
         $actual = $layouts[0]->get_frontend_view();
 
-        $model_version = get_post_meta($id, \Layotter\Upgrades\PluginMigrator::META_FIELD_MODEL_VERSION, true);
+        $model_version = get_post_meta($id, Core::META_FIELD_MODEL_VERSION, true);
         $this->assertEquals(Layotter_Test_Data::EXPECTED_VIEW, $actual);
-        $this->assertEquals(\Layotter\Upgrades\PluginMigrator::CURRENT_MODEL_VERSION, $model_version);
+        $this->assertEquals(Core::CURRENT_MODEL_VERSION, $model_version);
     }
 }

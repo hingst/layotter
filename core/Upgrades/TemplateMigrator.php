@@ -7,16 +7,19 @@ use Layotter\Core;
 class TemplateMigrator {
 
     private $id;
-    private $options;
+    private $options = [];
 
     public function __construct($id, $options = []) {
-        $this->id = $id;
-        $this->options = $options;
+        $this->id = intval($id);
+
+        if (is_array($options)) {
+            $this->options = $options;
+        }
     }
 
     public function migrate() {
         $new_data = [
-            'id' => [],
+            'id' => 0,
             'options_id' => 0
         ];
 

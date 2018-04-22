@@ -1,7 +1,6 @@
 <?php
 
-use \Layotter\Components\Element;
-use \Layotter\Core;
+use Layotter\Core;
 
 class ElementsTest extends WP_UnitTestCase {
 
@@ -26,10 +25,10 @@ class ElementsTest extends WP_UnitTestCase {
 
         $element->set_template(true);
         $this->assertTrue($element->is_template());
-        $this->assertTrue((bool) get_post_meta($element->get_id(), Element::META_FIELD_IS_TEMPLATE, true));
+        $this->assertTrue((bool) get_post_meta($element->get_id(), Core::META_FIELD_IS_TEMPLATE, true));
 
         $element->set_template(false);
         $this->assertFalse($element->is_template());
-        $this->assertFalse((bool) get_post_meta($element->get_id(), Element::META_FIELD_IS_TEMPLATE, true));
+        $this->assertFalse((bool) get_post_meta($element->get_id(), Core::META_FIELD_IS_TEMPLATE, true));
     }
 }

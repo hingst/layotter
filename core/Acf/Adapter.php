@@ -2,13 +2,12 @@
 
 namespace Layotter\Acf;
 
+use Layotter\Core;
+
 /**
  * This abstraction layer makes it easier to adapt to new ACF versions
  */
 class Adapter {
-
-    const REQUIRED_VERSION = '4.4.11';
-    const REQUIRED_PRO_VERSION = '5.6.0';
 
     private static $error_message = '';
 
@@ -37,14 +36,14 @@ class Adapter {
      */
     public static function is_version_compatible() {
         if (self::is_pro_installed()) {
-            return (version_compare(acf_get_setting('version'), self::REQUIRED_PRO_VERSION) >= 0);
+            return (version_compare(acf_get_setting('version'), Core::REQUIRED_ACF_PRO_VERSION) >= 0);
         } else {
-            return (version_compare(acf()->get_info('version'), self::REQUIRED_VERSION) >= 0);
+            return (version_compare(acf()->get_info('version'), Core::REQUIRED_ACF_VERSION) >= 0);
         }
     }
 
     /**
-     * Write an error message if no compatible version of ACF is installed
+     * Check if a compatible version of ACF is installed and print an error message if not
      *
      * @return bool
      */
@@ -52,7 +51,7 @@ class Adapter {
         if (!self::is_installed()) {
             self::$error_message = sprintf(__('Layotter requires the <a href="%s" target="_blank">Advanced Custom Fields</a> plugin, please install it before using Layotter.', 'layotter'), 'http://www.advancedcustomfields.com');
         } else if (!self::is_version_compatible()) {
-            $required_version = self::is_pro_installed() ? self::REQUIRED_PRO_VERSION : self::REQUIRED_VERSION;
+            $required_version = self::is_pro_installed() ? Core::REQUIRED_ACF_PRO_VERSION : Core::REQUIRED_ACF_VERSION;
             self::$error_message = sprintf(__('Your version of Advanced Custom Fields is outdated. Please install version %s or higher to be able to use Layotter.', 'layotter'), $required_version);
         }
 
@@ -109,7 +108,11 @@ class Adapter {
      * @return string Field group name
      */
     public static function get_example_field_group_name() {
-        return self::is_pro_installed() ? 'group_5605a65191086' : 'acf_title';
+        if (self::is_pro_installed()) {
+            return 'group_5605a65191086';
+        } else {
+            return 'acf_title';
+        }
     }
 
     /**
@@ -294,7 +297,7 @@ class Adapter {
     }
 
     /**
-     * Nonce name that ACF validates when saving an element
+     * Get nonce name that ACF validates when saving an element
      *
      * @return string Nonce name
      */
@@ -327,7 +330,6 @@ class Adapter {
      * @param int $post_id Post ID
      */
     public static function update_field_value($field_name, $value, $post_id) {
-        // currently same implementation in ACF 4 and 5
         $new_value = is_string($value) ? addslashes($value) : $value;
         update_field($field_name, $new_value, $post_id);
     }
@@ -340,7 +342,6 @@ class Adapter {
      * @return mixed Whatever ACF has saved for that field
      */
     public static function get_field_value($field_name, $post_id) {
-        // currently same implementation in ACF 4 and 5
         return get_field($field_name, $post_id);
     }
 

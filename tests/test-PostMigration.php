@@ -1,6 +1,7 @@
 <?php
 
-use \Layotter\Components\Post;
+use Layotter\Components\Post;
+use Layotter\Core;
 
 class PostMigrationTest extends WP_UnitTestCase {
 
@@ -27,9 +28,9 @@ class PostMigrationTest extends WP_UnitTestCase {
 
         $post = new Post($id);
         $actual = $post->get_frontend_view();
-        $model_version = get_post_meta($id, \Layotter\Upgrades\PluginMigrator::META_FIELD_MODEL_VERSION, true);
+        $model_version = get_post_meta($id, Core::META_FIELD_MODEL_VERSION, true);
         $this->assertEquals(Layotter_Test_Data::EXPECTED_VIEW, $actual);
-        $this->assertEquals(\Layotter\Upgrades\PluginMigrator::CURRENT_MODEL_VERSION, $model_version);
+        $this->assertEquals(Core::CURRENT_MODEL_VERSION, $model_version);
     }
 
     function test_CanMigrateFromPost150Structure() {
@@ -45,9 +46,9 @@ class PostMigrationTest extends WP_UnitTestCase {
 
         $post = new Post($id);
         $actual = $post->get_frontend_view();
-        $model_version = get_post_meta($id, \Layotter\Upgrades\PluginMigrator::META_FIELD_MODEL_VERSION, true);
+        $model_version = get_post_meta($id, Core::META_FIELD_MODEL_VERSION, true);
         $this->assertEquals(Layotter_Test_Data::EXPECTED_VIEW, $actual);
-        $this->assertEquals(\Layotter\Upgrades\PluginMigrator::CURRENT_MODEL_VERSION, $model_version);
+        $this->assertEquals(Core::CURRENT_MODEL_VERSION, $model_version);
     }
 
     function test_CanMigrateFromRegularPost() {
@@ -56,9 +57,9 @@ class PostMigrationTest extends WP_UnitTestCase {
             'post_type' => 'page'
         ]);
         $post = new Post($id);
-        $model_version = get_post_meta($id, \Layotter\Upgrades\PluginMigrator::META_FIELD_MODEL_VERSION, true);
+        $model_version = get_post_meta($id, Core::META_FIELD_MODEL_VERSION, true);
         $this->assertRegExp(Layotter_Test_Data::EXPECTED_JSON_REGEX, json_encode($post));
-        $this->assertEquals(\Layotter\Upgrades\PluginMigrator::CURRENT_MODEL_VERSION, $model_version);
+        $this->assertEquals(Core::CURRENT_MODEL_VERSION, $model_version);
     }
 
     function test_CanMigrateFromEmptyPost() {
@@ -67,8 +68,8 @@ class PostMigrationTest extends WP_UnitTestCase {
             'post_type' => 'page'
         ]);
         $post = new Post($id);
-        $model_version = get_post_meta($id, \Layotter\Upgrades\PluginMigrator::META_FIELD_MODEL_VERSION, true);
+        $model_version = get_post_meta($id, Core::META_FIELD_MODEL_VERSION, true);
         $this->assertRegExp(Layotter_Test_Data::EXPECTED_EMPTY_JSON_REGEX, json_encode($post));
-        $this->assertEquals(\Layotter\Upgrades\PluginMigrator::CURRENT_MODEL_VERSION, $model_version);
+        $this->assertEquals(Core::CURRENT_MODEL_VERSION, $model_version);
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-use \Layotter\Ajax\Elements;
-use \Layotter\Components\Editable;
-use \Layotter\Structures\FormMeta;
+use Layotter\Ajax\Elements;
+use Layotter\Core;
+use Layotter\Structures\FormMeta;
 
 class AjaxTest extends WP_UnitTestCase {
 
@@ -12,9 +12,9 @@ class AjaxTest extends WP_UnitTestCase {
         parent::setUp();
 
         self::$test_element = self::factory()->post->create([
-            'post_type' => Editable::POST_TYPE_EDITABLE
+            'post_type' => Core::POST_TYPE_EDITABLE
         ]);
-        add_post_meta(self::$test_element, Editable::META_FIELD_EDITABLE_TYPE, 'layotter_example_element');
+        add_post_meta(self::$test_element, Core::META_FIELD_EDITABLE_TYPE, 'layotter_example_element');
     }
 
     function test_EditElement() {

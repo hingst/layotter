@@ -30,6 +30,7 @@ class Elements {
             return $element->get_form_meta();
         } else {
             Errors::invalid_argument_not_recoverable('layotter_id or layotter_type');
+            return null;
         }
     }
 
@@ -56,6 +57,7 @@ class Elements {
             return $element;
         } else {
             Errors::invalid_argument_not_recoverable('layotter_id or layotter_type');
+            return null;
         }
     }
 }

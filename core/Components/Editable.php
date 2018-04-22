@@ -3,6 +3,7 @@
 namespace Layotter\Components;
 
 use Layotter\Acf\Adapter;
+use Layotter\Core;
 use Layotter\Errors;
 use Layotter\Structures\FormMeta;
 
@@ -10,9 +11,6 @@ use Layotter\Structures\FormMeta;
  * Abstract class for editable components (options and elements)
  */
 abstract class Editable {
-
-    const META_FIELD_EDITABLE_TYPE = 'layotter_editable_type';
-    const POST_TYPE_EDITABLE = 'layotter_editable';
 
     /**
      * @var int Editable ID (e.g. post ID)
@@ -34,6 +32,11 @@ abstract class Editable {
      */
     protected $type;
 
+    /**
+     * Get ACF fields for this Editable
+     *
+     * @return array ACF fields
+     */
     abstract public function get_fields();
 
     /**
@@ -77,11 +80,22 @@ abstract class Editable {
      */
     public function save_from_post_data() {
         $this->id = wp_insert_post([
-            'post_type' => self::POST_TYPE_EDITABLE,
+            'post_type' => Core::POST_TYPE_EDITABLE,
             'meta_input' => [
-                self::META_FIELD_EDITABLE_TYPE => $this->type
+                Core::META_FIELD_EDITABLE_TYPE => $this->type
             ],
             'post_status' => 'publish'
+        ]);
+    }
+
+    /**
+     * Use wp_update_post to trigger ACF hooks that read $_POST and save custom fields
+     *
+     * This is only used for templates.
+     */
+    public function update_from_post_data() {
+        wp_update_post([
+            'ID' => $this->id
         ]);
     }
 

@@ -6,15 +6,17 @@ use Layotter\Core;
 
 class ElementMigrator {
 
-    private $old_data;
+    private $old_data = [];
 
     public function __construct($data) {
-        $this->old_data = $data;
+        if (is_array($data)) {
+            $this->old_data = $data;
+        }
     }
 
     public function migrate() {
         $new_data = [
-            'id' => [],
+            'id' => 0,
             'options_id' => 0
         ];
 

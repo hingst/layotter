@@ -1,6 +1,6 @@
 <?php
 
-use \Layotter\Acf\Adapter;
+use Layotter\Acf\Adapter;
 
 if (Adapter::is_pro_installed()) {
     acf_add_local_field_group([

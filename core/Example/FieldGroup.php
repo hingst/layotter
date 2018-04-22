@@ -18,6 +18,7 @@ class FieldGroup {
         $default_text = __("Welcome to the text editor! Write something, insert links or images, and click save when you're done.", 'layotter') . "\n\n" . __("By the way, Layotter isn't limited to text fields. You can create all kinds of content, like embedded Google maps, image galleries, file uploads, and much more!", 'layotter');
         $content_label = __('Content', 'layotter');
 
+        // hide example element if disabled in settings
         $location_rule = 'hidden';
         if (Settings::example_element_enabled()) {
             $location_rule = 'element';

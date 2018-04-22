@@ -26,6 +26,7 @@ class Templates {
             return $element;
         } else {
             Errors::invalid_argument_not_recoverable('layotter_id');
+            return null;
         }
     }
 
@@ -44,6 +45,7 @@ class Templates {
             return $element;
         } else {
             Errors::invalid_argument_not_recoverable('layotter_id');
+            return null;
         }
     }
 }

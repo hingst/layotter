@@ -1,6 +1,6 @@
 <?php
 
-use \Layotter\Components\Post;
+use Layotter\Components\Post;
 
 class TemplateMigrationTest extends WP_UnitTestCase {
 

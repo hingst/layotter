@@ -11,8 +11,6 @@ use Layotter\Upgrades\PluginMigrator;
  */
 class Layout extends Post implements \JsonSerializable {
 
-    const POST_TYPE_LAYOUTS = 'layotter_post_layout';
-
     /**
      * @var int Layout ID (e.g. post ID)
      */
@@ -41,10 +39,10 @@ class Layout extends Post implements \JsonSerializable {
         $name = (is_string($name) && !empty($name)) ? $name : __('Unnamed layout', 'layotter');
 
         $this->layout_id = wp_insert_post([
-            'post_type' => self::POST_TYPE_LAYOUTS,
+            'post_type' => Core::POST_TYPE_LAYOUT,
             'meta_input' => [
                 Core::META_FIELD_JSON => addslashes(json_encode(parent::jsonSerialize())),
-                PluginMigrator::META_FIELD_MODEL_VERSION => PluginMigrator::CURRENT_MODEL_VERSION
+                Core::META_FIELD_MODEL_VERSION => Core::CURRENT_MODEL_VERSION
             ],
             'post_status' => 'publish',
             'post_title' => $name
@@ -86,6 +84,11 @@ class Layout extends Post implements \JsonSerializable {
         ];
     }
 
+    /**
+     * Get this layout's ID
+     *
+     * @return int Post ID
+     */
     public function get_id() {
         return $this->layout_id;
     }

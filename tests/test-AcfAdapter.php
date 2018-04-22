@@ -1,6 +1,6 @@
 <?php
 
-use \Layotter\Acf\Adapter;
+use Layotter\Acf\Adapter;
 
 class AcfAdapterTest extends WP_UnitTestCase {
 

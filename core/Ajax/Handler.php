@@ -34,7 +34,7 @@ class Handler {
                 echo json_encode(Options::edit());
                 break;
             case 'save_options':
-                echo Options::save();
+                echo json_encode(Options::save());
                 break;
             case 'create_template':
                 echo json_encode(Templates::create());
@@ -54,6 +54,6 @@ class Handler {
      * @return bool
      */
     public static function is_positive_int($check) {
-        return (ctype_digit($check) && intval($check) !== 0);
+        return (ctype_digit($check) && intval($check) > 0);
     }
 }

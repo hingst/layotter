@@ -3,6 +3,7 @@
 namespace Layotter\Components;
 
 use Layotter\Acf\Adapter;
+use Layotter\Core;
 use Layotter\Errors;
 
 /**
@@ -29,7 +30,7 @@ class Options extends Editable {
         $this->icon = 'cog';
 
         if ($this->id !== 0) {
-            $this->set_type(get_post_meta($this->id, self::META_FIELD_EDITABLE_TYPE, true));
+            $this->set_type(get_post_meta($this->id, Core::META_FIELD_EDITABLE_TYPE, true));
         }
     }
 
@@ -49,6 +50,7 @@ class Options extends Editable {
             'col' => __('Column options', 'layotter'),
             'element' => __('Element options', 'layotter')
         ];
+
         $this->type = $type;
         $this->title = $titles[ $type ];
     }

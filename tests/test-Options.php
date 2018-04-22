@@ -1,7 +1,7 @@
 <?php
 
-use \Layotter\Components\Options;
-use \Layotter\Core;
+use Layotter\Components\Options;
+use Layotter\Core;
 
 class OptionsTest extends WP_UnitTestCase {
 

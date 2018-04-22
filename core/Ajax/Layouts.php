@@ -26,6 +26,7 @@ class Layouts {
             return $layout;
         } else {
             Errors::invalid_argument_not_recoverable('layotter_name or layotter_json');
+            return null;
         }
     }
 
@@ -43,6 +44,7 @@ class Layouts {
             return $layout;
         } else {
             Errors::invalid_argument_not_recoverable('layotter_id');
+            return null;
         }
     }
 
@@ -61,6 +63,7 @@ class Layouts {
             return $layout;
         } else {
             Errors::invalid_argument_not_recoverable('layotter_id or layotter_name');
+            return null;
         }
     }
 

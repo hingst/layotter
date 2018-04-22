@@ -12,7 +12,7 @@ use Layotter\Structures\FormMeta;
 class Options {
 
     /**
-     * Output the edit form for post, row, col or element options
+     * Output the edit form for post, row, column or element options
      *
      * @param array $data POST data
      * @return FormMeta Form meta data
@@ -37,6 +37,7 @@ class Options {
             return $options->get_form_meta();
         } else {
             Errors::invalid_argument_not_recoverable('layotter_options_id or layotter_type');
+            return null;
         }
     }
 
@@ -60,6 +61,7 @@ class Options {
             return $options->get_id();
         } else {
             Errors::invalid_argument_not_recoverable('layotter_options_id or layotter_type');
+            return null;
         }
     }
 }

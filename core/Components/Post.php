@@ -119,8 +119,8 @@ class Post implements \JsonSerializable {
      */
     public function get_available_templates() {
         $template_posts = get_posts([
-            'post_type' => Editable::POST_TYPE_EDITABLE,
-            'meta_key' => Element::META_FIELD_IS_TEMPLATE,
+            'post_type' => Core::POST_TYPE_EDITABLE,
+            'meta_key' => Core::META_FIELD_IS_TEMPLATE,
             'meta_value' => '1',
             'order' => 'ASC',
             'posts_per_page' => -1
@@ -140,7 +140,8 @@ class Post implements \JsonSerializable {
 
     /**
      * Get meta data of all element types enabled for this post
-     * For display in the "Add Element" modal
+     *
+     * For display in the "Add Element" modal.
      *
      * @return ElementTypeMeta[]
      */
@@ -161,6 +162,7 @@ class Post implements \JsonSerializable {
 
     /**
      * Helper used to sort a set of element types
+     *
      * Sorts using the order attribute. Elements with the same order attribute are sorted alphabetically.
      * Elements without an order attribute come last.
      *
@@ -190,7 +192,7 @@ class Post implements \JsonSerializable {
      */
     public function get_available_layouts() {
         $layout_posts = get_posts([
-            'post_type' => Layout::POST_TYPE_LAYOUTS,
+            'post_type' => Core::POST_TYPE_LAYOUT,
             'order' => 'ASC',
             'posts_per_page' => -1
         ]);

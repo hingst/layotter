@@ -7,6 +7,8 @@ use Layotter\Core;
 
 class PostMigrator {
 
+    const PRE_150_POST_CONTENT_REGEX = '/\[layotter\](.*)\[\/layotter\]/ms';
+
     private $id;
 
     public function __construct($id) {
@@ -18,8 +20,8 @@ class PostMigrator {
             return false;
         }
 
-        $model_version = get_post_meta($this->id, PluginMigrator::META_FIELD_MODEL_VERSION, true);
-        if (empty($model_version) || version_compare($model_version, PluginMigrator::CURRENT_MODEL_VERSION) < 0) {
+        $model_version = get_post_meta($this->id, Core::META_FIELD_MODEL_VERSION, true);
+        if (empty($model_version) || version_compare($model_version, Core::CURRENT_MODEL_VERSION) < 0) {
             return true;
         }
 
@@ -56,7 +58,7 @@ class PostMigrator {
             'post_content' => addslashes($search_dump),
             'meta_input' => [
                 Core::META_FIELD_JSON => addslashes($json),
-                PluginMigrator::META_FIELD_MODEL_VERSION => PluginMigrator::CURRENT_MODEL_VERSION
+                Core::META_FIELD_MODEL_VERSION => Core::CURRENT_MODEL_VERSION
             ]
         ]);
     }
@@ -82,45 +84,17 @@ class PostMigrator {
     }
 
     /**
-     * Check if post 1.5.0 data structure is present for this post
-     *
-     * i.e. if JSON is in a custom field instead of the post content
-     *
-     * @return bool
-     */
-    private function has_new_data_structure() {
-        $json = get_post_meta($this->id, 'layotter_json', true);
-        return !empty($json);
-    }
-
-    /**
-     * Check if pre 1.5.0 data structure is present for this post
-     *
-     * i.e. if JSON is stored directly in the post content
-     *
-     * @return bool
-     */
-    private function has_old_data_structure() {
-        $content_raw = get_post_field('post_content', $this->id);
-        if (preg_match('/\[layotter\](.*)\[\/layotter\]/ms', $content_raw)) {
-            return true;
-        } else {
-            return null;
-        }
-    }
-
-    /**
      * Get post JSON by post ID
      *
      * @return string|null JSON string containing post structure or null for new posts
      */
     private function get_json() {
-        if ($this->has_new_data_structure()) {
+        if ($this->has_post_150_data_structure()) {
             // if post 1.5.0 data structure is present, get JSON from custom field
             return get_post_meta($this->id, 'layotter_json', true);
-        } else if ($this->has_old_data_structure()) {
+        } else if ($this->has_pre_150_data_structure()) {
             // if pre 1.5.0 data structure is present, extract data from the post content
-            return $this->get_json_from_legacy_post_content();
+            return $this->get_json_from_pre_150_post_content();
         } else {
             // otherwise, we're dealing with a regular Wordpress post; let's convert the post content to a WYSIWYG element
             $rows = [];
@@ -156,6 +130,34 @@ class PostMigrator {
     }
 
     /**
+     * Check if post 1.5.0 data structure is present for this post
+     *
+     * i.e. if JSON is in a custom field instead of the post content
+     *
+     * @return bool
+     */
+    private function has_post_150_data_structure() {
+        $json = get_post_meta($this->id, 'layotter_json', true);
+        return !empty($json);
+    }
+
+    /**
+     * Check if pre 1.5.0 data structure is present for this post
+     *
+     * i.e. if JSON is stored directly in the post content
+     *
+     * @return bool
+     */
+    private function has_pre_150_data_structure() {
+        $content_raw = get_post_field('post_content', $this->id);
+        if (preg_match(self::PRE_150_POST_CONTENT_REGEX, $content_raw)) {
+            return true;
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Extract post JSON from post content for a post ID
      *
      * JSON used to be stored in the main content wrapped like this: [layotter]json[/layotter]
@@ -163,12 +165,12 @@ class PostMigrator {
      *
      * @return string|null JSON string containing post structure or null for new posts
      */
-    private function get_json_from_legacy_post_content() {
+    private function get_json_from_pre_150_post_content() {
         $content_raw = get_post_field('post_content', $this->id);
 
         // verify that the content is correctly formatted, unwrap from shortcode
         $matches = [];
-        if (preg_match('/\[layotter\](.*)\[\/layotter\]/ms', $content_raw, $matches)) {
+        if (preg_match(self::PRE_150_POST_CONTENT_REGEX, $content_raw, $matches)) {
             $content_json = $matches[1];
             return $content_json;
         } else {

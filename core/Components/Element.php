@@ -13,8 +13,6 @@ use Layotter\Structures\ElementTypeMeta;
  */
 abstract class Element extends Editable implements \JsonSerializable {
 
-    const META_FIELD_IS_TEMPLATE = 'layotter_is_template';
-
     /**
      * @var Options Element options
      */
@@ -86,8 +84,8 @@ abstract class Element extends Editable implements \JsonSerializable {
         $this->id = $id;
 
         if ($this->id !== 0) {
-            $this->set_type(get_post_meta($id, self::META_FIELD_EDITABLE_TYPE, true));
-            if (get_post_meta($id, self::META_FIELD_IS_TEMPLATE, true)) {
+            $this->set_type(get_post_meta($id, Core::META_FIELD_EDITABLE_TYPE, true));
+            if (get_post_meta($id, Core::META_FIELD_IS_TEMPLATE, true)) {
                 $this->is_template = true;
             }
         }
@@ -136,6 +134,7 @@ abstract class Element extends Editable implements \JsonSerializable {
 
     /**
      * Helper function for register_backend_hooks
+     *
      * To make Layotter::is_enabled() work, the check is delayed until admin_footer.
      * Without the check, assets would be included on every page in the backend.
      */
@@ -215,7 +214,7 @@ abstract class Element extends Editable implements \JsonSerializable {
         }
 
         $this->is_template = $bool;
-        update_post_meta($this->id, self::META_FIELD_IS_TEMPLATE, $bool);
+        update_post_meta($this->id, Core::META_FIELD_IS_TEMPLATE, $bool);
     }
 
     /**
@@ -249,6 +248,8 @@ abstract class Element extends Editable implements \JsonSerializable {
      */
     public function get_frontend_view($col_options, $row_options, $post_options, $col_width) {
         ob_start();
+
+        // provide more parameters than the function requires for backwards compatibility
         $this->frontend_view($this->get_values(), $col_width, $col_options, $row_options, $post_options);
         $element_html = ob_get_clean();
 
@@ -280,16 +281,6 @@ abstract class Element extends Editable implements \JsonSerializable {
         }
 
         $this->options = Core::assemble_options($id);
-    }
-
-    /**
-     * Use wp_update_post to trigger ACF hooks that read $_POST and save custom fields
-     * This is only used for templates.
-     */
-    public function update_from_post_data() {
-        wp_update_post([
-            'ID' => $this->id
-        ]);
     }
 
 }
