@@ -288,7 +288,7 @@ class Adapter {
             <?php
         } else {
             ?>
-            <div class="acf_postbox">
+            <div class="media-frame acf_postbox">
                 <input type="hidden" name="acf_nonce" value="{{ form.nonce }}">
                 <div class="inside" ng-bind-html="form.fields | rawHtml"></div>
             </div>

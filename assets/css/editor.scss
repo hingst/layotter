@@ -1209,6 +1209,12 @@ body > .select2-container {
     .acf-tab-wrap {
         padding-left: 10px;
     }
+
+    // workaround for category field making the form disappear
+    .media-frame {
+        position: static;
+        overflow: auto;
+    }
 }
 
 
