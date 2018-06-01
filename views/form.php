@@ -6,7 +6,7 @@
         $id = 'post';
     }
     ?>
-    <form action="" id="<?php echo $id; ?>">
+    <form class="media-frame" action="" id="<?php echo $id; ?>">
         <div class="layotter-modal-head">
             <div class="layotter-modal-head-icon">
                 <i class="fa fa-{{ form.icon }}"></i>

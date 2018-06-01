@@ -873,6 +873,9 @@ body > .select2-container {
   padding: 14px 9px; }
 .layotter-modal .acf-tab-wrap {
   padding-left: 10px; }
+.layotter-modal .media-frame {
+  position: static;
+  overflow: auto; }
 
 /****************************************************/
 /* settings */
