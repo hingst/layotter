@@ -10,7 +10,7 @@
 
 
 Plugin Name: Layotter
-Description: Add and arrange your content freely with an intuitive drag and drop interface!
+Description: Add and arrange your content freely with an intuitive drag and drop editor!
 Author: Dennis Hingst
 Version: 2.0.0
 Author URI: http://www.layotter.com/
