@@ -26,7 +26,8 @@ class Adapter {
      * @return bool
      */
     public static function is_pro_installed() {
-        return class_exists('acf_pro');
+        return class_exists('acf_pro')
+               || function_exists('acf_get_setting'); // ACF Free 5 early access
     }
 
     /**

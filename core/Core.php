@@ -52,12 +52,12 @@ class Core {
     /**
      * Minimum required ACF version (if ACF free is installed)
      */
-    const REQUIRED_ACF_VERSION = '4.4.11';
+    const REQUIRED_ACF_VERSION = '4.4.12';
 
     /**
      * Minimum required ACF version (if ACF Pro is installed)
      */
-    const REQUIRED_ACF_PRO_VERSION = '5.6.0';
+    const REQUIRED_ACF_PRO_VERSION = '5.6.10';
 
     /**
      * Name of the textarea for a post's JSON
