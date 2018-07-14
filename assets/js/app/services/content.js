@@ -109,6 +109,11 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
             } else {
                 history.pushStep(layotterData.i18n.history.edit_element);
             }
+
+            // ACF compatibility
+            if (layotterData.isACFPro) {
+                acf.validation.unlockForm();
+            }
         });
     };
 
@@ -156,6 +161,11 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
             editingItem.options = reply;
             editingItem.isLoading = undefined;
             history.pushStep(layotterData.i18n.history['edit_' + optionsType + '_options']);
+
+            // ACF compatibility
+            if (layotterData.isACFPro) {
+                acf.validation.unlockForm();
+            }
         });
     };
 

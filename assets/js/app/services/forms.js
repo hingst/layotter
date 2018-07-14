@@ -8,41 +8,43 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
     this.data = {}; // contains field data for the form that's currently being displayed
 
 
-    angular.element(document).on('submit', '#layotter-edit', function(){
-        // ACF compatibility
-        // ACF uses an ignore flag when the normal post form is submitted, so that the
-        // submit button triggers validation, not form submission. after validation has
-        // completed successfully, acf fires a click event on $trigger, thus actually
-        // submitting the form.
-        // set ignore to 0, otherwise validation will only be called the first time a
-        // form is submitted.
-        acf.validation.ignore = 0;
-        acf.validation.$trigger = jQuery('#layotter-edit-submit');
-
-        // prevent form changes while validation is running
-        jQuery(':focus').blur();
-        jQuery('.layotter-modal-loading-container').addClass('layotter-loading');
-        jQuery('.layotter-modal-foot button').prop('disabled', true);
-    });
-
-
-    angular.element(document).on('submit', '.layotter-modal #post', function(){
-        if (acf.validation.status) {
-            angular.element('#layotter-edit-submit').trigger('click');
-            return false;
+    angular.element(document).on('change', '.layotter-modal input, .layotter-modal textarea, .layotter-modal select', function(){
+        if (_this.listenForFieldChanges) {
+            _this.fieldsChanged = true;
         }
     });
 
 
-    // when validation is complete: if there was an error, remove loading spinner and show form.
-    // ACF 4 uses a simpler validation mechanism without AJAX, so this applies only to ACF 5 Pro
+    // talk to ACF for form validation and submit
     if (layotterData.isACFPro) {
-        acf.add_filter('validation_complete', function(json, $form) {
-            if ($form.prop('id') == 'layotter-edit' && typeof json !== 'undefined' && !json.result) {
-                jQuery('.layotter-modal-loading-container').removeClass('layotter-loading');
-                jQuery('.layotter-modal-foot button').prop('disabled', false);
+        // prevent form changes while validation is running
+        angular.element(document).on('submit', '#layotter-edit', function(event){
+            event.preventDefault();
+            jQuery(':focus').blur();
+            jQuery('.layotter-modal-loading-container').addClass('layotter-loading');
+            jQuery('.layotter-modal-foot button').prop('disabled', true);
+        });
+
+        // allow form changes after ACF validation is complete
+        acf.addFilter('validation_complete', function(validation) {
+            angular.element('.layotter-modal-loading-container').removeClass('layotter-loading');
+            angular.element('.layotter-modal-foot button').prop('disabled', false);
+            return validation;
+        });
+
+        // submit form after successful validation
+        acf.addAction('validation_success', function(e){
+            if (e[0].id === 'layotter-edit') {
+                angular.element('#layotter-edit-submit').trigger('click');
             }
-            return json;
+        });
+    } else {
+        // ACF 4 uses much simpler validation without AJAX
+        angular.element(document).on('submit', '.layotter-modal #post', function(){
+            if (acf.validation.status) {
+                angular.element('#layotter-edit-submit').trigger('click');
+                return false;
+            }
         });
     }
 
@@ -174,19 +176,7 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
         if (box.length) {
             box.children().fadeOut(300, function(){
                 angular.element(this).parent().remove();
-
-                // ACF compatibility
-                // unlock Wordpress save post form (remove loading spinner and enable form submit)
-                // ACF 4 uses a simpler validation mechanism without AJAX, so this applies only to ACF 5 Pro
-                if (layotterData.isACFPro) {
-                    acf.validation.toggle(jQuery('#layotter-form'), 'unlock');
-                }
             });
-
-            // ACF compatibility
-            // see create() for more info
-            acf.validation.$trigger = null;
-            acf.validation.ignore = 0;
         }
     }
     
