@@ -8,13 +8,6 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
     this.data = {}; // contains field data for the form that's currently being displayed
 
 
-    angular.element(document).on('change', '.layotter-modal input, .layotter-modal textarea, .layotter-modal select', function(){
-        if (_this.listenForFieldChanges) {
-            _this.fieldsChanged = true;
-        }
-    });
-
-
     // talk to ACF for form validation and submit
     if (layotterData.isACFPro) {
         // prevent form changes while validation is running
