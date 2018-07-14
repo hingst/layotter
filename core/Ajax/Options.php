@@ -21,11 +21,11 @@ class Options {
         $data = is_array($data) ? $data : $_POST;
         $post_type_context = null;
 
-        if (isset($data['layotter_post_id']) && Handler::is_positive_int($data['layotter_post_id'])) {
+        if (isset($data['layotter_post_id']) && Handler::is_valid_id($data['layotter_post_id'])) {
             $post_type_context = get_post_type($data['layotter_post_id']);
         }
 
-        if (isset($data['layotter_options_id']) && Handler::is_positive_int($data['layotter_options_id'])) {
+        if (isset($data['layotter_options_id']) && Handler::is_valid_id($data['layotter_options_id'])) {
             $id = intval($data['layotter_options_id']);
             $options = Core::assemble_options($id);
             $options->set_post_type_context($post_type_context);
@@ -50,7 +50,7 @@ class Options {
     public static function save($data = null) {
         $data = is_array($data) ? $data : $_POST;
 
-        if (isset($data['layotter_options_id']) && Handler::is_positive_int($data['layotter_options_id'])) {
+        if (isset($data['layotter_options_id']) && Handler::is_valid_id($data['layotter_options_id'])) {
             $id = intval($data['layotter_options_id']);
             $options = Core::assemble_options($id);
             $options->save_from_post_data();

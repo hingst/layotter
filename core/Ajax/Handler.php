@@ -53,7 +53,7 @@ class Handler {
      * @param $check string Value to check
      * @return bool
      */
-    public static function is_positive_int($check) {
+    public static function is_valid_id($check) {
         return (ctype_digit($check) && intval($check) > 0);
     }
 }

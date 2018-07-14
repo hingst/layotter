@@ -19,7 +19,7 @@ class Templates {
      */
     public static function create($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && Handler::is_positive_int($data['layotter_id'])) {
+        if (isset($data['layotter_id']) && Handler::is_valid_id($data['layotter_id'])) {
             $id = intval($data['layotter_id']);
             $element = Core::assemble_element($id);
             $element->set_template(true);
@@ -38,7 +38,7 @@ class Templates {
      */
     public static function delete($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && Handler::is_positive_int($data['layotter_id'])) {
+        if (isset($data['layotter_id']) && Handler::is_valid_id($data['layotter_id'])) {
             $id = intval($data['layotter_id']);
             $element = Core::assemble_element($id);
             $element->set_template(false);

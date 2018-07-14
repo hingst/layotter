@@ -18,7 +18,7 @@ class Layouts {
      */
     public static function create($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_name']) && is_string($data['layotter_name']) && isset($data['layotter_json']) && is_string($data['layotter_json'])) {
+        if (isset($data['layotter_name'], $data['layotter_json']) && is_string($data['layotter_name']) && is_string($data['layotter_json'])) {
             $json = stripslashes($data['layotter_json']);
             $layout = new Layout();
             $layout->set_json($json);
@@ -38,7 +38,7 @@ class Layouts {
      */
     public static function load($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && Handler::is_positive_int($data['layotter_id'])) {
+        if (isset($data['layotter_id']) && Handler::is_valid_id($data['layotter_id'])) {
             $id = intval($data['layotter_id']);
             $layout = new Layout($id);
             return $layout;
@@ -56,7 +56,7 @@ class Layouts {
      */
     public static function rename($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && Handler::is_positive_int($data['layotter_id']) && isset($data['layotter_name']) && is_string($data['layotter_name'])) {
+        if (isset($data['layotter_id'], $data['layotter_name']) && Handler::is_valid_id($data['layotter_id']) && is_string($data['layotter_name'])) {
             $id = intval($data['layotter_id']);
             $layout = new Layout($id);
             $layout->rename($data['layotter_name']);
@@ -74,7 +74,7 @@ class Layouts {
      */
     public static function delete($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && Handler::is_positive_int($data['layotter_id'])) {
+        if (isset($data['layotter_id']) && Handler::is_valid_id($data['layotter_id'])) {
             $id = intval($data['layotter_id']);
             $layout = new Layout($id);
             $layout->delete();

@@ -20,7 +20,7 @@ class Elements {
      */
     public static function edit($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && Handler::is_positive_int($data['layotter_id'])) {
+        if (isset($data['layotter_id']) && Handler::is_valid_id($data['layotter_id'])) {
             $id = intval($data['layotter_id']);
             $element = Core::assemble_element($id);
             return $element->get_form_meta();
@@ -42,7 +42,7 @@ class Elements {
      */
     public static function save($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && Handler::is_positive_int($data['layotter_id'])) {
+        if (isset($data['layotter_id']) && Handler::is_valid_id($data['layotter_id'])) {
             $id = intval($data['layotter_id']);
             $element = Core::assemble_element($id);
             if ($element->is_template()) {
