@@ -28,15 +28,17 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
         });
 
         // allow form changes after ACF validation is complete
-        acf.addFilter('validation_complete', function(validation) {
-            angular.element('.layotter-modal-loading-container').removeClass('layotter-loading');
-            angular.element('.layotter-modal-foot button').prop('disabled', false);
-            return validation;
+        acf.addFilter('validation_complete', function(json, $form) {
+            if ($form.prop('id') === 'layotter-edit') {
+                angular.element('.layotter-modal-loading-container').removeClass('layotter-loading');
+                angular.element('.layotter-modal-foot button').prop('disabled', false);
+            }
+            return json;
         });
 
         // submit form after successful validation
-        acf.addAction('validation_success', function(e){
-            if (e[0].id === 'layotter-edit') {
+        acf.addAction('validation_success', function(action){
+            if (action[0].id === 'layotter-edit') {
                 angular.element('#layotter-edit-submit').trigger('click');
             }
         });
