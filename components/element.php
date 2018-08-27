@@ -315,12 +315,14 @@ abstract class Layotter_Element extends Layotter_Editable {
      * @return string Frontend view HTML
      */
     final public function get_frontend_view($col_options, $row_options, $post_options, $col_width) {
+        $element_options = $this->options->get_formatted_values();
+
         ob_start();
-        $this->frontend_view($this->formatted_values, $col_width, $col_options, $row_options, $post_options);
+        $this->frontend_view($this->formatted_values, $col_width, $col_options, $row_options, $post_options, $element_options);
         $element_html = ob_get_clean();
 
         if (has_filter('layotter/view/element')) {
-            return apply_filters('layotter/view/element', $element_html, $this->options->get_formatted_values(), $col_options, $row_options, $post_options);
+            return apply_filters('layotter/view/element', $element_html, $element_options, $col_options, $row_options, $post_options);
         } else {
             $html_wrapper = Layotter_Settings::get_html_wrapper('elements');
             return $html_wrapper['before'] . $element_html . $html_wrapper['after'];
