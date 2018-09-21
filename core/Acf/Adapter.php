@@ -110,8 +110,6 @@ class Adapter {
         $filtered_field_groups = [];
 
         foreach ($field_groups as $field_group) {
-            $field_group['location'] = apply_filters('acf/field_group/get_location', [], $field_group['id']);
-
             foreach ($field_group['location'] as $group) {
                 if (empty($group)) {
                     continue;
