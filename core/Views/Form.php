@@ -15,7 +15,7 @@ class Form {
     public static function view() {
         ?>
         <div class="layotter-modal" ng-controller="ModalCtrl">
-            <form action="" id="<?php echo Adapter::get_form_id(); ?>">
+            <form action="" id="layotter-edit">
                 <div class="layotter-modal-head">
                     <div class="layotter-modal-head-icon">
                         <i class="fa fa-{{ form.icon }}"></i>

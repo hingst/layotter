@@ -50,14 +50,9 @@ class Core {
     const POST_TYPE_LAYOUT = 'layotter_post_layout';
 
     /**
-     * Minimum required ACF version (if ACF free is installed)
+     * Minimum required ACF version
      */
-    const REQUIRED_ACF_VERSION = '4.4.12';
-
-    /**
-     * Minimum required ACF version (if ACF Pro is installed)
-     */
-    const REQUIRED_ACF_PRO_VERSION = '5.6.10';
+    const REQUIRED_ACF_VERSION = '5.7.6';
 
     /**
      * Name of the textarea for a post's JSON

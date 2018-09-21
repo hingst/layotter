@@ -79,7 +79,6 @@ class Assets {
         // pass data to JS
         $data = [
             'postID' => get_the_ID(),
-            'isACFPro' => Adapter::is_pro_installed(),
             'contentStructure' => $layotter_post,
             'allowedRowLayouts' => Settings::get_allowed_row_layouts(),
             'defaultRowLayout' => Settings::get_default_row_layout(),

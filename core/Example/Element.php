@@ -16,7 +16,7 @@ class Element extends \Layotter\Components\Element {
         $this->title = __('Text editor', 'layotter');
         $this->description = __('An intuitive editor for text and pictures.', 'layotter');
         $this->icon = 'star';
-        $this->field_group = Adapter::get_example_field_group_name();
+        $this->field_group = Adapter::get_example_field_group_key();
     }
 
     /**

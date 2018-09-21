@@ -1168,7 +1168,6 @@ body > .select2-container {
     z-index: 100003 !important;
 }
 
-// ACF 5
 #layotter-edit {
     > .acf-temp-remove:first-child {
         height: auto !important; // prevent broken animation when closing error message
@@ -1189,31 +1188,6 @@ body > .select2-container {
 
     .acf-tab-group {
         padding-left: 12px;
-    }
-}
-
-// ACF 4
-.layotter-modal {
-    > .error { // form validation error
-        position: absolute;
-        top: 18px;
-        right: 18px;
-        z-index: 1;
-    }
-
-    .field.error {
-        margin: 0;
-        padding: 14px 9px;
-    }
-
-    .acf-tab-wrap {
-        padding-left: 10px;
-    }
-
-    // workaround for category field making the form disappear
-    .media-frame {
-        position: static;
-        overflow: auto;
     }
 }
 
