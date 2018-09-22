@@ -4,6 +4,9 @@ use Layotter\Components\Post;
 use Layotter\Core;
 use Layotter\Upgrades\LayoutMigrator;
 
+/**
+ * @group unit
+ */
 class LayoutMigrationTest extends WP_UnitTestCase {
 
     function test_CanMigrateLayout() {

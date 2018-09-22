@@ -1,26 +1,57 @@
 <?php
 
-$_tests_dir = getenv('WP_TESTS_DIR');
-if (!$_tests_dir) {
-    $_tests_dir = '/tmp/wordpress-tests-lib';
-}
-
-// Give access to tests_add_filter() function.
-require_once $_tests_dir . '/includes/functions.php';
-
 /**
- * Manually load the plugin being tested.
+ * Requirements for running this test suite:
+ *
+ * - the Wordpress unit testing framework installed locally
+ *   (see https://make.wordpress.org/cli/handbook/plugin-unit-tests/)
+ * - a running Wordpress instance with Layotter and ACF or ACF Pro (for Selenium tests)
+ * - a running Selenium server
+ * - ACF files somewhere in a local folder
+ * - PHP >= 5.4 installed locally
+ * - Composer installed locally
+ * - configuration in this file (see below)
+ *
+ * Running the test suite:
+ *
+ * - cd ./tests
+ * - composer install
+ * - cd ..
+ * - ./tests/vendor/bin/phpunit
  */
+
+// configuration for unit tests
+define('TESTS_ACF_PATH', dirname(dirname(dirname(__FILE__))) . '/advanced-custom-fields'); // path to ACF files
+define('TESTS_FRAMEWORK_PATH', '/tmp/wordpress-tests-lib'); // path to the testing framework
+
+// configuration for Selenium tests
+define('TESTS_WP_HOST', getenv('TESTS_WP_HOST')); // URL to Wordpress installation, e.g. http://wordpress.dev
+define('TESTS_WP_USER', getenv('TESTS_WP_USER')); // Wordpress admin user name
+define('TESTS_WP_PASSWORD', getenv('TESTS_WP_PASSWORD')); // Wordpress admin password
+define('TESTS_SE_HOST', getenv('TESTS_SE_HOST')); // URL to Selenium server, e.g. http://selenium.dev:4444
+define('TESTS_SE_BROWSER', getenv('TESTS_SE_BROWSER')); // Selenium browser engine, e.g. chrome
+
+// include Composer dependencies and WP testing framework
+$tests_dir = '/tmp/wordpress-tests-lib';
+require_once dirname(__FILE__) . '/vendor/autoload.php';
+require_once TESTS_FRAMEWORK_PATH . '/includes/functions.php';
+
+// initialize after plugins have been loaded
+tests_add_filter('muplugins_loaded', '_manually_load_plugin');
 function _manually_load_plugin() {
-    require dirname(dirname(dirname(__FILE__))) . '/advanced-custom-fields-pro/acf.php';
+
+    // include ACF
+    require TESTS_ACF_PATH . '/acf.php';
+
+    // include and initialize Layotter
     require dirname(dirname(__FILE__)) . '/index.php';
     \Layotter\Settings::set_defaults_on_activation();
-    require dirname(__FILE__) . '/helpers/field-group.php';
-    require dirname(__FILE__) . '/helpers/data.php';
-    require dirname(__FILE__) . '/helpers/filters.php';
+
+    // include helpers
+    require dirname(__FILE__) . '/include/field-groups.php';
+    require dirname(__FILE__) . '/include/data.php';
+    require dirname(__FILE__) . '/include/filters.php';
 }
 
-tests_add_filter('muplugins_loaded', '_manually_load_plugin');
-
-// Start up the WP testing environment.
-require $_tests_dir . '/includes/bootstrap.php';
+// start up the WP testing framework
+require TESTS_FRAMEWORK_PATH . '/includes/bootstrap.php';

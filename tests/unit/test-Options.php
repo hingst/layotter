@@ -3,6 +3,9 @@
 use Layotter\Components\Options;
 use Layotter\Core;
 
+/**
+ * @group unit
+ */
 class OptionsTest extends WP_UnitTestCase {
 
     function test_ElementOptions() {

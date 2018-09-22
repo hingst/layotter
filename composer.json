@@ -1,6 +1,6 @@
 {
     "name": "hingst/layotter",
-    "description": "Add and arrange your content freely with an intuitive drag and drop interface!",
+    "description": "Add and arrange your content freely with an intuitive drag and drop editor!",
     "type": "wordpress-plugin",
     "require": {
         "php": ">=5.4.0",
@@ -12,10 +12,6 @@
         {
             "name": "Dennis Hingst",
             "email": "dennis@layotter.com"
-        },
-        {
-            "name": "Ben Kremer",
-            "email": "ben@layotter.com"
         }
     ]
 }

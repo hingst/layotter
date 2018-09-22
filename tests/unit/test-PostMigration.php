@@ -3,6 +3,9 @@
 use Layotter\Components\Post;
 use Layotter\Core;
 
+/**
+ * @group unit
+ */
 class PostMigrationTest extends WP_UnitTestCase {
 
     public function setUp() {

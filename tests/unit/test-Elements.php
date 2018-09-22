@@ -2,6 +2,9 @@
 
 use Layotter\Core;
 
+/**
+ * @group unit
+ */
 class ElementsTest extends WP_UnitTestCase {
 
     function test_Fields() {

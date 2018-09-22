@@ -2,6 +2,9 @@
 
 use Layotter\Acf\Adapter;
 
+/**
+ * @group unit
+ */
 class AcfAdapterTest extends WP_UnitTestCase {
 
     function test_AcfIsAvailable() {

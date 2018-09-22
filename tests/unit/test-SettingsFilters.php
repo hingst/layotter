@@ -3,6 +3,9 @@
 use Layotter\Core;
 use Layotter\Settings;
 
+/**
+ * @group unit
+ */
 class SettingsFiltersTest extends WP_UnitTestCase {
 
     function test_DefaultSettingsSetup() {

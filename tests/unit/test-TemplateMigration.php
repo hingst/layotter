@@ -2,6 +2,9 @@
 
 use Layotter\Components\Post;
 
+/**
+ * @group unit
+ */
 class TemplateMigrationTest extends WP_UnitTestCase {
 
     function test_CanMigrateTemplate() {

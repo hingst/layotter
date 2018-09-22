@@ -2,8 +2,10 @@
 
 use Layotter\Components\Post;
 use Layotter\Core;
-use Layotter\Upgrades\PluginMigrator;
 
+/**
+ * @group unit
+ */
 class PostsTest extends WP_UnitTestCase {
 
     private static $id;

@@ -4,6 +4,9 @@ use Layotter\Ajax\Elements;
 use Layotter\Core;
 use Layotter\Structures\FormMeta;
 
+/**
+ * @group unit
+ */
 class AjaxTest extends WP_UnitTestCase {
 
     private static $test_element;
