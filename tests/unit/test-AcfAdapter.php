@@ -13,7 +13,7 @@ class AcfAdapterTest extends WP_UnitTestCase {
 
     function test_DefaultFieldGroupIsAvailable() {
         $field_groups = Adapter::get_all_field_groups();
-        $this->assertEquals(4, count($field_groups)); // example element + 3 unit test helper groups
+        $this->assertEquals(3, count($field_groups)); // example element + 2 unit test helper groups
     }
 
     function test_FieldGroupFilter() {
@@ -26,7 +26,7 @@ class AcfAdapterTest extends WP_UnitTestCase {
             'layotter' => 'element'
         ]);
         $this->assertEquals(0, count($expect_zero));
-        $this->assertEquals(3, count($expect_two)); // example element + 2 unit test helper groups
+        $this->assertEquals(2, count($expect_two)); // example element + unit test helper group
     }
 
     function test_FieldGroupVisible() {
