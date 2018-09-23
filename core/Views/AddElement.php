@@ -22,7 +22,7 @@ class AddElement {
                 </div>
             </div>
             <div class="layotter-modal-body">
-                <div ng-repeat="element in elementTypes" class="layotter-modal-add-element" ng-click="selectNewElementType(element.type)">
+                <div class="layotter-modal-add-element" ng-repeat="element in elementTypes" ng-click="selectNewElementType(element.type)">
                     <div class="layotter-modal-add-element-icon">
                         <i class="fa fa-{{ element.icon }}"></i>
                     </div>
