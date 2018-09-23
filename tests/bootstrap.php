@@ -21,15 +21,15 @@
  */
 
 // configuration for unit tests
-define('TESTS_ACF_PATH', dirname(dirname(dirname(__FILE__))) . '/advanced-custom-fields'); // path to ACF files
-define('TESTS_FRAMEWORK_PATH', '/tmp/wordpress-tests-lib'); // path to the testing framework
+define('TESTS_FRAMEWORK_PATH', getenv('TESTS_WP_FRAMEWORK_PATH')); // path to the testing framework
+define('TESTS_ACF_PATH', getenv('TESTS_ACF_PATH')); // path to ACF files
 
 // configuration for Selenium tests
 define('TESTS_WP_HOST', getenv('TESTS_WP_HOST')); // URL to Wordpress installation, e.g. http://wordpress.dev
 define('TESTS_WP_USER', getenv('TESTS_WP_USER')); // Wordpress admin user name
 define('TESTS_WP_PASSWORD', getenv('TESTS_WP_PASSWORD')); // Wordpress admin password
-define('TESTS_SE_HOST', getenv('TESTS_SE_HOST')); // URL to Selenium server, e.g. http://selenium.dev:4444
-define('TESTS_SE_BROWSER', getenv('TESTS_SE_BROWSER')); // Selenium browser engine, e.g. chrome
+define('TESTS_SELENIUM_HOST', getenv('TESTS_SELENIUM_HOST')); // URL to Selenium server, e.g. http://selenium.dev:4444
+define('TESTS_SELENIUM_BROWSER', getenv('TESTS_SELENIUM_BROWSER')); // Selenium browser engine, e.g. chrome
 
 // include Composer dependencies and WP testing framework
 $tests_dir = '/tmp/wordpress-tests-lib';

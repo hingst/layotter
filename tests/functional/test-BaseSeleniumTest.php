@@ -37,8 +37,8 @@ abstract class BaseSeleniumTest extends WP_UnitTestCase {
 
     public static function setUpBeforeClass() {
         self::$webdriver = RemoteWebDriver::create(
-            TESTS_SE_HOST . '/wd/hub',
-            array('browserName' => TESTS_SE_BROWSER)
+            TESTS_SELENIUM_HOST . '/wd/hub',
+            array('browserName' => TESTS_SELENIUM_BROWSER)
         );
 
         self::get('/');
