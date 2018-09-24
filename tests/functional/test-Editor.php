@@ -2,6 +2,7 @@
 
 /**
  * @group functional
+ * @group editor
  */
 class EditorTest extends BaseSeleniumTest {
 
@@ -222,7 +223,7 @@ class EditorTest extends BaseSeleniumTest {
     }
 
     public function test_FrontendView() {
-        self::select('#title')->sendKeys('My Page');
+        self::select('#title')->sendKeys('Editor Test Page');
         self::click('#publish');
         self::click('#sample-permalink');
 

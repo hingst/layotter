@@ -54,20 +54,20 @@ abstract class BaseSeleniumTest extends WP_UnitTestCase {
         self::$webdriver->quit();
     }
 
-    protected function mouseOver($selector) {
+    protected static function mouseOver($selector) {
         $move_to = self::select($selector)->getCoordinates();
         self::$webdriver->getMouse()->mouseMove($move_to);
 
         sleep(self::SLEEP_SHORT);
     }
 
-    protected function click($selector) {
+    protected static function click($selector) {
         self::select($selector)->click();
 
         sleep(self::SLEEP_MEDIUM);
     }
 
-    protected function dragAndDrop($element_selector, $to_selector) {
+    protected static function dragAndDrop($element_selector, $to_selector) {
         $element = self::select($element_selector);
         $to = self::select($to_selector);
 
