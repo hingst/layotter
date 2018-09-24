@@ -1,23 +1,8 @@
 <?php
 
 /**
- * Requirements for running this test suite:
- *
- * - the Wordpress unit testing framework installed locally
- *   (see https://make.wordpress.org/cli/handbook/plugin-unit-tests/)
- * - a running Wordpress instance with Layotter and ACF or ACF Pro (for Selenium tests)
- * - a running Selenium server
- * - ACF files somewhere in a local folder
- * - PHP >= 5.4 installed locally
- * - Composer installed locally
- * - configuration in this file (see below)
- *
- * Running the test suite:
- *
- * - cd ./tests
- * - composer install
- * - cd ..
- * - ./tests/vendor/bin/phpunit
+ * The easiest way to run this test suite is using the Layotter development
+ * environment from https://github.com/hingst/layotter-dev-env
  */
 
 // configuration for unit tests
