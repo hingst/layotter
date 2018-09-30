@@ -36,7 +36,7 @@ class EditableMigrator {
             $field_name = $field['name'];
 
             // quick fix for broken Repeater fields
-            if ($field['type'] == 'repeater' && is_array($this->values[ $field_name ])) {
+            if ($field['type'] == 'repeater' && isset($this->values[ $field_name ]) && is_array($this->values[ $field_name ])) {
                 $values[ $field_name ] = array_values($this->values[ $field_name ]);
             }
 
