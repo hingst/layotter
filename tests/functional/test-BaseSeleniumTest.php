@@ -50,7 +50,6 @@ abstract class BaseSeleniumTest extends WP_UnitTestCase {
     }
 
     public static function tearDownAfterClass() {
-        sleep(5);
         self::$webdriver->quit();
     }
 
