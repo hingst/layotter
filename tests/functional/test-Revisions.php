@@ -17,7 +17,7 @@ class RevisionsTest extends BaseSeleniumTest {
         // add element
         self::click('#layotter *[ng-click="showNewElementTypes(col.elements, -1)"]');
         self::click('#dennisbox .layotter-modal-add-element');
-        self::insertIntoTinyMce('Some test content.');
+        self::insertIntoTinyMce('#layotter-edit iframe', 'Some test content.');
         self::click('#layotter-edit button[type="submit"]');
 
         // publish page
@@ -28,7 +28,7 @@ class RevisionsTest extends BaseSeleniumTest {
         self::mouseOver('#layotter .layotter-col');
         self::click('#layotter *[ng-click="showNewElementTypes(col.elements, $index)"]');
         self::click('#dennisbox .layotter-modal-add-element');
-        self::insertIntoTinyMce('Some other test content.');
+        self::insertIntoTinyMce('#layotter-edit iframe', 'Some other test content.');
         self::click('#layotter-edit button[type="submit"]');
 
         // publish updated page

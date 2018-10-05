@@ -21,7 +21,7 @@ class EditorTest extends BaseSeleniumTest {
     public function test_AddElement() {
         self::click("#layotter .layotter-col-1 *[ng-click='showNewElementTypes(col.elements, -1)']");
         self::click('#dennisbox .layotter-modal-add-element');
-        self::insertIntoTinyMce('Some test content.');
+        self::insertIntoTinyMce('#layotter-edit iframe', 'Some test content.');
         self::click('#layotter-edit button[type="submit"]');
 
         $html = self::select('#layotter .layotter-example-element')->getAttribute('innerHTML');
@@ -100,7 +100,7 @@ class EditorTest extends BaseSeleniumTest {
     public function test_EditElement() {
         self::mouseOver('#layotter .layotter-element-1');
         self::click('#layotter .layotter-element-1 *[ng-click="editElement(element)"]');
-        self::insertIntoTinyMce('Some other test content.');
+        self::insertIntoTinyMce('#layotter-edit iframe', 'Some other test content.');
         self::click('#layotter-edit button[type="submit"]');
 
         $html = self::select('#layotter .layotter-element-1 .layotter-example-element')->getAttribute('innerHTML');
@@ -131,7 +131,7 @@ class EditorTest extends BaseSeleniumTest {
         self::mouseOver('#layotter-templates .layotter-element');
         self::click('#layotter-templates *[ng-click="editTemplate(element)"]');
         self::clickOk();
-        self::insertIntoTinyMce('Some template content.');
+        self::insertIntoTinyMce('#layotter-edit iframe', 'Some template content.');
         self::click('#layotter-edit button[type="submit"]');
 
         $template1_html = self::select('#layotter .layotter-col-0 .layotter-element-0 .layotter-example-element')->getAttribute('innerHTML');

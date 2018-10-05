@@ -77,8 +77,8 @@ abstract class BaseSeleniumTest extends WP_UnitTestCase {
         sleep(self::SLEEP_MEDIUM);
     }
 
-    protected static function insertIntoTinyMce($content) {
-        $frame = self::select('#layotter-edit iframe[id^="acf-editor-"]');
+    protected static function insertIntoTinyMce($selector, $content) {
+        $frame = self::select($selector);
         self::$webdriver->switchTo()->frame($frame);
         self::select('body')->clear()->sendKeys($content);
         self::$webdriver->switchTo()->defaultContent();
