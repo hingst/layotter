@@ -11,4 +11,7 @@
 			<directory prefix="test-" suffix=".php">./tests/</directory>
 		</testsuite>
 	</testsuites>
+	<php>
+		<const name="LAYOTTER_PHPUNIT_TESTING" value="true"/>
+	</php>
 </phpunit>

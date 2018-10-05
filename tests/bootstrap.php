@@ -5,6 +5,10 @@
  * environment from https://github.com/hingst/layotter-dev-env
  */
 
+if (!defined('LAYOTTER_PHPUNIT_TESTING')) {
+    return;
+}
+
 // configuration for unit tests
 define('TESTS_WP_PATH', getenv('TESTS_WP_PATH')); // path to Wordpress files
 
