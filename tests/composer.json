@@ -2,6 +2,7 @@
   "require-dev": {
     "php": ">=5.4.0",
     "phpunit/phpunit": "~6.5",
-    "facebook/webdriver": "~1.6"
+    "facebook/webdriver": "~1.6",
+    "lipemat/wp-unit": "~1.2"
   }
 }

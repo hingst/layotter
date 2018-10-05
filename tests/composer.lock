@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "61d4fdc279dd6954678176d255e80121",
+    "content-hash": "32a0ae923d527f0955f81078b5d66dd5",
     "packages": [],
     "packages-dev": [
         {
@@ -120,6 +120,34 @@
                 "webdriver"
             ],
             "time": "2018-05-16T17:37:13+00:00"
+        },
+        {
+            "name": "lipemat/wp-unit",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lipemat/wp-unit.git",
+                "reference": "5a21b7e0644a5a48d9ae92c5af909f2d1f96783a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lipemat/wp-unit/zipball/5a21b7e0644a5a48d9ae92c5af909f2d1f96783a",
+                "reference": "5a21b7e0644a5a48d9ae92c5af909f2d1f96783a",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "lipemat",
+                    "email": "mat@matlipe.com"
+                }
+            ],
+            "description": "Forked Wp-unit with support for testing against existing database and other environment enhancements",
+            "time": "2018-04-23T23:52:11+00:00"
         },
         {
             "name": "myclabs/deep-copy",
