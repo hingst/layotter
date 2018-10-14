@@ -10,7 +10,6 @@ if (!defined('LAYOTTER_PHPUNIT_TESTING')) {
 }
 
 // configuration for unit tests
-define('TESTS_UNIT_TESTING', true);
 define('TESTS_WP_PATH', getenv('TESTS_WP_PATH')); // path to Wordpress files
 
 // configuration for Selenium tests
