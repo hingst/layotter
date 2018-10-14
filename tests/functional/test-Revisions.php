@@ -1,5 +1,7 @@
 <?php
 
+use Layotter\Tests\Functional\BaseSeleniumTest;
+
 /**
  * @group functional
  * @group revisions
@@ -16,7 +18,7 @@ class RevisionsTest extends BaseSeleniumTest {
 
         // add element
         self::click('#layotter *[ng-click="showNewElementTypes(col.elements, -1)"]');
-        self::click('#dennisbox .layotter-modal-add-element');
+        self::click('#dennisbox .layotter-modal-add-element:nth-child(2)');
         self::insertIntoTinyMce('#layotter-edit iframe', 'Some test content.');
         self::click('#layotter-edit button[type="submit"]');
 
@@ -27,12 +29,18 @@ class RevisionsTest extends BaseSeleniumTest {
         // add another element
         self::mouseOver('#layotter .layotter-col');
         self::click('#layotter *[ng-click="showNewElementTypes(col.elements, $index)"]');
-        self::click('#dennisbox .layotter-modal-add-element');
+        self::click('#dennisbox .layotter-modal-add-element:nth-child(2)');
         self::insertIntoTinyMce('#layotter-edit iframe', 'Some other test content.');
         self::click('#layotter-edit button[type="submit"]');
 
         // publish updated page
         self::click('#publish');
+    }
+
+    public static function tearDownAfterClass() {
+        self::click('#delete-action .submitdelete');
+
+        parent::tearDownAfterClass();
     }
 
     public function test_RestoreRevision() {

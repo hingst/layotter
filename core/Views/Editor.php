@@ -71,7 +71,7 @@ class Editor {
                                     </div>
                                 </div>
                                 <div class="layotter-elements" ui-sortable="elementSortableOptions" ng-model="col.elements">
-                                    <div class="layotter-element layotter-element-{{$index}} layotter-animate" ng-repeat="element in col.elements" ng-class="{ 'layotter-loading' : element.isLoading, 'layotter-highlight' : element.isHighlighted }">
+                                    <div class="layotter-element layotter-element-{{$index}} layotter-animate" data-id="{{ element.id }}" ng-repeat="element in col.elements" ng-class="{ 'layotter-loading' : element.isLoading, 'layotter-highlight' : element.isHighlighted }">
                                         <div class="layotter-element-canvas">
                                             <div class="layotter-element-buttons">
                                                 <span class="layotter-element-button" ng-click="deleteElement(col.elements, $index)" title="<?php _e('Delete element', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>

@@ -3,6 +3,7 @@
 use Layotter\Ajax\Elements;
 use Layotter\Core;
 use Layotter\Structures\FormMeta;
+use Layotter\Tests\Unit\TestData;
 
 /**
  * @group unit
@@ -20,12 +21,12 @@ class AjaxTest extends WP_UnitTestCase {
         add_post_meta(self::$test_element, Core::META_FIELD_EDITABLE_TYPE, 'layotter_example_element');
     }
 
-    function test_EditElement() {
+    public function test_EditElement() {
         $data = [
             'layotter_id' => strval(self::$test_element)
         ];
         $element = Elements::edit($data);
         $this->assertTrue($element instanceof FormMeta);
-        $this->assertContains(Layotter_Test_Data::EXPECTED_TEXTAREA_FIRST_LINE, $element->get_fields());
+        $this->assertContains(TestData::EXPECTED_TEXTAREA_FIRST_LINE, $element->get_fields());
     }
 }

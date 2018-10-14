@@ -7,13 +7,13 @@ use Layotter\Core;
  */
 class ElementsTest extends WP_UnitTestCase {
 
-    function test_Fields() {
+    public function test_Fields() {
         $element = Core::assemble_new_element('layotter_example_element');
         $fields = $element->get_fields();
         $this->assertEquals('wysiwyg', $fields[0]['type']);
     }
 
-    function test_EnabledForPost() {
+    public function test_EnabledForPost() {
         $id = self::factory()->post->create([
             'post_type' => 'page'
         ]);
@@ -21,7 +21,7 @@ class ElementsTest extends WP_UnitTestCase {
         $this->assertTrue($element->is_enabled_for($id));
     }
 
-    function test_SetTemplate() {
+    public function test_SetTemplate() {
         $element = Core::assemble_new_element('layotter_example_element');
         $element->save_from_post_data();
         $this->assertFalse($element->is_template());

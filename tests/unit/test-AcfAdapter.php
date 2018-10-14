@@ -7,16 +7,16 @@ use Layotter\Acf\Adapter;
  */
 class AcfAdapterTest extends WP_UnitTestCase {
 
-    function test_AcfIsAvailable() {
+    public function test_AcfIsAvailable() {
         $this->assertTrue(Adapter::is_available());
     }
 
-    function test_DefaultFieldGroupIsAvailable() {
+    public function test_DefaultFieldGroupIsAvailable() {
         $field_groups = Adapter::get_all_field_groups();
         $this->assertEquals(3, count($field_groups)); // example element + 2 unit test helper groups
     }
 
-    function test_FieldGroupFilter() {
+    public function test_FieldGroupFilter() {
         $expect_zero = Adapter::get_filtered_field_groups([
             'post_type' => 'page',
             'layotter' => 'dummy'
@@ -29,7 +29,7 @@ class AcfAdapterTest extends WP_UnitTestCase {
         $this->assertEquals(2, count($expect_two)); // example element + unit test helper group
     }
 
-    function test_FieldGroupVisible() {
+    public function test_FieldGroupVisible() {
         $field_group = Adapter::get_field_group_by_key('group_test');
         $post_id = self::factory()->post->create([
             'post_type' => 'page'
@@ -42,7 +42,7 @@ class AcfAdapterTest extends WP_UnitTestCase {
         $this->assertTrue($expect_true);
     }
 
-    function test_FieldGroupNotVisible() {
+    public function test_FieldGroupNotVisible() {
         $field_group = Adapter::get_field_group_by_key('group_test');
         $post_id = self::factory()->post->create([
             'post_type' => 'post'
@@ -55,7 +55,7 @@ class AcfAdapterTest extends WP_UnitTestCase {
         $this->assertFalse($expect_false);
     }
 
-    function test_GetFieldsForGroup() {
+    public function test_GetFieldsForGroup() {
         $field_group = Adapter::get_field_group_by_key('group_test');
         $fields = Adapter::get_fields($field_group);
         $this->assertNotEmpty($fields);
@@ -63,14 +63,14 @@ class AcfAdapterTest extends WP_UnitTestCase {
         $this->assertEquals('field_test', $fields[0]['key']);
     }
 
-    function test_GenerateFormForNewElement() {
+    public function test_GenerateFormForNewElement() {
         $field_group = Adapter::get_field_group_by_key('group_test');
         $fields = Adapter::get_fields($field_group);
         $html = Adapter::get_form_html($fields);
         $this->assertContains('field_test', $html);
     }
 
-    function test_GenerateFormForExistingElement() {
+    public function test_GenerateFormForExistingElement() {
         $post_id = self::factory()->post->create();
         Adapter::update_field_value('field_test', 'blah blah blah', $post_id);
         $field_group = Adapter::get_field_group_by_key('group_test');
@@ -80,12 +80,12 @@ class AcfAdapterTest extends WP_UnitTestCase {
     }
 
     /*
-    function test_GetFieldGroupById() {
+    public function test_GetFieldGroupById() {
         // TODO
     }
     */
 
-    function test_GetFieldGroupByKey() {
+    public function test_GetFieldGroupByKey() {
         $group = Adapter::get_field_group_by_key('group_test');
         $this->assertNotEmpty($group);
     }

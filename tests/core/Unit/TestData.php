@@ -1,6 +1,11 @@
 <?php
 
-class Layotter_Test_Data {
+namespace Layotter\Tests\Unit;
+
+/**
+ * Contains test content used by unit tests
+ */
+class TestData {
 
     const POST_150_JSON = '{"options":{"option":"post option value"},"rows":[{"layout":"1/1","options":{"option":"row option value"},"cols":[{"options":{"option":"column option value"},"elements":[{"type":"layotter_example_element","values":{"content":"blah blah blah"},"options":{"option":"element option value"}}]}]}]}';
     const PRE_150_WRAPPED_JSON = '[layotter]' . self::POST_150_JSON . '[/layotter]';

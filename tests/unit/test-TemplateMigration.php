@@ -1,13 +1,14 @@
 <?php
 
 use Layotter\Components\Post;
+use Layotter\Tests\Unit\TestData;
 
 /**
  * @group unit
  */
 class TemplateMigrationTest extends WP_UnitTestCase {
 
-    function test_CanMigrateTemplate() {
+    public function test_CanMigrateTemplate() {
         update_option('layotter_element_templates', [
             [
                 'template_id' => 0,
@@ -22,7 +23,7 @@ class TemplateMigrationTest extends WP_UnitTestCase {
 
         $post_id = self::factory()->post->create([
             'meta_input' => [
-                'layotter_json' => Layotter_Test_Data::POST_150_TEMPLATE_JSON
+                'layotter_json' => TestData::POST_150_TEMPLATE_JSON
             ],
             'post_type' => 'page'
         ]);
@@ -30,6 +31,6 @@ class TemplateMigrationTest extends WP_UnitTestCase {
         $post = new Post($post_id);
         $actual = $post->get_frontend_view();
 
-        $this->assertEquals(Layotter_Test_Data::EXPECTED_VIEW, $actual);
+        $this->assertEquals(TestData::EXPECTED_VIEW, $actual);
     }
 }

@@ -8,7 +8,7 @@ use Layotter\Core;
  */
 class OptionsTest extends WP_UnitTestCase {
 
-    function test_ElementOptions() {
+    public function test_ElementOptions() {
         $options = Core::assemble_new_options('element');
 
         $this->assertTrue($options instanceof Options);
@@ -17,7 +17,7 @@ class OptionsTest extends WP_UnitTestCase {
         $this->assertEquals(1, count($options->get_values()));
     }
 
-    function test_ColumnOptions() {
+    public function test_ColumnOptions() {
         $options = Core::assemble_new_options('col');
 
         $this->assertTrue($options instanceof Options);
@@ -26,7 +26,7 @@ class OptionsTest extends WP_UnitTestCase {
         $this->assertEquals(1, count($options->get_values()));
     }
 
-    function test_RowOptions() {
+    public function test_RowOptions() {
         $options = Core::assemble_new_options('row');
 
         $this->assertTrue($options instanceof Options);
@@ -35,7 +35,7 @@ class OptionsTest extends WP_UnitTestCase {
         $this->assertEquals(1, count($options->get_values()));
     }
 
-    function test_PostOptions() {
+    public function test_PostOptions() {
         $options = Core::assemble_new_options('post');
 
         $this->assertTrue($options instanceof Options);
@@ -44,7 +44,7 @@ class OptionsTest extends WP_UnitTestCase {
         $this->assertEquals(1, count($options->get_values()));
     }
 
-    function test_PostTypeContext() {
+    public function test_PostTypeContext() {
         $options = Core::assemble_new_options('post');
         $options->set_post_type_context('post');
 

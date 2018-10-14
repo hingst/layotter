@@ -1,5 +1,7 @@
 <?php
 
+use Layotter\Tests\Functional\BaseSeleniumTest;
+
 /**
  * @group functional
  * @group editor
@@ -12,6 +14,12 @@ class EditorTest extends BaseSeleniumTest {
         self::get('/post-new.php?post_type=page');
     }
 
+    public static function tearDownAfterClass() {
+        self::click('#delete-action .submitdelete');
+
+        parent::tearDownAfterClass();
+    }
+
     public function test_CreateRow() {
         self::click('#layotter *[ng-click="addRow(-1)"]');
 
@@ -20,7 +28,7 @@ class EditorTest extends BaseSeleniumTest {
 
     public function test_AddElement() {
         self::click("#layotter .layotter-col-1 *[ng-click='showNewElementTypes(col.elements, -1)']");
-        self::click('#dennisbox .layotter-modal-add-element');
+        self::click('#dennisbox .layotter-modal-add-element:nth-child(2)');
         self::insertIntoTinyMce('#layotter-edit iframe', 'Some test content.');
         self::click('#layotter-edit button[type="submit"]');
 

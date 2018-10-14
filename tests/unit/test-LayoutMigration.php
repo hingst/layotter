@@ -2,6 +2,7 @@
 
 use Layotter\Components\Post;
 use Layotter\Core;
+use Layotter\Tests\Unit\TestData;
 use Layotter\Upgrades\LayoutMigrator;
 
 /**
@@ -9,12 +10,12 @@ use Layotter\Upgrades\LayoutMigrator;
  */
 class LayoutMigrationTest extends WP_UnitTestCase {
 
-    function test_CanMigrateLayout() {
+    public function test_CanMigrateLayout() {
         update_option('layotter_post_layouts', [
             [
                 'layout_id' => 0,
                 'name' => 'cheese',
-                'json' => Layotter_Test_Data::POST_150_JSON,
+                'json' => TestData::POST_150_JSON,
                 'time_created' => 1502645077,
             ],
         ]);
@@ -30,7 +31,7 @@ class LayoutMigrationTest extends WP_UnitTestCase {
         $actual = $layouts[0]->get_frontend_view();
 
         $model_version = get_post_meta($id, Core::META_FIELD_MODEL_VERSION, true);
-        $this->assertEquals(Layotter_Test_Data::EXPECTED_VIEW, $actual);
+        $this->assertEquals(TestData::EXPECTED_VIEW, $actual);
         $this->assertEquals(Core::CURRENT_MODEL_VERSION, $model_version);
     }
 }

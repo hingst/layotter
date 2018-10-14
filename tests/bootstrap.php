@@ -10,6 +10,7 @@ if (!defined('LAYOTTER_PHPUNIT_TESTING')) {
 }
 
 // configuration for unit tests
+define('TESTS_UNIT_TESTING', true);
 define('TESTS_WP_PATH', getenv('TESTS_WP_PATH')); // path to Wordpress files
 
 // configuration for Selenium tests
@@ -25,6 +26,9 @@ define('TESTS_WP_DB_HOST', getenv('TESTS_WP_DB_HOST'));
 define('TESTS_WP_DB_USER', getenv('TESTS_WP_DB_USER'));
 define('TESTS_WP_DB_PASSWORD', getenv('TESTS_WP_DB_PASSWORD'));
 
+// file name in wp-uploads directory
+define('TESTS_UPLOAD_FILE_NAME', getenv('TESTS_UPLOAD_FILE_NAME'));
+
 // include Composer dependencies and WP testing framework
 require dirname(__FILE__) . '/vendor/autoload.php';
 require dirname(__FILE__) . '/vendor/lipemat/wp-unit/includes/functions.php';
@@ -32,9 +36,8 @@ require dirname(__FILE__) . '/vendor/lipemat/wp-unit/includes/functions.php';
 // include unit test helpers
 tests_add_filter('init', 'layotter_unit_test_helpers');
 function layotter_unit_test_helpers() {
-    require dirname(__FILE__) . '/include/field-groups.php';
-    require dirname(__FILE__) . '/include/data.php';
-    require dirname(__FILE__) . '/include/filters.php';
+    \Layotter\Tests\Unit\FieldGroups::register();
+    \Layotter\Tests\Unit\ViewFilters::hooks();
 }
 
 // start up the WP testing framework

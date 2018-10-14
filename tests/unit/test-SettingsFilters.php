@@ -8,13 +8,13 @@ use Layotter\Settings;
  */
 class SettingsFiltersTest extends WP_UnitTestCase {
 
-    function test_DefaultSettingsSetup() {
+    public function test_DefaultSettingsSetup() {
         $settings = get_option('layotter_settings');
         $this->assertInternalType('array', $settings);
         $this->assertArrayHasKey('general', $settings);
     }
 
-    function test_EnabledPostTypesFilter() {
+    public function test_EnabledPostTypesFilter() {
         $this->assertContains('page', Settings::get_enabled_post_types());
 
         add_filter('layotter/enabled_post_types', '__return_empty_array');
@@ -25,7 +25,7 @@ class SettingsFiltersTest extends WP_UnitTestCase {
         $this->assertContains('page', Settings::get_enabled_post_types());
     }
 
-    function test_EnableByPostIdFilter() {
+    public function test_EnableByPostIdFilter() {
         $post_id = $GLOBALS['layotter_test_post_id'] = self::factory()->post->create([
             'post_type' => 'post'
         ]);
@@ -40,12 +40,12 @@ class SettingsFiltersTest extends WP_UnitTestCase {
         unset($GLOBALS['layotter_test_post_id']);
     }
 
-    function helper_enable_for_posts($ids) {
+    public function helper_enable_for_posts($ids) {
         $ids[] = $GLOBALS['layotter_test_post_id'];
         return $ids;
     }
 
-    function test_DisableByPostIdFilter() {
+    public function test_DisableByPostIdFilter() {
         $post_id = $GLOBALS['layotter_test_post_id'] = self::factory()->post->create([
             'post_type' => 'page'
         ]);
@@ -60,12 +60,12 @@ class SettingsFiltersTest extends WP_UnitTestCase {
         unset($GLOBALS['layotter_test_post_id']);
     }
 
-    function helper_disable_for_posts($ids) {
+    public function helper_disable_for_posts($ids) {
         $ids[] = $GLOBALS['layotter_test_post_id'];
         return $ids;
     }
 
-    function test_PostLayoutsFilter() {
+    public function test_PostLayoutsFilter() {
         $this->assertTrue(Settings::post_layouts_enabled());
 
         add_filter('layotter/enable_post_layouts', '__return_false');
@@ -76,7 +76,7 @@ class SettingsFiltersTest extends WP_UnitTestCase {
         $this->assertTrue(Settings::post_layouts_enabled());
     }
 
-    function test_ElementTemplatesFilter() {
+    public function test_ElementTemplatesFilter() {
         $this->assertTrue(Settings::element_templates_enabled());
 
         add_filter('layotter/enable_element_templates', '__return_false');
@@ -87,7 +87,7 @@ class SettingsFiltersTest extends WP_UnitTestCase {
         $this->assertTrue(Settings::element_templates_enabled());
     }
 
-    function test_DefaultCssFilter() {
+    public function test_DefaultCssFilter() {
         $this->assertTrue(Settings::default_css_enabled());
 
         add_filter('layotter/enable_default_css', '__return_false');
@@ -98,7 +98,7 @@ class SettingsFiltersTest extends WP_UnitTestCase {
         $this->assertTrue(Settings::default_css_enabled());
     }
 
-    function test_DefaultElementFilter() {
+    public function test_DefaultElementFilter() {
         $this->assertTrue(Settings::example_element_enabled());
 
         add_filter('layotter/enable_example_element', '__return_false');
@@ -109,7 +109,7 @@ class SettingsFiltersTest extends WP_UnitTestCase {
         $this->assertTrue(Settings::example_element_enabled());
     }
 
-    function test_DebugModeFilter() {
+    public function test_DebugModeFilter() {
         wp_set_current_user(1);
         $this->assertFalse(Settings::is_debug_mode_enabled());
 
@@ -122,11 +122,11 @@ class SettingsFiltersTest extends WP_UnitTestCase {
         $this->assertFalse(Settings::is_debug_mode_enabled());
     }
 
-    function helper_enable_debug_mode() {
+    public function helper_enable_debug_mode() {
         return ['administrator'];
     }
 
-    function test_AllowedRowLayoutsFilter() {
+    public function test_AllowedRowLayoutsFilter() {
         $this->assertEquals(5, count(Settings::get_allowed_row_layouts()));
 
         add_filter('layotter/rows/allowed_layouts', [$this, 'helper_add_row_layout']);
@@ -138,12 +138,12 @@ class SettingsFiltersTest extends WP_UnitTestCase {
         $this->assertEquals(5, count(Settings::get_allowed_row_layouts()));
     }
 
-    function helper_add_row_layout($layouts) {
+    public function helper_add_row_layout($layouts) {
         $layouts[] = '1/6 1/6 2/3';
         return $layouts;
     }
 
-    function test_DefaultRowLayoutFilter() {
+    public function test_DefaultRowLayoutFilter() {
         $this->assertEquals('1/3 1/3 1/3', Settings::get_default_row_layout());
 
         add_filter('layotter/rows/default_layout', [$this, 'helper_set_default_layout']);
@@ -154,11 +154,11 @@ class SettingsFiltersTest extends WP_UnitTestCase {
         $this->assertEquals('1/3 1/3 1/3', Settings::get_default_row_layout());
     }
 
-    function helper_set_default_layout() {
+    public function helper_set_default_layout() {
         return '1/2 1/2';
     }
 
-    function test_ColLayoutClassFilter() {
+    public function test_ColLayoutClassFilter() {
         $this->assertEquals('lo-col-size4of12', Settings::get_col_layout_class('1/3'));
 
         add_filter('layotter/columns/classes', [$this, 'helper_col_classes']);
@@ -169,12 +169,12 @@ class SettingsFiltersTest extends WP_UnitTestCase {
         $this->assertEquals('lo-col-size4of12', Settings::get_col_layout_class('1/3'));
     }
 
-    function helper_col_classes($classes) {
+    public function helper_col_classes($classes) {
         $classes['1/3'] = 'another-class';
         return $classes;
     }
 
-    function test_GetHtmlWrapper() {
+    public function test_GetHtmlWrapper() {
         $wrapper = Settings::get_html_wrapper('wrapper');
         $this->assertArrayHasKey('before', $wrapper);
         $this->assertEquals('<div class="lo-wrapper">', $wrapper['before']);
