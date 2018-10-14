@@ -43,7 +43,7 @@ class JqueryFieldsTest extends BaseSeleniumTest {
 
     public function test_FieldValues() {
         $this->assertEmpty(get_field('google_map', self::$id));
-        $this->assertEquals(date('Ymd'), get_field('date_picker', self::$id));
+        $this->assertEquals(date('Y-m-d'), get_field('date_picker', self::$id));
         $this->assertEquals(date('Y-m-d') . ' 00:00:00', get_field('date_time_picker', self::$id));
         $this->assertEquals('00:00:00', get_field('time_picker', self::$id));
         $this->assertEquals('#123456', get_field('color_picker', self::$id));
