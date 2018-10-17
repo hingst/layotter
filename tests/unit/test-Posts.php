@@ -53,8 +53,13 @@ class PostsTest extends WP_UnitTestCase {
     public function test_AvailableElementTypes() {
         $post = new Post(self::$id);
         $element_types = $post->get_available_element_types_meta();
-        $this->assertEquals(1, count($element_types));
-        $this->assertEquals('layotter_example_element', $element_types[0]->get_type());
+        $this->assertEquals(2, count($element_types));
+        $elements = [
+            $element_types[0]->get_type(),
+            $element_types[1]->get_type()
+        ];
+        $this->assertContains('layotter_example_element', $elements);
+        $this->assertContains('layotter_functional_test_element', $elements);
     }
 
     public function test_SearchDump() {

@@ -927,34 +927,6 @@ class FieldGroups {
                         'value' => 'element',
                     ),
                 ),
-                array(
-                    array(
-                        'param' => 'layotter',
-                        'operator' => '==',
-                        'value' => 'post_options',
-                    ),
-                ),
-                array(
-                    array(
-                        'param' => 'layotter',
-                        'operator' => '==',
-                        'value' => 'row_options',
-                    ),
-                ),
-                array(
-                    array(
-                        'param' => 'layotter',
-                        'operator' => '==',
-                        'value' => 'col_options',
-                    ),
-                ),
-                array(
-                    array(
-                        'param' => 'layotter',
-                        'operator' => '==',
-                        'value' => 'element_options',
-                    ),
-                ),
             ),
             'menu_order' => 0,
             'position' => 'normal',
