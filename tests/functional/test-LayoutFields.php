@@ -1,6 +1,6 @@
 <?php
 
-use Layotter\Tests\Functional\BaseSeleniumTest;
+use Layotter\Tests\BaseSeleniumTest;
 
 /**
  * @group functional

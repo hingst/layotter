@@ -32,13 +32,6 @@ define('TESTS_UPLOAD_FILE_NAME', getenv('TESTS_UPLOAD_FILE_NAME'));
 require dirname(__FILE__) . '/vendor/autoload.php';
 require dirname(__FILE__) . '/vendor/lipemat/wp-unit/includes/functions.php';
 
-// include unit test helpers
-tests_add_filter('init', 'layotter_unit_test_helpers');
-function layotter_unit_test_helpers() {
-    \Layotter\Tests\Unit\FieldGroups::register();
-    \Layotter\Tests\Unit\ViewFilters::hooks();
-}
-
 // start up the WP testing framework
 require dirname(__FILE__) . '/wp-tests-config.php';
 require dirname(__FILE__) . '/vendor/lipemat/wp-unit/includes/bootstrap-no-install.php';

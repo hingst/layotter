@@ -1,6 +1,6 @@
 <?php
 
-use Layotter\Tests\Functional\BaseSeleniumTest;
+use Layotter\Tests\BaseSeleniumTest;
 
 /**
  * @group functional
@@ -237,9 +237,10 @@ class EditorTest extends BaseSeleniumTest {
 
         $contents = self::selectMultiple('.layotter-example-element');
 
-        $this->assertEquals(1, self::countElements('.lo-row'));
-        $this->assertEquals(3, self::countElements('.lo-row *[class^="lo-col-"]'));
-        $this->assertEquals(3, self::countElements('.lo-element'));
+        $this->assertEquals(1, self::countElements('.layotter-test-post'));
+        $this->assertEquals(1, self::countElements('.layotter-test-row'));
+        $this->assertEquals(3, self::countElements('.layotter-test-column'));
+        $this->assertEquals(3, self::countElements('.layotter-test-element'));
         $this->assertContains('<p>Some template content.</p>', $contents[0]->getAttribute('innerHTML'));
         $this->assertContains('<p>Some template content.</p>', $contents[1]->getAttribute('innerHTML'));
         $this->assertContains('<p>Some other test content.</p>', $contents[2]->getAttribute('innerHTML'));

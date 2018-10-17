@@ -1,16 +1,16 @@
 <?php
 
-namespace Layotter\Tests\Unit;
+namespace Layotter\Tests;
 
 /**
- * Sets up view filters for unit tests
+ * Sets up view filters for tests
  */
 class ViewFilters {
 
     /**
      * Registers view filters
      */
-    public static function hooks() {
+    public static function register() {
         add_filter('layotter/view/element', [__CLASS__, 'element'], 10, 5);
         add_filter('layotter/view/column', [__CLASS__, 'column'], 10, 5);
         add_filter('layotter/view/row', [__CLASS__, 'row'], 10, 5);

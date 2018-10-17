@@ -1,9 +1,9 @@
 <?php
 
-namespace Layotter\Tests\Unit;
+namespace Layotter\Tests;
 
 /**
- * Contains test content used by unit tests
+ * Contains test content
  */
 class TestData {
 
@@ -16,4 +16,13 @@ class TestData {
     const EXPECTED_EMPTY_JSON_REGEX = '~\{"options_id"\:\d+,"rows"\:\[\]\}~';
     const EXPECTED_SEARCH_DUMP = 'post option value| row option value|post option value| column option value|row option value|post option value| element option value|column option value|row option value|post option value|  blah blah blah'; // TODO: get rid of double space
     const EXPECTED_TEXTAREA_FIRST_LINE = 'Welcome to the text editor! Write something, insert links or images, and click save when you\'re done.';
+
+    /**
+     * Must be hooked to 'init' to set up test data
+     */
+    public static function register() {
+        FieldGroups::register();
+        TestElement::register();
+        ViewFilters::register();
+    }
 }

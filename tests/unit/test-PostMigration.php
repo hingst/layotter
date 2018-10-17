@@ -2,7 +2,7 @@
 
 use Layotter\Components\Post;
 use Layotter\Core;
-use Layotter\Tests\Unit\TestData;
+use Layotter\Tests\TestData;
 
 /**
  * @group unit

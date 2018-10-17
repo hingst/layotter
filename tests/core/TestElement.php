@@ -1,9 +1,9 @@
 <?php
 
-namespace Layotter\Tests\Functional;
+namespace Layotter\Tests;
 
 /**
- * Test element for functional tests using all field types available in ACF Pro
+ * Test element using all field types available in ACF Pro
  */
 class TestElement extends \Layotter_Element {
 

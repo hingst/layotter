@@ -1,6 +1,6 @@
 <?php
 
-namespace Layotter\Tests\Functional;
+namespace Layotter\Tests;
 
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Remote\RemoteWebElement;
