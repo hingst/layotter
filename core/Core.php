@@ -52,7 +52,7 @@ class Core {
     /**
      * Minimum required ACF version
      */
-    const REQUIRED_ACF_VERSION = '5.7.6';
+    const REQUIRED_ACF_VERSION = '5.7.7';
 
     /**
      * Name of the textarea for a post's JSON
@@ -78,6 +78,8 @@ class Core {
 
         self::includes();
 
+        add_filter('use_block_editor_for_post_type', [__CLASS__, 'disable_gutenberg'], 10, 2);
+
         add_action('admin_head', [__CLASS__, 'hook_editor']);
         add_filter('wp_post_revision_meta_keys', [__CLASS__, 'track_custom_field']);
         add_action('after_setup_theme', [__CLASS__, 'include_example_element']);
@@ -98,6 +100,23 @@ class Core {
         add_shortcode('layotter', ['Layotter\Shortcode', 'register']);
         add_filter('the_content', ['Layotter\Shortcode', 'disable_wpautop'], 1);
         add_filter('no_texturize_shortcodes', ['Layotter\Shortcode', 'disable_wptexturize']);
+    }
+
+    /**
+     * Disables Wordpress 5 block editor for Layotter-enabled posts.
+     *
+     * @param bool $enabled Previous setting for the post type
+     * @param string $post_type The post type in question
+     * @return bool
+     */
+    public static function disable_gutenberg($enabled, $post_type) {
+        $layotter_post_types = Settings::get_enabled_post_types();
+
+        if (in_array($post_type, $layotter_post_types)) {
+            return false;
+        }
+
+        return $enabled;
     }
 
     /**
