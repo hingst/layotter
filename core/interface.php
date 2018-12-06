@@ -48,3 +48,22 @@ function layotter_output_interface($post) {
     
     require_once __DIR__ . '/../views/editor.php';
 }
+
+
+/**
+ * Disables Wordpress 5 block editor for Layotter-enabled posts.
+ *
+ * @param bool $enabled Previous setting for the post type
+ * @param string $post_type The post type in question
+ * @return bool
+ */
+add_filter('use_block_editor_for_post_type', 'layotter_disable_gutenberg', 10, 2);
+function layotter_disable_gutenberg($enabled, $post_type) {
+    $layotter_post_types = Layotter_Settings::get_enabled_post_types();
+
+    if (in_array($post_type, $layotter_post_types)) {
+        return false;
+    }
+
+    return $enabled;
+}

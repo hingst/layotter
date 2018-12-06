@@ -6,6 +6,10 @@
 add_action('admin_footer-post.php', 'layotter_views_admin_footer');
 add_action('admin_footer-post-new.php', 'layotter_views_admin_footer');
 function layotter_views_admin_footer() {
+    if (!Layotter::is_enabled()) {
+        return;
+    }
+    
     ?>
     <script type="text/ng-template" id="layotter-form">
         <?php
