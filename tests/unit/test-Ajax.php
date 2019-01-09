@@ -3,12 +3,13 @@
 use Layotter\Ajax\Elements;
 use Layotter\Core;
 use Layotter\Structures\FormMeta;
+use Layotter\Tests\BaseTest;
 use Layotter\Tests\TestData;
 
 /**
  * @group unit
  */
-class AjaxTest extends WP_UnitTestCase {
+class AjaxTest extends BaseTest {
 
     private static $test_element;
 

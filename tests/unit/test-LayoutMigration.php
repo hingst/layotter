@@ -2,13 +2,14 @@
 
 use Layotter\Components\Post;
 use Layotter\Core;
+use Layotter\Tests\BaseTest;
 use Layotter\Tests\TestData;
 use Layotter\Upgrades\LayoutMigrator;
 
 /**
  * @group unit
  */
-class LayoutMigrationTest extends WP_UnitTestCase {
+class LayoutMigrationTest extends BaseTest {
 
     public function test_CanMigrateLayout() {
         update_option('layotter_post_layouts', [

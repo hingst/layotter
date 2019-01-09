@@ -38,11 +38,11 @@ class ChoiceFieldsTest extends BaseSeleniumTest {
     }
 
     public function test_FieldValues() {
-        $this->assertEquals('2', get_field('select', self::$id));
-        $this->assertEquals('2', get_field('checkbox', self::$id)[0]);
-        $this->assertEquals('2', get_field('radio', self::$id));
-        $this->assertEquals('2', get_field('button_group', self::$id));
-        $this->assertEquals('1', get_field('boolean', self::$id));
+        $this->assertEquals(2, get_field('select', self::$id));
+        $this->assertEquals(2, get_field('checkbox', self::$id)[0]);
+        $this->assertEquals(2, get_field('radio', self::$id));
+        $this->assertEquals(2, get_field('button_group', self::$id));
+        $this->assertEquals(1, get_field('boolean', self::$id));
     }
 
     public function test_EditFields() {

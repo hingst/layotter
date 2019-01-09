@@ -1,11 +1,12 @@
 <?php
 
 use Layotter\Acf\Adapter;
+use Layotter\Tests\BaseTest;
 
 /**
  * @group unit
  */
-class AcfAdapterTest extends WP_UnitTestCase {
+class AcfAdapterTest extends BaseTest {
 
     public function test_AcfIsAvailable() {
         $this->assertTrue(Adapter::is_available());

@@ -11,31 +11,14 @@ class ContentFieldsTest extends BaseSeleniumTest {
 
     private static $id = 0;
 
-    private static $attachment_id;
-
     public static function setUpBeforeClass() {
         parent::setUpBeforeClass();
-
-        $upload_dir_info = wp_upload_dir();
-        $file_path = $upload_dir_info['basedir'] . '/' . TESTS_UPLOAD_FILE_NAME;
-        $file_info = wp_check_filetype(basename($file_path), null);
-
-        $attachment = [
-            'guid' => $upload_dir_info['url'] . '/' . basename($file_path),
-            'post_mime_type' => $file_info['type'],
-            'post_title' => 'Empty',
-            'post_content' => '',
-            'post_status' => 'publish'
-        ];
-
-        self::$attachment_id = wp_insert_attachment($attachment, $file_path);
-
+        self::upload_attachment();
         self::get('/post-new.php?post_type=page');
     }
 
     public static function tearDownAfterClass() {
-        wp_delete_attachment(self::$attachment_id);
-
+        self::delete_attachment();
         parent::tearDownAfterClass();
     }
 
@@ -70,7 +53,7 @@ class ContentFieldsTest extends BaseSeleniumTest {
         $this->assertStringEndsWith(TESTS_UPLOAD_FILE_NAME, get_field('file', self::$id));
         $this->assertContains('<p>Some test content.</p>', get_field('wysiwyg', self::$id));
         $this->assertContains('5bqpcIX2VDQ', get_field('oembed', self::$id));
-        $this->assertStringEndsWith(TESTS_UPLOAD_FILE_NAME, get_field('gallery', self::$id)[0]['url']);
+        $this->assertEquals(TESTS_UPLOAD_FILE_NAME, get_field('gallery', self::$id)[0]['filename']);
     }
 
     public function test_EditFields() {

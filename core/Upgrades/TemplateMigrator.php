@@ -42,7 +42,7 @@ class TemplateMigrator {
                 $new_data['id'] = $new_element->migrate();
 
                 $element = Core::assemble_element($new_data['id']);
-                if (!isset($old_data['deleted'])) { // TODO: I don't think that key is ever set..?!
+                if (!isset($old_data['deleted'])) {
                     $element->set_template(true);
                 }
 

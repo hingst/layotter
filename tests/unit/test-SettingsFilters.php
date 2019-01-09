@@ -2,11 +2,12 @@
 
 use Layotter\Core;
 use Layotter\Settings;
+use Layotter\Tests\BaseTest;
 
 /**
  * @group unit
  */
-class SettingsFiltersTest extends WP_UnitTestCase {
+class SettingsFiltersTest extends BaseTest {
 
     public function test_DefaultSettingsSetup() {
         $settings = get_option('layotter_settings');

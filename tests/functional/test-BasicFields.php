@@ -40,8 +40,8 @@ class BasicFieldsTest extends BaseSeleniumTest {
     public function test_FieldValues() {
         $this->assertEquals('text', get_field('text', self::$id));
         $this->assertEquals('textarea', get_field('textarea', self::$id));
-        $this->assertEquals('50', get_field('number', self::$id));
-        $this->assertEquals('50', get_field('range', self::$id));
+        $this->assertEquals(50, get_field('number', self::$id));
+        $this->assertEquals(50, get_field('range', self::$id));
         $this->assertEquals('email@example.com', get_field('email', self::$id));
         $this->assertEquals('http://example.com', get_field('url', self::$id));
         $this->assertEquals('password', get_field('password', self::$id));

@@ -9,7 +9,7 @@ use Facebook\WebDriver\WebDriverBy;
 /**
  * Base class for Selenium tests
  */
-abstract class BaseSeleniumTest extends \WP_UnitTestCase {
+abstract class BaseSeleniumTest extends BaseTest {
 
     /**
      * @var RemoteWebDriver
