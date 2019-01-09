@@ -78,7 +78,7 @@ class Core {
 
         self::includes();
 
-        add_filter('use_block_editor_for_post_type', [__CLASS__, 'disable_gutenberg'], 10, 2);
+        add_filter('use_block_editor_for_post', [__CLASS__, 'should_use_gutenberg_for_post'], 10, 2);
 
         add_action('admin_head', [__CLASS__, 'hook_editor']);
         add_filter('wp_post_revision_meta_keys', [__CLASS__, 'track_custom_field']);
@@ -103,19 +103,16 @@ class Core {
     }
 
     /**
-     * Disables Wordpress 5 block editor for Layotter-enabled posts.
+     * Checks if Wordpress 5 block editor should be used for a given post.
      *
-     * @param bool $enabled Previous setting for the post type
-     * @param string $post_type The post type in question
+     * @param bool $enabled Previous setting for the post
+     * @param \WP_Post $post The post in question
      * @return bool
      */
-    public static function disable_gutenberg($enabled, $post_type) {
-        $layotter_post_types = Settings::get_enabled_post_types();
-
-        if (in_array($post_type, $layotter_post_types)) {
+    public static function should_use_gutenberg_for_post($enabled, $post) {
+        if (Core::is_enabled_for_post($post->ID)) {
             return false;
         }
-
         return $enabled;
     }
 
