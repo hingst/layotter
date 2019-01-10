@@ -82,8 +82,9 @@ class PostMigrationTest extends BaseTest {
 
         $matches = [];
         preg_match(TestData::EXPECTED_ALL_FIELDS_JSON_REGEX, json_encode($post), $matches);
-        $this->assertEquals(2, count($matches));
+        $this->assertEquals(3, count($matches));
         $element_id = $matches[1];
+        $options_id = $matches[2];
 
         // basic fields
         $this->assertEquals('text', get_field('text', $element_id));
@@ -118,8 +119,8 @@ class PostMigrationTest extends BaseTest {
 
         // jquery fields
         $this->assertEmpty(get_field('google_map', $element_id));
-        $this->assertEquals(date('Y-m-d'), get_field('date_picker', $element_id));
-        $this->assertEquals(date('Y-m-d') . ' 00:00:00', get_field('date_time_picker', $element_id));
+        $this->assertEquals('2019-01-01', get_field('date_picker', $element_id));
+        $this->assertEquals('2019-01-01 00:00:00', get_field('date_time_picker', $element_id));
         $this->assertEquals('00:00:00', get_field('time_picker', $element_id));
         $this->assertEquals('#123456', get_field('color_picker', $element_id));
 
@@ -130,6 +131,9 @@ class PostMigrationTest extends BaseTest {
         $this->assertEquals('Hello world!', $repeater[0]['relationship'][0]->post_title);
         $this->assertContains('<p>wysiwyg</p>', $flexible_content[0]['wysiwyg']);
         $this->assertEquals('Hello world!', $flexible_content[0]['relationship'][0]->post_title);
+
+        // options
+        $this->assertEquals('option', get_field('option', $options_id));
     }
 
     public function test_CanMigrateFromRegularPost() {
