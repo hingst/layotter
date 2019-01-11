@@ -1,7 +1,7 @@
 /**
  * Keep track of what's currently being edited
  */
-app.service('state', function(forms){
+app.service('state', ['forms', function(forms){
 
 
     var _this = this;
@@ -77,4 +77,4 @@ app.service('state', function(forms){
         _this.showBackButton = bool;
     };
     
-});
+}]);

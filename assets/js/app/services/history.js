@@ -1,7 +1,7 @@
 /**
  * Keep track of what's edited and enable undo and redo
  */
-app.service('history', function($animate, $timeout, data) {
+app.service('history', ['$animate', '$timeout', 'data', function($animate, $timeout, data) {
     var _this = this;
     var steps = [];
     var currentStep = -1;
@@ -138,4 +138,4 @@ app.service('history', function($animate, $timeout, data) {
             }, 1);
         }
     };
-});
+}]);

@@ -1,8 +1,8 @@
 /**
  * Controller for all overlays
  */
-app.controller('ModalCtrl', function($scope, content, layouts, forms) {
+app.controller('ModalCtrl', ['$scope', 'content', 'layouts', 'forms', function($scope, content, layouts, forms) {
     angular.extend($scope, content, layouts);
     $scope.elementTypes = layotterData.elementTypes;
     $scope.form = forms.data;
-});
+}]);

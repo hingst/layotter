@@ -443,7 +443,7 @@ class Settings {
             if (has_filter('layotter/enabled_post_types')) {
                 ?>
                 <p class="layotter-settings-paragraph layotter-with-icon">
-                    <i class="fa fa-warning"></i>
+                    <i class="fa fa-exclamation-triangle"></i>
                     <?php
                     printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/enabled_post_types</code>');
                     ?>
@@ -512,7 +512,7 @@ class Settings {
             if (has_filter('layotter/enable_post_layouts')) {
                 ?>
                 <p class="layotter-settings-paragraph layotter-with-icon">
-                    <i class="fa fa-warning"></i>
+                    <i class="fa fa-exclamation-triangle"></i>
                     <?php
                     printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/enable_post_layouts</code>');
                     ?>
@@ -539,7 +539,7 @@ class Settings {
             if (has_filter('layotter/enable_element_templates')) {
                 ?>
                 <p class="layotter-settings-paragraph layotter-with-icon">
-                    <i class="fa fa-warning"></i>
+                    <i class="fa fa-exclamation-triangle"></i>
                     <?php
                     printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/enable_element_templates</code>');
                     ?>
@@ -566,7 +566,7 @@ class Settings {
             if (has_filter('layotter/enable_default_css')) {
                 ?>
                 <p class="layotter-settings-paragraph layotter-with-icon">
-                    <i class="fa fa-warning"></i>
+                    <i class="fa fa-exclamation-triangle"></i>
                     <?php
                     printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/enable_default_css</code>');
                     ?>
@@ -593,7 +593,7 @@ class Settings {
             if (has_filter('layotter/enable_example_element')) {
                 ?>
                 <p class="layotter-settings-paragraph layotter-with-icon">
-                    <i class="fa fa-warning"></i>
+                    <i class="fa fa-exclamation-triangle"></i>
                     <?php
                     printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/enable_example_element</code>');
                     ?>
@@ -643,12 +643,12 @@ class Settings {
                 if (has_filter('layotter/view/post')) {
                     $has_filter = true;
                     ?>
-                    <i class="fa fa-warning"></i>
+                    <i class="fa fa-exclamation-triangle"></i>
                     <?php
                     printf(__("These settings currently have no effect because they're overwritten by a %s filter used in your code.", 'layotter'), '<code>layotter/view/post</code>');
                 } else {
                     ?>
-                    <i class="fa fa-info"></i>
+                    <i class="fa fa-info-circle"></i>
                     <?php
                     printf(__('You can use <a href="%s" target="_blank">view filters</a> for way more flexibility.', 'layotter'), self::$docs_view_filters_link);
                 }
@@ -731,12 +731,12 @@ class Settings {
                 if (has_filter('layotter/view/row')) {
                     $has_filter = true;
                     ?>
-                    <i class="fa fa-warning"></i>
+                    <i class="fa fa-exclamation-triangle"></i>
                     <?php
                     printf(__("These settings currently have no effect because they're overwritten by a %s filter used in your code.", 'layotter'), '<code>layotter/view/row</code>');
                 } else {
                     ?>
-                    <i class="fa fa-info"></i>
+                    <i class="fa fa-info-circle"></i>
                     <?php
                     printf(__('You can use <a href="%s" target="_blank">view filters</a> for way more flexibility.', 'layotter'), self::$docs_view_filters_link);
                 }
@@ -799,12 +799,12 @@ class Settings {
                 <?php
                 if (has_filter('layotter/rows/allowed_layouts')) {
                     ?>
-                    <i class="fa fa-warning"></i>
+                    <i class="fa fa-exclamation-triangle"></i>
                     <?php
                     printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/allowed_layouts</code>');
                 } else {
                     ?>
-                    <i class="fa fa-info"></i>
+                    <i class="fa fa-info-circle"></i>
                     <?php
                     printf(__('You can create more complex layouts using <a href="%s" target="_blank">settings filters</a>.', 'layotter'), self::$docs_settings_filters_link);
                 }
@@ -850,7 +850,7 @@ class Settings {
             if (has_filter('layotter/rows/default_layout')) {
                 ?>
                 <p class="layotter-settings-paragraph layotter-with-icon">
-                    <i class="fa fa-warning"></i>
+                    <i class="fa fa-exclamation-triangle"></i>
                     <?php
                     printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/default_layout</code>');
                     ?>
@@ -902,12 +902,12 @@ class Settings {
                 if (has_filter('layotter/view/column')) {
                     $has_filter = true;
                     ?>
-                    <i class="fa fa-warning"></i>
+                    <i class="fa fa-exclamation-triangle"></i>
                     <?php
                     printf(__("These settings currently have no effect because they're overwritten by a %s filter used in your code.", 'layotter'), '<code>layotter/view/column</code>');
                 } else {
                     ?>
-                    <i class="fa fa-info"></i>
+                    <i class="fa fa-info-circle"></i>
                     <?php
                     printf(__('You can use <a href="%s" target="_blank">view filters</a> for way more flexibility.', 'layotter'), self::$docs_view_filters_link);
                 }
@@ -968,7 +968,7 @@ class Settings {
             if (has_filter('layotter/columns/classes')) {
                 ?>
                 <p class="layotter-settings-paragraph layotter-with-icon">
-                    <i class="fa fa-warning"></i>
+                    <i class="fa fa-exclamation-triangle"></i>
                     <?php
                     printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/columns/classes</code>');
                     ?>
@@ -1033,12 +1033,12 @@ class Settings {
                 if (has_filter('layotter/view/element')) {
                     $has_filter = true;
                     ?>
-                    <i class="fa fa-warning"></i>
+                    <i class="fa fa-exclamation-triangle"></i>
                     <?php
                     printf(__("These settings currently have no effect because they're overwritten by a %s filter used in your code.", 'layotter'), '<code>layotter/view/element</code>');
                 } else {
                     ?>
-                    <i class="fa fa-info"></i>
+                    <i class="fa fa-info-circle"></i>
                     <?php
                     printf(__('You can use <a href="%s" target="_blank">view filters</a> for way more flexibility.', 'layotter'), self::$docs_view_filters_link);
                 }
@@ -1122,7 +1122,7 @@ class Settings {
             if (has_filter('layotter/debug_mode_roles')) {
                 ?>
                 <p class="layotter-settings-paragraph layotter-with-icon">
-                    <i class="fa fa-warning"></i>
+                    <i class="fa fa-exclamation-triangle"></i>
                     <?php
                     printf(__("There's a %s filter in your code that might be modifying these settings.", 'layotter'), '<code>layotter/debug_mode_roles</code>');
                     ?>

@@ -26,8 +26,8 @@ class LoadLayout {
                     <div class="layotter-modal-load-layout" ng-click="selectSavedLayout(layout)">
                         <div class="layotter-modal-load-layout-header">
                             <h3>{{ layout.name }}</h3>
-                            <span class="layotter-layout-rename" ng-click="renameLayout($index, $event)" title="<?php _e('Rename layout', 'layotter'); ?>"><i class="fa fa-pencil"></i></span>
-                            <span class="layotter-layout-delete" ng-click="deleteLayout($index, $event)" title="<?php _e('Delete layout', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>
+                            <span class="layotter-layout-rename" ng-click="renameLayout($index, $event)" title="<?php _e('Rename layout', 'layotter'); ?>"><i class="fa fa-edit"></i></span>
+                            <span class="layotter-layout-delete" ng-click="deleteLayout($index, $event)" title="<?php _e('Delete layout', 'layotter'); ?>"><i class="fa fa-trash"></i></span>
                         </div>
                         <div class="layotter-modal-load-layout-info">
                             <?php printf(__('Created on %s', 'layotter'), "{{ layout.time_created * 1000 | date:'short' }}"); ?>

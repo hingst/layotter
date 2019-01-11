@@ -1,7 +1,7 @@
 /**
  * Provides methods for form overlay creation
  */
-app.service('forms', function($http, $compile, $rootScope, $timeout){
+app.service('forms', ['$http', '$compile', '$rootScope', '$timeout', function($http, $compile, $rootScope, $timeout){
 
 
     var _this = this;
@@ -179,4 +179,4 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
     }
     
     
-});
+}]);

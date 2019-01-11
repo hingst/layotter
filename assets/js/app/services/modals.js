@@ -1,7 +1,7 @@
 /**
  * Provides methos to create confirm() and alert() style modals
  */
-app.service('modals', function($compile, $rootScope, $timeout){
+app.service('modals', ['$compile', '$rootScope', '$timeout', function($compile, $rootScope, $timeout){
 
 
     // when enter is pressend in a prompt, submit the value
@@ -149,4 +149,4 @@ app.service('modals', function($compile, $rootScope, $timeout){
     }
     
     
-});
+}]);

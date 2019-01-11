@@ -1,7 +1,7 @@
 /**
  * Controller for the element templates sidebar
  */
-app.controller('TemplatesCtrl', function($scope, $animate, templates, $timeout, history) {
+app.controller('TemplatesCtrl', ['$scope', '$animate', 'templates', '$timeout', 'history', function($scope, $animate, templates, $timeout, history) {
     angular.extend($scope, templates);
 
 
@@ -42,4 +42,4 @@ app.controller('TemplatesCtrl', function($scope, $animate, templates, $timeout, 
             }
         }
     };
-});
+}]);

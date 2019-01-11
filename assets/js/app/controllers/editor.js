@@ -1,7 +1,7 @@
 /**
  * Controller for the main editor
  */
-app.controller('EditorCtrl', function($scope, $animate, data, content, templates, layouts, history) {
+app.controller('EditorCtrl', ['$scope', '$animate', 'data', 'content', 'templates', 'layouts', 'history', function($scope, $animate, data, content, templates, layouts, history) {
     angular.extend($scope, content, templates, layouts, history);
     $scope.data = data.contentStructure;
 
@@ -80,4 +80,4 @@ app.controller('EditorCtrl', function($scope, $animate, data, content, templates
             history.pushStep(layotterData.i18n.history.move_element);
         }
     };
-});
+}]);

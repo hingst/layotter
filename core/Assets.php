@@ -25,29 +25,16 @@ class Assets {
         }
 
         // styles
-        wp_enqueue_style('layotter', plugins_url('assets/css/editor.css', __DIR__));
+        wp_enqueue_style('layotter', plugins_url('assets/css/editor.min.css', __DIR__));
         wp_enqueue_style('layotter-font-awesome', plugins_url('assets/css/font-awesome.min.css', __DIR__));
 
         // scripts
-        // TODO: lol two years and I never minified
         $scripts = [
             'angular' => 'assets/js/vendor/angular.js',
             'angular-animate' => 'assets/js/vendor/angular-animate.js',
             'angular-sanitize' => 'assets/js/vendor/angular-sanitize.js',
             'angular-ui-sortable' => 'assets/js/vendor/angular-ui-sortable.js',
-            'layotter' => 'assets/js/app/app.js',
-            'layotter-controller-editor' => 'assets/js/app/controllers/editor.js',
-            'layotter-controller-templates' => 'assets/js/app/controllers/templates.js',
-            'layotter-controller-form' => 'assets/js/app/controllers/form.js',
-            'layotter-service-state' => 'assets/js/app/services/state.js',
-            'layotter-service-data' => 'assets/js/app/services/data.js',
-            'layotter-service-content' => 'assets/js/app/services/content.js',
-            'layotter-service-templates' => 'assets/js/app/services/templates.js',
-            'layotter-service-layouts' => 'assets/js/app/services/layouts.js',
-            'layotter-service-view' => 'assets/js/app/services/view.js',
-            'layotter-service-forms' => 'assets/js/app/services/forms.js',
-            'layotter-service-modals' => 'assets/js/app/services/modals.js',
-            'layotter-service-history' => 'assets/js/app/services/history.js'
+            'layotter' => 'assets/js/app.min.js',
         ];
         foreach ($scripts as $name => $path) {
             wp_enqueue_script($name, plugins_url($path, __DIR__));
@@ -152,7 +139,7 @@ class Assets {
      */
     public static function frontend() {
         if (!is_admin() && Settings::default_css_enabled()) {
-            wp_enqueue_style('layotter-frontend', plugins_url('assets/css/frontend.css', __DIR__));
+            wp_enqueue_style('layotter-frontend', plugins_url('assets/css/frontend.min.css', __DIR__));
         }
     }
 

@@ -52,7 +52,7 @@ app.animation('.layotter-animate', function() {
 /**
  * Show/hide saved elements sidebar
  */
-app.directive('toggleTemplates', function(view) {
+app.directive('toggleTemplates', ['view', function(view) {
     return {
         restrict: 'A',
         link: function (scope, element, attrs) {
@@ -61,7 +61,7 @@ app.directive('toggleTemplates', function(view) {
             });
         }
     };
-});
+}]);
 
 
 /**

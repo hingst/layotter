@@ -21,8 +21,8 @@ class Templates {
                 <div class="layotter-element layotter-element-{{$index}} layotter-animate" ng-repeat="element in savedTemplates" ng-mouseenter="highlightTemplate(element)" ng-mouseleave="unhighlightTemplate(element)" ng-class="{ 'layotter-loading' : element.isLoading }" ng-init="watchTemplate(element)">
                     <div class="layotter-element-canvas">
                         <div class="layotter-element-buttons">
-                            <span class="layotter-element-button" ng-click="deleteTemplate($index)" title="<?php _e('Delete template', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>
-                            <span class="layotter-element-button" ng-click="editTemplate(element)" title="<?php _e('Edit template', 'layotter'); ?>"><i class="fa fa-pencil"></i></span>
+                            <span class="layotter-element-button" ng-click="deleteTemplate($index)" title="<?php _e('Delete template', 'layotter'); ?>"><i class="fa fa-trash"></i></span>
+                            <span class="layotter-element-button" ng-click="editTemplate(element)" title="<?php _e('Edit template', 'layotter'); ?>"><i class="fa fa-edit"></i></span>
                         </div>
                         <div class="layotter-element-content" ng-bind-html="element.view"></div>
                     </div>

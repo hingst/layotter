@@ -1,7 +1,7 @@
 /**
  * All things related to post layouts
  */
-app.service('layouts', function($rootScope, $http, $animate, $timeout, data, forms, modals, state, history){
+app.service('layouts', ['$rootScope', '$http', '$animate', '$timeout', 'data', 'forms', 'modals', 'state', 'history', function($rootScope, $http, $animate, $timeout, data, forms, modals, state, history){
     
 
     var _this = this;
@@ -164,4 +164,4 @@ app.service('layouts', function($rootScope, $http, $animate, $timeout, data, for
         });
     };
     
-});
+}]);

@@ -20,7 +20,7 @@ class Editor {
                 <div class="layotter-top-buttons-left">
                     <span class="layotter-button" ng-click="editOptions('post', data)" ng-show="optionsEnabled.post"><i class="fa fa-cog"></i><?php _e('Options', 'layotter'); ?></span>
                     <span class="layotter-button layotter-undo" ng-click="undoStep()" ng-class="{ 'layotter-disabled' : !history.canUndo }" title="{{ history.undoTitle }}"><i class="fa fa-undo"></i></span>
-                    <span class="layotter-button layotter-redo" ng-click="redoStep()" ng-class="{ 'layotter-disabled' : !history.canRedo }" title="{{ history.redoTitle }}"><i class="fa fa-repeat"></i></span>
+                    <span class="layotter-button layotter-redo" ng-click="redoStep()" ng-class="{ 'layotter-disabled' : !history.canRedo }" title="{{ history.redoTitle }}"><i class="fa fa-redo"></i></span>
                     <div class="layotter-save-layout-button-wrapper" ng-if="enablePostLayouts">
                         <span class="layotter-button" ng-click="saveNewLayout()"><i class="fa fa-download"></i><?php _e('Save layout', 'layotter'); ?></span>
                     </div>
@@ -47,11 +47,11 @@ class Editor {
                 <div class="layotter-row layotter-row-{{$index}} layotter-animate" ng-repeat="row in data.rows" ng-class="{ 'layotter-loading' : row.isLoading }">
                     <div class="layotter-row-canvas">
                         <div class="layotter-row-move">
-                            <i class="fa fa-arrows-v"></i><?php _e('Move row', 'layotter'); ?>
+                            <i class="fa fa-arrows-alt-v"></i><?php _e('Move row', 'layotter'); ?>
                         </div>
                         <div class="layotter-row-buttons">
-                            <span ng-click="deleteRow($index)" title="<?php _e('Delete row', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>
-                            <span ng-click="duplicateRow($index)" title="<?php _e('Duplicate row', 'layotter'); ?>"><i class="fa fa-files-o"></i></span>
+                            <span ng-click="deleteRow($index)" title="<?php _e('Delete row', 'layotter'); ?>"><i class="fa fa-trash"></i></span>
+                            <span ng-click="duplicateRow($index)" title="<?php _e('Duplicate row', 'layotter'); ?>"><i class="fa fa-copy"></i></span>
                             <span ng-click="editOptions('row', row)" ng-show="optionsEnabled.row" title="<?php _e('Row options', 'layotter'); ?>"><i class="fa fa-cog"></i></span>
                             <div class="layotter-row-select-layout" ng-if="allowedRowLayouts.length > 1">
                                 <i class="fa fa-columns"></i>
@@ -74,13 +74,13 @@ class Editor {
                                     <div class="layotter-element layotter-element-{{$index}} layotter-animate" data-id="{{ element.id }}" ng-repeat="element in col.elements" ng-class="{ 'layotter-loading' : element.isLoading, 'layotter-highlight' : element.isHighlighted }">
                                         <div class="layotter-element-canvas">
                                             <div class="layotter-element-buttons">
-                                                <span class="layotter-element-button" ng-click="deleteElement(col.elements, $index)" title="<?php _e('Delete element', 'layotter'); ?>"><i class="fa fa-trash-o"></i></span>
-                                                <span class="layotter-element-button" ng-hide="element.is_template && !element.template_deleted" ng-click="editElement(element)" title="<?php _e('Edit element', 'layotter'); ?>"><i class="fa fa-pencil"></i></span>
+                                                <span class="layotter-element-button" ng-click="deleteElement(col.elements, $index)" title="<?php _e('Delete element', 'layotter'); ?>"><i class="fa fa-trash"></i></span>
+                                                <span class="layotter-element-button" ng-hide="element.is_template && !element.template_deleted" ng-click="editElement(element)" title="<?php _e('Edit element', 'layotter'); ?>"><i class="fa fa-edit"></i></span>
                                                 <div class="layotter-element-dropdown">
                                                     <i class="fa fa-caret-down"></i>
                                                     <div class="layotter-element-dropdown-items">
                                                         <span ng-click="editOptions('element', element)" ng-show="optionsEnabled.element"><i class="fa fa-cog"></i><?php _e('Element options', 'layotter'); ?></span>
-                                                        <span ng-click="duplicateElement(col.elements, $index)"><i class="fa fa-files-o"></i><?php _e('Duplicate element', 'layotter'); ?></span>
+                                                        <span ng-click="duplicateElement(col.elements, $index)"><i class="fa fa-copy"></i><?php _e('Duplicate element', 'layotter'); ?></span>
                                                         <span ng-hide="element.is_template && !element.template_deleted" ng-click="saveNewTemplate(element)" ng-if="enableElementTemplates"><i class="fa fa-star"></i><?php _e('Save as template', 'layotter'); ?></span>
                                                     </div>
                                                 </div>

@@ -1,7 +1,7 @@
 /**
  * All things related to element templates
  */
-app.service('templates', function($rootScope, $http, $animate, $timeout, view, forms, modals, state, data, history){
+app.service('templates', ['$rootScope', '$http', '$animate', '$timeout', 'view', 'forms', 'modals', 'state', 'data', 'history', function($rootScope, $http, $animate, $timeout, view, forms, modals, state, data, history){
     
 
     var _this = this;
@@ -155,4 +155,4 @@ app.service('templates', function($rootScope, $http, $animate, $timeout, view, f
         }, true);
     };
     
-});
+}]);

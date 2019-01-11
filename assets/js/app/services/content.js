@@ -1,7 +1,7 @@
 /**
  * Main provider for content and editing
  */
-app.service('content', function($rootScope, $http, $animate, $timeout, data, forms, modals, state, templates, history){
+app.service('content', ['$rootScope', '$http', '$animate', '$timeout', 'data', 'forms', 'modals', 'state', 'templates', 'history', function($rootScope, $http, $animate, $timeout, data, forms, modals, state, templates, history){
 
 
     var _this = this;
@@ -333,4 +333,4 @@ app.service('content', function($rootScope, $http, $animate, $timeout, data, for
         }
     });
     
-});
+}]);
