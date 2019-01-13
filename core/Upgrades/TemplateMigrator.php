@@ -25,8 +25,8 @@ class TemplateMigrator {
 
         if (!empty($this->options)) {
             $options_template = Core::assemble_new_options('element');
-            $new_element = new EditableMigrator('element', $options_template->get_fields(), $this->options);
-            $new_data['options_id'] = $new_element->migrate();
+            $new_options = new EditableMigrator('element', $options_template->get_fields(), $this->options);
+            $new_data['options_id'] = $new_options->migrate();
         }
 
         $templates = get_option('layotter_element_templates');

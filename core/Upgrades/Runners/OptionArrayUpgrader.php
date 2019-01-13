@@ -4,21 +4,16 @@ namespace Layotter\Upgrades\Runners;
 
 abstract class OptionArrayUpgrader {
 
-    abstract protected function get_chunk_size();
+    const CHUNK_SIZE = 2;
 
-    abstract protected function get_legacy_option_items();
-
-    abstract protected function get_option_needs_upgrade();
+    abstract protected function get_legacy_option_name();
 
     abstract protected function is_item_upgradable($item);
 
     abstract protected function migrate($id);
 
-    public function __construct() {
-    }
-
     protected function count_upgradable_items() {
-        $items = get_option($this->get_legacy_option_items());
+        $items = get_option($this->get_legacy_option_name());
         if (!is_array($items)) {
             return 0;
         }
@@ -33,7 +28,7 @@ abstract class OptionArrayUpgrader {
     }
 
     protected function get_lowest_upgradable_item_index() {
-        $items = get_option($this->get_legacy_option_items());
+        $items = get_option($this->get_legacy_option_name());
         foreach ($items as $index => $item) {
             if ($this->is_item_upgradable($item)) {
                 return $index;
@@ -43,8 +38,8 @@ abstract class OptionArrayUpgrader {
     }
 
     public function do_upgrade_step() {
-        $items = get_option($this->get_legacy_option_items());
-        $items = array_slice($items, $this->get_lowest_upgradable_item_index(), $this->get_chunk_size(), true); // preserve keys
+        $items = get_option($this->get_legacy_option_name());
+        $items = array_slice($items, $this->get_lowest_upgradable_item_index(), self::CHUNK_SIZE, true); // preserve keys
 
         foreach ($items as $id => $item) {
             if ($this->is_item_upgradable($item)) {
@@ -53,7 +48,7 @@ abstract class OptionArrayUpgrader {
         }
 
         if (!$this->needs_upgrade()) {
-            update_option($this->get_option_needs_upgrade(), false);
+            delete_option($this->get_legacy_option_name());
         }
     }
 }
