@@ -72,7 +72,8 @@ class Core {
         Settings::init();
         self::aliases();
 
-        if (!Adapter::is_available()) {
+        if (!Adapter::meets_requirements()) {
+            add_action('admin_notices', ['Layotter\Acf\Adapter', 'print_error']);
             return;
         }
 

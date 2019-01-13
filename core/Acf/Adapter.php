@@ -9,8 +9,6 @@ use Layotter\Core;
  */
 class Adapter {
 
-    private static $error_message = '';
-
     /**
      * Check if ACF is installed
      *
@@ -27,37 +25,34 @@ class Adapter {
      */
     public static function is_version_compatible() {
         return defined('ACF_VERSION')
-               && version_compare(ACF_VERSION, Core::REQUIRED_ACF_VERSION) >= 0;
+            && version_compare(ACF_VERSION, Core::REQUIRED_ACF_VERSION) >= 0;
     }
 
     /**
-     * Check if a compatible version of ACF is installed and print an error message if not
+     * Check if a compatible version of ACF is installed
      *
      * @return bool
      */
-    public static function is_available() {
-        if (!self::is_installed()) {
-            self::$error_message = sprintf(__('Layotter requires the <a href="%s" target="_blank">Advanced Custom Fields</a> plugin, please install it before using Layotter.', 'layotter'), 'http://www.advancedcustomfields.com');
-        } else if (!self::is_version_compatible()) {
-            self::$error_message = sprintf(__('Your version of Advanced Custom Fields is outdated. Please install version %s or higher to be able to use Layotter.', 'layotter'), Core::REQUIRED_ACF_VERSION);
-        }
-
-        if (!empty(self::$error_message)) {
-            add_action('admin_notices', [__CLASS__, 'print_error']);
-            return false;
-        }
-
-        return true;
+    public static function meets_requirements() {
+        return self::is_installed() && self::is_version_compatible();
     }
 
     /**
-     * Output error message
+     * Output error message if ACF isn't installed or doesn't meet version requirements
      */
     public static function print_error() {
+        $message = '';
+
+        if (!self::is_installed()) {
+            $message = sprintf(__('Layotter requires the <a href="%s" target="_blank">Advanced Custom Fields</a> plugin, please install it before using Layotter.', 'layotter'), 'http://www.advancedcustomfields.com');
+        } else if (!self::is_version_compatible()) {
+            $message = sprintf(__('Your version of Advanced Custom Fields is outdated. Please install version %s or higher to be able to use Layotter.', 'layotter'), Core::REQUIRED_ACF_VERSION);
+        }
+
         ?>
         <div class="error">
             <p>
-                <?php echo self::$error_message; ?>
+                <?php echo $message; ?>
             </p>
         </div>
         <?php
@@ -206,7 +201,7 @@ class Adapter {
     }
 
     /**
-     * Output form wrapper HTML depending on the installed version of ACF
+     * Output form wrapper HTML
      */
     public static function output_form_wrapper() {
         ?>

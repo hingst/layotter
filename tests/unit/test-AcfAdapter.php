@@ -9,7 +9,7 @@ use Layotter\Tests\BaseTest;
 class AcfAdapterTest extends BaseTest {
 
     public function test_AcfIsAvailable() {
-        $this->assertTrue(Adapter::is_available());
+        $this->assertTrue(Adapter::meets_requirements());
     }
 
     public function test_DefaultFieldGroupIsAvailable() {
