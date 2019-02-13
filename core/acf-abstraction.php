@@ -213,7 +213,7 @@ class Layotter_ACF
      */
     public static function get_field_group_by_id($id) {
         if (self::is_pro_installed()) {
-            return _acf_get_field_group_by_id($id);
+            return acf_get_field_group($id);
         } else {
             $field_groups = self::get_all_field_groups();
             foreach ($field_groups as $field_group) {
@@ -234,7 +234,7 @@ class Layotter_ACF
      */
     public static function get_field_group_by_key($key) {
         if (self::is_pro_installed()) {
-            return _acf_get_field_group_by_key($key);
+            return acf_get_field_group($key);
         } else {
             $field_groups = self::get_all_field_groups();
             foreach ($field_groups as $field_group) {
