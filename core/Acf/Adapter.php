@@ -197,7 +197,7 @@ class Adapter {
      * @return array|bool ACF field group, or false or empty array (depending on the ACF version) if the key doesn't exist
      */
     public static function get_field_group_by_key($key) {
-        return _acf_get_field_group_by_key($key);
+        return acf_get_field_group($key);
     }
 
     /**
