@@ -107,7 +107,6 @@ function layotter_assets_admin_enqueue_scripts() {
         'layotterData',
         array(
             'postID' => $post_id,
-            'isACFPro' => Layotter_ACF::is_pro_installed(),
             'contentStructure' => $content_structure->to_array(),
             'allowedRowLayouts' => $allowed_row_layouts,
             'defaultRowLayout' => $default_row_layout,

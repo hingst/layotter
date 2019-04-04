@@ -32,8 +32,7 @@ abstract class Layotter_Editable {
         $this->formatted_values = $this->format_values($fields, $this->clean_values);
 
         // create edit form
-        $values_for_form = Layotter_ACF::prepare_values_for_form($fields, $this->clean_values);
-        $this->form = new Layotter_Form($fields, $values_for_form);
+        $this->form = new Layotter_Form($fields, $this->clean_values);
     }
 
 

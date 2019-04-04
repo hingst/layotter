@@ -9,37 +9,28 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
 
 
     // talk to ACF for form validation and submit
-    if (layotterData.isACFPro) {
-        // prevent form changes while validation is running
-        angular.element(document).on('submit', '#layotter-edit', function(event){
-            event.preventDefault();
-            jQuery(':focus').blur();
-            jQuery('.layotter-modal-loading-container').addClass('layotter-loading');
-            jQuery('.layotter-modal-foot button').prop('disabled', true);
-        });
 
-        // allow form changes after ACF validation is complete
-        acf.addFilter('validation_complete', function(validation) {
-            angular.element('.layotter-modal-loading-container').removeClass('layotter-loading');
-            angular.element('.layotter-modal-foot button').prop('disabled', false);
-            return validation;
-        });
+    // prevent form changes while validation is running
+    angular.element(document).on('submit', '#layotter-edit', function(event){
+        event.preventDefault();
+        jQuery(':focus').blur();
+        jQuery('.layotter-modal-loading-container').addClass('layotter-loading');
+        jQuery('.layotter-modal-foot button').prop('disabled', true);
+    });
 
-        // submit form after successful validation
-        acf.addAction('validation_success', function(e){
-            if (e[0].id === 'layotter-edit') {
-                angular.element('#layotter-edit-submit').trigger('click');
-            }
-        });
-    } else {
-        // ACF 4 uses much simpler validation without AJAX
-        angular.element(document).on('submit', '.layotter-modal #post', function(){
-            if (acf.validation.status) {
-                angular.element('#layotter-edit-submit').trigger('click');
-                return false;
-            }
-        });
-    }
+    // allow form changes after ACF validation is complete
+    acf.addFilter('validation_complete', function(validation) {
+        angular.element('.layotter-modal-loading-container').removeClass('layotter-loading');
+        angular.element('.layotter-modal-foot button').prop('disabled', false);
+        return validation;
+    });
+
+    // submit form after successful validation
+    acf.addAction('validation_success', function(e){
+        if (e[0].id === 'layotter-edit') {
+            angular.element('#layotter-edit-submit').trigger('click');
+        }
+    });
 
 
     /**
@@ -112,15 +103,11 @@ app.service('forms', function($http, $compile, $rootScope, $timeout){
             $rootScope.$apply($compile(angular.element('#dennisbox'))($rootScope));
 
             // setup javascript for fields
-            if (layotterData.isACFPro) {
-                acf.get_fields({}, jQuery('#layotter-form')).each(function() {
-                    acf.do_action('ready_field', jQuery(this));
-                    acf.do_action('ready_field/type=' + acf.get_field_type(jQuery(this)), jQuery(this));
-                });
-                acf.do_action('append', jQuery('#layotter-edit'));
-            } else {
-                jQuery(document).trigger('acf/setup_fields', [jQuery('.layotter-modal form')]);
-            }
+            acf.get_fields({}, jQuery('#layotter-form')).each(function() {
+                acf.do_action('ready_field', jQuery(this));
+                acf.do_action('ready_field/type=' + acf.get_field_type(jQuery(this)), jQuery(this));
+            });
+            acf.do_action('append', jQuery('#layotter-edit'));
         }, 1);
     };
 

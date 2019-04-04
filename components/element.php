@@ -96,17 +96,11 @@ abstract class Layotter_Element extends Layotter_Editable {
             throw new Exception('$this->field_group must be assigned in attributes() (error in class ' . get_called_class() . ')');
         }
 
-        if (is_int($this->field_group)) {
-            $field_group = Layotter_ACF::get_field_group_by_id($this->field_group);
-            $identifier = 'post_id';
-        } else {
-            $field_group = Layotter_ACF::get_field_group_by_key($this->field_group);
-            $identifier = 'acf-field-group';
-        }
+        $field_group = Layotter_ACF::get_field_group($this->field_group);
 
         // check if the field group exists
         if (!$field_group) {
-            throw new Exception('No ACF field group found for ' . $identifier . '=' . $this->field_group . ' (error in class ' . get_called_class() . ')');
+            throw new Exception('No ACF field group found for ID or key ' . $this->field_group . ' (error in class ' . get_called_class() . ')');
         }
 
         // return fields for the provided ACF field group
@@ -161,11 +155,7 @@ abstract class Layotter_Element extends Layotter_Editable {
         $post_id = intval($post_id);
         $post_type = get_post_type($post_id);
 
-        if (is_int($this->field_group)) {
-            $field_group = Layotter_ACF::get_field_group_by_id($this->field_group);
-        } else {
-            $field_group = Layotter_ACF::get_field_group_by_key($this->field_group);
-        }
+        $field_group = Layotter_ACF::get_field_group($this->field_group);
 
         return Layotter_ACF::is_field_group_visible($field_group, array(
             'post_id' => $post_id,
