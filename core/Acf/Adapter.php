@@ -176,28 +176,18 @@ class Adapter {
      */
     public static function get_form_html($fields, $id = 0) {
         ob_start();
-        acf_render_fields($id, $fields);
+        acf_render_fields($fields, $id);
         return ob_get_clean();
     }
 
     /**
-     * Get a field group by its ID
+     * Get a field group by its key or ID
      *
-     * @param int $id ACF field group ID (post ID)
-     * @return array|bool ACF field group, or false or empty array (depending on the ACF version) if the ID doesn't exist
-     */
-    public static function get_field_group_by_id($id) {
-        return _acf_get_field_group_by_id($id);
-    }
-
-    /**
-     * Get a field group by its key
-     *
-     * @param string $key ACF field group key (slug)
+     * @param string|int $key_or_id ACF field group key (slug) or ID
      * @return array|bool ACF field group, or false or empty array (depending on the ACF version) if the key doesn't exist
      */
-    public static function get_field_group_by_key($key) {
-        return acf_get_field_group($key);
+    public static function get_field_group($key_or_id) {
+        return acf_get_field_group($key_or_id);
     }
 
     /**

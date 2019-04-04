@@ -31,7 +31,7 @@ class AcfAdapterTest extends BaseTest {
     }
 
     public function test_FieldGroupVisible() {
-        $field_group = Adapter::get_field_group_by_key('group_test');
+        $field_group = Adapter::get_field_group('group_test');
         $post_id = self::factory()->post->create([
             'post_type' => 'page'
         ]);
@@ -44,7 +44,7 @@ class AcfAdapterTest extends BaseTest {
     }
 
     public function test_FieldGroupNotVisible() {
-        $field_group = Adapter::get_field_group_by_key('group_test');
+        $field_group = Adapter::get_field_group('group_test');
         $post_id = self::factory()->post->create([
             'post_type' => 'post'
         ]);
@@ -57,7 +57,7 @@ class AcfAdapterTest extends BaseTest {
     }
 
     public function test_GetFieldsForGroup() {
-        $field_group = Adapter::get_field_group_by_key('group_test');
+        $field_group = Adapter::get_field_group('group_test');
         $fields = Adapter::get_fields($field_group);
         $this->assertNotEmpty($fields);
         $this->assertArrayHasKey('key', $fields[0]);
@@ -65,7 +65,7 @@ class AcfAdapterTest extends BaseTest {
     }
 
     public function test_GenerateFormForNewElement() {
-        $field_group = Adapter::get_field_group_by_key('group_test');
+        $field_group = Adapter::get_field_group('group_test');
         $fields = Adapter::get_fields($field_group);
         $html = Adapter::get_form_html($fields);
         $this->assertContains('field_test', $html);
@@ -74,7 +74,7 @@ class AcfAdapterTest extends BaseTest {
     public function test_GenerateFormForExistingElement() {
         $post_id = self::factory()->post->create();
         Adapter::update_field_value('field_test', 'blah blah blah', $post_id);
-        $field_group = Adapter::get_field_group_by_key('group_test');
+        $field_group = Adapter::get_field_group('group_test');
         $fields = Adapter::get_fields($field_group);
         $html = Adapter::get_form_html($fields, $post_id);
         $this->assertContains('blah blah blah', $html);
@@ -87,7 +87,7 @@ class AcfAdapterTest extends BaseTest {
     */
 
     public function test_GetFieldGroupByKey() {
-        $group = Adapter::get_field_group_by_key('group_test');
+        $group = Adapter::get_field_group('group_test');
         $this->assertNotEmpty($group);
     }
 }

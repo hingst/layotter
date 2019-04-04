@@ -107,17 +107,11 @@ abstract class Element extends Editable implements \JsonSerializable {
             throw new \Exception('$this->field_group must be assigned in attributes() (error in class ' . get_called_class() . ')');
         }
 
-        if (is_int($this->field_group)) {
-            $field_group = Adapter::get_field_group_by_id($this->field_group);
-            $identifier = 'post_id';
-        } else {
-            $field_group = Adapter::get_field_group_by_key($this->field_group);
-            $identifier = 'acf-field-group';
-        }
+        $field_group = Adapter::get_field_group($this->field_group);
 
         // check if the field group exists
         if (!$field_group) {
-            throw new \Exception('No ACF field group found for ' . $identifier . '=' . $this->field_group . ' (error in class ' . get_called_class() . ')');
+            throw new \Exception('No ACF field group found for ID or key ' . $this->field_group . ' (error in class ' . get_called_class() . ')');
         }
 
         // return fields for the provided ACF field group
@@ -166,12 +160,7 @@ abstract class Element extends Editable implements \JsonSerializable {
         }
 
         $post_type = get_post_type($post_id);
-
-        if (is_int($this->field_group)) {
-            $field_group = Adapter::get_field_group_by_id($this->field_group);
-        } else {
-            $field_group = Adapter::get_field_group_by_key($this->field_group);
-        }
+        $field_group = Adapter::get_field_group($this->field_group);
 
         return Adapter::is_field_group_visible($field_group, [
             'post_id' => $post_id,
