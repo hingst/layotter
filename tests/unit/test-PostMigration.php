@@ -100,7 +100,6 @@ class PostMigrationTest extends BaseTest {
         $this->assertStringEndsWith(TESTS_UPLOAD_FILE_NAME, get_field('file', $element_id));
         $this->assertContains('<p>wysiwyg</p>', get_field('wysiwyg', $element_id));
         $this->assertContains('5bqpcIX2VDQ', get_field('oembed', $element_id));
-        $this->assertEquals(TESTS_UPLOAD_FILE_NAME, get_field('gallery', $element_id)[0]['filename']);
 
         // choice fields
         $this->assertEquals(2, get_field('select', $element_id));
@@ -124,6 +123,35 @@ class PostMigrationTest extends BaseTest {
         $this->assertEquals('00:00:00', get_field('time_picker', $element_id));
         $this->assertEquals('#123456', get_field('color_picker', $element_id));
 
+        // options
+        $this->assertEquals('option', get_field('option', $options_id));
+    }
+
+    /**
+     * @group acfprofields
+     */
+    public function test_CanMigrateAcfProFieldTypes() {
+        $input = str_replace('ATTACHMENT_ID', self::$attachment_id, TestData::POST_150_ALL_FIELDS_JSON);
+
+        // wp_insert_post() expects magic quotes, https://core.trac.wordpress.org/ticket/21767
+        $input = addslashes($input);
+
+        $id = self::factory()->post->create([
+            'meta_input' => [
+                'layotter_json' => $input
+            ],
+            'post_type' => 'page'
+        ]);
+
+        $post = new Post($id);
+
+        $matches = [];
+        preg_match(TestData::EXPECTED_ALL_FIELDS_JSON_REGEX, json_encode($post), $matches);
+        $element_id = $matches[1];
+
+        // gallery
+        $this->assertEquals(TESTS_UPLOAD_FILE_NAME, get_field('gallery', $element_id)[0]['filename']);
+
         // layout fields
         $repeater = get_field('repeater', $element_id);
         $flexible_content = get_field('flexible_content', $element_id);
@@ -131,9 +159,6 @@ class PostMigrationTest extends BaseTest {
         $this->assertEquals('Hello world!', $repeater[0]['relationship'][0]->post_title);
         $this->assertContains('<p>wysiwyg</p>', $flexible_content[0]['wysiwyg']);
         $this->assertEquals('Hello world!', $flexible_content[0]['relationship'][0]->post_title);
-
-        // options
-        $this->assertEquals('option', get_field('option', $options_id));
     }
 
     public function test_CanMigrateFromRegularPost() {

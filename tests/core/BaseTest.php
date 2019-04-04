@@ -26,6 +26,6 @@ abstract class BaseTest extends \WP_UnitTestCase {
     }
 
     protected static function delete_attachment() {
-        wp_delete_attachment(self::$attachment_id);
+        wp_delete_attachment(self::$attachment_id, true);
     }
 }

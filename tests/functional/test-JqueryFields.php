@@ -15,9 +15,7 @@ class JqueryFieldsTest extends BaseSeleniumTest {
         parent::setUpBeforeClass();
 
         self::get('/post-new.php?post_type=page');
-    }
 
-    public function test_CreateElement() {
         self::click('#layotter *[ng-click="addRow(-1)"]');
         self::click("#layotter .layotter-col-1 *[ng-click='showNewElementTypes(col.elements, -1)']");
         self::click('#dennisbox .layotter-modal-add-element:nth-child(1)');
@@ -36,9 +34,11 @@ class JqueryFieldsTest extends BaseSeleniumTest {
 
         self::click('#layotter-edit button[type="submit"]');
 
-        $this->assertEquals(1, self::countElements('#layotter .layotter-element'));
-
         self::$id = self::select('.layotter-element')->getAttribute('data-id');
+    }
+
+    public function test_ElementCreated() {
+        $this->assertEquals(1, self::countElements('#layotter .layotter-element'));
     }
 
     public function test_FieldValues() {

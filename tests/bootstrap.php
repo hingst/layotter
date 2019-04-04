@@ -1,9 +1,6 @@
 <?php
 
-/**
- * The easiest way to run this test suite is using the Layotter development
- * environment from https://github.com/hingst/layotter-dev-env
- */
+// There's currently no public documentation on how to get the test suite running. Sorry. Good luck.
 
 if (!defined('LAYOTTER_PHPUNIT_TESTING')) {
     return;
