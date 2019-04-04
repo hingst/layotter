@@ -26,7 +26,7 @@ class Text_Element extends Layotter_Element {
 Layotter::register_element('text', 'Text_Element');
 ```
 
-Read the [introduction](http://docs.layotter.com/) or the [installation instructions](http://docs.layotter.com/getting-started/installation/) to get started, or head directly to the [tutorial on how to create an element type](http://docs.layotter.com/basics/element-types/).
+Read the [installation instructions](http://docs.layotter.com/getting-started/installation/) to get started, or head directly to the [tutorial on how to create an element type](http://docs.layotter.com/basics/element-types/).
 
 ## Some more features you'll enjoy
 
@@ -34,9 +34,5 @@ Read the [introduction](http://docs.layotter.com/) or the [installation instruct
 * Full HTML and CSS customization
 * Settings filters for programmatic configuration
 * Integrates so nicely, your clients will think it's a part of Wordpress
-* Works with the Pro and regular versions of ACF
+* Works with the Pro and free versions of ACF
 * Open source and free to include even in commercial themes
-
-## By the way, Layotter 2 is in the making&hellip;
-
-Check out the (terribly named) [modular branch](https://github.com/hingst/layotter/tree/modular) to learn more about the the upcoming release.

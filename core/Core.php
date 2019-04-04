@@ -52,7 +52,7 @@ class Core {
     /**
      * Minimum required ACF version
      */
-    const REQUIRED_ACF_VERSION = '5.7.9';
+    const REQUIRED_ACF_VERSION = '5.7.12';
 
     /**
      * Name of the textarea for a post's JSON
