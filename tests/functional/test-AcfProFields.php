@@ -14,7 +14,6 @@ class AcfProFieldsTest extends BaseSeleniumTest {
     public static function setUpBeforeClass() {
         parent::setUpBeforeClass();
 
-        self::upload_attachment();
         self::get('/post-new.php?post_type=page');
 
         self::click('#layotter *[ng-click="addRow(-1)"]');
@@ -37,11 +36,6 @@ class AcfProFieldsTest extends BaseSeleniumTest {
         self::click('#layotter-edit button[type="submit"]');
 
         self::$id = self::select('.layotter-element')->getAttribute('data-id');
-    }
-
-    public static function tearDownAfterClass() {
-        self::delete_attachment();
-        parent::tearDownAfterClass();
     }
 
     public function test_ElementCreated() {

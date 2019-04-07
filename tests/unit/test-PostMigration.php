@@ -2,21 +2,12 @@
 
 use Layotter\Components\Post;
 use Layotter\Core;
-use Layotter\Tests\BaseTest;
 use Layotter\Tests\TestData;
 
 /**
  * @group unit
  */
-class PostMigrationTest extends BaseTest {
-
-    public static function setUpBeforeClass() {
-        self::upload_attachment();
-    }
-
-    public static function tearDownAfterClass() {
-        self::delete_attachment();
-    }
+class PostMigrationTest extends \WP_UnitTestCase {
 
     public function setUp() {
         parent::setUp();
@@ -65,7 +56,7 @@ class PostMigrationTest extends BaseTest {
     }
 
     public function test_CanMigrateAllFieldTypes() {
-        $input = str_replace('ATTACHMENT_ID', self::$attachment_id, TestData::POST_150_ALL_FIELDS_JSON);
+        $input = str_replace('ATTACHMENT_ID', TestData::get_attachment_id(), TestData::POST_150_ALL_FIELDS_JSON);
 
         // wp_insert_post() expects magic quotes, https://core.trac.wordpress.org/ticket/21767
         $input = addslashes($input);
@@ -131,7 +122,7 @@ class PostMigrationTest extends BaseTest {
      * @group acfprofields
      */
     public function test_CanMigrateAcfProFieldTypes() {
-        $input = str_replace('ATTACHMENT_ID', self::$attachment_id, TestData::POST_150_ALL_FIELDS_JSON);
+        $input = str_replace('ATTACHMENT_ID', TestData::get_attachment_id(), TestData::POST_150_ALL_FIELDS_JSON);
 
         // wp_insert_post() expects magic quotes, https://core.trac.wordpress.org/ticket/21767
         $input = addslashes($input);

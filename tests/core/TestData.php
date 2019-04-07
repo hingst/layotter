@@ -19,6 +19,8 @@ class TestData {
     const POST_150_ALL_FIELDS_JSON = '{"options":[],"rows":[{"layout":"1/1","options":[],"cols":[{"options":[],"elements":[{"type":"layotter_functional_test_element","values":{"text":"text","textarea":"textarea","number":"50","range":"50","email":"email@example.com","url":"http://example.com","password":"password","image":"ATTACHMENT_ID","file":"ATTACHMENT_ID","wysiwyg":"wysiwyg","oembed":"https://www.youtube.com/watch?v=5bqpcIX2VDQ","gallery":["ATTACHMENT_ID"],"select":"2","checkbox":["2"],"radio":"2","button_group":"2","boolean":"1","link":{"title":"","url":"http://example.com","target":""},"post_object":"1","page_link":"1","relationship":["1"],"taxonomy":["1"],"user":"1","google_map":{"address":"","lat":"","lng":""},"date_picker":"20190101","date_time_picker":"2019-01-01 00:00:00","time_picker":"00:00:00","color_picker":"#123456","repeater":[{"field_5bad117af1587":"wysiwyg","field_5bad11c4f158a":["1"]}],"flexible_content":{"5c361ea42a602":{"acf_fc_layout":"two_fields","field_5bad1198f1588":"wysiwyg","field_5bad11aff1589":["1"]}}},"options":{"option":"option"}}]}]}]}';
     const EXPECTED_ALL_FIELDS_JSON_REGEX = '~\{"options_id"\:\d+,"rows"\:\[\{"layout"\:"1\\\/1","options_id"\:\d+,"cols"\:\[\{"options_id"\:\d+,"elements"\:\[\{"id":(\d+),"options_id"\:(\d+),"view"\:"","is_template"\:false\}\]\}\]\}\]\}~';
 
+    private static $attachment_id;
+
     /**
      * Must be hooked to 'init' to set up test data
      */
@@ -26,5 +28,25 @@ class TestData {
         FieldGroups::register();
         TestElement::register();
         ViewFilters::register();
+    }
+
+    public static function upload_attachment() {
+        $upload_dir_info = wp_upload_dir();
+        $file_path = $upload_dir_info['basedir'] . '/' . TESTS_UPLOAD_FILE_NAME;
+        $file_info = wp_check_filetype(basename($file_path), null);
+
+        $attachment = [
+            'guid' => $upload_dir_info['url'] . '/' . basename($file_path),
+            'post_mime_type' => $file_info['type'],
+            'post_title' => 'Empty',
+            'post_content' => '',
+            'post_status' => 'publish'
+        ];
+
+        self::$attachment_id = wp_insert_attachment($attachment, $file_path);
+    }
+
+    public static function get_attachment_id() {
+        return self::$attachment_id;
     }
 }

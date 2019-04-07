@@ -14,7 +14,6 @@ class ContentFieldsTest extends BaseSeleniumTest {
     public static function setUpBeforeClass() {
         parent::setUpBeforeClass();
 
-        self::upload_attachment();
         self::get('/post-new.php?post_type=page');
 
         self::click('#layotter *[ng-click="addRow(-1)"]');
@@ -33,14 +32,11 @@ class ContentFieldsTest extends BaseSeleniumTest {
         self::insertIntoTinyMce('.acf-field[data-name="wysiwyg"] iframe', 'Some test content.');
         self::select('.acf-field[data-name="oembed"] input.input-search')->sendKeys('https://www.youtube.com/watch?v=5bqpcIX2VDQ');
 
+        sleep(3); // wait until youtube preview is ready
+
         self::click('#layotter-edit button[type="submit"]');
 
         self::$id = self::select('.layotter-element')->getAttribute('data-id');
-    }
-
-    public static function tearDownAfterClass() {
-        self::delete_attachment();
-        parent::tearDownAfterClass();
     }
 
     public function test_ElementCreated() {

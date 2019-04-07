@@ -2,13 +2,12 @@
 
 use Layotter\Components\Post;
 use Layotter\Core;
-use Layotter\Tests\BaseTest;
 use Layotter\Tests\TestData;
 
 /**
  * @group unit
  */
-class PostsTest extends BaseTest {
+class PostsTest extends \WP_UnitTestCase {
 
     private static $id;
 

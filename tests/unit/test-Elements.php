@@ -1,12 +1,11 @@
 <?php
 
 use Layotter\Core;
-use Layotter\Tests\BaseTest;
 
 /**
  * @group unit
  */
-class ElementsTest extends BaseTest {
+class ElementsTest extends \WP_UnitTestCase {
 
     public function test_Fields() {
         $element = Core::assemble_new_element('layotter_example_element');

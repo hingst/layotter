@@ -32,3 +32,6 @@ require dirname(__FILE__) . '/vendor/lipemat/wp-unit/includes/functions.php';
 // start up the WP testing framework
 require dirname(__FILE__) . '/wp-tests-config.php';
 require dirname(__FILE__) . '/vendor/lipemat/wp-unit/includes/bootstrap-no-install.php';
+
+// upload dummy file to media library
+\Layotter\Tests\TestData::upload_attachment();

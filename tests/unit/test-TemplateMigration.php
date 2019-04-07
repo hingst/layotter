@@ -1,13 +1,12 @@
 <?php
 
 use Layotter\Components\Post;
-use Layotter\Tests\BaseTest;
 use Layotter\Tests\TestData;
 
 /**
  * @group unit
  */
-class TemplateMigrationTest extends BaseTest {
+class TemplateMigrationTest extends \WP_UnitTestCase {
 
     public function test_CanMigrateTemplate() {
         update_option('layotter_element_templates', [

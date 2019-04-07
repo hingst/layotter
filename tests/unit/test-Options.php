@@ -2,12 +2,11 @@
 
 use Layotter\Components\Options;
 use Layotter\Core;
-use Layotter\Tests\BaseTest;
 
 /**
  * @group unit
  */
-class OptionsTest extends BaseTest {
+class OptionsTest extends \WP_UnitTestCase {
 
     public function test_ElementOptions() {
         $options = Core::assemble_new_options('element');

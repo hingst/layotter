@@ -9,7 +9,7 @@ use Facebook\WebDriver\WebDriverBy;
 /**
  * Base class for Selenium tests
  */
-abstract class BaseSeleniumTest extends BaseTest {
+abstract class BaseSeleniumTest extends \WP_UnitTestCase {
 
     /**
      * @var RemoteWebDriver
@@ -17,7 +17,7 @@ abstract class BaseSeleniumTest extends BaseTest {
     protected static $webdriver;
 
     const SLEEP_SHORT = 0.3;
-    const SLEEP_MEDIUM = 1;
+    const SLEEP_MEDIUM = 1.5;
 
     /**
      * Set up WebDriver and log into Wordpress
