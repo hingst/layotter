@@ -6,15 +6,14 @@ use Layotter\Components\Layout;
 use Layotter\Errors;
 
 /**
- * Handles Ajax requests concerning layouts
+ * Handles ajax calls concerning layouts.
  */
-class Layouts {
+class LayoutsHandler {
 
     /**
-     * Save a new post layout
+     * Saves a new post layout and prints the saved layout as JSON.
      *
-     * @param array $data POST data
-     * @return Layout Layout data
+     * @param array $data POST data.
      */
     public static function create($data = null) {
         $data = is_array($data) ? $data : $_POST;
@@ -23,63 +22,69 @@ class Layouts {
             $layout = new Layout();
             $layout->set_json($json);
             $layout->save($data['layotter_name']);
-            return $layout;
+            $result = $layout;
         } else {
             Errors::invalid_argument_not_recoverable('layotter_name or layotter_json');
-            return null;
+            $result = null;
         }
+
+        echo json_encode($result);
     }
 
     /**
-     * Output post layout data
+     * Prints an existing post layout as JSON.
      *
-     * @param array $data POST data
-     * @return Layout Layout data
+     * @param array $data POST data.
      */
     public static function load($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && Handler::is_valid_id($data['layotter_id'])) {
+        if (isset($data['layotter_id']) && RequestManager::is_valid_id($data['layotter_id'])) {
             $id = intval($data['layotter_id']);
             $layout = new Layout($id);
-            return $layout;
+            $result = $layout;
         } else {
             Errors::invalid_argument_not_recoverable('layotter_id');
-            return null;
+            $result = null;
         }
+
+        echo json_encode($result);
     }
 
     /**
-     * Rename a post layout
+     * Renames an existing post layout and prints the updated layout as JSON.
      *
-     * @param array $data POST data
-     * @return Layout Layout data
+     * @param array $data POST data.
      */
     public static function rename($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id'], $data['layotter_name']) && Handler::is_valid_id($data['layotter_id']) && is_string($data['layotter_name'])) {
+        if (isset($data['layotter_id'], $data['layotter_name']) && RequestManager::is_valid_id($data['layotter_id']) && is_string($data['layotter_name'])) {
             $id = intval($data['layotter_id']);
             $layout = new Layout($id);
             $layout->rename($data['layotter_name']);
-            return $layout;
+            $result = $layout;
         } else {
             Errors::invalid_argument_not_recoverable('layotter_id or layotter_name');
-            return null;
+            $result = null;
         }
+
+        echo json_encode($result);
     }
 
     /**
-     * Delete a post layout
+     * Deletes an existing post layout.
      *
-     * @param array $data POST data
+     * @param array $data POST data.
      */
     public static function delete($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && Handler::is_valid_id($data['layotter_id'])) {
+        if (isset($data['layotter_id']) && RequestManager::is_valid_id($data['layotter_id'])) {
             $id = intval($data['layotter_id']);
             $layout = new Layout($id);
             $layout->delete();
         } else {
             Errors::invalid_argument_not_recoverable('layotter_id');
         }
+
+        // TODO: print result for error handling in JS?
     }
 }

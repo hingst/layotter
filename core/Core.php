@@ -3,9 +3,12 @@
 namespace Layotter;
 
 use Layotter\Acf\Adapter;
+use Layotter\Acf\LocationRulesManager;
+use Layotter\Ajax\RequestManager;
 use Layotter\Components\Element;
 use Layotter\Components\Options;
 use Layotter\Components\Post;
+use Layotter\ExampleElement\FieldGroupManager;
 use Layotter\Upgrades\PluginMigrator;
 use Layotter\Views\Editor;
 
@@ -92,11 +95,9 @@ class Core {
         add_action('wp_enqueue_scripts', ['Layotter\Assets', 'frontend']);
         add_action('admin_footer', ['Layotter\Assets', 'views']);
 
-        add_action('wp_ajax_layotter', ['Layotter\Ajax\Handler', 'handle']);
+        RequestManager::register();
 
-        add_filter('acf/location/rule_types', ['Layotter\Acf\LocationRules', 'category']);
-        add_filter('acf/location/rule_values/layotter', ['Layotter\Acf\LocationRules', 'options']);
-        add_filter('acf/location/rule_match/layotter', ['Layotter\Acf\LocationRules', 'match_rules'], 10, 3);
+        LocationRulesManager::register();
 
         add_shortcode('layotter', ['Layotter\Shortcode', 'register']);
         add_filter('the_content', ['Layotter\Shortcode', 'disable_wpautop'], 1);
@@ -166,8 +167,8 @@ class Core {
      * "Add Element" screen.
      */
     public static function include_example_element() {
-        Example\FieldGroup::register();
-        self::register_element('layotter_example_element', '\Layotter\Example\Element');
+        FieldGroupManager::register();
+        self::register_element('layotter_example_element', '\Layotter\ExampleElement\Element');
     }
 
     /**

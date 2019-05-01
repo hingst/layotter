@@ -5,12 +5,12 @@ namespace Layotter\Acf;
 use Layotter\Core;
 
 /**
- * This abstraction layer makes it easier to adapt to new ACF versions
+ * This abstraction layer wraps all backend interaction with ACF, making it easier to adapt to new versions.
  */
 class Adapter {
 
     /**
-     * Check if ACF is installed
+     * Checks if ACF is installed.
      *
      * @return bool
      */
@@ -19,7 +19,7 @@ class Adapter {
     }
 
     /**
-     * Check if the installed version of ACF is compatible with this version of Layotter
+     * Checks if the installed version of ACF is compatible with Layotter.
      *
      * @return bool
      */
@@ -29,7 +29,7 @@ class Adapter {
     }
 
     /**
-     * Check if a compatible version of ACF is installed
+     * Checks if all requirements to run Layotter are met.
      *
      * @return bool
      */
@@ -38,7 +38,7 @@ class Adapter {
     }
 
     /**
-     * Output error message if ACF isn't installed or doesn't meet version requirements
+     * Prints an error message if any requirements to run Layotter aren't met.
      */
     public static function print_error() {
         $message = '';
@@ -59,54 +59,56 @@ class Adapter {
     }
 
     /**
-     * Get the post type for ACF field groups
+     * Gets the post type slug for ACF field groups.
      *
-     * @return string Post type for ACF field groups
+     * @return string The post type slug.
      */
     public static function get_field_group_post_type() {
         return 'acf-field-group';
     }
 
     /**
-     * Get all ACF field groups
+     * Gets meta information for all registered field groups.
      *
-     * @return array All ACF field groups
+     * @return array All registered field groups.
      */
     public static function get_all_field_groups() {
         return acf_get_field_groups();
     }
 
     /**
-     * Returns field group key for the example element that comes with Layotter
+     * Returns the field group key for Layotter's example element.
      *
-     * @return string Field group key
+     * @return string The field group key.
      */
     public static function get_example_field_group_key() {
         return 'group_layotter_example';
     }
 
     /**
-     * Returns field key for the WYSIWYG field in the example element that comes with Layotter
+     * Returns the field key for the WYSIWYG field in Layotter's example element.
      *
-     * @return string Field key
+     * @return string The field key.
      */
     public static function get_example_field_group_field_key() {
         return 'field_layotter_example';
     }
 
     /**
-     * Get ACF field groups that match a given set of location rules
+     * Gets meta information for ACF field groups that match a given set of location rules.
      *
-     * @param array $filters ACF location rules
-     * @return array Filtered ACF field groups
+     * @param array $filters ACF location rules.
+     * @return array Matching ACF field groups.
      */
     public static function get_filtered_field_groups($filters) {
         $field_groups = self::get_all_field_groups();
         $filtered_field_groups = [];
 
+        // TODO: check if a simpler rule matching method is available in current ACF version, see http://www.advancedcustomfields.com/resources/custom-location-rules/
+
         foreach ($field_groups as $field_group) {
-            foreach ($field_group['location'] as $group) {
-                if (empty($group)) {
+            foreach ($field_group['location'] as $rules) {
+                if (empty($rules)) {
                     continue;
                 }
 
@@ -116,8 +118,8 @@ class Adapter {
                 // field group should only match if it has a Layotter rule
                 $found_layotter_rule = false;
 
-                if (is_array($group)) {
-                    foreach ($group as $rule) {
+                if (is_array($rules)) {
+                    foreach ($rules as $rule) {
                         if ($rule['param'] == 'layotter') {
                             $match = apply_filters('acf/location/rule_match/layotter', $match, $rule, $filters);
                             $found_layotter_rule = true;
@@ -147,10 +149,10 @@ class Adapter {
     }
 
     /**
-     * Check if a given field group matches a given set of location rules
+     * Checks if a given field group matches a given set of location rules.
      *
-     * @param array $field_group ACF field group
-     * @param array $filters ACF location rules
+     * @param array $field_group ACF field group.
+     * @param array $filters ACF location rules.
      * @return bool
      */
     public static function is_field_group_visible($field_group, $filters) {
@@ -158,21 +160,21 @@ class Adapter {
     }
 
     /**
-     * Get fields for a given field group
+     * Gets fields for a given field group.
      *
-     * @param array $field_group ACF field group
-     * @return array|bool ACF fields, or false or empty array if the group doesn't exist
+     * @param array $field_group ACF field group.
+     * @return array ACF fields, or empty array if the group doesn't exist.
      */
     public static function get_fields($field_group) {
         return acf_get_fields($field_group);
     }
 
     /**
-     * Get form HTML for a set of fields
+     * Gets form HTML for a collection of fields.
      *
-     * @param array $fields ACF fields
-     * @param int $id Element's post ID
-     * @return string Form HTML
+     * @param array $fields A collection of ACF fields.
+     * @param int $id An element's post ID to fetch field values from, or 0 if it's a new element.
+     * @return string The rendered form HTML.
      */
     public static function get_form_html($fields, $id = 0) {
         ob_start();
@@ -181,17 +183,17 @@ class Adapter {
     }
 
     /**
-     * Get a field group by its key or ID
+     * Gets a field group by its key or ID.
      *
-     * @param string|int $key_or_id ACF field group key (slug) or ID
-     * @return array|bool ACF field group, or false or empty array (depending on the ACF version) if the key doesn't exist
+     * @param string|int $key_or_id ACF field group key or ID.
+     * @return array|bool The field group, or false if the key or ID doesn't exist.
      */
     public static function get_field_group($key_or_id) {
         return acf_get_field_group($key_or_id);
     }
 
     /**
-     * Output form wrapper HTML
+     * Prints form wrapper HTML containing all necessary hidden fields.
      */
     public static function output_form_wrapper() {
         ?>
@@ -209,35 +211,35 @@ class Adapter {
     }
 
     /**
-     * Get nonce name that ACF validates when saving an element
+     * Gets the name of the nonce that ACF validates when saving an element.
      *
-     * @return string Nonce name
+     * @return string The nonce name.
      */
     public static function get_nonce_name() {
         return 'post';
     }
 
     /**
-     * Update a field's value
+     * Updates a field's value for a given post ID.
      *
-     * @param string $field_name The field's name
-     * @param mixed $value New value, can be any type that ACF supports
-     * @param int $post_id Post ID
+     * @param string $field_name The field's name.
+     * @param mixed $value New value, can be any type that ACF supports.
+     * @param int $post_id The post ID.
      */
     public static function update_field_value($field_name, $value, $post_id) {
+        // TODO: does this work for arrays containing strings that need slashing?
         $new_value = is_string($value) ? addslashes($value) : $value;
         update_field($field_name, $new_value, $post_id);
     }
 
     /**
-     * Get a field's value
+     * Gets a field's value for a given post ID.
      *
-     * @param string $field_name The field's name
-     * @param int $post_id Post ID
-     * @return mixed Whatever ACF has saved for that field
+     * @param string $field_name The field's name.
+     * @param int $post_id The post ID.
+     * @return mixed Field value as provided by ACF.
      */
     public static function get_field_value($field_name, $post_id) {
         return get_field($field_name, $post_id);
     }
-
 }

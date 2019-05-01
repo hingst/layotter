@@ -27,7 +27,7 @@ class FormMeta implements \JsonSerializable {
     /**
      * @var string ACF form HTML
      */
-    private $fields = [];
+    private $fields = '';
 
     /**
      * @var int ID of the item that is being edited

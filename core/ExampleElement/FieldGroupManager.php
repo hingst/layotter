@@ -1,17 +1,17 @@
 <?php
 
-namespace Layotter\Example;
+namespace Layotter\ExampleElement;
 
 use Layotter\Acf\Adapter;
 use Layotter\Settings;
 
 /**
- * Used to register the example element
+ * Manages the ACF field group for Layotter's example element.
  */
-class FieldGroup {
+class FieldGroupManager {
 
     /**
-     * Register field group that's used by the example element
+     * Registers the field group.
      */
     public static function register() {
         $default_text = __("Welcome to the text editor! Write something, insert links or images, and click save when you're done.", 'layotter') . "\n\n" . __("By the way, Layotter isn't limited to text fields. You can create all kinds of content, like embedded Google maps, image galleries, file uploads, and much more!", 'layotter');

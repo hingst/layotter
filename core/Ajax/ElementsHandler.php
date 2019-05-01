@@ -2,47 +2,45 @@
 
 namespace Layotter\Ajax;
 
-use Layotter\Components\Element;
 use Layotter\Core;
 use Layotter\Errors;
-use Layotter\Structures\FormMeta;
 
 /**
- * Handles Ajax requests concerning elements
+ * Handles ajax calls concerning elements.
  */
-class Elements {
+class ElementsHandler {
 
     /**
-     * Output the edit form for an element
+     * Prints meta data for an element's edit form as JSON.
      *
-     * @param array $data POST data
-     * @return FormMeta Form meta data
+     * @param array $data POST data.
      */
     public static function edit($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && Handler::is_valid_id($data['layotter_id'])) {
+        if (isset($data['layotter_id']) && RequestManager::is_valid_id($data['layotter_id'])) {
             $id = intval($data['layotter_id']);
             $element = Core::assemble_element($id);
-            return $element->get_form_meta();
+            $result = $element->get_form_meta();
         } else if (isset($data['layotter_type']) && is_string($data['layotter_type'])) {
             $type = $data['layotter_type'];
             $element = Core::assemble_new_element($type);
-            return $element->get_form_meta();
+            $result = $element->get_form_meta();
         } else {
             Errors::invalid_argument_not_recoverable('layotter_id or layotter_type');
-            return null;
+            $result = null;
         }
+
+        echo json_encode($result);
     }
 
     /**
-     * Save an element
+     * Saves field values from POST data to an element and prints the updated element as JSON.
      *
-     * @param array $data POST data
-     * @return Element Element data
+     * @param array $data POST data.
      */
     public static function save($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && Handler::is_valid_id($data['layotter_id'])) {
+        if (isset($data['layotter_id']) && RequestManager::is_valid_id($data['layotter_id'])) {
             $id = intval($data['layotter_id']);
             $element = Core::assemble_element($id);
             if ($element->is_template()) {
@@ -50,14 +48,16 @@ class Elements {
             } else {
                 $element->save_from_post_data();
             }
-            return $element;
+            $result = $element;
         } else if (isset($data['layotter_type']) && is_string($data['layotter_type'])) {
             $element = Core::assemble_new_element($data['layotter_type']);
             $element->save_from_post_data();
-            return $element;
+            $result = $element;
         } else {
             Errors::invalid_argument_not_recoverable('layotter_id or layotter_type');
-            return null;
+            $result = null;
         }
+
+        echo json_encode($result);
     }
 }

@@ -2,50 +2,51 @@
 
 namespace Layotter\Ajax;
 
-use Layotter\Components\Element;
 use Layotter\Core;
 use Layotter\Errors;
 
 /**
- * Handles Ajax requests concerning elements
+ * Handles ajax calls concerning templates.
  */
-class Templates {
+class TemplatesHandler {
 
     /**
-     * Save element as a new template
+     * Saves an existing element as a new template and prints the new template as JSON.
      *
-     * @param array $data POST data
-     * @return Element Template data
+     * @param array $data POST data.
      */
     public static function create($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && Handler::is_valid_id($data['layotter_id'])) {
+        if (isset($data['layotter_id']) && RequestManager::is_valid_id($data['layotter_id'])) {
             $id = intval($data['layotter_id']);
             $element = Core::assemble_element($id);
             $element->set_template(true);
-            return $element;
+            $result = $element;
         } else {
             Errors::invalid_argument_not_recoverable('layotter_id');
-            return null;
+            $result = null;
         }
+
+        echo json_encode($result);
     }
 
     /**
-     * Delete a template
+     * Deletes a template and prints the resulting plain element (without template flag) as JSON.
      *
-     * @param array $data POST data
-     * @return Element Element data
+     * @param array $data POST data.
      */
     public static function delete($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && Handler::is_valid_id($data['layotter_id'])) {
+        if (isset($data['layotter_id']) && RequestManager::is_valid_id($data['layotter_id'])) {
             $id = intval($data['layotter_id']);
             $element = Core::assemble_element($id);
             $element->set_template(false);
-            return $element;
+            $result = $element;
         } else {
             Errors::invalid_argument_not_recoverable('layotter_id');
-            return null;
+            $result = null;
         }
+
+        echo json_encode($result);
     }
 }
