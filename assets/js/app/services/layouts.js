@@ -8,7 +8,7 @@ app.service('layouts', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
     
     
     // data received from php
-    this.savedLayouts = layotterData.savedLayouts;
+    this.savedLayouts = window.layotterData.savedLayouts;
 
 
     /**
@@ -18,11 +18,11 @@ app.service('layouts', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
         var json = angular.toJson(data.contentStructure);
 
         modals.prompt({
-            message: layotterData.i18n.save_new_layout_confirmation,
+            message: window.layotterData.i18n.save_new_layout_confirmation,
             initialValue: angular.element('#title').val(),
-            okText: layotterData.i18n.save_layout,
+            okText: window.layotterData.i18n.save_layout,
             okAction: function(value) {
-                var postData = 'layotter_action=create_layout&layotter_name=' + encodeURIComponent(value) + '&layotter_json=' + encodeURIComponent(json);
+                var postData = 'layotter_action=create_layout&layotter_post_type=' + window.layotterData.postType + '&layotter_name=' + encodeURIComponent(value) + '&layotter_json=' + encodeURIComponent(json);
                 angular.element('.layotter-save-layout-button-wrapper').addClass('layotter-loading');
                 $http({
                     url: ajaxurl + '?action=layotter',
@@ -36,7 +36,7 @@ app.service('layouts', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
                     angular.element('.layotter-save-layout-button-wrapper').removeClass('layotter-loading');
                 });
             },
-            cancelText: layotterData.i18n.cancel
+            cancelText: window.layotterData.i18n.cancel
         });
     };
 
@@ -60,12 +60,12 @@ app.service('layouts', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
             _this.loadSelectedLayout(id);
         } else {
             modals.confirm({
-                message: layotterData.i18n.load_layout_confirmation,
-                okText: layotterData.i18n.load_layout,
+                message: window.layotterData.i18n.load_layout_confirmation,
+                okText: window.layotterData.i18n.load_layout,
                 okAction: function(){
                     _this.loadSelectedLayout(id);
                 },
-                cancelText: layotterData.i18n.cancel
+                cancelText: window.layotterData.i18n.cancel
             });
         }
     };
@@ -88,7 +88,7 @@ app.service('layouts', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
         }).success(function(reply) {
             var r = reply.json;
             $animate.enabled(false);
-            data.contentStructure.options = r.options;
+            data.contentStructure.options_id = r.options_id;
             data.contentStructure.rows = r.rows;
             $timeout(function(){
                 $animate.enabled(true);

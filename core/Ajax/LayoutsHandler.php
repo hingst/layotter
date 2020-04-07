@@ -2,89 +2,76 @@
 
 namespace Layotter\Ajax;
 
-use Layotter\Components\Layout;
-use Layotter\Errors;
+use Exception;
+use InvalidArgumentException;
+use JsonSerializable;
+use Layotter\Repositories\LayoutRepository;
+use Layotter\Repositories\PostRepository;
+use Layotter\Serialization\LayoutSerializer;
 
-/**
- * Handles ajax calls concerning layouts.
- */
 class LayoutsHandler {
 
     /**
-     * Saves a new post layout and prints the saved layout as JSON.
-     *
-     * @param array $data POST data.
+     * @param array $data
+     * @return JsonSerializable
+     * @throws Exception
      */
     public static function create($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_name'], $data['layotter_json']) && is_string($data['layotter_name']) && is_string($data['layotter_json'])) {
-            $json = stripslashes($data['layotter_json']);
-            $layout = new Layout();
-            $layout->set_json($json);
-            $layout->save($data['layotter_name']);
-            $result = $layout;
-        } else {
-            Errors::invalid_argument_not_recoverable('layotter_name or layotter_json');
-            $result = null;
+
+        if (!isset($data['layotter_post_type'], $data['layotter_name'], $data['layotter_json']) || !is_string($data['layotter_post_type']) || !is_string($data['layotter_name']) || !is_string($data['layotter_json'])) {
+            throw new InvalidArgumentException();
         }
 
-        echo json_encode($result);
+        $post = PostRepository::create(stripslashes($data['layotter_json']));
+        $layout = LayoutRepository::save($post, $data['layotter_post_type'], $data['layotter_name']);
+        return new LayoutSerializer($layout);
     }
 
     /**
-     * Prints an existing post layout as JSON.
-     *
-     * @param array $data POST data.
+     * @param array $data
+     * @return JsonSerializable
+     * @throws Exception
      */
     public static function load($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && RequestManager::is_valid_id($data['layotter_id'])) {
-            $id = intval($data['layotter_id']);
-            $layout = new Layout($id);
-            $result = $layout;
-        } else {
-            Errors::invalid_argument_not_recoverable('layotter_id');
-            $result = null;
+
+        if (!isset($data['layotter_id']) || !RequestManager::is_valid_id($data['layotter_id'])) {
+            throw new InvalidArgumentException();
         }
 
-        echo json_encode($result);
+        $layout = LayoutRepository::load(intval($data['layotter_id']));
+        return new LayoutSerializer($layout);
     }
 
     /**
-     * Renames an existing post layout and prints the updated layout as JSON.
-     *
-     * @param array $data POST data.
+     * @param array $data
+     * @return JsonSerializable
+     * @throws Exception
      */
     public static function rename($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id'], $data['layotter_name']) && RequestManager::is_valid_id($data['layotter_id']) && is_string($data['layotter_name'])) {
-            $id = intval($data['layotter_id']);
-            $layout = new Layout($id);
-            $layout->rename($data['layotter_name']);
-            $result = $layout;
-        } else {
-            Errors::invalid_argument_not_recoverable('layotter_id or layotter_name');
-            $result = null;
+
+        if (!isset($data['layotter_id'], $data['layotter_name']) || !RequestManager::is_valid_id($data['layotter_id']) || !is_string($data['layotter_name'])) {
+            throw new InvalidArgumentException();
         }
 
-        echo json_encode($result);
+        $layout = LayoutRepository::rename(intval($data['layotter_id']), $data['layotter_name']);
+        return new LayoutSerializer($layout);
     }
 
     /**
-     * Deletes an existing post layout.
-     *
-     * @param array $data POST data.
+     * @param array $data
+     * @return bool
+     * @throws Exception
      */
     public static function delete($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && RequestManager::is_valid_id($data['layotter_id'])) {
-            $id = intval($data['layotter_id']);
-            $layout = new Layout($id);
-            $layout->delete();
-        } else {
-            Errors::invalid_argument_not_recoverable('layotter_id');
+
+        if (!isset($data['layotter_id']) || !RequestManager::is_valid_id($data['layotter_id'])) {
+            throw new InvalidArgumentException();
         }
 
-        // TODO: print result for error handling in JS?
+        return LayoutRepository::delete(intval($data['layotter_id']));
     }
 }

@@ -8,7 +8,7 @@ app.service('templates', ['$rootScope', '$http', '$animate', '$timeout', 'view',
 
 
     // data received from php
-    this.savedTemplates = layotterData.savedTemplates;
+    this.savedTemplates = window.layotterData.savedTemplates;
 
 
     /**
@@ -16,8 +16,8 @@ app.service('templates', ['$rootScope', '$http', '$animate', '$timeout', 'view',
      */
     this.editTemplate = function(element) {
         modals.confirm({
-            message: layotterData.i18n.edit_template_confirmation,
-            okText: layotterData.i18n.edit_template,
+            message: window.layotterData.i18n.edit_template_confirmation,
+            okText: window.layotterData.i18n.edit_template,
             okAction: function(){
                 state.setElement(element);
                 forms.fetchDataAndShowForm(ajaxurl + '?action=layotter', {
@@ -25,7 +25,7 @@ app.service('templates', ['$rootScope', '$http', '$animate', '$timeout', 'view',
                     layotter_id: element.id
                 });
             },
-            cancelText: layotterData.i18n.cancel
+            cancelText: window.layotterData.i18n.cancel
         });
     };
     
@@ -35,8 +35,8 @@ app.service('templates', ['$rootScope', '$http', '$animate', '$timeout', 'view',
      */
     this.deleteTemplate = function(index) {
         modals.confirm({
-            message: layotterData.i18n.delete_template_confirmation,
-            okText: layotterData.i18n.delete_template,
+            message: window.layotterData.i18n.delete_template_confirmation,
+            okText: window.layotterData.i18n.delete_template,
             okAction: function(){
                 _this.savedTemplates[index].isLoading = true;
                 $http({
@@ -59,7 +59,7 @@ app.service('templates', ['$rootScope', '$http', '$animate', '$timeout', 'view',
                     }
                 });
             },
-            cancelText: layotterData.i18n.cancel
+            cancelText: window.layotterData.i18n.cancel
         });
     };
     
@@ -87,7 +87,7 @@ app.service('templates', ['$rootScope', '$http', '$animate', '$timeout', 'view',
             element.isLoading = undefined;
             element.is_template = reply.is_template;
             _this.watchTemplate(element);
-            history.pushStep(layotterData.i18n.history.save_element_as_template);
+            history.pushStep(window.layotterData.i18n.history.save_element_as_template);
         });
     };
     
@@ -146,7 +146,7 @@ app.service('templates', ['$rootScope', '$http', '$animate', '$timeout', 'view',
                     angular.forEach(col.elements, function(element){
                         if (element.id == template_id) {
                             var templateCopy = angular.copy(value);
-                            templateCopy.options = element.options;
+                            templateCopy.options_id = element.options_id;
                             angular.extend(element, templateCopy);
                         }
                     });

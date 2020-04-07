@@ -1,17 +1,12 @@
 <?php
 
-namespace Layotter\ExampleElement;
+namespace Layotter\ElementTypes\ExampleType;
 
 use Layotter\Acf\Adapter;
+use Layotter\ElementTypes\BaseElementType;
 
-/**
- * Represents Layotter's example element that contains only a WYSIWYG field and can be disabled in settings.
- */
-class Element extends \Layotter\Components\Element {
+class ExampleType extends BaseElementType {
 
-    /**
-     * Sets element attributes.
-     */
     protected function attributes() {
         $this->title = __('Text editor', 'layotter');
         $this->description = __('An intuitive editor for text and pictures.', 'layotter');
@@ -20,9 +15,7 @@ class Element extends \Layotter\Components\Element {
     }
 
     /**
-     * Prints the frontend view.
-     *
-     * @param array $fields Field values.
+     * @param array $fields
      */
     protected function frontend_view($fields) {
         echo '<div class="layotter-example-element">';
@@ -31,9 +24,7 @@ class Element extends \Layotter\Components\Element {
     }
 
     /**
-     * Prints the backend view.
-     *
-     * @param array $fields Field values.
+     * @param array $fields
      */
     protected function backend_view($fields) {
         echo '<div class="layotter-example-element">';

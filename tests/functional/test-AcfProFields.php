@@ -31,6 +31,8 @@ class AcfProFieldsTest extends BaseSeleniumTest {
         self::click('.acf-field[data-name="flexible_content"] .acf-button');
         self::click('.acf-tooltip li:nth-child(1)');
         self::insertIntoTinyMce('.acf-field[data-name="flexible_content"] iframe', 'Some flexible test content.');
+        self::mouseOver('.acf-field[data-name="flexible_content"] .values .acf-field[data-name="relationship"]');
+        sleep(self::SLEEP_MEDIUM);
         self::click('.acf-field[data-name="flexible_content"] .acf-rel-item');
 
         self::click('#layotter-edit button[type="submit"]');

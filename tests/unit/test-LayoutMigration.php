@@ -1,7 +1,9 @@
 <?php
 
-use Layotter\Components\Post;
-use Layotter\Core;
+use Layotter\Repositories\LayoutRepository;
+use Layotter\Repositories\PostRepository;
+use Layotter\Initializer;
+use Layotter\Renderers\PostRenderer;
 use Layotter\Tests\TestData;
 use Layotter\Upgrades\LayoutMigrator;
 
@@ -22,16 +24,18 @@ class LayoutMigrationTest extends \WP_UnitTestCase {
 
         $migrator = new LayoutMigrator(0);
         $migrator->migrate();
-        $post = new Post();
-        $layouts = $post->get_available_layouts();
+        //$post = PostRepository::create(0); // TODO: was this line necessary?
+        $layouts = LayoutRepository::get_allowed_for_post_type('dummy');
 
         $this->assertArrayHasKey(0, $layouts);
 
         $id = $layouts[0]->get_id();
-        $actual = $layouts[0]->get_frontend_view();
+        $post = PostRepository::load($id);
+        $renderer = new PostRenderer($post);
+        $actual = $renderer->render_frontend_view();
 
-        $model_version = get_post_meta($id, Core::META_FIELD_MODEL_VERSION, true);
+        $model_version = get_post_meta($id, Initializer::META_FIELD_MODEL_VERSION, true);
         $this->assertEquals(TestData::EXPECTED_VIEW, $actual);
-        $this->assertEquals(Core::CURRENT_MODEL_VERSION, $model_version);
+        $this->assertEquals(Initializer::MODEL_VERSION, $model_version);
     }
 }

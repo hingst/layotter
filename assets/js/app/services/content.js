@@ -31,14 +31,14 @@ app.service('content', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
     this.backToShowNewElementTypes = function() {
         if (forms.fieldsChanged) {
             modals.confirm({
-                message: layotterData.i18n.discard_changes_go_back_confirmation,
-                okText: layotterData.i18n.discard_changes,
+                message: window.layotterData.i18n.discard_changes_go_back_confirmation,
+                okText: window.layotterData.i18n.discard_changes,
                 okAction: function(){
                     forms.showHTML(angular.element('#layotter-add-element').html());
                     forms.fieldsChanged = false;
                     forms.listenForFieldChanges = false;
                 },
-                cancelText: layotterData.i18n.cancel
+                cancelText: window.layotterData.i18n.cancel
             });
         } else {
             forms.showHTML(angular.element('#layotter-add-element').html());
@@ -120,9 +120,9 @@ app.service('content', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
             editingElement.isLoading = undefined;
             editingElement.type = undefined; // TODO: do I need this?
             if (isNewElement) {
-                history.pushStep(layotterData.i18n.history.add_element);
+                history.pushStep(window.layotterData.i18n.history.add_element);
             } else {
-                history.pushStep(layotterData.i18n.history.edit_element);
+                history.pushStep(window.layotterData.i18n.history.edit_element);
             }
 
             // ACF compatibility
@@ -141,7 +141,7 @@ app.service('content', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
             layotter_action: 'edit_options',
             layotter_type: type,
             layotter_options_id: item.options_id,
-            layotter_post_id: layotterData.postID
+            layotter_post_id: window.layotterData.postID
         });
     };
     
@@ -158,7 +158,7 @@ app.service('content', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
 
         // build query string from form data
         var values = jQuery('#layotter-edit, .layotter-modal #post').serialize()
-            + '&layotter_action=save_options&layotter_type=' + encodeURIComponent(optionsType) + '&layotter_post_id=' + encodeURIComponent(layotterData.postID);
+            + '&layotter_action=save_options&layotter_type=' + encodeURIComponent(optionsType) + '&layotter_post_id=' + encodeURIComponent(window.layotterData.postID);
 
         $http({
             url: ajaxurl + '?action=layotter',
@@ -170,7 +170,7 @@ app.service('content', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
         }).success(function(reply) {
             editingItem.options_id = parseInt(reply);
             editingItem.isLoading = undefined;
-            history.pushStep(layotterData.i18n.history['edit_' + optionsType + '_options']);
+            history.pushStep(window.layotterData.i18n.history['edit_' + optionsType + '_options']);
 
             // ACF compatibility
             acf.validation.unlockForm();
@@ -183,13 +183,13 @@ app.service('content', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
      */
     this.deleteElement = function(parent, index) {
         modals.confirm({
-            message: layotterData.i18n.delete_element_confirmation,
-            okText: layotterData.i18n.delete_element,
+            message: window.layotterData.i18n.delete_element_confirmation,
+            okText: window.layotterData.i18n.delete_element,
             okAction: function(){
                 parent.splice(index, 1);
-                history.pushStep(layotterData.i18n.history.delete_element);
+                history.pushStep(window.layotterData.i18n.history.delete_element);
             },
-            cancelText: layotterData.i18n.cancel
+            cancelText: window.layotterData.i18n.cancel
         });
     };
     
@@ -209,18 +209,18 @@ app.service('content', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
         // ask for confirmation only if the row contains any elements
         if (!hasElements) {
             data.contentStructure.rows.splice(index, 1);
-            history.pushStep(layotterData.i18n.history.delete_row);
+            history.pushStep(window.layotterData.i18n.history.delete_row);
             return;
         }
 
         modals.confirm({
-            message: layotterData.i18n.delete_row_confirmation,
-            okText: layotterData.i18n.delete_row,
+            message: window.layotterData.i18n.delete_row_confirmation,
+            okText: window.layotterData.i18n.delete_row,
             okAction: function(){
                 data.contentStructure.rows.splice(index, 1);
-                history.pushStep(layotterData.i18n.history.delete_row);
+                history.pushStep(window.layotterData.i18n.history.delete_row);
             },
-            cancelText: layotterData.i18n.cancel
+            cancelText: window.layotterData.i18n.cancel
         });
     };
     
@@ -230,7 +230,7 @@ app.service('content', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
      */
     this.addRow = function(index) {
         data.contentStructure.rows.splice(index+1, 0, angular.copy(data.templates.row));
-        history.pushStep(layotterData.i18n.history.add_row);
+        history.pushStep(window.layotterData.i18n.history.add_row);
     };
     
     
@@ -239,7 +239,7 @@ app.service('content', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
      */
     this.duplicateRow = function(index) {
         data.contentStructure.rows.splice(index, 0, angular.copy(data.contentStructure.rows[index]));
-        history.pushStep(layotterData.i18n.history.duplicate_row);
+        history.pushStep(window.layotterData.i18n.history.duplicate_row);
     };
     
     
@@ -248,7 +248,7 @@ app.service('content', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
      */
     this.duplicateElement = function(parent, index) {
         parent.splice(index, 0, angular.copy(parent[index]));
-        history.pushStep(layotterData.i18n.history.duplicate_element);
+        history.pushStep(window.layotterData.i18n.history.duplicate_element);
     };
     
     
@@ -286,7 +286,7 @@ app.service('content', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
             }, 1);
         }
 
-        history.pushStep(layotterData.i18n.history.change_row_layout);
+        history.pushStep(window.layotterData.i18n.history.change_row_layout);
     };
     
     
@@ -296,7 +296,7 @@ app.service('content', ['$rootScope', '$http', '$animate', '$timeout', 'data', '
     this.cancelEditing = function() {
         if (forms.fieldsChanged) {
             modals.confirm({
-                message: layotterData.i18n.discard_changes_confirmation,
+                message: window.layotterData.i18n.discard_changes_confirmation,
                 okText: layotterData.i18n.discard_changes,
                 okAction: function(){
                     state.reset();

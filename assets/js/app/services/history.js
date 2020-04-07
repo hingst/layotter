@@ -24,13 +24,13 @@ app.service('history', ['$animate', '$timeout', 'data', function($animate, $time
         _this.data.canRedo = canRedo();
 
         if (_this.data.canUndo) {
-            _this.data.undoTitle = layotterData.i18n.history.undo + ' ' + steps[currentStep].title;
+            _this.data.undoTitle = window.layotterData.i18n.history.undo + ' ' + steps[currentStep].title;
         } else {
             _this.data.undoTitle = '';
         }
 
         if (_this.data.canRedo) {
-            _this.data.redoTitle = layotterData.i18n.history.redo + ' ' + steps[currentStep + 1].title;
+            _this.data.redoTitle = window.layotterData.i18n.history.redo + ' ' + steps[currentStep + 1].title;
         } else {
             _this.data.redoTitle = '';
         }
@@ -108,7 +108,7 @@ app.service('history', ['$animate', '$timeout', 'data', function($animate, $time
             currentStep--;
             var restore = angular.copy(steps[currentStep].content);
             restore = refreshTemplates(restore);
-            data.contentStructure.options = restore.options;
+            data.contentStructure.options_id = restore.options_id;
             data.contentStructure.rows = restore.rows;
             updateData();
 
@@ -129,7 +129,7 @@ app.service('history', ['$animate', '$timeout', 'data', function($animate, $time
             currentStep++;
             var restore = angular.copy(steps[currentStep].content);
             restore = refreshTemplates(restore);
-            data.contentStructure.options = restore.options;
+            data.contentStructure.options_id = restore.options_id;
             data.contentStructure.rows = restore.rows;
             updateData();
 

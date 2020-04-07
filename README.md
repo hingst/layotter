@@ -9,7 +9,7 @@ As a professional Wordpress developer, you've probably got your own theme boiler
 Layotter is based on [Advanced Custom Fields (ACF)](http://www.advancedcustomfields.com), a very popular Wordpress plugin that lets you create wildly complex forms without having to write any code. Thanks to ACF, building a simple Layotter element takes as little as 15 lines of code:
 
 ```php
-class Text_Element extends Layotter_Element {
+class TextElement extends \Layotter\ElementTypes\BaseElementType {
     protected function attributes() {
         $this->title       = 'Text';
         $this->description = 'A very simple text element.';
@@ -23,7 +23,7 @@ class Text_Element extends Layotter_Element {
         echo $fields['content']; // what editors will see
     }
 }
-Layotter::register_element('text', 'Text_Element');
+\Layotter\Repositories\ElementTypeRepository::register('text', 'TextElement');
 ```
 
 Read the [installation instructions](http://docs.layotter.com/getting-started/installation/) to get started, or head directly to the [tutorial on how to create an element type](http://docs.layotter.com/basics/element-types/).

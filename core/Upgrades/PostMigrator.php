@@ -2,42 +2,61 @@
 
 namespace Layotter\Upgrades;
 
-use Layotter\Components\Post;
-use Layotter\Core;
+use Exception;
+use InvalidArgumentException;
+use Layotter\Repositories\PostRepository;
+use Layotter\Initializer;
+use Layotter\Editor;
+use Layotter\Renderers\PostRenderer;
 
 class PostMigrator {
 
+    /**
+     * Before 1.5.0, all JSON was stored in the post content, so it needs to be extracted with this regex.
+     */
     const PRE_150_POST_CONTENT_REGEX = '/\[layotter\](.*)\[\/layotter\]/ms';
 
+    /**
+     * @var int
+     */
     private $id;
 
+    /**
+     * @param int $id
+     */
     public function __construct($id) {
-        $this->id = intval($id);
+        if (!is_int($id)) {
+            throw new InvalidArgumentException();
+        }
+
+        $this->id = $id;
     }
 
+    /**
+     * @return bool
+     */
     public function needs_upgrade() {
-        if (!Core::is_enabled_for_post($this->id)) {
+        if (!Editor::is_enabled_for_post($this->id)) {
             return false;
         }
 
-        $model_version = get_post_meta($this->id, Core::META_FIELD_MODEL_VERSION, true);
-        if (empty($model_version) || version_compare($model_version, Core::CURRENT_MODEL_VERSION) < 0) {
-            return true;
-        }
-
-        return false;
+        $model_version = get_post_meta($this->id, Initializer::META_FIELD_MODEL_VERSION, true);
+        return (empty($model_version) || version_compare($model_version, Initializer::MODEL_VERSION) < 0);
     }
 
+    /**
+     * @throws Exception
+     */
     public function migrate() {
         $old_data = $this->get_data();
+
         $new_data = [
             'options_id' => 0,
             'rows' => []
         ];
 
-        if (isset($old_data['options'])) {
-            $options_template = Core::assemble_new_options('post');
-            $new_options = new EditableMigrator('post', $options_template->get_fields(), $old_data['options']);
+        if (isset($old_data['options']) && !empty($old_data['options'])) {
+            $new_options = new OptionsMigrator('post', $old_data['options']);
             $new_data['options_id'] = $new_options->migrate();
         }
 
@@ -49,16 +68,16 @@ class PostMigrator {
         }
 
         $json = json_encode($new_data);
-        $post = new Post();
-        $post->set_json($json);
-        $search_dump = '[layotter post="' . $this->id . '"]' . $post->get_search_dump() . '[/layotter]';
+        $post = PostRepository::create($json);
+        $renderer = new PostRenderer($post);
+        $search_dump = '[layotter post="' . $this->id . '"]' . $renderer->generate_search_dump() . '[/layotter]';
 
         wp_update_post([
             'ID' => $this->id,
             'post_content' => addslashes($search_dump),
             'meta_input' => [
-                Core::META_FIELD_JSON => addslashes($json),
-                Core::META_FIELD_MODEL_VERSION => Core::CURRENT_MODEL_VERSION
+                Initializer::META_FIELD_JSON => addslashes($json),
+                Initializer::META_FIELD_MODEL_VERSION => Initializer::MODEL_VERSION
             ]
         ]);
     }
@@ -100,7 +119,6 @@ class PostMigrator {
             $rows = [];
             $content = get_post_field('post_content', $this->id);
 
-            // TODO: simplify when you're sober
             if (!empty($content)) {
                 $rows[] = [
                     'layout' => '1/1',

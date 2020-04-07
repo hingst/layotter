@@ -3,19 +3,19 @@
  */
 app.service('data', function(){
     // use default post options for new posts
-    if (layotterData.contentStructure === null) {
+    if (window.layotterData.contentStructure === null) {
         this.contentStructure = {
             options_id: 0,
             rows: []
         };
     } else {
-        this.contentStructure = angular.copy(layotterData.contentStructure);
+        this.contentStructure = angular.copy(window.layotterData.contentStructure);
     }
     
     
     // empty templates
     this.templates = {};
-    var defaultRowLayout = layotterData.defaultRowLayout;
+    var defaultRowLayout = window.layotterData.defaultRowLayout;
 
 
     // new element template

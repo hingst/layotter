@@ -2,14 +2,8 @@
 
 namespace Layotter\Views;
 
-/**
- * View for the templates side bar
- */
 class Templates {
 
-    /**
-     * Output view
-     */
     public static function view() {
         ?>
         <div id="layotter-templates" ng-controller="TemplatesCtrl">

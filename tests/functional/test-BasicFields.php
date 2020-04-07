@@ -23,7 +23,7 @@ class BasicFieldsTest extends BaseSeleniumTest {
         self::select('.acf-field[data-name="text"] input')->sendKeys('text');
         self::select('.acf-field[data-name="textarea"] textarea')->sendKeys('textarea');
         self::select('.acf-field[data-name="number"] input')->sendKeys('50');
-        self::select('.acf-field[data-name="range"] input[type="number"]')->clear()->sendKeys('50');
+        self::select('.acf-field[data-name="range"] input[type="number"]')->clear(); // clear sets default 50
         self::select('.acf-field[data-name="email"] input')->sendKeys('email@example.com');
         self::select('.acf-field[data-name="url"] input')->sendKeys('http://example.com');
         self::select('.acf-field[data-name="password"] input')->sendKeys('password');

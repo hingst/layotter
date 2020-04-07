@@ -26,7 +26,7 @@ app.controller('TemplatesCtrl', ['$scope', '$animate', 'templates', '$timeout', 
             if (ui.item.sortable.droptarget && event.target !== ui.item.sortable.droptarget[0]) {
                 angular.extend(templates.savedTemplates, savedTemplatesBackup); // re-add element to saved elements if it was removed
             }
-            history.pushStep(layotterData.i18n.history.create_element_from_template);
+            history.pushStep(window.layotterData.i18n.history.create_element_from_template);
             $timeout(function(){
                 $animate.enabled(true); // reenable all animations after sorting
             }, 1);

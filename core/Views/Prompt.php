@@ -2,14 +2,8 @@
 
 namespace Layotter\Views;
 
-/**
- * View for text input prompts
- */
 class Prompt {
 
-    /**
-     * Output view
-     */
     public static function view() {
         ?>
         <div class="layotter-modal-prompt">

@@ -3,15 +3,10 @@
 namespace Layotter\Acf;
 
 /**
- * Manages custom location rules for ACF.
- *
  * @see http://www.advancedcustomfields.com/resources/custom-location-rules/
  */
 class LocationRulesManager {
 
-    /**
-     * Registers all necessary filters.
-     */
     public static function register() {
         add_filter('acf/location/rule_types', [__CLASS__, 'category']);
         add_filter('acf/location/rule_values/layotter', [__CLASS__, 'options']);
@@ -21,8 +16,8 @@ class LocationRulesManager {
     /**
      * Adds 'Use with layotter' as a first level location option.
      *
-     * @param array $choices Existing options.
-     * @return array Extended options.
+     * @param array $choices
+     * @return array
      */
     public static function category($choices) {
         $choices['Advanced']['layotter'] = __('Use with Layotter', 'layotter');
@@ -32,8 +27,8 @@ class LocationRulesManager {
     /**
      * Adds second-level location options.
      *
-     * @param array $choices Existing options.
-     * @return array Extended options.
+     * @param array $choices
+     * @return array
      */
     public static function options($choices) {
         $choices['element'] = __('Use as element', 'layotter');

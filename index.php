@@ -19,4 +19,4 @@ spl_autoload_register(function($class) {
     }
 });
 
-Core::init();
+Initializer::run();

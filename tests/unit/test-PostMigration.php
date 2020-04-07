@@ -1,7 +1,9 @@
 <?php
 
-use Layotter\Components\Post;
-use Layotter\Core;
+use Layotter\Repositories\PostRepository;
+use Layotter\Initializer;
+use Layotter\Renderers\PostRenderer;
+use Layotter\Serialization\PostSerializer;
 use Layotter\Tests\TestData;
 
 /**
@@ -30,11 +32,12 @@ class PostMigrationTest extends \WP_UnitTestCase {
             'post_type' => 'page'
         ]);
 
-        $post = new Post($id);
-        $actual = $post->get_frontend_view();
-        $model_version = get_post_meta($id, Core::META_FIELD_MODEL_VERSION, true);
+        $post = PostRepository::load($id);
+        $renderer = new PostRenderer($post);
+        $actual = $renderer->render_frontend_view();
+        $model_version = get_post_meta($id, Initializer::META_FIELD_MODEL_VERSION, true);
         $this->assertEquals(TestData::EXPECTED_VIEW, $actual);
-        $this->assertEquals(Core::CURRENT_MODEL_VERSION, $model_version);
+        $this->assertEquals(Initializer::MODEL_VERSION, $model_version);
     }
 
     public function test_CanMigrateFromPost150Structure() {
@@ -48,11 +51,12 @@ class PostMigrationTest extends \WP_UnitTestCase {
             'post_type' => 'page'
         ]);
 
-        $post = new Post($id);
-        $actual = $post->get_frontend_view();
-        $model_version = get_post_meta($id, Core::META_FIELD_MODEL_VERSION, true);
+        $post = PostRepository::load($id);
+        $renderer = new PostRenderer($post);
+        $actual = $renderer->render_frontend_view();
+        $model_version = get_post_meta($id, Initializer::META_FIELD_MODEL_VERSION, true);
         $this->assertEquals(TestData::EXPECTED_VIEW, $actual);
-        $this->assertEquals(Core::CURRENT_MODEL_VERSION, $model_version);
+        $this->assertEquals(Initializer::MODEL_VERSION, $model_version);
     }
 
     public function test_CanMigrateAllFieldTypes() {
@@ -68,11 +72,12 @@ class PostMigrationTest extends \WP_UnitTestCase {
             'post_type' => 'page'
         ]);
 
-        $post = new Post($id);
-        $this->assertRegExp(TestData::EXPECTED_ALL_FIELDS_JSON_REGEX, json_encode($post));
+        $post = PostRepository::load($id);
+        $json = json_encode(new PostSerializer($post));
+        $this->assertRegExp(TestData::EXPECTED_ALL_FIELDS_JSON_REGEX, $json);
 
         $matches = [];
-        preg_match(TestData::EXPECTED_ALL_FIELDS_JSON_REGEX, json_encode($post), $matches);
+        preg_match(TestData::EXPECTED_ALL_FIELDS_JSON_REGEX, $json, $matches);
         $this->assertEquals(3, count($matches));
         $element_id = $matches[1];
         $options_id = $matches[2];
@@ -108,7 +113,9 @@ class PostMigrationTest extends \WP_UnitTestCase {
         $this->assertEquals(TESTS_WP_USER, get_field('user', $element_id)->data->user_login);
 
         // jquery fields
-        $this->assertEmpty(get_field('google_map', $element_id));
+        $google_map = get_field('google_map', $element_id);
+        $this->assertArrayHasKey('address', $google_map);
+        $this->assertEmpty($google_map['address']);
         $this->assertEquals('2019-01-01', get_field('date_picker', $element_id));
         $this->assertEquals('2019-01-01 00:00:00', get_field('date_time_picker', $element_id));
         $this->assertEquals('00:00:00', get_field('time_picker', $element_id));
@@ -134,10 +141,10 @@ class PostMigrationTest extends \WP_UnitTestCase {
             'post_type' => 'page'
         ]);
 
-        $post = new Post($id);
+        $post = PostRepository::load($id);
 
         $matches = [];
-        preg_match(TestData::EXPECTED_ALL_FIELDS_JSON_REGEX, json_encode($post), $matches);
+        preg_match(TestData::EXPECTED_ALL_FIELDS_JSON_REGEX, json_encode(new PostSerializer($post)), $matches);
         $element_id = $matches[1];
 
         // gallery
@@ -157,10 +164,10 @@ class PostMigrationTest extends \WP_UnitTestCase {
             'post_content' => 'blah blah blah',
             'post_type' => 'page'
         ]);
-        $post = new Post($id);
-        $model_version = get_post_meta($id, Core::META_FIELD_MODEL_VERSION, true);
-        $this->assertRegExp(TestData::EXPECTED_JSON_REGEX, json_encode($post));
-        $this->assertEquals(Core::CURRENT_MODEL_VERSION, $model_version);
+        $post = PostRepository::load($id);
+        $model_version = get_post_meta($id, Initializer::META_FIELD_MODEL_VERSION, true);
+        $this->assertRegExp(TestData::EXPECTED_JSON_REGEX, json_encode(new PostSerializer($post)));
+        $this->assertEquals(Initializer::MODEL_VERSION, $model_version);
     }
 
     public function test_CanMigrateFromEmptyPost() {
@@ -168,9 +175,9 @@ class PostMigrationTest extends \WP_UnitTestCase {
             'post_content' => '',
             'post_type' => 'page'
         ]);
-        $post = new Post($id);
-        $model_version = get_post_meta($id, Core::META_FIELD_MODEL_VERSION, true);
-        $this->assertRegExp(TestData::EXPECTED_EMPTY_JSON_REGEX, json_encode($post));
-        $this->assertEquals(Core::CURRENT_MODEL_VERSION, $model_version);
+        $post = PostRepository::load($id);
+        $model_version = get_post_meta($id, Initializer::META_FIELD_MODEL_VERSION, true);
+        $this->assertRegExp(TestData::EXPECTED_EMPTY_JSON_REGEX, json_encode(new PostSerializer($post)));
+        $this->assertEquals(Initializer::MODEL_VERSION, $model_version);
     }
 }

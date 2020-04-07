@@ -34,7 +34,7 @@ class AcfAdapterTest extends \WP_UnitTestCase {
         $post_id = self::factory()->post->create([
             'post_type' => 'page'
         ]);
-        $expect_true = \Layotter\Acf\Adapter::is_field_group_visible($field_group, [
+        $expect_true = Adapter::is_field_group_visible($field_group, [
             'post_id' => $post_id,
             'post_type' => get_post_type($post_id),
             'layotter' => 'element'
@@ -47,7 +47,7 @@ class AcfAdapterTest extends \WP_UnitTestCase {
         $post_id = self::factory()->post->create([
             'post_type' => 'post'
         ]);
-        $expect_false = \Layotter\Acf\Adapter::is_field_group_visible($field_group, [
+        $expect_false = Adapter::is_field_group_visible($field_group, [
             'post_id' => $post_id,
             'post_type' => get_post_type($post_id),
             'layotter' => 'element'
@@ -66,7 +66,7 @@ class AcfAdapterTest extends \WP_UnitTestCase {
     public function test_GenerateFormForNewElement() {
         $field_group = Adapter::get_field_group('group_test');
         $fields = Adapter::get_fields($field_group);
-        $html = Adapter::get_form_html($fields);
+        $html = Adapter::render_form($fields, 0);
         $this->assertContains('field_test', $html);
     }
 
@@ -75,7 +75,7 @@ class AcfAdapterTest extends \WP_UnitTestCase {
         Adapter::update_field_value('field_test', 'blah blah blah', $post_id);
         $field_group = Adapter::get_field_group('group_test');
         $fields = Adapter::get_fields($field_group);
-        $html = Adapter::get_form_html($fields, $post_id);
+        $html = Adapter::render_form($fields, $post_id);
         $this->assertContains('blah blah blah', $html);
     }
 

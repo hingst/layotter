@@ -1,6 +1,9 @@
 <?php
 
-use Layotter\Core;
+use Layotter\Repositories\ElementRepository;
+use Layotter\Initializer;
+use Layotter\Repositories\ElementTypeRepository;
+use Layotter\Services\ElementFieldsService;
 
 /**
  * @group unit
@@ -8,8 +11,8 @@ use Layotter\Core;
 class ElementsTest extends \WP_UnitTestCase {
 
     public function test_Fields() {
-        $element = Core::assemble_new_element('layotter_example_element');
-        $fields = $element->get_fields();
+        $element = ElementRepository::create('layotter_example_element');
+        $fields = ElementFieldsService::get_fields($element);
         $this->assertEquals('wysiwyg', $fields[0]['type']);
     }
 
@@ -17,21 +20,21 @@ class ElementsTest extends \WP_UnitTestCase {
         $id = self::factory()->post->create([
             'post_type' => 'page'
         ]);
-        $element = Core::assemble_new_element('layotter_example_element');
-        $this->assertTrue($element->is_enabled_for($id));
+        $element = ElementRepository::create('layotter_example_element');
+        $this->assertTrue(ElementTypeRepository::is_allowed_for_post($element->get_type(), $id));
     }
 
     public function test_SetTemplate() {
-        $element = Core::assemble_new_element('layotter_example_element');
-        $element->save_from_post_data();
-        $this->assertFalse($element->is_template());
+        $element = ElementRepository::create('layotter_example_element');
+        ElementRepository::save_from_post_data($element);
+        $this->assertFalse(ElementRepository::is_template($element));
 
-        $element->set_template(true);
-        $this->assertTrue($element->is_template());
-        $this->assertTrue((bool) get_post_meta($element->get_id(), Core::META_FIELD_IS_TEMPLATE, true));
+        ElementRepository::promote_element($element);
+        $this->assertTrue(ElementRepository::is_template($element));
+        $this->assertTrue((bool) get_post_meta($element->get_id(), Initializer::META_FIELD_IS_TEMPLATE, true));
 
-        $element->set_template(false);
-        $this->assertFalse($element->is_template());
-        $this->assertFalse((bool) get_post_meta($element->get_id(), Core::META_FIELD_IS_TEMPLATE, true));
+        ElementRepository::demote_element($element);
+        $this->assertFalse(ElementRepository::is_template($element));
+        $this->assertFalse((bool) get_post_meta($element->get_id(), Initializer::META_FIELD_IS_TEMPLATE, true));
     }
 }

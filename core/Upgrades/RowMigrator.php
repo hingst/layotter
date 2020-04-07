@@ -2,16 +2,18 @@
 
 namespace Layotter\Upgrades;
 
-use Layotter\Core;
+use InvalidArgumentException;
 
 class RowMigrator {
 
     private $old_data = [];
 
     public function __construct($data) {
-        if (is_array($data)) {
-            $this->old_data = $data;
+        if (!is_array($data)) {
+            throw new InvalidArgumentException();
         }
+
+        $this->old_data = $data;
     }
 
     public function migrate() {
@@ -21,9 +23,8 @@ class RowMigrator {
             'layout' => ''
         ];
 
-        if (isset($this->old_data['options'])) {
-            $options_template = Core::assemble_new_options('row');
-            $new_options = new EditableMigrator('row', $options_template->get_fields(), $this->old_data['options']);
+        if (isset($this->old_data['options']) && !empty($this->old_data['options'])) {
+            $new_options = new OptionsMigrator('row', $this->old_data['options']);
             $new_data['options_id'] = $new_options->migrate();
         }
 

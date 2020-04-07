@@ -1,7 +1,8 @@
 <?php
 
-use Layotter\Components\Options;
-use Layotter\Core;
+use Layotter\Models\Options;
+use Layotter\Repositories\OptionsRepository;
+use Layotter\Services\OptionsFieldsService;
 
 /**
  * @group unit
@@ -9,50 +10,50 @@ use Layotter\Core;
 class OptionsTest extends \WP_UnitTestCase {
 
     public function test_ElementOptions() {
-        $options = Core::assemble_new_options('element');
+        $options = OptionsRepository::create('element');
 
         $this->assertTrue($options instanceof Options);
-        $this->assertTrue($options->is_enabled());
-        $this->assertEquals(1, count($options->get_fields()));
-        $this->assertEquals(1, count($options->get_values()));
+        $this->assertTrue(OptionsFieldsService::has_fields($options));
+        $this->assertEquals(1, count(OptionsFieldsService::get_fields($options)));
+        $this->assertEquals(1, count(OptionsFieldsService::get_values($options)));
     }
 
     public function test_ColumnOptions() {
-        $options = Core::assemble_new_options('col');
+        $options = OptionsRepository::create('col');
 
         $this->assertTrue($options instanceof Options);
-        $this->assertTrue($options->is_enabled());
-        $this->assertEquals(1, count($options->get_fields()));
-        $this->assertEquals(1, count($options->get_values()));
+        $this->assertTrue(OptionsFieldsService::has_fields($options));
+        $this->assertEquals(1, count(OptionsFieldsService::get_fields($options)));
+        $this->assertEquals(1, count(OptionsFieldsService::get_values($options)));
     }
 
     public function test_RowOptions() {
-        $options = Core::assemble_new_options('row');
+        $options = OptionsRepository::create('row');
 
         $this->assertTrue($options instanceof Options);
-        $this->assertTrue($options->is_enabled());
-        $this->assertEquals(1, count($options->get_fields()));
-        $this->assertEquals(1, count($options->get_values()));
+        $this->assertTrue(OptionsFieldsService::has_fields($options));
+        $this->assertEquals(1, count(OptionsFieldsService::get_fields($options)));
+        $this->assertEquals(1, count(OptionsFieldsService::get_values($options)));
     }
 
     public function test_PostOptions() {
-        $options = Core::assemble_new_options('post');
+        $options = OptionsRepository::create('post');
 
         $this->assertTrue($options instanceof Options);
-        $this->assertTrue($options->is_enabled());
-        $this->assertEquals(1, count($options->get_fields()));
-        $this->assertEquals(1, count($options->get_values()));
+        $this->assertTrue(OptionsFieldsService::has_fields($options));
+        $this->assertEquals(1, count(OptionsFieldsService::get_fields($options)));
+        $this->assertEquals(1, count(OptionsFieldsService::get_values($options)));
     }
 
     public function test_PostTypeContext() {
-        $options = Core::assemble_new_options('post');
+        $options = OptionsRepository::create('post');
         $options->set_post_type_context('post');
 
-        $this->assertFalse($options->is_enabled());
+        $this->assertFalse(OptionsFieldsService::has_fields($options));
 
         $options->set_post_type_context('page');
 
-        $this->assertTrue($options->is_enabled());
+        $this->assertTrue(OptionsFieldsService::has_fields($options));
     }
 
 }

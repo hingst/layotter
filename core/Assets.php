@@ -2,8 +2,17 @@
 
 namespace Layotter;
 
-use Layotter\Acf\Adapter;
-use Layotter\Components\Post;
+use Exception;
+use Layotter\Repositories\ElementRepository;
+use Layotter\Repositories\LayoutRepository;
+use Layotter\Repositories\ElementTypeRepository;
+use Layotter\Repositories\OptionsRepository;
+use Layotter\Repositories\PostRepository;
+use Layotter\Serialization\ElementSerializer;
+use Layotter\Serialization\ElementTypeSerializer;
+use Layotter\Serialization\LayoutSerializer;
+use Layotter\Serialization\PostSerializer;
+use Layotter\Services\OptionsFieldsService;
 use Layotter\Views\AddElement;
 use Layotter\Views\Confirm;
 use Layotter\Views\Form;
@@ -11,74 +20,91 @@ use Layotter\Views\LoadLayout;
 use Layotter\Views\Prompt;
 use Layotter\Views\Templates;
 
-/**
- * HTML templates, JS, CSS, and data to be passed to Javascript
- */
 class Assets {
 
-    /**
-     * Backend assets
-     */
-    public static function backend() {
-        if (!Core::is_enabled()) {
+    public static function enqueue_backend_assets() {
+        if (!Editor::is_enabled_for_screen()) {
             return;
         }
 
-        // styles
         wp_enqueue_style('layotter', plugins_url('assets/css/editor.min.css', __DIR__));
         wp_enqueue_style('layotter-font-awesome', plugins_url('assets/css/font-awesome.min.css', __DIR__));
 
-        // scripts
         $scripts = [
             'angular' => 'assets/js/vendor/angular.js',
             'angular-animate' => 'assets/js/vendor/angular-animate.js',
             'angular-sanitize' => 'assets/js/vendor/angular-sanitize.js',
             'angular-ui-sortable' => 'assets/js/vendor/angular-ui-sortable.js',
-            'layotter' => 'assets/js/app.min.js',
+            //'layotter' => 'assets/js/app.min.js',
+            'layotter' => 'assets/js/app/app.js',
+            'layotter-c-editor' => 'assets/js/app/controllers/editor.js',
+            'layotter-c-form' => 'assets/js/app/controllers/form.js',
+            'layotter-c-templates' => 'assets/js/app/controllers/templates.js',
+            'layotter-s-content' => 'assets/js/app/services/content.js',
+            'layotter-s-data' => 'assets/js/app/services/data.js',
+            'layotter-s-forms' => 'assets/js/app/services/forms.js',
+            'layotter-s-history' => 'assets/js/app/services/history.js',
+            'layotter-s-layouts' => 'assets/js/app/services/layouts.js',
+            'layotter-s-modals' => 'assets/js/app/services/modals.js',
+            'layotter-s-state' => 'assets/js/app/services/state.js',
+            'layotter-s-templates' => 'assets/js/app/services/templates.js',
+            'layotter-s-view' => 'assets/js/app/services/view.js',
         ];
+
         foreach ($scripts as $name => $path) {
             wp_enqueue_script($name, plugins_url($path, __DIR__));
         }
     }
 
     /**
-     * Localization must be called in admin_footer because otherwise ACF isn't done initializing and
-     * Adapter::get_filtered_field_groups() doesn't work correctly.
+     * @throws Exception
      */
     public static function backend_localization() {
-        if (!Core::is_enabled()) {
+        if (!Editor::is_enabled_for_screen()) {
             return;
         }
 
-        // to check if options are enabled
-        $post_options = Core::assemble_new_options('post');
-        $row_options = Core::assemble_new_options('row');
-        $col_options = Core::assemble_new_options('col');
-        $element_options = Core::assemble_new_options('element');
-        $post_options->set_post_type_context(get_post_type());
-        $row_options->set_post_type_context(get_post_type());
-        $col_options->set_post_type_context(get_post_type());
-        $element_options->set_post_type_context(get_post_type());
+        $id = get_the_ID();
+        $post_type = get_post_type();
+        $post = PostRepository::load($id);
 
-        // get current post
-        $layotter_post = new Post(get_the_ID());
+        $post_options = OptionsRepository::create('post');
+        $row_options = OptionsRepository::create('row');
+        $col_options = OptionsRepository::create('col');
+        $element_options = OptionsRepository::create('element');
+        $post_options->set_post_type_context($post_type);
+        $row_options->set_post_type_context($post_type);
+        $col_options->set_post_type_context($post_type);
+        $element_options->set_post_type_context($post_type);
 
-        // pass data to JS
+        $saved_layouts = array_map(function($model) {
+            return new LayoutSerializer($model);
+        }, LayoutRepository::get_allowed_for_post_type($post_type));
+
+        $saved_templates = array_map(function($model) {
+            return new ElementSerializer($model);
+        }, ElementRepository::get_available_templates_for_post($id));
+
+        $element_types = array_map(function($model) {
+            return new ElementTypeSerializer($model);
+        }, ElementTypeRepository::get_allowed_for_post($id));
+
         $data = [
-            'postID' => get_the_ID(),
-            'contentStructure' => $layotter_post,
+            'postID' => $id,
+            'postType' => $post_type,
+            'contentStructure' => new PostSerializer($post),
             'allowedRowLayouts' => Settings::get_allowed_row_layouts(),
             'defaultRowLayout' => Settings::get_default_row_layout(),
-            'savedLayouts' => $layotter_post->get_available_layouts(),
-            'savedTemplates' => $layotter_post->get_available_templates(),
+            'savedLayouts' => $saved_layouts,
+            'savedTemplates' => $saved_templates,
             'enablePostLayouts' => Settings::post_layouts_enabled(),
             'enableElementTemplates' => Settings::element_templates_enabled(),
-            'elementTypes' => $layotter_post->get_available_element_types_meta(),
+            'elementTypes' => $element_types,
             'isOptionsEnabled' => [
-                'post' => $post_options->is_enabled(),
-                'row' => $row_options->is_enabled(),
-                'col' => $col_options->is_enabled(),
-                'element' => $element_options->is_enabled()
+                'post' => OptionsFieldsService::has_fields($post_options),
+                'row' => OptionsFieldsService::has_fields($row_options),
+                'col' => OptionsFieldsService::has_fields($col_options),
+                'element' => OptionsFieldsService::has_fields($element_options)
             ],
             'i18n' => [
                 'delete_row' => __('Delete row', 'layotter'),
@@ -131,23 +157,17 @@ class Assets {
             ]
         ];
 
-        echo '<script>var layotterData = ' . json_encode($data) . '</script>';
+        echo '<script>window.layotterData = ' . json_encode($data) . '</script>';
     }
 
-    /**
-     * Include basic CSS in the frontend if enabled in settings
-     */
-    public static function frontend() {
+    public static function enqueue_frontend_assets() {
         if (!is_admin() && Settings::default_css_enabled()) {
             wp_enqueue_style('layotter-frontend', plugins_url('assets/css/frontend.min.css', __DIR__));
         }
     }
 
-    /**
-     * Include HTML templates for use in JS
-     */
-    public static function views() {
-        if (!Core::is_enabled()) {
+    public static function print_views() {
+        if (!Editor::is_enabled_for_screen()) {
             return;
         }
 

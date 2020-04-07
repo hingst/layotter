@@ -2,14 +2,19 @@
 
 namespace Layotter\Upgrades;
 
-use Layotter\Core;
+use InvalidArgumentException;
+use Layotter\Initializer;
 
 class LayoutMigrator {
 
     private $id;
 
     public function __construct($id) {
-        $this->id = intval($id);
+        if (!is_int($id)) {
+            throw new InvalidArgumentException();
+        }
+
+        $this->id = $id;
     }
 
     public function migrate() {
@@ -21,10 +26,10 @@ class LayoutMigrator {
             $layout = $layouts[$this->id];
 
             $id = wp_insert_post([
-                'post_type' => Core::POST_TYPE_LAYOUT,
+                'post_type' => Initializer::POST_TYPE_LAYOUT,
                 'meta_input' => [
-                    Core::META_FIELD_JSON => addslashes($layout['json']),
-                    Core::META_FIELD_MODEL_VERSION => Core::CURRENT_MODEL_VERSION
+                    Initializer::META_FIELD_JSON => addslashes($layout['json']),
+                    Initializer::META_FIELD_MODEL_VERSION => Initializer::MODEL_VERSION
                 ],
                 'post_status' => 'publish',
                 'post_title' => $layout['name'],

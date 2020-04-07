@@ -2,21 +2,29 @@
 
 namespace Layotter\Upgrades;
 
-use Layotter\Core;
+use Exception;
+use InvalidArgumentException;
+use Layotter\Repositories\ElementRepository;
 
 class TemplateMigrator {
 
     private $id;
+
     private $options = [];
 
     public function __construct($id, $options = []) {
-        $this->id = intval($id);
-
-        if (is_array($options)) {
-            $this->options = $options;
+        if (!is_int($id) || !is_array($options)) {
+            throw new InvalidArgumentException();
         }
+
+        $this->id = $id;
+        $this->options = $options;
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     public function migrate() {
         $new_data = [
             'id' => 0,
@@ -24,8 +32,7 @@ class TemplateMigrator {
         ];
 
         if (!empty($this->options)) {
-            $options_template = Core::assemble_new_options('element');
-            $new_options = new EditableMigrator('element', $options_template->get_fields(), $this->options);
+            $new_options = new OptionsMigrator('element', $this->options);
             $new_data['options_id'] = $new_options->migrate();
         }
 
@@ -37,13 +44,12 @@ class TemplateMigrator {
             if (isset($old_data['migrated_to'])) {
                 $new_data['id'] = $old_data['migrated_to'];
             } else if (isset($old_data['type']) && isset($old_data['values'])) {
-                $element_template = Core::assemble_new_element($old_data['type']);
-                $new_element = new EditableMigrator($old_data['type'], $element_template->get_fields(), $old_data['values']);
+                $new_element = new NewElementMigrator($old_data['type'], $old_data['values']);
                 $new_data['id'] = $new_element->migrate();
 
-                $element = Core::assemble_element($new_data['id']);
+                $element = ElementRepository::load($new_data['id'], $new_data['options_id']);
                 if (!isset($old_data['deleted'])) {
-                    $element->set_template(true);
+                    ElementRepository::promote_element($element);
                 }
 
                 $templates[$this->id] = [

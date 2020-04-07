@@ -1,6 +1,7 @@
 <?php
 
-use Layotter\Core;
+use Layotter\Initializer;
+use Layotter\Editor;
 use Layotter\Settings;
 
 /**
@@ -29,14 +30,14 @@ class SettingsFiltersTest extends \WP_UnitTestCase {
         $post_id = $GLOBALS['layotter_test_post_id'] = self::factory()->post->create([
             'post_type' => 'post'
         ]);
-        $this->assertFalse(Core::is_enabled_for_post($post_id));
+        $this->assertFalse(Editor::is_enabled_for_post($post_id));
 
         add_filter('layotter/enable_for_posts', [$this, 'helper_enable_for_posts']);
-        $this->assertTrue(Core::is_enabled_for_post($post_id));
+        $this->assertTrue(Editor::is_enabled_for_post($post_id));
 
         // reset state
         remove_filter('layotter/enable_for_posts', [$this, 'helper_enable_for_posts']);
-        $this->assertFalse(Core::is_enabled_for_post($post_id));
+        $this->assertFalse(Editor::is_enabled_for_post($post_id));
         unset($GLOBALS['layotter_test_post_id']);
     }
 
@@ -49,14 +50,14 @@ class SettingsFiltersTest extends \WP_UnitTestCase {
         $post_id = $GLOBALS['layotter_test_post_id'] = self::factory()->post->create([
             'post_type' => 'page'
         ]);
-        $this->assertTrue(Core::is_enabled_for_post($post_id));
+        $this->assertTrue(Editor::is_enabled_for_post($post_id));
 
         add_filter('layotter/disable_for_posts', [$this, 'helper_disable_for_posts']);
-        $this->assertFalse(Core::is_enabled_for_post($post_id));
+        $this->assertFalse(Editor::is_enabled_for_post($post_id));
 
         // reset state
         remove_filter('layotter/disable_for_posts', [$this, 'helper_disable_for_posts']);
-        $this->assertTrue(Core::is_enabled_for_post($post_id));
+        $this->assertTrue(Editor::is_enabled_for_post($post_id));
         unset($GLOBALS['layotter_test_post_id']);
     }
 

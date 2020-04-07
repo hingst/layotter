@@ -2,27 +2,39 @@
 
 namespace Layotter\Upgrades;
 
-use Layotter\Core;
+use Exception;
+use InvalidArgumentException;
 
 class ColumnMigrator {
 
+    /**
+     * @var array
+     */
     private $old_data = [];
 
+    /**
+     * @param array $data
+     */
     public function __construct($data) {
-        if (is_array($data)) {
-            $this->old_data = $data;
+        if (!is_array($data)) {
+            throw new InvalidArgumentException();
         }
+
+        $this->old_data = $data;
     }
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     public function migrate() {
         $new_data = [
             'options_id' => 0,
             'elements' => []
         ];
 
-        if (isset($this->old_data['options'])) {
-            $options_template = Core::assemble_new_options('col');
-            $new_options = new EditableMigrator('col', $options_template->get_fields(), $this->old_data['options']);
+        if (isset($this->old_data['options']) && !empty($this->old_data['options'])) {
+            $new_options = new OptionsMigrator('col', $this->old_data['options']);
             $new_data['options_id'] = $new_options->migrate();
         }
 

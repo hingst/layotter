@@ -2,18 +2,24 @@
 
 namespace Layotter\Upgrades;
 
-use Layotter\Core;
+use Layotter\Initializer;
 use Layotter\Upgrades\Runners\LayoutsUpgrader;
 use Layotter\Upgrades\Runners\TemplatesUpgrader;
 
 class PluginMigrator {
 
+    public static function upgrade_on_demand() {
+        if (PluginMigrator::needs_upgrade()) {
+            PluginMigrator::upgrade();
+        }
+    }
+
     /**
      * @return bool
      */
     public static function needs_upgrade() {
-        $model_version = get_option(Core::META_FIELD_MODEL_VERSION);
-        return (empty($model_version) || version_compare($model_version, Core::CURRENT_MODEL_VERSION) < 0);
+        $model_version = get_option(Initializer::META_FIELD_MODEL_VERSION);
+        return (empty($model_version) || version_compare($model_version, Initializer::MODEL_VERSION) < 0);
     }
 
     public static function upgrade() {
@@ -27,7 +33,7 @@ class PluginMigrator {
             $layouts_upgrader->do_upgrade_step();
         }
 
-        update_option(Core::META_FIELD_MODEL_VERSION, Core::CURRENT_MODEL_VERSION);
+        update_option(Initializer::META_FIELD_MODEL_VERSION, Initializer::MODEL_VERSION);
     }
 
 }

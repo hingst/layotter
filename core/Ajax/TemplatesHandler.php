@@ -2,51 +2,45 @@
 
 namespace Layotter\Ajax;
 
-use Layotter\Core;
-use Layotter\Errors;
+use Exception;
+use InvalidArgumentException;
+use JsonSerializable;
+use Layotter\Repositories\ElementRepository;
+use Layotter\Serialization\ElementSerializer;
 
-/**
- * Handles ajax calls concerning templates.
- */
 class TemplatesHandler {
 
     /**
-     * Saves an existing element as a new template and prints the new template as JSON.
-     *
-     * @param array $data POST data.
+     * @param array $data
+     * @return JsonSerializable
+     * @throws Exception
      */
     public static function create($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && RequestManager::is_valid_id($data['layotter_id'])) {
-            $id = intval($data['layotter_id']);
-            $element = Core::assemble_element($id);
-            $element->set_template(true);
-            $result = $element;
-        } else {
-            Errors::invalid_argument_not_recoverable('layotter_id');
-            $result = null;
+
+        if (!isset($data['layotter_id']) || !RequestManager::is_valid_id($data['layotter_id'])) {
+            throw new InvalidArgumentException();
         }
 
-        echo json_encode($result);
+        $element = ElementRepository::load(intval($data['layotter_id']), 0);
+        ElementRepository::promote_element($element);
+        return new ElementSerializer($element);
     }
 
     /**
-     * Deletes a template and prints the resulting plain element (without template flag) as JSON.
-     *
-     * @param array $data POST data.
+     * @param array $data
+     * @return JsonSerializable
+     * @throws Exception
      */
     public static function delete($data = null) {
         $data = is_array($data) ? $data : $_POST;
-        if (isset($data['layotter_id']) && RequestManager::is_valid_id($data['layotter_id'])) {
-            $id = intval($data['layotter_id']);
-            $element = Core::assemble_element($id);
-            $element->set_template(false);
-            $result = $element;
-        } else {
-            Errors::invalid_argument_not_recoverable('layotter_id');
-            $result = null;
+
+        if (!isset($data['layotter_id']) || !RequestManager::is_valid_id($data['layotter_id'])) {
+            throw new InvalidArgumentException();
         }
 
-        echo json_encode($result);
+        $element = ElementRepository::load(intval($data['layotter_id']), 0);
+        ElementRepository::demote_element($element);
+        return new ElementSerializer($element);
     }
 }

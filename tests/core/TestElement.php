@@ -2,13 +2,16 @@
 
 namespace Layotter\Tests;
 
+use Layotter;
+use Layotter_Element;
+
 /**
  * Test element using all field types available in ACF Pro
  */
-class TestElement extends \Layotter_Element {
+class TestElement extends Layotter_Element {
 
     public static function register() {
-        \Layotter::register_element('layotter_functional_test_element', __CLASS__);
+        Layotter::register_element('layotter_functional_test_element', __CLASS__);
     }
 
     protected function attributes() {

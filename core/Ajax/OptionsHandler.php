@@ -2,18 +2,18 @@
 
 namespace Layotter\Ajax;
 
-use Layotter\Core;
-use Layotter\Errors;
+use InvalidArgumentException;
+use JsonSerializable;
+use Layotter\Models\Options;
+use Layotter\Repositories\OptionsRepository;
+use Layotter\Serialization\FormSerializer;
+use Layotter\Services\OptionsFieldsService;
 
-/**
- * Handles ajax calls concerning options.
- */
 class OptionsHandler {
 
     /**
-     * Prints the edit form for post, row, column or element options as JSON.
-     *
-     * @param array $data POST data.
+     * @param array $data
+     * @return JsonSerializable
      */
     public static function edit($data = null) {
         $data = is_array($data) ? $data : $_POST;
@@ -23,48 +23,39 @@ class OptionsHandler {
             $post_type_context = get_post_type($data['layotter_post_id']);
         }
 
-        if (isset($data['layotter_options_id']) && RequestManager::is_valid_id($data['layotter_options_id'])) {
-            $id = intval($data['layotter_options_id']);
-            $options = Core::assemble_options($id);
-            $options->set_post_type_context($post_type_context);
-            $result = $options->get_form_meta();
-        } else if (isset($data['layotter_type']) && is_string($data['layotter_type'])) {
-            $type = $data['layotter_type'];
-            $options = Core::assemble_new_options($type);
-            $options->set_post_type_context($post_type_context);
-            $result = $options->get_form_meta();
-        } else {
-            Errors::invalid_argument_not_recoverable('layotter_options_id or layotter_type');
-            $result = null;
-        }
-
-        echo json_encode($result);
+        $options = self::get_options($data);
+        $options->set_post_type_context($post_type_context);
+        $form = OptionsFieldsService::get_form($options);
+        return new FormSerializer($form);
     }
 
     /**
-     * Saves field values from POST data to options and prints the options ID.
-     *
-     * @param array $data POST data.
+     * @param array $data
+     * @return int
      */
     public static function save($data = null) {
         $data = is_array($data) ? $data : $_POST;
+        $options = self::get_options($data);
+        OptionsRepository::save_from_post_data($options);
 
-        if (isset($data['layotter_options_id']) && RequestManager::is_valid_id($data['layotter_options_id'])) {
-            $id = intval($data['layotter_options_id']);
-            $options = Core::assemble_options($id);
-            $options->save_from_post_data();
-            $result = $options->get_id();
-        } else if (isset($data['layotter_type']) && is_string($data['layotter_type'])) {
-            $options = Core::assemble_new_options($data['layotter_type']);
-            $options->save_from_post_data();
-            $result = $options->get_id();
-        } else {
-            Errors::invalid_argument_not_recoverable('layotter_options_id or layotter_type');
-            $result = null;
+        // TODO: why just the ID and not the whole object?
+
+        return $options->get_id();
+    }
+
+    /**
+     * @param array $data
+     * @return Options
+     */
+    private static function get_options($data) {
+        if (!isset($data['layotter_type']) || !is_string($data['layotter_type'])) {
+            throw new InvalidArgumentException();
         }
 
-        // TODO: why print just the ID and not the whole JSON?
-
-        echo json_encode($result);
+        if (isset($data['layotter_options_id']) && RequestManager::is_valid_id($data['layotter_options_id'])) {
+            return OptionsRepository::load($data['layotter_type'], intval($data['layotter_options_id']));
+        } else {
+            return OptionsRepository::create($data['layotter_type']);
+        }
     }
 }

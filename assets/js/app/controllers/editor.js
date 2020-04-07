@@ -14,15 +14,15 @@ app.controller('EditorCtrl', ['$scope', '$animate', 'data', 'content', 'template
 
 
     // data received from php
-    $scope.allowedRowLayouts = layotterData.allowedRowLayouts;
+    $scope.allowedRowLayouts = window.layotterData.allowedRowLayouts;
     $scope.optionsEnabled = {
-        post: layotterData.isOptionsEnabled.post,
-        row: layotterData.isOptionsEnabled.row,
-        col: layotterData.isOptionsEnabled.col,
-        element: layotterData.isOptionsEnabled.element
+        post: window.layotterData.isOptionsEnabled.post,
+        row: window.layotterData.isOptionsEnabled.row,
+        col: window.layotterData.isOptionsEnabled.col,
+        element: window.layotterData.isOptionsEnabled.element
     };
-    $scope.enablePostLayouts = layotterData.enablePostLayouts;
-    $scope.enableElementTemplates = layotterData.enableElementTemplates;
+    $scope.enablePostLayouts = window.layotterData.enablePostLayouts;
+    $scope.enableElementTemplates = window.layotterData.enableElementTemplates;
     $scope.savedLayouts = layouts.savedLayouts;
     $scope.savedemplates = templates.savedTemplates;
 
@@ -61,7 +61,7 @@ app.controller('EditorCtrl', ['$scope', '$animate', 'data', 'content', 'template
         revert: 300,
         handle: '.layotter-row-move',
         stop: function(){
-            history.pushStep(layotterData.i18n.history.move_row);
+            history.pushStep(window.layotterData.i18n.history.move_row);
         }
     };
     $scope.elementSortableOptions = {
@@ -77,7 +77,7 @@ app.controller('EditorCtrl', ['$scope', '$animate', 'data', 'content', 'template
         },
         stop: function(){
             $animate.enabled(true);
-            history.pushStep(layotterData.i18n.history.move_element);
+            history.pushStep(window.layotterData.i18n.history.move_element);
         }
     };
 }]);

@@ -1,27 +1,28 @@
 <?php
 
-namespace Layotter\ExampleElement;
+namespace Layotter\ElementTypes\ExampleType;
 
 use Layotter\Acf\Adapter;
+use Layotter\Repositories\ElementTypeRepository;
 use Layotter\Settings;
 
-/**
- * Manages the ACF field group for Layotter's example element.
- */
-class FieldGroupManager {
+class ExampleTypeManager {
 
-    /**
-     * Registers the field group.
-     */
     public static function register() {
+        add_action('after_setup_theme', [__CLASS__, 'include_example_element']);
+    }
+
+    public static function include_example_element() {
+        self::register_field_group();
+        ElementTypeRepository::register('layotter_example_element', ExampleType::class);
+    }
+
+    public static function register_field_group() {
         $default_text = __("Welcome to the text editor! Write something, insert links or images, and click save when you're done.", 'layotter') . "\n\n" . __("By the way, Layotter isn't limited to text fields. You can create all kinds of content, like embedded Google maps, image galleries, file uploads, and much more!", 'layotter');
         $content_label = __('Content', 'layotter');
 
         // hide if disabled in settings, but still register the group so that existing elements keep working
-        $location_rule = 'hidden';
-        if (Settings::example_element_enabled()) {
-            $location_rule = 'element';
-        }
+        $location_rule = Settings::example_element_enabled() ? 'element' : 'hidden';
 
         acf_add_local_field_group([
             'key' => Adapter::get_example_field_group_key(),
