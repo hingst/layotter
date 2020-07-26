@@ -3,16 +3,6 @@ var gulp = require('gulp');
 var plumber = require('gulp-plumber');
 var sass = require('gulp-sass');
 var sourcemaps = require('gulp-sourcemaps');
-var uglify = require('gulp-uglify');
-
-gulp.task('js', function (done) {
-    gulp.src('assets/js/app/**/*.js')
-        .pipe(plumber())
-        .pipe(uglify())
-        .pipe(concat('app.min.js'))
-        .pipe(gulp.dest('assets/js'));
-    done();
-});
 
 gulp.task('scss', function (done) {
     gulp.src('assets/css/editor.scss')
@@ -32,9 +22,8 @@ gulp.task('scss', function (done) {
     done();
 });
 
-gulp.task('default', gulp.series(['js', 'scss']));
+gulp.task('default', gulp.series(['scss']));
 
 gulp.task('watch', function () {
-    gulp.watch('assets/js/app/**/*.js', gulp.series(['js']));
     gulp.watch('assets/css/*.scss', gulp.series(['scss']));
 });

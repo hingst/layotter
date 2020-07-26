@@ -30,6 +30,9 @@ class Assets {
         wp_enqueue_style('layotter', plugins_url('assets/css/editor.min.css', __DIR__));
         wp_enqueue_style('layotter-font-awesome', plugins_url('assets/css/font-awesome.min.css', __DIR__));
 
+        wp_enqueue_script('app', plugins_url('assets/js/vue.min.js', __DIR__), [], false, true);
+
+        /*
         $scripts = [
             'angular' => 'assets/js/vendor/angular.js',
             'angular-animate' => 'assets/js/vendor/angular-animate.js',
@@ -54,6 +57,7 @@ class Assets {
         foreach ($scripts as $name => $path) {
             wp_enqueue_script($name, plugins_url($path, __DIR__));
         }
+        */
     }
 
     /**
