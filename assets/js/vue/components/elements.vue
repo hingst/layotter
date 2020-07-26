@@ -1,26 +1,26 @@
 <template>
-    <div class="layotter-elements" ui-sortable="elementSortableOptions" ng-model="col.elements">
-        <div class="layotter-element layotter-element-{ {$index} } layotter-animate" data-id="{ { element.id } }" ng-repeat="element in col.elements" ng-class="{ 'layotter-loading' : element.isLoading, 'layotter-highlight' : element.isHighlighted }">
+    <div class="layotter-elements" ui-sortable="elementSortableOptions" ng-model="column.elements">
+        <div v-for="(element, elementIndex) in column.elements" :class="['layotter-element', 'layotter-animate', 'layotter-element-' + elementIndex, { 'layotter-loading' : element.isLoading, 'layotter-highlight' : element.isHighlighted }]" :data-id="element.id">
             <div class="layotter-element-canvas">
                 <div class="layotter-element-buttons">
-                    <span class="layotter-element-button" ng-click="deleteElement(col.elements, $index)" :title="'delete_element' | translate"><i class="fa fa-trash"></i></span>
-                    <span class="layotter-element-button" ng-hide="element.is_template && !element.template_deleted" ng-click="editElement(element)" :title="'edit_element' | translate"><i class="fa fa-edit"></i></span>
+                    <span class="layotter-element-button" @click="deleteElement(column.elements, elementIndex)" :title="'delete_element' | translate"><i class="fa fa-trash"></i></span>
+                    <span class="layotter-element-button" v-show="!element.is_template || element.template_deleted" @click="editElement(element)" :title="'edit_element' | translate"><i class="fa fa-edit"></i></span>
                     <div class="layotter-element-dropdown">
                         <i class="fa fa-caret-down"></i>
                         <div class="layotter-element-dropdown-items">
-                            <span ng-click="editOptions('element', element)" ng-show="optionsEnabled.element"><i class="fa fa-cog"></i>{{ 'element_options' | translate }}</span>
-                            <span ng-click="duplicateElement(col.elements, $index)"><i class="fa fa-copy"></i>{{ 'duplicate_element' | translate }}</span>
-                            <span ng-hide="element.is_template && !element.template_deleted" ng-click="saveNewTemplate(element)" ng-if="enableElementTemplates"><i class="fa fa-star"></i>{{ 'save_as_template' | translate }}</span>
+                            <span @click="editOptions('element', element)" v-show="optionsEnabled.element"><i class="fa fa-cog"></i>{{ 'element_options' | translate }}</span>
+                            <span @click="duplicateElement(column.elements, elementIndex)"><i class="fa fa-copy"></i>{{ 'duplicate_element' | translate }}</span>
+                            <span v-show="enableElementTemplates && !element.is_template || element.template_deleted" @click="saveNewTemplate(element)"><i class="fa fa-star"></i>{{ 'save_as_template' | translate }}</span>
                         </div>
                     </div>
                 </div>
-                <div class="layotter-element-message" ng-show="element.is_template && !element.template_deleted">
+                <div class="layotter-element-message" v-show="element.is_template && !element.template_deleted">
                     {{ 'this_is_a_template' | translate }}
                 </div>
-                <div class="layotter-element-content" ng-bind-html="element.view"></div>
+                <div class="layotter-element-content" v-html="element.view"></div>
             </div>
             <div class="layotter-col-buttons-wrapper">
-                <span class="layotter-col-button" ng-click="showNewElementTypes(col.elements, $index)" :title="'add_element' | translate"><i class="fa fa-plus"></i></span>
+                <span class="layotter-col-button" @click="showNewElementTypes(column.elements, elementIndex)" :title="'add_element' | translate"><i class="fa fa-plus"></i></span>
             </div>
         </div>
     </div>
@@ -28,8 +28,40 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import {Column, Element, IsOptionsEnabled, Row} from "../interfaces/backendData";
 
 export default Vue.extend({
+    props: {
+        enableElementTemplates: {
+            type: Boolean,
+        },
+        column: {
+            type: Object as () => Column,
+        },
+        optionsEnabled: {
+            type: Object as () => IsOptionsEnabled,
+        },
+    },
+    methods: {
+        deleteElement(elements: Array<Element>, index: number): void {
+            console.log('deleteElement', elements, index);
+        },
+        duplicateElement(elements: Array<Element>, index: number): void {
+            console.log('duplicateElement', elements, index);
+        },
+        showNewElementTypes(elements: Array<Element>, index: number): void {
+            console.log('showNewElementTypes', elements, index);
+        },
+        editElement(element: Element): void {
+            console.log('editElement', element);
+        },
+        editOptions(type: string, element: Element): void {
+            console.log('editOptions', type, element);
+        },
+        saveNewTemplate(element: Element): void {
+            console.log('saveNewTemplate', element);
+        },
+    },
 });
 </script>
 

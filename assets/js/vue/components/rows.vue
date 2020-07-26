@@ -8,7 +8,7 @@
                 <div class="layotter-row-buttons">
                     <span @click="deleteRow(rowIndex)" :title="'delete_row' | translate"><i class="fa fa-trash"></i></span>
                     <span @click="duplicateRow(rowIndex)" :title="'duplicate_row' | translate"><i class="fa fa-copy"></i></span>
-                    <span @click="editOptions('row', row)" v-show="areOptionsEnabled" :title="'row_options' | translate"><i class="fa fa-cog"></i></span>
+                    <span @click="editOptions('row', row)" v-show="optionsEnabled.rows" :title="'row_options' | translate"><i class="fa fa-cog"></i></span>
                     <div class="layotter-row-select-layout" v-show="allowedLayouts.length > 1">
                         <i class="fa fa-columns"></i>
                         <div class="layotter-row-select-layout-items">
@@ -18,7 +18,11 @@
                         </div>
                     </div>
                 </div>
-                <Columns></Columns>
+                <Columns
+                    :columns="row.cols"
+                    :options-enabled="optionsEnabled"
+                    :row="row"
+                    :enable-element-templates="enableElementTemplates"></Columns>
             </div>
             <div class="layotter-add-row-button-wrapper">
                 <span class="layotter-add-row-button" @click="addRow(rowIndex)"><i class="fa fa-plus"></i>{{ 'add_row' | translate }}</span>
@@ -30,18 +34,21 @@
 <script lang="ts">
 import Vue from 'vue';
 import Columns from './columns.vue';
-import {Row} from "../interfaces/backendData";
+import {IsOptionsEnabled, Row} from "../interfaces/backendData";
 
 export default Vue.extend({
     components: {
         Columns
     },
     props: {
+        enableElementTemplates: {
+            type: Boolean,
+        },
         rows: {
             type: Array as () => Array<Row>,
         },
-        areOptionsEnabled: {
-            type: Boolean,
+        optionsEnabled: {
+            type: Object as () => IsOptionsEnabled,
         },
         allowedLayouts: {
             type: Array as () => Array<string>,

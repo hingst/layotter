@@ -1,14 +1,17 @@
 <template>
     <div class="layotter-cols">
-        <div class="layotter-col layotter-col-{ {$index} }" ng-class="{ 'layotter-loading' : col.isLoading }" ng-repeat="col in row.cols" data-width="{ { getColLayout(row, $index) } }">
-            <div class="layotter-col-buttons-wrapper" ng-class="{ 'layotter-always-visible': col.elements.length === 0 }">
-                <span class="layotter-col-button" ng-click="showNewElementTypes(col.elements, -1)" :title="'add_element' | translate"><i class="fa fa-plus"></i><span>{{ 'add_element' | translate }}</span></span>
+        <div v-for="(col, colIndex) in columns" :class="['layotter-col', 'layotter-col-' + colIndex, { 'layotter-loading' : col.isLoading }]" :data-width="getColLayout(row, colIndex)">
+            <div :class="['layotter-col-buttons-wrapper', { 'layotter-always-visible': col.elements.length === 0 }]">
+                <span class="layotter-col-button" @click="showNewElementTypes(col.elements, -1)" :title="'add_element' | translate"><i class="fa fa-plus"></i><span>{{ 'add_element' | translate }}</span></span>
                 <div class="layotter-breaker">
-                    <span class="layotter-col-button" ng-click="editOptions('col', col)" ng-show="optionsEnabled.col" :title="'column_options' | translate"><i class="fa fa-cog"></i><span>{{ 'column_options' | translate }}</span></span>
+                    <span class="layotter-col-button" @click="editOptions('col', col)" v-show="optionsEnabled.columns" :title="'column_options' | translate"><i class="fa fa-cog"></i><span>{{ 'column_options' | translate }}</span></span>
                 </div>
             </div>
 
-            <Elements></Elements>
+            <Elements
+                :column="col"
+                :options-enabled="optionsEnabled"
+                :enable-element-templates="enableElementTemplates"></Elements>
         </div>
     </div>
 </template>
@@ -16,10 +19,37 @@
 <script lang="ts">
 import Vue from 'vue';
 import Elements from './elements.vue';
+import {Column, Element, IsOptionsEnabled, Row} from "../interfaces/backendData";
 
 export default Vue.extend({
     components: {
         Elements,
+    },
+    props: {
+        enableElementTemplates: {
+            type: Boolean,
+        },
+        columns: {
+            type: Array as () => Array<Column>,
+        },
+        row: {
+            type: Object as () => Row,
+        },
+        optionsEnabled: {
+            type: Object as () => IsOptionsEnabled,
+        },
+    },
+    methods: {
+        getColLayout(row: Row, index: number): string {
+            console.log('getColLayout', row, index);
+            return '1/3';
+        },
+        showNewElementTypes(elements: Array<Element>, index: number): void {
+            console.log('showNewElementTypes');
+        },
+        editOptions(type: string, column: Column): void {
+            console.log('editOptions', type, column);
+        },
     }
 });
 </script>

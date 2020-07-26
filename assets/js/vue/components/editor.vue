@@ -27,7 +27,11 @@
             </div>
         </div>
 
-        <Rows></Rows>
+        <Rows
+            :rows="contentStructure.rows"
+            :allowed-layouts="allowedRowLayouts"
+            :options-enabled="optionsEnabled"
+            :enable-element-templates="enableElementTemplates"></Rows>
     </div>
 </template>
 
