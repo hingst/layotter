@@ -30,7 +30,7 @@ class Assets {
         wp_enqueue_style('layotter', plugins_url('assets/css/editor.min.css', __DIR__));
         wp_enqueue_style('layotter-font-awesome', plugins_url('assets/css/font-awesome.min.css', __DIR__));
 
-        wp_enqueue_script('app', plugins_url('assets/js/vue.min.js', __DIR__), [], false, true);
+        wp_enqueue_script('layotter', plugins_url('assets/js/vue.min.js', __DIR__), [], false, true);
 
         /*
         $scripts = [
@@ -111,6 +111,21 @@ class Assets {
                 'element' => OptionsFieldsService::has_fields($element_options)
             ],
             'i18n' => [
+                'options' => __('Options', 'layotter'),
+                'add_row' => __('Add row', 'layotter'),
+                'add_first_row' => __('Add your first row to get started', 'layotter'),
+                'start_with_layout' => __('Or start with a layout that you created earlier', 'layotter'),
+                'element_templates' => __('Element templates', 'layotter'),
+                'move_row' => __('Move row', 'layotter'),
+                'duplicate_row' => __('Duplicate row', 'layotter'),
+                'row_options' => __('Row options', 'layotter'),
+                'add_element' => __('Add element', 'layotter'),
+                'column_options' => __('Column options', 'layotter'),
+                'edit_element' => __('Edit element', 'layotter'),
+                'element_options' => __('Element options', 'layotter'),
+                'duplicate_element' => __('Duplicate element', 'layotter'),
+                'this_is_a_template' => __('This is a template.', 'layotter'),
+                'save_as_template' => __('Save as template', 'layotter'),
                 'delete_row' => __('Delete row', 'layotter'),
                 'delete_element' => __('Delete element', 'layotter'),
                 'delete_template' => __('Delete template', 'layotter'),

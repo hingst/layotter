@@ -2,27 +2,27 @@
     <div id="layotter" :class="{ 'layotter-loading' : isLoading }">
         <div class="layotter-top-buttons" v-for="num in [1,2]" :id="'layotter-top-buttons-' + num">
             <div class="layotter-top-buttons-left">
-                <span class="layotter-button" @click="editOptions('post', contentStructure)" v-show="optionsEnabled.post"><i class="fa fa-cog"></i><?php _e('Options', 'layotter'); ?></span>
+                <span class="layotter-button" @click="editOptions('post', contentStructure)" v-show="optionsEnabled.post"><i class="fa fa-cog"></i>{{ 'options' | translate }}</span>
                 <span class="layotter-button layotter-undo" @click="undoStep()" :class="{ 'layotter-disabled' : !history.canUndo }" :title="history.undoTitle"><i class="fa fa-undo"></i></span>
                 <span class="layotter-button layotter-redo" @click="redoStep()" :class="{ 'layotter-disabled' : !history.canRedo }" :title="history.redoTitle"><i class="fa fa-redo"></i></span>
                 <div class="layotter-save-layout-button-wrapper" v-show="enablePostLayouts">
-                    <span class="layotter-button" @click="saveNewLayout()"><i class="fa fa-download"></i><?php _e('Save layout', 'layotter'); ?></span>
+                    <span class="layotter-button" @click="saveNewLayout()"><i class="fa fa-download"></i>{{ 'save_layout' | translate }}</span>
                 </div>
-                <span class="layotter-button" @click="loadLayout()" v-show="enablePostLayouts && savedLayouts.length"><i class="fa fa-upload"></i><?php _e('Load layout', 'layotter'); ?></span>
+                <span class="layotter-button" @click="loadLayout()" v-show="enablePostLayouts && savedLayouts.length"><i class="fa fa-upload"></i>{{ 'load_layout' | translate }}</span>
             </div>
             <div class="layotter-top-buttons-right">
-                <span class="layotter-button" @click="toggleTemplates()" v-show="enableElementTemplates && savedTemplates.length"><i class="fa fa-star"></i><?php _e('Element templates', 'layotter'); ?></span>
+                <span class="layotter-button" @click="toggleTemplates()" v-show="enableElementTemplates && savedTemplates.length"><i class="fa fa-star"></i>{{ 'element_templates' | translate }}</span>
             </div>
         </div>
 
         <div class="layotter-get-started-buttons">
             <span class="layotter-add-row-button" @click="addRow(-1)" :class="{ 'layotter-large': contentStructure.rows.length === 0 }">
-                <span v-show="contentStructure.rows.length"><i class="fa fa-plus"></i><?php _e('Add row', 'layotter'); ?></span>
-                <span v-show="!contentStructure.rows.length"><i class="fa fa-plus"></i><?php _e('Add your first row to get started', 'layotter'); ?></span>
+                <span v-show="contentStructure.rows.length"><i class="fa fa-plus"></i>{{ 'add_row' | translate }}</span>
+                <span v-show="!contentStructure.rows.length"><i class="fa fa-plus"></i>{{ 'add_first_row' | translate }}</span>
             </span>
             <div class="layotter-breaker">
         <span class="layotter-load-layout-button" @click="loadLayout()" v-show="enablePostLayouts && savedLayouts.length && !contentStructure.rows.length" :class="{ 'layotter-hidden': contentStructure.rows.length !== 0 }">
-            <i class="fa fa-upload"></i><?php _e('Or start with a layout that you created earlier', 'layotter'); ?>
+            <i class="fa fa-upload"></i>{{ 'start_with_layout' | translate }}
         </span>
             </div>
         </div>
@@ -34,9 +34,9 @@
 <script lang="ts">
 import Vue from 'vue';
 import Rows from './rows.vue';
-import {LayotterData} from "../interfaces/layotterData";
+import {BackendData, Dictionary, Element, IsOptionsEnabled, Layout, Post} from "../interfaces/backendData";
 
-declare var layotterData: LayotterData;
+declare var layotterData: BackendData;
 
 export default Vue.extend({
     components: {
@@ -45,9 +45,9 @@ export default Vue.extend({
     data() {
         return {
             isLoading: false,
-            contentStructure: {},
-            allowedRowLayouts: [] as object[],
-            optionsEnabled: {},
+            contentStructure: {} as Post,
+            allowedRowLayouts: [] as string[],
+            optionsEnabled: {} as IsOptionsEnabled,
             enablePostLayouts: false,
             enableElementTemplates: false,
             history: {
@@ -56,8 +56,8 @@ export default Vue.extend({
                 canRedo: false,
                 redoTitle: '',
             },
-            savedLayouts: [] as object[],
-            savedTemplates: [] as object[],
+            savedLayouts: [] as Array<Layout>,
+            savedTemplates: [] as Array<Element>,
         }
     },
     created(): void {
@@ -94,7 +94,7 @@ export default Vue.extend({
         addRow(afterIndex: number): void {
             console.log('addRow', afterIndex);
         },
-    }
+    },
 });
 </script>
 
