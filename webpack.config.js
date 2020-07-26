@@ -10,7 +10,7 @@ const config = {
     resolve: {
         extensions: ['.ts', '.js', '.vue'],
         alias: {
-            vue$: 'vue/dist/vue.esm.js',
+            vue$: 'vue/dist/vue.js',
         },
     },
     module: {
@@ -39,6 +39,7 @@ const config = {
         ],
     },
     plugins: [new VueLoaderPlugin()],
+    mode: 'development',
 };
 
 module.exports = config;
