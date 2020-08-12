@@ -4,14 +4,13 @@
             <div :class="['layotter-col-buttons-wrapper', { 'layotter-always-visible': col.elements.length === 0 }]">
                 <span class="layotter-col-button" @click="showNewElementTypes(col.elements, -1)" :title="'add_element' | translate"><i class="fa fa-plus"></i><span>{{ 'add_element' | translate }}</span></span>
                 <div class="layotter-breaker">
-                    <span class="layotter-col-button" @click="editOptions('col', col)" v-show="optionsEnabled.columns" :title="'column_options' | translate"><i class="fa fa-cog"></i><span>{{ 'column_options' | translate }}</span></span>
+                    <span class="layotter-col-button" @click="editOptions('col', col)" v-show="configuration.colOptionsEnabled" :title="'column_options' | translate"><i class="fa fa-cog"></i><span>{{ 'column_options' | translate }}</span></span>
                 </div>
             </div>
 
             <Elements
                 :column="col"
-                :options-enabled="optionsEnabled"
-                :enable-element-templates="enableElementTemplates"></Elements>
+                :configuration="configuration"></Elements>
         </div>
     </div>
 </template>
@@ -19,24 +18,21 @@
 <script lang="ts">
 import Vue from 'vue';
 import Elements from './elements.vue';
-import {Column, Element, IsOptionsEnabled, Row} from "../interfaces/backendData";
+import {Column, Configuration, Element, Row} from '../interfaces/backendData';
 
 export default Vue.extend({
     components: {
         Elements,
     },
     props: {
-        enableElementTemplates: {
-            type: Boolean,
-        },
         columns: {
             type: Array as () => Array<Column>,
         },
         row: {
             type: Object as () => Row,
         },
-        optionsEnabled: {
-            type: Object as () => IsOptionsEnabled,
+        configuration: {
+            type: Object as () => Configuration,
         },
     },
     methods: {

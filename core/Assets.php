@@ -94,22 +94,24 @@ class Assets {
         }, ElementTypeRepository::get_allowed_for_post($id));
 
         $data = [
-            'postID' => $id,
-            'postType' => $post_type,
-            'contentStructure' => new PostSerializer($post),
-            'allowedRowLayouts' => Settings::get_allowed_row_layouts(),
-            'defaultRowLayout' => Settings::get_default_row_layout(),
+            'content' => new PostSerializer($post),
+            'postData' => [
+                'id' => $id,
+                'type' => $post_type,
+            ],
+            'configuration' => [
+                'allowedRowLayouts' => Settings::get_allowed_row_layouts(),
+                'defaultRowLayout' => Settings::get_default_row_layout(),
+                'postOptionsEnabled' => OptionsFieldsService::has_fields($post_options),
+                'rowOptionsEnabled' => OptionsFieldsService::has_fields($row_options),
+                'colOptionsEnabled' => OptionsFieldsService::has_fields($col_options),
+                'elementOptionsEnabled' => OptionsFieldsService::has_fields($element_options),
+                'postLayoutsEnabled' => Settings::post_layouts_enabled(),
+                'elementTemplatesEnabled' => Settings::element_templates_enabled(),
+            ],
             'savedLayouts' => $saved_layouts,
             'savedTemplates' => $saved_templates,
-            'enablePostLayouts' => Settings::post_layouts_enabled(),
-            'enableElementTemplates' => Settings::element_templates_enabled(),
             'elementTypes' => $element_types,
-            'isOptionsEnabled' => [
-                'post' => OptionsFieldsService::has_fields($post_options),
-                'row' => OptionsFieldsService::has_fields($row_options),
-                'col' => OptionsFieldsService::has_fields($col_options),
-                'element' => OptionsFieldsService::has_fields($element_options)
-            ],
             'i18n' => [
                 'options' => __('Options', 'layotter'),
                 'add_row' => __('Add row', 'layotter'),

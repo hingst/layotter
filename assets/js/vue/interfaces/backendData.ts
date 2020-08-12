@@ -1,16 +1,27 @@
 export interface BackendData {
-    postID: number,
-    postType: string,
-    contentStructure: Post,
-    allowedRowLayouts: Array<string>,
-    defaultRowLayout: string,
+    content: Post,
+    postData: PostData,
+    configuration: Configuration,
     savedLayouts: Array<Layout>,
     savedTemplates: Array<Element>,
-    enablePostLayouts: boolean,
-    enableElementTemplates: boolean,
     elementTypes: Array<ElementType>,
-    isOptionsEnabled: IsOptionsEnabled,
     i18n: Dictionary,
+}
+
+export interface PostData {
+    id: number,
+    type: string,
+}
+
+export interface Configuration {
+    allowedRowLayouts: Array<string>,
+    defaultRowLayout: string,
+    postOptionsEnabled: boolean,
+    rowOptionsEnabled: boolean,
+    colOptionsEnabled: boolean,
+    elementOptionsEnabled: boolean,
+    postLayoutsEnabled: boolean,
+    elementTemplatesEnabled: boolean,
 }
 
 export interface Post {
@@ -49,13 +60,6 @@ export interface Layout {
     name: string,
     json: string,
     time_created: number,
-}
-
-export interface IsOptionsEnabled {
-    post: boolean,
-    row: boolean,
-    col: boolean,
-    element: boolean,
 }
 
 export interface Dictionary {
