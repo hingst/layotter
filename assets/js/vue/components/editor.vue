@@ -27,15 +27,20 @@
             </div>
         </div>
 
-        <Rows
-            :rows="content.rows"
-            :configuration="configuration"></Rows>
+        <div class="layotter-rows" ui-sortable="rowSortableOptions" ng-model="data.rows">
+            <template v-for="(row, rowIndex) in content.rows">
+                <Row
+                    :row="row"
+                    :index="rowIndex"
+                    :configuration="configuration"></Row>
+            </template>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import Rows from './rows.vue';
+import Row from './row.vue';
 import {
     BackendData,
     Configuration,
@@ -50,7 +55,7 @@ declare var layotterData: BackendData;
 
 export default Vue.extend({
     components: {
-        Rows,
+        Row,
     },
     data() {
         return {
