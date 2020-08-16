@@ -23,6 +23,7 @@
                         :column="column"
                         :index="columnIndex"
                         :row="row"
+                        :rowIndex="index"
                         :configuration="configuration"></Column>
                 </template>
             </div>

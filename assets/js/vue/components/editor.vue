@@ -27,19 +27,27 @@
             </div>
         </div>
 
-        <div class="layotter-rows" ui-sortable="rowSortableOptions" ng-model="data.rows">
-            <template v-for="(row, rowIndex) in content.rows">
+        <div class="layotter-rows">
+            <Draggable v-model="content.rows"
+                       group="rows"
+                       :handle="'.layotter-row-move'"
+                       :force-fallback="true"
+                       :animation="300"
+                       :direction="'vertical'">
                 <Row
+                    v-for="(row, rowIndex) in content.rows"
+                    :key="rowIndex"
                     :row="row"
                     :index="rowIndex"
                     :configuration="configuration"></Row>
-            </template>
+            </Draggable>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import Draggable from 'vuedraggable';
 import Row from './row.vue';
 import {
     BackendData,
@@ -56,6 +64,7 @@ declare var layotterData: BackendData;
 export default Vue.extend({
     components: {
         Row,
+        Draggable,
     },
     data() {
         return {

@@ -8,25 +8,33 @@
         </div>
 
         <div class="layotter-elements" ui-sortable="elementSortableOptions" ng-model="column.elements">
-            <template v-for="(element, elementIndex) in column.elements">
+            <Draggable v-model="column.elements"
+                       group="elements"
+                       :filter="'.layotter-element-buttons'"
+                       :force-fallback="true"
+                       :animation="300">
                 <Element
+                    v-for="(element, elementIndex) in column.elements"
+                    :key="elementIndex"
                     :element="element"
                     :index="elementIndex"
                     :column="column"
                     :configuration="configuration"></Element>
-            </template>
+            </Draggable>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import Draggable from 'vuedraggable';
 import Element from './element.vue';
 import {Column, Configuration, Row} from '../interfaces/backendData';
 
 export default Vue.extend({
     components: {
         Element,
+        Draggable,
     },
     props: {
         column: {
@@ -37,6 +45,9 @@ export default Vue.extend({
         },
         row: {
             type: Object as () => Row,
+        },
+        rowIndex: {
+            type: Number,
         },
         configuration: {
             type: Object as () => Configuration,

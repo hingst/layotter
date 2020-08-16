@@ -108,18 +108,26 @@ $darkgray: #CCCCCC;
     height: 0 !important;
 }
 
-.layotter-row.ui-sortable-helper,
-.layotter-element.ui-sortable-helper{
+.layotter-row.sortable-drag,
+.layotter-element.sortable-drag {
     z-index: 9999 !important; // below templates sidebar
 
     > .layotter-element-canvas {
         box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.1) !important;
     }
 
+    .layotter-row-move {
+        display: block !important;
+    }
+
     > .layotter-add-row-button-wrapper,
     > .layotter-col-buttons-wrapper {
         display: none !important;
     }
+}
+
+.layotter-row.sortable-chosen .layotter-row-move {
+    display: block !important;
 }
 
 .layotter-rows {
@@ -143,6 +151,10 @@ $darkgray: #CCCCCC;
             margin-bottom: 0;
         }
     }
+}
+
+.layotter-elements .sortable-chosen.sortable-drag:first-child + .layotter-element {
+    margin-top: 0;
 }
 
 
@@ -177,7 +189,6 @@ $darkgray: #CCCCCC;
         }
     }
 }
-
 
 /****************************************************/
 /* basic buttons */
@@ -694,14 +705,17 @@ $darkgray: #CCCCCC;
 /* elements */
 
 .layotter-elements {
-    min-height: 66px;
+    &,
+    > div {
+        min-height: 66px;
+    }
 
     .layotter-element {
         position: relative; // for "add element" buttons
-        margin-bottom: 10px;
+        margin-top: 10px;
 
-        &:last-child {
-            margin-bottom: 0;
+        &:first-child {
+            margin-top: 0;
         }
 
         &.layotter-loading .layotter-element-canvas {
