@@ -23,7 +23,8 @@
                         :column="column"
                         :index="columnIndex"
                         :row="row"
-                        :rowIndex="index"></Column>
+                        :rowIndex="index"
+                        @pushStep="pushStep"></Column>
                 </template>
             </div>
         </div>
@@ -36,7 +37,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Column from './column.vue';
-import {IPost, IRow, ITemplates} from '../interfaces/IBackendData';
+import {IPost, IRow} from '../interfaces/IBackendData';
 
 export default Vue.extend({
     components: {
@@ -54,6 +55,9 @@ export default Vue.extend({
         },
     },
     methods: {
+        pushStep(title: string): void {
+            this.$emit('pushStep', title);
+        },
         addRow(index: number): void {
             this.$emit('addRow', index);
         },
@@ -74,9 +78,12 @@ export default Vue.extend({
             if (confirm('DELETE ROW?')) {
                 this.post.rows.splice(index, 1);
             }
+
+            this.$emit('pushStep', this.$store.state.i18n.delete_row);
         },
         duplicateRow(index: number): void {
             this.post.rows.splice(index, 0, JSON.parse(JSON.stringify(this.post.rows[index])));
+            this.$emit('pushStep', this.$store.state.i18n.duplicate_row);
         },
         editOptions(type: string, row: object): void {
             console.log('editOptions', type, row);
@@ -98,6 +105,8 @@ export default Vue.extend({
                 }
                 row.cols.splice(newColCount);
             }
+
+            this.$emit('pushStep', this.$store.state.i18n.change_row_layout);
         },
     }
 });

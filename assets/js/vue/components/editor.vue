@@ -3,8 +3,8 @@
         <div class="layotter-top-buttons" v-for="num in [1,2]" :id="'layotter-top-buttons-' + num">
             <div class="layotter-top-buttons-left">
                 <span class="layotter-button" @click="editOptions('post', content)" v-show="$store.state.configuration.postOptionsEnabled"><i class="fa fa-cog"></i>{{ 'options' | translate }}</span>
-                <span class="layotter-button layotter-undo" @click="undoStep()" :class="{ 'layotter-disabled' : !$store.state.history.canUndo }" :title="$store.state.history.undoTitle"><i class="fa fa-undo"></i></span>
-                <span class="layotter-button layotter-redo" @click="redoStep()" :class="{ 'layotter-disabled' : !$store.state.history.canRedo }" :title="$store.state.history.redoTitle"><i class="fa fa-redo"></i></span>
+                <span class="layotter-button layotter-undo" @click="undoStep()" :class="{ 'layotter-disabled' : !canUndo() }" :title="$store.state.history.undoTitle"><i class="fa fa-undo"></i></span>
+                <span class="layotter-button layotter-redo" @click="redoStep()" :class="{ 'layotter-disabled' : !canRedo() }" :title="$store.state.history.redoTitle"><i class="fa fa-redo"></i></span>
                 <div class="layotter-save-layout-button-wrapper" v-show="$store.state.configuration.postLayoutsEnabled">
                     <span class="layotter-button" @click="saveNewLayout()"><i class="fa fa-download"></i>{{ 'save_layout' | translate }}</span>
                 </div>
@@ -33,14 +33,16 @@
                        :handle="'.layotter-row-move'"
                        :force-fallback="true"
                        :animation="300"
-                       :direction="'vertical'">
+                       :direction="'vertical'"
+                       @end="pushStep($store.state.i18n.move_row)">
                 <Row
                     v-for="(row, rowIndex) in $store.state.content.rows"
                     :key="rowIndex"
                     :row="row"
                     :index="rowIndex"
                     :post="$store.state.content"
-                    @addRow="addRow"></Row>
+                    @addRow="addRow"
+                    @pushStep="pushStep"></Row>
             </Draggable>
         </div>
     </div>
@@ -50,24 +52,19 @@
 import Vue from 'vue';
 import Draggable from 'vuedraggable';
 import Row from './row.vue';
-import {IBackendData} from '../interfaces/IBackendData';
-
-declare var layotterData: IBackendData;
+import {IPost, IRow} from '../interfaces/IBackendData';
 
 export default Vue.extend({
     components: {
         Row,
         Draggable,
     },
+    mounted() {
+        this.pushStep('');
+    },
     methods: {
         editOptions(type: string, item: object): void {
             console.log('editOptions', type, item);
-        },
-        undoStep(): void {
-            console.log('undoStep');
-        },
-        redoStep(): void {
-            console.log('redoStep');
         },
         saveNewLayout(): void {
             console.log('saveNewLayout');
@@ -80,6 +77,79 @@ export default Vue.extend({
         },
         addRow(afterIndex: number): void {
             this.$store.state.content.rows.splice(afterIndex + 1, 0, JSON.parse(JSON.stringify(this.$store.state.templates.row)));
+            this.pushStep(this.$store.state.i18n.add_row);
+        },
+        updateData(): void {
+            this.$store.state.history.canUndo = this.canUndo();
+            this.$store.state.history.canRedo = this.canRedo();
+
+            if (this.$store.state.history.canUndo) {
+                this.$store.state.history.undoTitle = this.$store.state.i18n.undo + ' ' + this.$store.state.history.steps[this.$store.state.history.currentStep].title;
+            } else {
+                this.$store.state.history.undoTitle = '';
+            }
+
+            if (this.$store.state.history.canRedo) {
+                this.$store.state.history.redoTitle = this.$store.state.i18n.redo + ' ' + this.$store.state.history.steps[this.$store.state.history.currentStep + 1].title;
+            } else {
+                this.$store.state.history.redoTitle = '';
+            }
+        },
+        refreshTemplates(content: IPost): void {
+            const contentClone = JSON.parse(JSON.stringify(content));
+
+            contentClone.rows.forEach((row: IRow) => {
+                row.cols.forEach((column) => {
+                    column.elements.forEach((element) => {
+                        if (element.is_template && !element.template_deleted) {
+                            if (this.$store.state.deletedTemplates.indexOf(element.id) !== -1) {
+                                element.is_template = false;
+                                element.template_deleted = true;
+                            }
+                        }
+                    });
+                });
+            });
+            return contentClone;
+        },
+        canUndo(): boolean {
+            return (this.$store.state.history.currentStep > 0);
+        },
+        canRedo(): boolean {
+            return (this.$store.state.history.currentStep < this.$store.state.history.steps.length - 1);
+        },
+        pushStep(title: string): void {
+            // remove all steps that have previously been undone
+            if (this.canRedo()) {
+                this.$store.state.history.steps.splice(this.$store.state.history.currentStep + 1, this.$store.state.history.steps.length);
+            }
+
+            this.$store.state.history.steps.push({
+                title : title,
+                content: JSON.parse(JSON.stringify(this.$store.state.content)),
+            });
+            this.$store.state.history.currentStep++;
+            this.updateData();
+        },
+        undoStep(): void {
+            if (this.canUndo()) {
+                this.$store.state.history.currentStep--;
+                let restore = JSON.parse(JSON.stringify(this.$store.state.history.steps[this.$store.state.history.currentStep].content));
+                restore = this.refreshTemplates(restore);
+                this.$store.state.content.options_id = restore.options_id;
+                this.$store.state.content.rows = restore.rows;
+                this.updateData();
+            }
+        },
+        redoStep(): void {
+            if (this.canRedo()) {
+                this.$store.state.history.currentStep++;
+                let restore = JSON.parse(JSON.stringify(this.$store.state.history.steps[this.$store.state.history.currentStep].content));
+                restore = this.refreshTemplates(restore);
+                this.$store.state.content.options_id = restore.options_id;
+                this.$store.state.content.rows = restore.rows;
+                this.updateData();
+            }
         },
     },
 });

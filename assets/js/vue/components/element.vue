@@ -44,10 +44,12 @@ export default Vue.extend({
         deleteElement(index: number): void {
             if (confirm('DELETE ELEMENT?')) {
                 this.column.elements.splice(index, 1);
+                this.$emit('pushStep', this.$store.state.i18n.delete_element);
             }
         },
         duplicateElement(index: number): void {
             this.column.elements.splice(index, 0, JSON.parse(JSON.stringify(this.column.elements[index])));
+            this.$emit('pushStep', this.$store.state.i18n.duplicate_element);
         },
         showNewElementTypes(elements: Array<IElement>, index: number): void {
             console.log('showNewElementTypes', elements, index);

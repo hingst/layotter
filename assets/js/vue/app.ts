@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import Editor from './components/editor.vue'
 import {
     IBackendData, IColumn,
-    IConfiguration,
+    IConfiguration, IDictionary,
     IElement,
     IElementType,
     ILayout,
@@ -33,15 +33,17 @@ const store = new Vuex.Store({
             undoTitle: '',
             canRedo: false,
             redoTitle: '',
+            steps: [] as Array<IPost>,
+            deletedTemplates: [],
+            currentStep: -1,
         },
         templates: {
             row: {} as IRow,
             column: {} as IColumn,
             element: {} as IElement,
         },
+        i18n: {} as IDictionary,
     },
-    mutations: {
-    }
 });
 
 new Vue({
@@ -57,6 +59,7 @@ new Vue({
         this.$store.state.savedLayouts = layotterData.savedLayouts;
         this.$store.state.savedTemplates = layotterData.savedTemplates;
         this.$store.state.elementTypes = layotterData.elementTypes;
+        this.$store.state.i18n = layotterData.i18n;
 
         this.$store.state.templates.element = {
             id: 0,

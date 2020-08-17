@@ -53,6 +53,7 @@ export interface IElement {
     id: number,
     options_id: number,
     is_template: boolean,
+    template_deleted: boolean,
     view: string,
 }
 
