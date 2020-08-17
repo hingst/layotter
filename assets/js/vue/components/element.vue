@@ -26,40 +26,40 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Column, Configuration, Element} from '../interfaces/backendData';
+import {IColumn, IConfiguration, IElement} from '../interfaces/IBackendData';
 
 export default Vue.extend({
     props: {
         element: {
-            type: Object as () => Element,
+            type: Object as () => IElement,
         },
         index: {
             type: Number,
         },
         column: {
-            type: Object as () => Column,
+            type: Object as () => IColumn,
         },
         configuration: {
-            type: Object as () => Configuration,
+            type: Object as () => IConfiguration,
         },
     },
     methods: {
-        deleteElement(elements: Array<Element>, index: number): void {
+        deleteElement(elements: Array<IElement>, index: number): void {
             console.log('deleteElement', elements, index);
         },
-        duplicateElement(elements: Array<Element>, index: number): void {
+        duplicateElement(elements: Array<IElement>, index: number): void {
             console.log('duplicateElement', elements, index);
         },
-        showNewElementTypes(elements: Array<Element>, index: number): void {
+        showNewElementTypes(elements: Array<IElement>, index: number): void {
             console.log('showNewElementTypes', elements, index);
         },
-        editElement(element: Element): void {
+        editElement(element: IElement): void {
             console.log('editElement', element);
         },
-        editOptions(type: string, element: Element): void {
+        editOptions(type: string, element: IElement): void {
             console.log('editOptions', type, element);
         },
-        saveNewTemplate(element: Element): void {
+        saveNewTemplate(element: IElement): void {
             console.log('saveNewTemplate', element);
         },
     },

@@ -39,7 +39,10 @@
                     :key="rowIndex"
                     :row="row"
                     :index="rowIndex"
-                    :configuration="configuration"></Row>
+                    :configuration="configuration"
+                    :templates="templates"
+                    @addRow="addRow"
+                    @deleteRow="deleteRow"></Row>
             </Draggable>
         </div>
     </div>
@@ -50,16 +53,17 @@ import Vue from 'vue';
 import Draggable from 'vuedraggable';
 import Row from './row.vue';
 import {
-    BackendData,
-    Configuration,
-    Element,
-    ElementType,
-    Layout,
-    Post,
-    PostData
-} from '../interfaces/backendData';
+    IBackendData, IColumn,
+    IConfiguration,
+    IElement,
+    IElementType,
+    ILayout,
+    IPost,
+    IPostData,
+    IRow
+} from '../interfaces/IBackendData';
 
-declare var layotterData: BackendData;
+declare var layotterData: IBackendData;
 
 export default Vue.extend({
     components: {
@@ -69,17 +73,22 @@ export default Vue.extend({
     data() {
         return {
             isLoading: false,
-            content: {} as Post,
-            postData: {} as PostData,
-            configuration: {} as Configuration,
-            savedLayouts: [] as Array<Layout>,
-            savedTemplates: [] as Array<Element>,
-            elementTypes: [] as Array<ElementType>,
+            content: {} as IPost,
+            postData: {} as IPostData,
+            configuration: {} as IConfiguration,
+            savedLayouts: [] as Array<ILayout>,
+            savedTemplates: [] as Array<IElement>,
+            elementTypes: [] as Array<IElementType>,
             history: {
                 canUndo: false,
                 undoTitle: '',
                 canRedo: false,
                 redoTitle: '',
+            },
+            templates: {
+                row: {} as IRow,
+                column: {} as IColumn,
+                element: {} as IElement,
             },
         }
     },
@@ -90,6 +99,31 @@ export default Vue.extend({
         this.savedLayouts = layotterData.savedLayouts;
         this.savedTemplates = layotterData.savedTemplates;
         this.elementTypes = layotterData.elementTypes;
+
+        this.templates.element = {
+            id: 0,
+            view: '',
+            options_id: 0,
+            is_template: false,
+        };
+
+        this.templates.column = {
+            elements: [],
+            options_id: 0,
+            width: '',
+        };
+
+        const defaultColumnCount = this.configuration.defaultRowLayout.split(' ').length;
+        const defaultColumns = [];
+        for (let i = 0; i < defaultColumnCount; i++) {
+            defaultColumns.push(JSON.parse(JSON.stringify(this.templates.column)));
+        }
+
+        this.templates.row = {
+            layout: this.configuration.defaultRowLayout,
+            cols: defaultColumns,
+            options_id: 0,
+        };
     },
     methods: {
         editOptions(type: string, item: object): void {
@@ -111,7 +145,25 @@ export default Vue.extend({
             console.log('toggleTemplates');
         },
         addRow(afterIndex: number): void {
-            console.log('addRow', afterIndex);
+            this.content.rows.splice(afterIndex + 1, 0, JSON.parse(JSON.stringify(this.templates.row)));
+        },
+        deleteRow(index: number): void {
+            let hasElements = false;
+
+            this.content.rows[index].cols.forEach((column) => {
+                if (column.elements.length) {
+                    hasElements = true;
+                }
+            });
+
+            if (!hasElements) {
+                this.content.rows.splice(index, 1);
+                return;
+            }
+
+            if (confirm('DELETE ROW?')) {
+                this.content.rows.splice(index, 1);
+            }
         },
     },
 });

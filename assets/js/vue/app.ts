@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Editor from './components/editor.vue'
-import {BackendData} from "./interfaces/backendData";
+import {IBackendData} from "./interfaces/IBackendData";
 
-declare var layotterData: BackendData;
+declare var layotterData: IBackendData;
 
 Vue.filter('translate', (id: string): string => {
     return layotterData.i18n[id] ?? id;

@@ -29,7 +29,7 @@
 import Vue from 'vue';
 import Draggable from 'vuedraggable';
 import Element from './element.vue';
-import {Column, Configuration, Row} from '../interfaces/backendData';
+import {IColumn, IConfiguration, IRow} from '../interfaces/IBackendData';
 
 export default Vue.extend({
     components: {
@@ -38,30 +38,29 @@ export default Vue.extend({
     },
     props: {
         column: {
-            type: Object as () => Column,
+            type: Object as () => IColumn,
         },
         index: {
             type: Number,
         },
         row: {
-            type: Object as () => Row,
+            type: Object as () => IRow,
         },
         rowIndex: {
             type: Number,
         },
         configuration: {
-            type: Object as () => Configuration,
+            type: Object as () => IConfiguration,
         },
     },
     methods: {
-        getColLayout(row: Row, index: number): string {
-            console.log('getColLayout', row, index);
-            return '1/3';
+        getColLayout(row: IRow, index: number): string {
+            return row.layout.split(' ')[index];
         },
         showNewElementTypes(elements: Array<Element>, index: number): void {
             console.log('showNewElementTypes', elements, index);
         },
-        editOptions(type: string, column: Column): void {
+        editOptions(type: string, column: IColumn): void {
             console.log('editOptions', type, column);
         },
     }

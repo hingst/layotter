@@ -11,8 +11,8 @@
                 <div class="layotter-row-select-layout" v-show="configuration.allowedRowLayouts.length > 1">
                     <i class="fa fa-columns"></i>
                     <div class="layotter-row-select-layout-items">
-                        <span v-for="colbutton in configuration.allowedRowLayouts" :class="['layotter-row-layout-button', { 'layotter-row-layout-button-active': colbutton === row.layout }]" @click="setRowLayout(row, colbutton)">
-                            <span v-for="width in colbutton.split(' ')" :data-width="width"></span>
+                        <span v-for="layout in configuration.allowedRowLayouts" :class="['layotter-row-layout-button', { 'layotter-row-layout-button-active': layout === row.layout }]" @click="setRowLayout(row, layout)">
+                            <span v-for="width in layout.split(' ')" :data-width="width"></span>
                         </span>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Column from './column.vue';
-import {Configuration, Row} from '../interfaces/backendData';
+import {IConfiguration, IRow, ITemplates} from '../interfaces/IBackendData';
 
 export default Vue.extend({
     components: {
@@ -45,21 +45,24 @@ export default Vue.extend({
     },
     props: {
         row: {
-            type: Object as () => Row,
+            type: Object as () => IRow,
         },
         index: {
             type: Number,
         },
         configuration: {
-            type: Object as () => Configuration,
+            type: Object as () => IConfiguration,
+        },
+        templates: {
+            type: Object as () => ITemplates,
         },
     },
     methods: {
         addRow(index: number): void {
-            console.log('addRow', index);
+            this.$emit('addRow', index);
         },
         deleteRow(index: number): void {
-            console.log('deleteRow', index);
+            this.$emit('deleteRow', index);
         },
         duplicateRow(index: number): void {
             console.log('duplicateRow', index);
@@ -68,8 +71,23 @@ export default Vue.extend({
             // EMIT EVENT
             console.log('editOptions', type, row);
         },
-        setRowLayout(row: object, colButton: object): void {
-            console.log('setRowLayout', row, colButton);
+        setRowLayout(row: IRow, layout: string): void {
+            const oldColCount = this.row.layout.split(' ').length;
+            const newColCount = layout.split(' ').length;
+            row.layout = layout;
+
+            if (newColCount > oldColCount) {
+                for (let i = oldColCount; i < newColCount; i++) {
+                    row.cols.push(JSON.parse(JSON.stringify(this.templates.column)));
+                }
+            } else {
+                for (let i = newColCount; i < oldColCount; i++) {
+                    row.cols[i].elements.forEach((element) => {
+                        row.cols[newColCount - 1].elements.push(element);
+                    });
+                }
+                row.cols.splice(newColCount);
+            }
         },
     }
 });

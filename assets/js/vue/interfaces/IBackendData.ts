@@ -1,19 +1,19 @@
-export interface BackendData {
-    content: Post,
-    postData: PostData,
-    configuration: Configuration,
-    savedLayouts: Array<Layout>,
-    savedTemplates: Array<Element>,
-    elementTypes: Array<ElementType>,
-    i18n: Dictionary,
+export interface IBackendData {
+    content: IPost,
+    postData: IPostData,
+    configuration: IConfiguration,
+    savedLayouts: Array<ILayout>,
+    savedTemplates: Array<IElement>,
+    elementTypes: Array<IElementType>,
+    i18n: IDictionary,
 }
 
-export interface PostData {
+export interface IPostData {
     id: number,
     type: string,
 }
 
-export interface Configuration {
+export interface IConfiguration {
     allowedRowLayouts: Array<string>,
     defaultRowLayout: string,
     postOptionsEnabled: boolean,
@@ -24,23 +24,24 @@ export interface Configuration {
     elementTemplatesEnabled: boolean,
 }
 
-export interface Post {
+export interface IPost {
     options_id: number,
-    rows: Array<Row>,
+    rows: Array<IRow>,
 }
 
-export interface Row {
+export interface IRow {
+    layout: string,
     options_id: number,
-    cols: Array<Column>,
+    cols: Array<IColumn>,
 }
 
-export interface Column {
+export interface IColumn {
     options_id: number,
     width: string,
-    elements: Array<Element>,
+    elements: Array<IElement>,
 }
 
-export interface ElementType {
+export interface IElementType {
     type: string,
     title: string,
     description: string,
@@ -48,20 +49,26 @@ export interface ElementType {
     order: number,
 }
 
-export interface Element {
+export interface IElement {
     id: number,
     options_id: number,
     is_template: boolean,
     view: string,
 }
 
-export interface Layout {
+export interface ILayout {
     layout_id: number,
     name: string,
     json: string,
     time_created: number,
 }
 
-export interface Dictionary {
+export interface IDictionary {
     [key: string]: string,
+}
+
+export interface ITemplates {
+    row: IRow,
+    column: IColumn,
+    element: IElement,
 }
