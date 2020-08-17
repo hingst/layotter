@@ -39,10 +39,10 @@
                     :key="rowIndex"
                     :row="row"
                     :index="rowIndex"
+                    :post="content"
                     :configuration="configuration"
                     :templates="templates"
-                    @addRow="addRow"
-                    @deleteRow="deleteRow"></Row>
+                    @addRow="addRow"></Row>
             </Draggable>
         </div>
     </div>
@@ -146,24 +146,6 @@ export default Vue.extend({
         },
         addRow(afterIndex: number): void {
             this.content.rows.splice(afterIndex + 1, 0, JSON.parse(JSON.stringify(this.templates.row)));
-        },
-        deleteRow(index: number): void {
-            let hasElements = false;
-
-            this.content.rows[index].cols.forEach((column) => {
-                if (column.elements.length) {
-                    hasElements = true;
-                }
-            });
-
-            if (!hasElements) {
-                this.content.rows.splice(index, 1);
-                return;
-            }
-
-            if (confirm('DELETE ROW?')) {
-                this.content.rows.splice(index, 1);
-            }
         },
     },
 });

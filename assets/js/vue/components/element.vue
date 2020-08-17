@@ -2,13 +2,13 @@
     <div :class="['layotter-element', 'layotter-animate', 'layotter-element-' + index, { 'layotter-loading' : element.isLoading, 'layotter-highlight' : element.isHighlighted }]" :data-id="element.id">
         <div class="layotter-element-canvas">
             <div class="layotter-element-buttons">
-                <span class="layotter-element-button" @click="deleteElement(column.elements, index)" :title="'delete_element' | translate"><i class="fa fa-trash"></i></span>
+                <span class="layotter-element-button" @click="deleteElement(index)" :title="'delete_element' | translate"><i class="fa fa-trash"></i></span>
                 <span class="layotter-element-button" v-show="!element.is_template || element.template_deleted" @click="editElement(element)" :title="'edit_element' | translate"><i class="fa fa-edit"></i></span>
                 <div class="layotter-element-dropdown">
                     <i class="fa fa-caret-down"></i>
                     <div class="layotter-element-dropdown-items">
                         <span @click="editOptions('element', element)" v-show="configuration.elementOptionsEnabled"><i class="fa fa-cog"></i>{{ 'element_options' | translate }}</span>
-                        <span @click="duplicateElement(column.elements, index)"><i class="fa fa-copy"></i>{{ 'duplicate_element' | translate }}</span>
+                        <span @click="duplicateElement(index)"><i class="fa fa-copy"></i>{{ 'duplicate_element' | translate }}</span>
                         <span v-show="configuration.elementTemplatesEnabled && !element.is_template || element.template_deleted" @click="saveNewTemplate(element)"><i class="fa fa-star"></i>{{ 'save_as_template' | translate }}</span>
                     </div>
                 </div>
@@ -44,11 +44,13 @@ export default Vue.extend({
         },
     },
     methods: {
-        deleteElement(elements: Array<IElement>, index: number): void {
-            console.log('deleteElement', elements, index);
+        deleteElement(index: number): void {
+            if (confirm('DELETE ELEMENT?')) {
+                this.column.elements.splice(index, 1);
+            }
         },
-        duplicateElement(elements: Array<IElement>, index: number): void {
-            console.log('duplicateElement', elements, index);
+        duplicateElement(index: number): void {
+            this.column.elements.splice(index, 0, JSON.parse(JSON.stringify(this.column.elements[index])));
         },
         showNewElementTypes(elements: Array<IElement>, index: number): void {
             console.log('showNewElementTypes', elements, index);

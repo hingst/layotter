@@ -37,7 +37,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Column from './column.vue';
-import {IConfiguration, IRow, ITemplates} from '../interfaces/IBackendData';
+import {IConfiguration, IPost, IRow, ITemplates} from '../interfaces/IBackendData';
 
 export default Vue.extend({
     components: {
@@ -49,6 +49,9 @@ export default Vue.extend({
         },
         index: {
             type: Number,
+        },
+        post: {
+            type: Object as () => IPost,
         },
         configuration: {
             type: Object as () => IConfiguration,
@@ -62,13 +65,27 @@ export default Vue.extend({
             this.$emit('addRow', index);
         },
         deleteRow(index: number): void {
-            this.$emit('deleteRow', index);
+            let hasElements = false;
+
+            this.post.rows[index].cols.forEach((column) => {
+                if (column.elements.length) {
+                    hasElements = true;
+                }
+            });
+
+            if (!hasElements) {
+                this.post.rows.splice(index, 1);
+                return;
+            }
+
+            if (confirm('DELETE ROW?')) {
+                this.post.rows.splice(index, 1);
+            }
         },
         duplicateRow(index: number): void {
-            console.log('duplicateRow', index);
+            this.post.rows.splice(index, 0, JSON.parse(JSON.stringify(this.post.rows[index])));
         },
         editOptions(type: string, row: object): void {
-            // EMIT EVENT
             console.log('editOptions', type, row);
         },
         setRowLayout(row: IRow, layout: string): void {
