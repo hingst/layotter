@@ -7,9 +7,9 @@
                 <div class="layotter-element-dropdown">
                     <i class="fa fa-caret-down"></i>
                     <div class="layotter-element-dropdown-items">
-                        <span @click="editOptions('element', element)" v-show="configuration.elementOptionsEnabled"><i class="fa fa-cog"></i>{{ 'element_options' | translate }}</span>
+                        <span @click="editOptions('element', element)" v-show="$store.state.configuration.elementOptionsEnabled"><i class="fa fa-cog"></i>{{ 'element_options' | translate }}</span>
                         <span @click="duplicateElement(index)"><i class="fa fa-copy"></i>{{ 'duplicate_element' | translate }}</span>
-                        <span v-show="configuration.elementTemplatesEnabled && !element.is_template || element.template_deleted" @click="saveNewTemplate(element)"><i class="fa fa-star"></i>{{ 'save_as_template' | translate }}</span>
+                        <span v-show="$store.state.configuration.elementTemplatesEnabled && !element.is_template || element.template_deleted" @click="saveNewTemplate(element)"><i class="fa fa-star"></i>{{ 'save_as_template' | translate }}</span>
                     </div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {IColumn, IConfiguration, IElement} from '../interfaces/IBackendData';
+import {IColumn, IElement} from '../interfaces/IBackendData';
 
 export default Vue.extend({
     props: {
@@ -38,9 +38,6 @@ export default Vue.extend({
         },
         column: {
             type: Object as () => IColumn,
-        },
-        configuration: {
-            type: Object as () => IConfiguration,
         },
     },
     methods: {

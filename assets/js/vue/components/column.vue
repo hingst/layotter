@@ -3,7 +3,7 @@
         <div :class="['layotter-col-buttons-wrapper', { 'layotter-always-visible': column.elements.length === 0 }]">
             <span class="layotter-col-button" @click="showNewElementTypes(column.elements, -1)" :title="'add_element' | translate"><i class="fa fa-plus"></i><span>{{ 'add_element' | translate }}</span></span>
             <div class="layotter-breaker">
-                <span class="layotter-col-button" @click="editOptions('col', column)" v-show="configuration.colOptionsEnabled" :title="'column_options' | translate"><i class="fa fa-cog"></i><span>{{ 'column_options' | translate }}</span></span>
+                <span class="layotter-col-button" @click="editOptions('col', column)" v-show="$store.state.configuration.colOptionsEnabled" :title="'column_options' | translate"><i class="fa fa-cog"></i><span>{{ 'column_options' | translate }}</span></span>
             </div>
         </div>
 
@@ -18,8 +18,7 @@
                     :key="elementIndex"
                     :element="element"
                     :index="elementIndex"
-                    :column="column"
-                    :configuration="configuration"></Element>
+                    :column="column"></Element>
             </Draggable>
         </div>
     </div>
@@ -29,7 +28,7 @@
 import Vue from 'vue';
 import Draggable from 'vuedraggable';
 import Element from './element.vue';
-import {IColumn, IConfiguration, IRow} from '../interfaces/IBackendData';
+import {IColumn, IRow} from '../interfaces/IBackendData';
 
 export default Vue.extend({
     components: {
@@ -48,9 +47,6 @@ export default Vue.extend({
         },
         rowIndex: {
             type: Number,
-        },
-        configuration: {
-            type: Object as () => IConfiguration,
         },
     },
     methods: {

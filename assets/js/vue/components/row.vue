@@ -7,11 +7,11 @@
             <div class="layotter-row-buttons">
                 <span @click="deleteRow(index)" :title="'delete_row' | translate"><i class="fa fa-trash"></i></span>
                 <span @click="duplicateRow(index)" :title="'duplicate_row' | translate"><i class="fa fa-copy"></i></span>
-                <span @click="editOptions('row', row)" v-show="configuration.rowOptionsEnabled" :title="'row_options' | translate"><i class="fa fa-cog"></i></span>
-                <div class="layotter-row-select-layout" v-show="configuration.allowedRowLayouts.length > 1">
+                <span @click="editOptions('row', row)" v-show="$store.state.configuration.rowOptionsEnabled" :title="'row_options' | translate"><i class="fa fa-cog"></i></span>
+                <div class="layotter-row-select-layout" v-show="$store.state.configuration.allowedRowLayouts.length > 1">
                     <i class="fa fa-columns"></i>
                     <div class="layotter-row-select-layout-items">
-                        <span v-for="layout in configuration.allowedRowLayouts" :class="['layotter-row-layout-button', { 'layotter-row-layout-button-active': layout === row.layout }]" @click="setRowLayout(row, layout)">
+                        <span v-for="layout in $store.state.configuration.allowedRowLayouts" :class="['layotter-row-layout-button', { 'layotter-row-layout-button-active': layout === row.layout }]" @click="setRowLayout(row, layout)">
                             <span v-for="width in layout.split(' ')" :data-width="width"></span>
                         </span>
                     </div>
@@ -23,8 +23,7 @@
                         :column="column"
                         :index="columnIndex"
                         :row="row"
-                        :rowIndex="index"
-                        :configuration="configuration"></Column>
+                        :rowIndex="index"></Column>
                 </template>
             </div>
         </div>
@@ -37,7 +36,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Column from './column.vue';
-import {IConfiguration, IPost, IRow, ITemplates} from '../interfaces/IBackendData';
+import {IPost, IRow, ITemplates} from '../interfaces/IBackendData';
 
 export default Vue.extend({
     components: {
@@ -52,12 +51,6 @@ export default Vue.extend({
         },
         post: {
             type: Object as () => IPost,
-        },
-        configuration: {
-            type: Object as () => IConfiguration,
-        },
-        templates: {
-            type: Object as () => ITemplates,
         },
     },
     methods: {
@@ -95,7 +88,7 @@ export default Vue.extend({
 
             if (newColCount > oldColCount) {
                 for (let i = oldColCount; i < newColCount; i++) {
-                    row.cols.push(JSON.parse(JSON.stringify(this.templates.column)));
+                    row.cols.push(JSON.parse(JSON.stringify(this.$store.state.templates.column)));
                 }
             } else {
                 for (let i = newColCount; i < oldColCount; i++) {
