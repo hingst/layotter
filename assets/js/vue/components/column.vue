@@ -13,14 +13,13 @@
                        :filter="'.layotter-element-buttons'"
                        :force-fallback="true"
                        :animation="300"
-                       @end="pushStep($store.state.i18n.move_element)">
+                       @end="$store.dispatch('pushStep', $store.state.i18n.move_element)">
                 <Element
                     v-for="(element, elementIndex) in column.elements"
                     :key="elementIndex"
                     :element="element"
                     :index="elementIndex"
-                    :column="column"
-                    @pushStep="pushStep"></Element>
+                    :column="column"></Element>
             </Draggable>
         </div>
     </div>
@@ -52,9 +51,6 @@ export default Vue.extend({
         },
     },
     methods: {
-        pushStep(title: string): void {
-            this.$emit('pushStep', title);
-        },
         getColLayout(row: IRow, index: number): string {
             return row.layout.split(' ')[index];
         },

@@ -73,3 +73,8 @@ export interface ITemplates {
     column: IColumn,
     element: IElement,
 }
+
+export interface IHistoryStep {
+    title: string,
+    content: Array<IPost>,
+}

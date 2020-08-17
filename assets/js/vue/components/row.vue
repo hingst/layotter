@@ -23,8 +23,7 @@
                         :column="column"
                         :index="columnIndex"
                         :row="row"
-                        :rowIndex="index"
-                        @pushStep="pushStep"></Column>
+                        :rowIndex="index"></Column>
                 </template>
             </div>
         </div>
@@ -55,9 +54,6 @@ export default Vue.extend({
         },
     },
     methods: {
-        pushStep(title: string): void {
-            this.$emit('pushStep', title);
-        },
         addRow(index: number): void {
             this.$emit('addRow', index);
         },
@@ -79,11 +75,11 @@ export default Vue.extend({
                 this.post.rows.splice(index, 1);
             }
 
-            this.$emit('pushStep', this.$store.state.i18n.delete_row);
+            this.$store.dispatch('pushStep', this.$store.state.i18n.delete_row);
         },
         duplicateRow(index: number): void {
             this.post.rows.splice(index, 0, JSON.parse(JSON.stringify(this.post.rows[index])));
-            this.$emit('pushStep', this.$store.state.i18n.duplicate_row);
+            this.$store.dispatch('pushStep', this.$store.state.i18n.duplicate_row);
         },
         editOptions(type: string, row: object): void {
             console.log('editOptions', type, row);
@@ -106,7 +102,7 @@ export default Vue.extend({
                 row.cols.splice(newColCount);
             }
 
-            this.$emit('pushStep', this.$store.state.i18n.change_row_layout);
+            this.$store.dispatch('pushStep', this.$store.state.i18n.change_row_layout);
         },
     }
 });

@@ -1,49 +1,12 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
+import store from './store'
 import Editor from './components/editor.vue'
-import {
-    IBackendData, IColumn,
-    IConfiguration, IDictionary,
-    IElement,
-    IElementType,
-    ILayout,
-    IPost,
-    IPostData, IRow
-} from "./interfaces/IBackendData";
+import {IBackendData} from './interfaces/IBackendData';
 
 declare var layotterData: IBackendData;
 
-Vue.use(Vuex);
-
 Vue.filter('translate', (id: string): string => {
     return layotterData.i18n[id] ?? id;
-});
-
-const store = new Vuex.Store({
-    state: {
-        isLoading: false,
-        content: {} as IPost,
-        postData: {} as IPostData,
-        configuration: {} as IConfiguration,
-        savedLayouts: [] as Array<ILayout>,
-        savedTemplates: [] as Array<IElement>,
-        elementTypes: [] as Array<IElementType>,
-        history: {
-            canUndo: false,
-            undoTitle: '',
-            canRedo: false,
-            redoTitle: '',
-            steps: [] as Array<IPost>,
-            deletedTemplates: [],
-            currentStep: -1,
-        },
-        templates: {
-            row: {} as IRow,
-            column: {} as IColumn,
-            element: {} as IElement,
-        },
-        i18n: {} as IDictionary,
-    },
 });
 
 new Vue({
