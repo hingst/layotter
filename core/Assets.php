@@ -95,7 +95,7 @@ class Assets {
 
         $data = [
             'content' => new PostSerializer($post),
-            'postData' => [
+            'postInfo' => [
                 'id' => $id,
                 'type' => $post_type,
             ],

@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex'
 import {
+    IColumn,
     IConfiguration, IDictionary,
     IElement,
     IElementType, IHistoryStep,
     ILayout,
     IPost,
-    IPostData, IRow, ITemplates
+    IPostInfo, IRow
 } from './interfaces/IBackendData';
 
 Vue.use(Vuex);
@@ -15,7 +16,7 @@ export default new Vuex.Store({
     state: {
         isLoading: false,
         content: {} as IPost,
-        postData: {} as IPostData,
+        postInfo: {} as IPostInfo,
         configuration: {} as IConfiguration,
         savedLayouts: [] as Array<ILayout>,
         savedTemplates: [] as Array<IElement>,
@@ -25,7 +26,11 @@ export default new Vuex.Store({
             deletedTemplates: [] as Array<Number>,
             currentStep: -1,
         },
-        templates: {} as ITemplates,
+        componentTemplates: {
+            row: {} as IRow,
+            column: {} as IColumn,
+            element: {} as IElement,
+        },
         i18n: {} as IDictionary,
     },
     actions: {

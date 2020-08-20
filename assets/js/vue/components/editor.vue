@@ -51,7 +51,6 @@
 import Vue from 'vue';
 import Draggable from 'vuedraggable';
 import Row from './row.vue';
-import {IPost, IRow} from '../interfaces/IBackendData';
 
 export default Vue.extend({
     components: {
@@ -75,7 +74,7 @@ export default Vue.extend({
             console.log('toggleTemplates');
         },
         addRow(afterIndex: number): void {
-            this.$store.state.content.rows.splice(afterIndex + 1, 0, JSON.parse(JSON.stringify(this.$store.state.templates.row)));
+            this.$store.state.content.rows.splice(afterIndex + 1, 0, JSON.parse(JSON.stringify(this.$store.state.componentTemplates.row)));
             this.$store.dispatch('pushStep', this.$store.state.i18n.add_row);
         },
     },

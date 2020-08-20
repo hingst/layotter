@@ -91,7 +91,7 @@ export default Vue.extend({
 
             if (newColCount > oldColCount) {
                 for (let i = oldColCount; i < newColCount; i++) {
-                    row.cols.push(JSON.parse(JSON.stringify(this.$store.state.templates.column)));
+                    row.cols.push(JSON.parse(JSON.stringify(this.$store.state.componentTemplates.column)));
                 }
             } else {
                 for (let i = newColCount; i < oldColCount; i++) {

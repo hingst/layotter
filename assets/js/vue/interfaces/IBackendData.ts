@@ -1,6 +1,6 @@
 export interface IBackendData {
     content: IPost,
-    postData: IPostData,
+    postInfo: IPostInfo,
     configuration: IConfiguration,
     savedLayouts: Array<ILayout>,
     savedTemplates: Array<IElement>,
@@ -8,7 +8,7 @@ export interface IBackendData {
     i18n: IDictionary,
 }
 
-export interface IPostData {
+export interface IPostInfo {
     id: number,
     type: string,
 }
@@ -66,12 +66,6 @@ export interface ILayout {
 
 export interface IDictionary {
     [key: string]: string,
-}
-
-export interface ITemplates {
-    row: IRow,
-    column: IColumn,
-    element: IElement,
 }
 
 export interface IHistoryStep {
