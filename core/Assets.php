@@ -95,10 +95,6 @@ class Assets {
 
         $data = [
             'content' => new PostSerializer($post),
-            'postInfo' => [
-                'id' => $id,
-                'type' => $post_type,
-            ],
             'configuration' => [
                 'allowedRowLayouts' => Settings::get_allowed_row_layouts(),
                 'defaultRowLayout' => Settings::get_default_row_layout(),
@@ -108,10 +104,14 @@ class Assets {
                 'elementOptionsEnabled' => OptionsFieldsService::has_fields($element_options),
                 'postLayoutsEnabled' => Settings::post_layouts_enabled(),
                 'elementTemplatesEnabled' => Settings::element_templates_enabled(),
+                'savedLayouts' => $saved_layouts,
+                'savedTemplates' => $saved_templates,
+                'availableElementTypes' => $available_element_types,
+                'postInfo' => [
+                    'id' => $id,
+                    'type' => $post_type,
+                ],
             ],
-            'savedLayouts' => $saved_layouts,
-            'savedTemplates' => $saved_templates,
-            'availableElementTypes' => $available_element_types,
             'i18n' => [
                 'options' => __('Options', 'layotter'),
                 'add_row' => __('Add row', 'layotter'),
@@ -159,12 +159,6 @@ class Assets {
                 'edit_column_options' => __('Edit column options', 'layotter'),
                 'edit_element_options' => __('Edit element options', 'layotter'),
                 'load_post_layout' => __('Load layout', 'layotter'),
-                'upgrades' => [
-                    'confirm' => __('Please confirm that you have a created a database backup and want to run the upgrade now.', 'layotter'),
-                    'posts' => __('Updating posts', 'layotter'),
-                    'layouts' => __('Updating post layouts', 'layotter'),
-                    'templates' => __('Updating element templates', 'layotter'),
-                ]
             ]
         ];
 

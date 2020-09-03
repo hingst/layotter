@@ -1,10 +1,6 @@
 export interface IBackendData {
     content: IPost,
-    postInfo: IPostInfo,
     configuration: IConfiguration,
-    savedLayouts: Array<ILayout>,
-    savedTemplates: Array<IElement>,
-    availableElementTypes: Array<IElementType>,
     i18n: IDictionary,
 }
 
@@ -22,6 +18,10 @@ export interface IConfiguration {
     elementOptionsEnabled: boolean,
     postLayoutsEnabled: boolean,
     elementTemplatesEnabled: boolean,
+    savedLayouts: Array<ILayout>,
+    savedTemplates: Array<IElement>,
+    availableElementTypes: Array<IElementType>,
+    postInfo: IPostInfo,
 }
 
 export interface IPost {

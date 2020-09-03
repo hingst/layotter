@@ -1,5 +1,5 @@
 <template>
-    <div :class="['layotter-row', 'layotter-animate', 'layotter-row-' + index, { 'layotter-loading' : row.isLoading }]">
+    <div :class="['layotter-row', 'layotter-animate', 'layotter-row-' + index, { 'layotter-loading' : isLoading }]">
         <div class="layotter-row-canvas">
             <div class="layotter-row-move">
                 <i class="fa fa-arrows-alt-v"></i>{{ 'move_row' | translate }}
@@ -7,11 +7,11 @@
             <div class="layotter-row-buttons">
                 <span @click="deleteRow(index)" :title="'delete_row' | translate"><i class="fa fa-trash"></i></span>
                 <span @click="duplicateRow(index)" :title="'duplicate_row' | translate"><i class="fa fa-copy"></i></span>
-                <span @click="editOptions('row', row)" v-show="$store.state.configuration.rowOptionsEnabled" :title="'row_options' | translate"><i class="fa fa-cog"></i></span>
-                <div class="layotter-row-select-layout" v-show="$store.state.configuration.allowedRowLayouts.length > 1">
+                <span @click="editOptions('row', row)" v-show="configuration.rowOptionsEnabled" :title="'row_options' | translate"><i class="fa fa-cog"></i></span>
+                <div class="layotter-row-select-layout" v-show="configuration.allowedRowLayouts.length > 1">
                     <i class="fa fa-columns"></i>
                     <div class="layotter-row-select-layout-items">
-                        <span v-for="layout in $store.state.configuration.allowedRowLayouts" :class="['layotter-row-layout-button', { 'layotter-row-layout-button-active': layout === row.layout }]" @click="setRowLayout(row, layout)">
+                        <span v-for="layout in configuration.allowedRowLayouts" :class="['layotter-row-layout-button', { 'layotter-row-layout-button-active': layout === row.layout }]" @click="setRowLayout(row, layout)">
                             <span v-for="width in layout.split(' ')" :data-width="width"></span>
                         </span>
                     </div>
@@ -20,6 +20,7 @@
             <div class="layotter-cols">
                 <template v-for="(column, columnIndex) in row.cols">
                     <Column
+                        :configuration="configuration"
                         :column="column"
                         :index="columnIndex"
                         :row="row"
@@ -36,7 +37,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Column from './column.vue';
-import {IPost, IRow} from '../interfaces/IBackendData';
+import {IConfiguration, IPost, IRow} from '../interfaces/IBackendData';
 import TranslationService from '../services/TranslationService';
 import Util from '../util';
 import TemplateService from '../services/TemplateService';
@@ -46,6 +47,9 @@ export default Vue.extend({
         Column
     },
     props: {
+        configuration: {
+            type: Object as () => IConfiguration,
+        },
         row: {
             type: Object as () => IRow,
         },
@@ -55,6 +59,11 @@ export default Vue.extend({
         post: {
             type: Object as () => IPost,
         },
+    },
+    data() {
+        return {
+            isLoading: false,
+        };
     },
     methods: {
         addRow(index: number): void {

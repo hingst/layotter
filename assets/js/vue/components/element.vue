@@ -1,5 +1,5 @@
 <template>
-    <div :class="['layotter-element', 'layotter-animate', 'layotter-element-' + index, { 'layotter-loading' : element.isLoading, 'layotter-highlight' : element.isHighlighted }]" :data-id="element.id">
+    <div :class="['layotter-element', 'layotter-animate', 'layotter-element-' + index, { 'layotter-loading' : isLoading, 'layotter-highlight' : element.isHighlighted }]" :data-id="element.id">
         <div class="layotter-element-canvas">
             <div class="layotter-element-buttons">
                 <span class="layotter-element-button" @click="deleteElement(index)" :title="'delete_element' | translate"><i class="fa fa-trash"></i></span>
@@ -7,9 +7,9 @@
                 <div class="layotter-element-dropdown">
                     <i class="fa fa-caret-down"></i>
                     <div class="layotter-element-dropdown-items">
-                        <span @click="editOptions('element', element)" v-show="$store.state.configuration.elementOptionsEnabled"><i class="fa fa-cog"></i>{{ 'element_options' | translate }}</span>
+                        <span @click="editOptions('element', element)" v-show="configuration.elementOptionsEnabled"><i class="fa fa-cog"></i>{{ 'element_options' | translate }}</span>
                         <span @click="duplicateElement(index)"><i class="fa fa-copy"></i>{{ 'duplicate_element' | translate }}</span>
-                        <span v-show="$store.state.configuration.elementTemplatesEnabled && !element.is_template || element.template_deleted" @click="saveNewTemplate(element)"><i class="fa fa-star"></i>{{ 'save_as_template' | translate }}</span>
+                        <span v-show="configuration.elementTemplatesEnabled && !element.is_template || element.template_deleted" @click="saveNewTemplate(element)"><i class="fa fa-star"></i>{{ 'save_as_template' | translate }}</span>
                     </div>
                 </div>
             </div>
@@ -26,12 +26,15 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {IColumn, IElement} from '../interfaces/IBackendData';
+import {IColumn, IConfiguration, IElement} from '../interfaces/IBackendData';
 import TranslationService from '../services/TranslationService';
 import Util from '../util';
 
 export default Vue.extend({
     props: {
+        configuration: {
+            type: Object as () => IConfiguration,
+        },
         element: {
             type: Object as () => IElement,
         },
@@ -41,6 +44,11 @@ export default Vue.extend({
         column: {
             type: Object as () => IColumn,
         },
+    },
+    data() {
+        return {
+            isLoading: false,
+        };
     },
     methods: {
         deleteElement(index: number): void {
