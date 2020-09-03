@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex'
 import {
-    IColumn,
     IConfiguration,
     IElement,
     IElementType, IHistoryStep,
@@ -27,11 +26,6 @@ export default new Vuex.Store({
             steps: [] as Array<IHistoryStep>,
             deletedTemplates: [] as Array<Number>,
             currentStep: -1,
-        },
-        componentTemplates: {
-            row: {} as IRow,
-            column: {} as IColumn,
-            element: {} as IElement,
         },
     },
     actions: {

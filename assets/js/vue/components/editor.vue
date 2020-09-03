@@ -53,6 +53,7 @@ import Draggable from 'vuedraggable';
 import Row from './row.vue';
 import TranslationService from '../services/TranslationService';
 import Util from '../util';
+import TemplateService from '../services/TemplateService';
 
 export default Vue.extend({
     components: {
@@ -76,7 +77,7 @@ export default Vue.extend({
             console.log('toggleTemplates');
         },
         addRow(afterIndex: number): void {
-            this.$store.state.content.rows.splice(afterIndex + 1, 0, Util.clone(this.$store.state.componentTemplates.row));
+            this.$store.state.content.rows.splice(afterIndex + 1, 0, Util.clone(TemplateService.getRowTemplate()));
             this.$store.dispatch('pushStep', TranslationService.translate('add_row'));
         },
     },

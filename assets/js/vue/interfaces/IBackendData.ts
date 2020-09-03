@@ -53,7 +53,7 @@ export interface IElement {
     id: number,
     options_id: number,
     is_template: boolean,
-    template_deleted: boolean,
+    template_deleted?: boolean,
     view: string,
 }
 
@@ -71,4 +71,10 @@ export interface IDictionary {
 export interface IHistoryStep {
     title: string,
     content: IPost,
+}
+
+export interface IViewTemplates {
+    row: IRow,
+    column: IColumn,
+    element: IElement,
 }

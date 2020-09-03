@@ -39,6 +39,7 @@ import Column from './column.vue';
 import {IPost, IRow} from '../interfaces/IBackendData';
 import TranslationService from '../services/TranslationService';
 import Util from '../util';
+import TemplateService from '../services/TemplateService';
 
 export default Vue.extend({
     components: {
@@ -93,7 +94,7 @@ export default Vue.extend({
 
             if (newColCount > oldColCount) {
                 for (let i = oldColCount; i < newColCount; i++) {
-                    row.cols.push(Util.clone(this.$store.state.componentTemplates.column));
+                    row.cols.push(Util.clone(TemplateService.getColumnTemplate()));
                 }
             } else {
                 for (let i = newColCount; i < oldColCount; i++) {
