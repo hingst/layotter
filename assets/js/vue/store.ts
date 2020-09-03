@@ -9,6 +9,7 @@ import {
     IPost,
     IPostInfo, IRow
 } from './interfaces/IBackendData';
+import Util from './util';
 import TranslationService from './services/TranslationService';
 
 Vue.use(Vuex);
@@ -21,7 +22,7 @@ export default new Vuex.Store({
         configuration: {} as IConfiguration,
         savedLayouts: [] as Array<ILayout>,
         savedTemplates: [] as Array<IElement>,
-        elementTypes: [] as Array<IElementType>,
+        availableElementTypes: [] as Array<IElementType>,
         history: {
             steps: [] as Array<IHistoryStep>,
             deletedTemplates: [] as Array<Number>,
@@ -41,7 +42,7 @@ export default new Vuex.Store({
 
             context.state.history.steps.push({
                 title: title,
-                content: JSON.parse(JSON.stringify(context.state.content)),
+                content: Util.clone(context.state.content),
             });
 
             context.state.history.currentStep++;
@@ -57,7 +58,7 @@ export default new Vuex.Store({
             }
         },
         restoreStep(context, step: number): void {
-            let restore = JSON.parse(JSON.stringify(context.state.history.steps[step].content));
+            let restore = Util.clone(context.state.history.steps[step].content);
 
             restore.rows.forEach((row: IRow) => {
                 row.cols.forEach((column) => {

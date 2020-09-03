@@ -38,6 +38,7 @@ import Vue from 'vue';
 import Column from './column.vue';
 import {IPost, IRow} from '../interfaces/IBackendData';
 import TranslationService from '../services/TranslationService';
+import Util from '../util';
 
 export default Vue.extend({
     components: {
@@ -79,7 +80,7 @@ export default Vue.extend({
             this.$store.dispatch('pushStep', TranslationService.translate('delete_row'));
         },
         duplicateRow(index: number): void {
-            this.post.rows.splice(index, 0, JSON.parse(JSON.stringify(this.post.rows[index])));
+            this.post.rows.splice(index, 0, Util.clone(this.post.rows[index]));
             this.$store.dispatch('pushStep', TranslationService.translate('duplicate_row'));
         },
         editOptions(type: string, row: object): void {
@@ -92,7 +93,7 @@ export default Vue.extend({
 
             if (newColCount > oldColCount) {
                 for (let i = oldColCount; i < newColCount; i++) {
-                    row.cols.push(JSON.parse(JSON.stringify(this.$store.state.componentTemplates.column)));
+                    row.cols.push(Util.clone(this.$store.state.componentTemplates.column));
                 }
             } else {
                 for (let i = newColCount; i < oldColCount; i++) {

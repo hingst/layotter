@@ -89,7 +89,7 @@ class Assets {
             return new ElementSerializer($model);
         }, ElementRepository::get_available_templates_for_post($id));
 
-        $element_types = array_map(function($model) {
+        $available_element_types = array_map(function($model) {
             return new ElementTypeSerializer($model);
         }, ElementTypeRepository::get_allowed_for_post($id));
 
@@ -111,7 +111,7 @@ class Assets {
             ],
             'savedLayouts' => $saved_layouts,
             'savedTemplates' => $saved_templates,
-            'elementTypes' => $element_types,
+            'availableElementTypes' => $available_element_types,
             'i18n' => [
                 'options' => __('Options', 'layotter'),
                 'add_row' => __('Add row', 'layotter'),

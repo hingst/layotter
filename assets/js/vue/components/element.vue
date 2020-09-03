@@ -28,6 +28,7 @@
 import Vue from 'vue';
 import {IColumn, IElement} from '../interfaces/IBackendData';
 import TranslationService from '../services/TranslationService';
+import Util from '../util';
 
 export default Vue.extend({
     props: {
@@ -49,7 +50,7 @@ export default Vue.extend({
             }
         },
         duplicateElement(index: number): void {
-            this.column.elements.splice(index, 0, JSON.parse(JSON.stringify(this.column.elements[index])));
+            this.column.elements.splice(index, 0, Util.clone(this.column.elements[index]));
             this.$store.dispatch('pushStep', TranslationService.translate('duplicate_element'));
         },
         showNewElementTypes(elements: Array<IElement>, index: number): void {

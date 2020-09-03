@@ -4,6 +4,7 @@ import Editor from './components/editor.vue'
 import {IBackendData} from './interfaces/IBackendData';
 import TranslationService from './services/TranslationService';
 import mixins from './mixins';
+import Util from './util';
 
 declare var layotterData: IBackendData;
 
@@ -25,7 +26,7 @@ new Vue({
         this.$store.state.configuration = layotterData.configuration;
         this.$store.state.savedLayouts = layotterData.savedLayouts;
         this.$store.state.savedTemplates = layotterData.savedTemplates;
-        this.$store.state.elementTypes = layotterData.elementTypes;
+        this.$store.state.availableElementTypes = layotterData.availableElementTypes;
 
         this.$store.state.componentTemplates.element = {
             id: 0,
@@ -43,7 +44,7 @@ new Vue({
         const defaultColumnCount = this.$store.state.configuration.defaultRowLayout.split(' ').length;
         const defaultColumns = [];
         for (let i = 0; i < defaultColumnCount; i++) {
-            defaultColumns.push(JSON.parse(JSON.stringify(this.$store.state.componentTemplates.column)));
+            defaultColumns.push(Util.clone(this.$store.state.componentTemplates.column));
         }
 
         this.$store.state.componentTemplates.row = {

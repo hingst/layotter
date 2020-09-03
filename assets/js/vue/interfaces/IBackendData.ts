@@ -4,7 +4,7 @@ export interface IBackendData {
     configuration: IConfiguration,
     savedLayouts: Array<ILayout>,
     savedTemplates: Array<IElement>,
-    elementTypes: Array<IElementType>,
+    availableElementTypes: Array<IElementType>,
     i18n: IDictionary,
 }
 
@@ -70,5 +70,5 @@ export interface IDictionary {
 
 export interface IHistoryStep {
     title: string,
-    content: Array<IPost>,
+    content: IPost,
 }
