@@ -2,12 +2,16 @@ import Vue from 'vue'
 import store from './store'
 import Editor from './components/editor.vue'
 import {IBackendData} from './interfaces/IBackendData';
+import TranslationService from './services/TranslationService';
+import mixins from './mixins';
 
 declare var layotterData: IBackendData;
 
-Vue.filter('translate', (id: string): string => {
-    return layotterData.i18n[id] ?? id;
+Vue.filter('translate', (key: string): string => {
+    return TranslationService.translate(key);
 });
+
+Vue.mixin(mixins);
 
 new Vue({
     el: '#layotter-container',
@@ -22,7 +26,6 @@ new Vue({
         this.$store.state.savedLayouts = layotterData.savedLayouts;
         this.$store.state.savedTemplates = layotterData.savedTemplates;
         this.$store.state.elementTypes = layotterData.elementTypes;
-        this.$store.state.i18n = layotterData.i18n;
 
         this.$store.state.componentTemplates.element = {
             id: 0,

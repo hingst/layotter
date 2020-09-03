@@ -34,7 +34,7 @@
                        :force-fallback="true"
                        :animation="300"
                        :direction="'vertical'"
-                       @end="$store.dispatch('pushStep', $store.state.i18n.move_row)">
+                       @end="$store.dispatch('pushStep', translate('move_row'))">
                 <Row
                     v-for="(row, rowIndex) in $store.state.content.rows"
                     :key="rowIndex"
@@ -51,6 +51,7 @@
 import Vue from 'vue';
 import Draggable from 'vuedraggable';
 import Row from './row.vue';
+import TranslationService from '../services/TranslationService';
 
 export default Vue.extend({
     components: {
@@ -75,7 +76,7 @@ export default Vue.extend({
         },
         addRow(afterIndex: number): void {
             this.$store.state.content.rows.splice(afterIndex + 1, 0, JSON.parse(JSON.stringify(this.$store.state.componentTemplates.row)));
-            this.$store.dispatch('pushStep', this.$store.state.i18n.add_row);
+            this.$store.dispatch('pushStep', TranslationService.translate('add_row'));
         },
     },
 });

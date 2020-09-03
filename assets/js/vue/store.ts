@@ -2,13 +2,14 @@ import Vue from 'vue';
 import Vuex from 'vuex'
 import {
     IColumn,
-    IConfiguration, IDictionary,
+    IConfiguration,
     IElement,
     IElementType, IHistoryStep,
     ILayout,
     IPost,
     IPostInfo, IRow
 } from './interfaces/IBackendData';
+import TranslationService from './services/TranslationService';
 
 Vue.use(Vuex);
 
@@ -31,7 +32,6 @@ export default new Vuex.Store({
             column: {} as IColumn,
             element: {} as IElement,
         },
-        i18n: {} as IDictionary,
     },
     actions: {
         pushStep(context, title: string): void {
@@ -88,13 +88,13 @@ export default new Vuex.Store({
             const message = state.history.steps[state.history.currentStep]
                 ? state.history.steps[state.history.currentStep].title
                 : '';
-            return state.i18n.undo + ' ' + message;
+            return TranslationService.translate('undo') + ' ' + message;
         },
         redoTitle(state): string {
             const message = state.history.steps[state.history.currentStep + 1]
                 ? state.history.steps[state.history.currentStep + 1].title
                 : '';
-            return state.i18n.redo + ' ' + message;
+            return TranslationService.translate('redo') + ' ' + message;
         },
     },
 });

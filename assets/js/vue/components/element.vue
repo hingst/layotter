@@ -27,6 +27,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import {IColumn, IElement} from '../interfaces/IBackendData';
+import TranslationService from '../services/TranslationService';
 
 export default Vue.extend({
     props: {
@@ -44,12 +45,12 @@ export default Vue.extend({
         deleteElement(index: number): void {
             if (confirm('DELETE ELEMENT?')) {
                 this.column.elements.splice(index, 1);
-                this.$store.dispatch('pushStep', this.$store.state.i18n.delete_element);
+                this.$store.dispatch('pushStep', TranslationService.translate('delete_element'));
             }
         },
         duplicateElement(index: number): void {
             this.column.elements.splice(index, 0, JSON.parse(JSON.stringify(this.column.elements[index])));
-            this.$store.dispatch('pushStep', this.$store.state.i18n.duplicate_element);
+            this.$store.dispatch('pushStep', TranslationService.translate('duplicate_element'));
         },
         showNewElementTypes(elements: Array<IElement>, index: number): void {
             console.log('showNewElementTypes', elements, index);

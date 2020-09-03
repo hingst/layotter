@@ -13,7 +13,7 @@
                        :filter="'.layotter-element-buttons'"
                        :force-fallback="true"
                        :animation="300"
-                       @end="$store.dispatch('pushStep', $store.state.i18n.move_element)">
+                       @end="$store.dispatch('pushStep', translate('move_element'))">
                 <Element
                     v-for="(element, elementIndex) in column.elements"
                     :key="elementIndex"

@@ -37,6 +37,7 @@
 import Vue from 'vue';
 import Column from './column.vue';
 import {IPost, IRow} from '../interfaces/IBackendData';
+import TranslationService from '../services/TranslationService';
 
 export default Vue.extend({
     components: {
@@ -75,11 +76,11 @@ export default Vue.extend({
                 this.post.rows.splice(index, 1);
             }
 
-            this.$store.dispatch('pushStep', this.$store.state.i18n.delete_row);
+            this.$store.dispatch('pushStep', TranslationService.translate('delete_row'));
         },
         duplicateRow(index: number): void {
             this.post.rows.splice(index, 0, JSON.parse(JSON.stringify(this.post.rows[index])));
-            this.$store.dispatch('pushStep', this.$store.state.i18n.duplicate_row);
+            this.$store.dispatch('pushStep', TranslationService.translate('duplicate_row'));
         },
         editOptions(type: string, row: object): void {
             console.log('editOptions', type, row);
@@ -102,7 +103,7 @@ export default Vue.extend({
                 row.cols.splice(newColCount);
             }
 
-            this.$store.dispatch('pushStep', this.$store.state.i18n.change_row_layout);
+            this.$store.dispatch('pushStep', TranslationService.translate('change_row_layout'));
         },
     }
 });
